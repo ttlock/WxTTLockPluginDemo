@@ -7,8 +7,7 @@
 ## 初始化智能锁
 * 步骤1 扫描周边蓝牙设备
 startScanBleDevice(callBack) 
-callBack回返回一个蓝牙锁设备对象，具体返回对象参见demo中的README文档
-
+callBack回返回一个蓝牙锁设备对象
 ```
 wx.openBluetoothAdapter({
    success: function (res) {
@@ -18,6 +17,20 @@ wx.openBluetoothAdapter({
       * Android 6.0以上 因扫描蓝牙需要位置权限,确保微信已经获取到位置权限之后才能开始    
       * 扫描设备，否则无法扫描到设备 但是目前测试的结果是微信小程序的位置权限 在部分机型上无法让微信直接获取到位置权限，需手动去设置界面开启。
       */
+      
+      /**
+      ** lockDevice = {
+          lockName: "",
+          deviceId:"",
+          rssi: 0, 锁蓝牙信号值
+          lockMac: "",锁mac地址
+          protocolType: 0,
+          protocolVersion: 0,
+          scene: 0,
+          isSettingMode: false,是否是可初始化模式，只有处于可初始化模式才能初始化锁
+          electricQuantity: 0,
+      }
+      **/
      plugin.startScanBleDevice(function (lockDevice) {
           //lockDevice 为单个蓝牙锁对象
      })
@@ -31,9 +44,9 @@ wx.openBluetoothAdapter({
     * 扫描锁时返回的锁对象 lockItem
     * 锁初始化结果回调 
     * initLockResult {
-    *   resultCode:0, 0失败 1成功
-         errorMsg:"",
-         lockData:"" 对应开放锁初始化接口中lockData字段
+    *   resultCode:, 0失败 1成功
+    *   errorMsg:"",
+    *   lockData:"" 对应开放锁初始化接口中lockData字段
     * }
     */
   if(lockDevice.isSettingMode){
@@ -45,12 +58,18 @@ wx.openBluetoothAdapter({
   ## 重置蓝牙锁
   *  扫描周边蓝牙设备，找到需要重置的对象，调用重置接口plugin.resetLock
   ```
+   /**
+    ** resetLockResult = {
+    *   resultCode : , 0失败，1成功
+    *   resultMsg:"",
+    *  }
+   **/
    wx.openBluetoothAdapter({
       success: function (res) {
         if (plugin.getLockType(lockParam.lockVersion) === plugin.LOCK_TYPE_V3 && platform === "android") {
           //可以直接调用重置锁接口
-          plugin.resetLock(deviceId, lockParam.uid, lockParam.lockVersion, lockParam.adminPwd, lockParam.lockKey, lockParam.lockFlagPos,            lockParam.aesKeyStr,function (resetResult) {
-          
+          plugin.resetLock(deviceId, lockParam.uid, lockParam.lockVersion, lockParam.adminPwd, lockParam.lockKey, lockParam.lockFlagPos,            lockParam.aesKeyStr,function (resetLockResult) {
+
            });
         }else{
           //开启扫描周边设备，找到目标对象，开始连接并重置
@@ -74,6 +93,15 @@ wx.openBluetoothAdapter({
   ### 蓝牙开锁接口 plugin.UnlockBleLock（）
   * 步骤同 重置蓝牙锁 操作  开启蓝牙适配器，如果是Android则可以直连，如果是IOS，则打开扫描。
   ```
+  /** UnlockResult = 
+   * {
+   *  lockDate:锁中当前时间的时间戳 
+   *  success:1成功 0失败
+   *  errCode:错误码 普通错误 -1，锁可能被重置 10001
+   *  errorMsg:错误提示
+   *  electricQuantity:锁电量 范围 0-100
+   * }
+   **/
    wx.openBluetoothAdapter({
       success: function (res) {
         if (plugin.getLockType(lockParam.lockVersion) === plugin.LOCK_TYPE_V3 && platform === "android") {
