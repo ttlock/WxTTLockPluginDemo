@@ -1,0 +1,3 @@
+<button bindtap='toOpenDoor' disabled='{{!enable}}'>点击开锁</button>
+<text>{{state}}</text>
+<button bindtap="toAddLock">+  添加锁</button>

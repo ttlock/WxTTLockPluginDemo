@@ -1,0 +1,6 @@
+/* miniprogram/pages/addlock/addlock.wxss */
+.addBtn {
+  display: inline-block;
+  border: 0;
+  color: #00c9ff;
+}

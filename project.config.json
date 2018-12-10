@@ -1,0 +1,14 @@
+{
+	"miniprogramRoot": "miniprogram/",
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"appid": "wx3107f0a218053d99",
+	"projectname": "pluginDemo",
+	"libVersion": "2.2.5",
+	"condition": {}
+}
