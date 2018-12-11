@@ -46,7 +46,7 @@ wx.openBluetoothAdapter({
     * initLockResult {
     *   resultCode:, 0失败 1成功
     *   errorMsg:"",
-    *   lockData:"" 对应开放锁初始化接口中lockData字段
+    *   lockData:"" 对应开放平台锁初始化接口中lockData字段
     * }
     */
   if(lockDevice.isSettingMode){
