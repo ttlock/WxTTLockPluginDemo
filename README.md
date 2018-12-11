@@ -68,7 +68,8 @@ wx.openBluetoothAdapter({
       success: function (res) {
         if (plugin.getLockType(lockParam.lockVersion) === plugin.LOCK_TYPE_V3 && platform === "android") {
           //可以直接调用重置锁接口
-          plugin.resetLock(deviceId, lockParam.uid, lockParam.lockVersion, lockParam.adminPwd, lockParam.lockKey, lockParam.lockFlagPos,            lockParam.aesKeyStr,function (resetLockResult) {
+          plugin.resetLock(deviceId, lockParam.uid, lockParam.lockVersion, lockParam.adminPwd, lockParam.lockKey,
+          lockParam.lockFlagPos, lockParam.aesKeyStr,function (resetLockResult) {
 
            });
         }else{
