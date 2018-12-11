@@ -41,7 +41,7 @@ wx.openBluetoothAdapter({
 ```
    /**
     * 调用初始化锁接口 
-    * 扫描锁时返回的锁对象 lockItem
+    * 扫描锁时返回的锁对象 lockDevice
     * 锁初始化结果回调 
     * initLockResult {
     *   resultCode:, 0失败 1成功
@@ -50,7 +50,7 @@ wx.openBluetoothAdapter({
     * }
     */
   if(lockDevice.isSettingMode){
-    plugin.initLock(lockItem, function (initLockResult){
+    plugin.initLock(lockDevice, function (initLockResult){
       
     });
   }
