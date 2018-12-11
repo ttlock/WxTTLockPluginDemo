@@ -7,7 +7,7 @@
 ## 初始化智能锁
 * 步骤1 扫描周边蓝牙设备
 startScanBleDevice(callBack) 
-callBack回返回一个蓝牙锁设备对象
+callBack返回一个蓝牙锁设备对象
 ```
 wx.openBluetoothAdapter({
    success: function (res) {
