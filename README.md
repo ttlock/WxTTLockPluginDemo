@@ -107,7 +107,9 @@ wx.openBluetoothAdapter({
       success: function (res) {
         if (plugin.getLockType(lockParam.lockVersion) === plugin.LOCK_TYPE_V3 && platform === "android") {
           //可以直接调用开锁接口
-          plugin.UnlockBleLock(deviceId, lockParam.uid, lockParam.lockVersion, lockParam.startDate, lockParam.endDate,lockParam.lockKey, lockParam.lockFlagPos,lockParam.aesKeyStr,keyParams.timezoneRawOffset,function (UnlockResult) {
+          plugin.UnlockBleLock(deviceId, lockParam.uid, lockParam.lockVersion, lockParam.startDate, 
+          lockParam.endDate,lockParam.lockKey, lockParam.lockFlagPos,lockParam.aesKeyStr,keyParams.timezoneRawOffset,
+          function (UnlockResult) {
           
            });
         }else{
