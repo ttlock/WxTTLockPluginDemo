@@ -5,8 +5,9 @@
   ],
   "plugins": {
     "myPlugin": {
-      "version": "1.1.3",
+      "version": "1.1.4",
       "provider": "wx43d5971c94455481"
     }
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

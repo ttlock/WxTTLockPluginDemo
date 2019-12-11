@@ -9,6 +9,18 @@ let lockVersion;
 let unlockTimer;
 let lockInfoString;
 
+const Array2Json = function (array, keyName) {
+  if (!(array instanceof Array)) return null;
+  let option = {};
+  let index = 0;
+  for (let item of array) {
+    let temp = JSON.parse(JSON.stringify(item));
+    option[item[keyName]] = temp;
+    option[item[keyName]].index = index;
+    index++;
+  }
+  return option;
+}
 
 Page({
 
@@ -130,7 +142,12 @@ Page({
   setLockList (lockItem) {
     let that = this;
     let tempSource = this.data.lockList;
-    tempSource.push(lockItem)
+    const arr = Array2Json(this.data.lockList, 'deviceId');
+    const item = JSON.parse(JSON.stringify(lockItem));
+    if (!!!arr[item.deviceId]) tempSource.push(item);
+    else {
+      tempSource[arr[item.deviceId].index] = item;
+    }
     this.setData({
       lockList: tempSource
     });
