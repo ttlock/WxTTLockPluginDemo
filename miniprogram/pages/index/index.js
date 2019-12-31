@@ -2,10 +2,13 @@ var plugin = requirePlugin("myPlugin");
 const keyParams = require("../../datas/KEY_PARAMS.js");
 let platform = '';
 let scanDeviceTimer = null;
+let deviceIdCheck = null;
+
 Page({
   data: {
     enable: true,
-    state: '请点击按钮开锁'
+    state: '请点击按钮开锁',
+    type: 1 // 1 -开锁 2 -校准锁时间
   },
   onLoad: function() {
     platform = wx.getSystemInfoSync().system.split(' ')[0].toLowerCase();
@@ -77,9 +80,17 @@ Page({
    */
   connect2BleLock(deviceId) {
     let that = this
-    console.log('开锁操作', deviceId, keyParams.uid, keyParams.lockVersion, keyParams.lockKey, keyParams.lockFlagPos, keyParams.aesKeyStr, keyParams.timezoneRawOffset);
+    // console.log('开锁操作', deviceId, keyParams.uid, keyParams.lockVersion, keyParams.lockKey, keyParams.lockFlagPos, keyParams.aesKeyStr, keyParams.timezoneRawOffset);
 
-    plugin.UnlockBleLock(deviceId, keyParams.uid, keyParams.lockVersion, keyParams.startDate, keyParams.endDate, keyParams.lockKey, keyParams.lockFlagPos, keyParams.aesKeyStr, keyParams.timezoneRawOffset, that.openDoorResultCallBack);
+    // plugin.UnlockBleLock(deviceId, keyParams.uid, keyParams.lockVersion, keyParams.startDate, keyParams.endDate, keyParams.lockKey, keyParams.lockFlagPos, keyParams.aesKeyStr, keyParams.timezoneRawOffset, that.openDoorResultCallBack);
+    console.log(keyParams.timezoneRawOffset);
+    if (this.data.type === 1) {
+      plugin.UnlockBleLock(deviceId, keyParams.uid, keyParams.lockVersion, keyParams.startDate, keyParams.endDate, keyParams.lockKey, keyParams.lockFlagPos, keyParams.aesKeyStr, keyParams.timezoneRawOffset, that.openDoorResultCallBack);
+    } else {
+      console.log('校准锁时间');
+      deviceIdCheck = deviceId;
+      plugin.CorrectBleLockTime(deviceId, keyParams.uid, keyParams.lockVersion, 0, 0, keyParams.lockKey, keyParams.lockFlagPos, keyParams.aesKeyStr, keyParams.timezoneRawOffset, new Date().getTime(), that.checkResultCallBack);
+    }
   },
   /**
    * 开锁结果回调
@@ -94,6 +105,28 @@ Page({
       enable: true,
       state: result
     });
+  },
+
+  checkResultCallBack(res) {
+    console.log('校准时间', res);
+    let result = res.errCode === 0 ?
+      '校准时间成功' :
+      '校准时间失败';
+    if (res.errCode === 0) {
+      this.setData({
+        state: result
+      });
+      // 设置200毫秒延迟，否则可能出现蓝牙未恢复导致连接失败的情况
+      setTimeout(() => {
+        plugin.UnlockBleLock(deviceIdCheck, keyParams.uid, keyParams.lockVersion, 0, 0, keyParams.lockKey, keyParams.lockFlagPos, keyParams.aesKeyStr, keyParams.timezoneRawOffset, this.openDoorResultCallBack);
+      }, 200);
+    } else {
+      this.setData({
+        enable: true,
+        state: result
+      });
+    }
+
   },
 
   /**
@@ -161,6 +194,16 @@ Page({
     this.setData({
       enable: false,
       state: '正在开启蓝牙设备'
+    });
+    that.enableBLESetting();
+  },
+
+  toCheckLockTime() {
+    let that = this;
+    this.setData({
+      enable: false,
+      state: '正在开启蓝牙设备',
+      type: 2
     });
     that.enableBLESetting();
   }

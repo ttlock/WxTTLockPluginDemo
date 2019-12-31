@@ -131,3 +131,23 @@ wx.openBluetoothAdapter({
       }
    })
   ```
+
+## 方法 校准锁时间
+### function CorrectBleLockTime(deviceId, uid, lockVersion, startDate, endDate, lockKey, lockFlagPos, aesKeyStr, timezoneOffset, serverTime, callBack)
+deviceId:蓝牙设备返回的deviceId
+uid:通通锁登录后返回的uid
+lockVersion:为锁版本信息json,添加锁时会返回该字段
+startDate：蓝牙钥匙的生效时间
+endDate：蓝牙钥匙的过期时间
+lockKey：蓝牙钥匙的开锁钥匙信息，由通通锁开发平台获取钥匙时返回
+lockFlagPos：钥匙重置标志位，由通通锁开放平台返回
+aesKeyStr：蓝牙钥匙的aes
+timezoneOffset：时区偏移量,由通通锁开放平台返回
+serverTime: 校准的服务器时间
+callBack：钥匙开门后的回调(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容
+
+CorrectLockTimeResult = 
+{
+  errCode:错误码 普通错误 -1，成功 -0，失败 -1
+  errMsg:错误提示
+}

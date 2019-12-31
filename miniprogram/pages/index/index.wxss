@@ -1,1 +1,13 @@
 /* pages/index/index.wxss */
+button {
+  width: 80%;
+  margin: 12rpx auto;
+  background: #2886f7;
+  color: #fff;
+  font-size: 32rpx;
+}
+
+text {
+  color: #666;
+  font-size: 28rpx;
+}
