@@ -151,3 +151,7 @@ CorrectLockTimeResult =
   errCode:错误码 普通错误 -1，成功 -0，失败 -1
   errMsg:错误提示
 }
+
+## 方法 判断设备是否允许远程开锁
+### function isRemoteUnlockEnabled(specialValue)
+specialValue:锁的特征值
