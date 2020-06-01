@@ -102,6 +102,7 @@ Page({
          * 
          */
         plugin.startScanBleDevice(function (lockDevice) {
+          console.log(lockDevice);
           that.setLockList(lockDevice);
         })
       },
