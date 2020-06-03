@@ -31,15 +31,28 @@ Page({
     lockList: []
   },
   onShow: function () {
-    this.setLockList([
-        { name: '第一把锁' },
-        { name: '第二把锁'}
-    ]);
+    this.setData({
+      lockList: []
+    });
   },
   onLoad: function () {
     platform = wx.getSystemInfoSync().system.split(' ')[0].toLowerCase();
   },
 
+  stopScan () {
+    plugin.stopScanBleDevice(res => {
+      wx.showToast({
+        title: res.errorMsg
+      })
+      this.setData({
+        lockList: []
+      })
+    }, err => {
+      wx.showToast({
+        title: res.errorMsg + '\n' + res.description
+      })
+    })
+  },
   /**
    * 点击开始扫描 （入口） lockDevice 为扫描到的蓝牙锁对象
    * 
@@ -101,10 +114,16 @@ Page({
          * 调用蓝牙扫描接口，返回lockDevice对象
          * 
          */
-        plugin.startScanBleDevice(function (lockDevice) {
-          console.log(lockDevice);
-          that.setLockList(lockDevice);
-        })
+        plugin.startScanBleDevice(function (BleDevice, BleDeviceList) {
+          that.setData({
+            lockList: BleDeviceList
+          });
+        }, function (err) {
+          wx.showToast({
+            title: err.errorMsg,
+            icon: 'fail'
+          })
+        });
       },
       fail: function (res) {
 
@@ -134,23 +153,6 @@ Page({
     plugin.initLock(lockItem, function (initLockResult){
       console.log("---init lock result--" + initLockResult.resultCode + "===lockinfo--" + initLockResult.lockData);
       lockInfoString = initLockResult.lockData;
-    });
-  },
-
-  /**
-   * 设置锁列表
-   */
-  setLockList (lockItem) {
-    let that = this;
-    let tempSource = this.data.lockList;
-    const arr = Array2Json(this.data.lockList, 'deviceId');
-    const item = JSON.parse(JSON.stringify(lockItem));
-    if (!!!arr[item.deviceId]) tempSource.push(item);
-    else {
-      tempSource[arr[item.deviceId].index] = item;
-    }
-    this.setData({
-      lockList: tempSource
     });
   },
 

@@ -1,5 +1,6 @@
 <!--miniprogram/pages/addlock/addlock.wxml-->
 <button bindtap='startScan'>开始扫描</button>
+<button bindtap='stopScan'>停止扫描</button>
 <button bindtap='clickResetLock'>重置锁</button>
 <text>蓝牙锁添列表</text>
 <view>
