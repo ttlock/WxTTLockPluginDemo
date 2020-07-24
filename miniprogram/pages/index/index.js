@@ -1,210 +1,188 @@
 var plugin = requirePlugin("myPlugin");
-const keyParams = require("../../datas/KEY_PARAMS.js");
-let platform = '';
-let scanDeviceTimer = null;
-let deviceIdCheck = null;
 
 Page({
   data: {
-    enable: true,
-    state: '请点击按钮开锁',
-    type: 1 // 1 -开锁 2 -校准锁时间
-  },
-  onLoad: function() {
-    platform = wx.getSystemInfoSync().system.split(' ')[0].toLowerCase();
-  },
-  /**
-   * 转向添加锁界面
-   */
-  toAddLock () {
-    wx.navigateTo({
-      url: '../addlock/addlock'
-    })
+    state: '',
+
+    lockList: [],
+    initFlag: false,
+
+    lockData: null
   },
 
-  /**
-   * iOS搜索设备该接口回调目前ios有效
-   */
-  scanDeviceForExist() {
-    let that = this;
-    wx.onBluetoothDeviceFound(function(res) {
-      that.scanForTargetDevice(res);
-    })
-  },
-
-  /**
-   * 搜索设备该接口回调android使用
-   */
-  scanDeviceForDynamic() {
-    let that = this
-    wx.getBluetoothDevices({
-      success: function(res) {
-        that.scanForTargetDevice(res);
-      },
-      fail: function(res) {
-        clearTimeout(scanDeviceTimer);
-        wx.stopBluetoothDevicesDiscovery({});
-        this.setData({
-          state: '搜索不到相关设备',
-          enable: true
-        });
-      }
-    })
-  },
-
-  /**
-   * 搜索设备该接口回调android使用
-   */
-  scanForTargetDevice(res) {
-    this.setData({
-      state: '设备搜索中...'
-    });
-    let that = this
-    let DeviceArray = res.devices;
-    for (let i = 0; i < DeviceArray.length; i++) {
-      console.log("----devices==" + DeviceArray[i].name);
-      if (plugin.getDeviceMacAddress(DeviceArray[i]) == keyParams.lockMac) {
-        this.setData({
-          state: '设备已找到, 正在开锁...'
-        });
-        clearTimeout(scanDeviceTimer);
-        that.connect2BleLock(DeviceArray[i].deviceId);
-        wx.stopBluetoothDevicesDiscovery({});
-        return;
-      }
-    }
-  },
-
-  /**
-   *  开锁接口调用
-   */
-  connect2BleLock(deviceId) {
-    let that = this
-    // console.log('开锁操作', deviceId, keyParams.uid, keyParams.lockVersion, keyParams.lockKey, keyParams.lockFlagPos, keyParams.aesKeyStr, keyParams.timezoneRawOffset);
-
-    // plugin.UnlockBleLock(deviceId, keyParams.uid, keyParams.lockVersion, keyParams.startDate, keyParams.endDate, keyParams.lockKey, keyParams.lockFlagPos, keyParams.aesKeyStr, keyParams.timezoneRawOffset, that.openDoorResultCallBack);
-    console.log(keyParams.timezoneRawOffset);
-    if (this.data.type === 1) {
-      plugin.UnlockBleLock(deviceId, keyParams.uid, keyParams.lockVersion, keyParams.startDate, keyParams.endDate, keyParams.lockKey, keyParams.lockFlagPos, keyParams.aesKeyStr, keyParams.timezoneRawOffset, that.openDoorResultCallBack);
-    } else {
-      console.log('校准锁时间');
-      deviceIdCheck = deviceId;
-      plugin.CorrectBleLockTime(deviceId, keyParams.uid, keyParams.lockVersion, 0, 0, keyParams.lockKey, keyParams.lockFlagPos, keyParams.aesKeyStr, keyParams.timezoneRawOffset, new Date().getTime(), that.checkResultCallBack);
-    }
-  },
-  /**
-   * 开锁结果回调
-   * @params res 开锁返回结果参数
-   */
-  openDoorResultCallBack(res) {
-    console.log('开锁返回结果', res);
-    let result = res.success === 1 ?
-      '开锁成功' :
-      '开锁失败';
-    this.setData({
-      enable: true,
-      state: result
-    });
-  },
-
-  checkResultCallBack(res) {
-    console.log('校准时间', res);
-    let result = res.errCode === 0 ?
-      '校准时间成功' :
-      '校准时间失败';
-    if (res.errCode === 0) {
+  // 开始扫描附近的智能锁设备
+  startScan () {
+    /**
+     * 调用蓝牙扫描接口，返回lockDevice 和 lockList对象
+     * 
+     */
+    plugin.startScanBleDevice((lockDevice, lockList) => {
       this.setData({
-        state: result
-      });
-      // 设置200毫秒延迟，否则可能出现蓝牙未恢复导致连接失败的情况
-      setTimeout(() => {
-        plugin.UnlockBleLock(deviceIdCheck, keyParams.uid, keyParams.lockVersion, 0, 0, keyParams.lockKey, keyParams.lockFlagPos, keyParams.aesKeyStr, keyParams.timezoneRawOffset, this.openDoorResultCallBack);
-      }, 200);
-    } else {
+        lockList: lockList,
+        state: "正在搜索蓝牙设备"
+      })
+    }, err => {
       this.setData({
-        enable: true,
-        state: result
-      });
-    }
-
+        lockList: [],
+        state: err.errorMsg
+      })
+    })
   },
 
-  /**
-   * 开启蓝牙适配器等相关操作
-   */
-  enableBLESetting(){
-    let that = this;
-    wx.openBluetoothAdapter({
-      success: function (res) {
-        /**三代锁并且是android 则可以直接连接**/
-        if (plugin.getLockType(keyParams.lockVersion) == plugin.LOCK_TYPE_V3 && platform == "android") {
-          that.setData({
-            state: '正在发起蓝牙直连....'
-          });
-          that.connect2BleLock(keyParams.lockMac, keyParams);
-        }else{
-          /** 开启蓝牙设备搜索 **/
-          that.setData({
-            state: '正在开启蓝牙设备搜索...'
-          });
-          wx.startBluetoothDevicesDiscovery({
-            services: [plugin.LOCK_BLE_UUID],
-            allowDuplicatesKey: false,
-            interval: 0,
-            success: function (res) {
-              // 搜索设备超时
-              scanDeviceTimer = setTimeout(() => {
-                wx.stopBluetoothDevicesDiscovery({});
-                that.setData({
-                  state: '搜索不到相关设备,停止搜索',
-                  enable: true
-                })
-              }, 10000)
+  // 停止蓝牙扫描设备
+  stopScan () {
+    /**
+     * 调用蓝牙停止扫描接口
+     * 
+     */
+    plugin.stopScanBleDevice(res => {
+      console.log(res)
+      this.setData({
+        lockList: [],
+        state: "蓝牙设备已停止扫描"
+      })
+    }, err => {
+      console.log(err);
+      this.setData({
+        lockList: [],
+        state: err.errorMsg
+      })
+    })
+  },
 
-              /** 获取设备平台信息android和ios有部分回调表现有差异 **/
-              if (platform == "ios") {
-                that.scanDeviceForExist(keyParams);
-              } else {
-                that.scanDeviceForDynamic(keyParams);
-              }
-            },
-            fail: function (res) {
-              that.setData({
-                state: '开启蓝牙设备搜索失败',
-                enable: true
-              })
-            }
+  // 初始化蓝牙智能锁
+  add (event) {
+    // 添加蓝牙锁会自动停止设备检索，但存在一定延迟，可先调用停止扫描后添加锁
+    plugin.stopScanBleDevice(res => {
+      const index = event.currentTarget.dataset.index;
+      const lockItem = this.data.lockList[index];
+      this.setData({
+        lockList: [],
+        state: "正在初始化蓝牙智能锁" + lockItem.lockMac
+      })
+      /**
+       * 调用初始化锁接口 
+       * 扫描锁时返回的锁对象 lockItem
+       * 锁初始化结果回调 res {
+       *   resultCode: 1,     // 0 -失败， 1 -成功  参数即将废止, 用于兼容旧版本
+       *   errorMsg:"",       // 错误信息描述
+       *   lockData:"",  对应开放锁初始化接口中lockData字段
+       *   errorCode: 0       // 错误码， 0 -成功，其它 -失败
+       * }
+       *
+       * 
+       */
+      plugin.initLock(lockItem, res => {
+        console.log(res)
+        if (res.errorCode === 0) {
+          this.setData({
+            state: "设备已成功初始化，请调用开放平台接口上传lockData",
+            initFlag: true,
+            lockData: JSON.parse(res.lockData)
+          })
+        } else {
+          this.setData({
+            state: "设备初始化失败:" + res.errorMsg,
+            initFlag: false,
+            lockData: null
           })
         }
-      },
-      fail: function (res) {
-        that.setData({
-          state: '开启蓝牙设备失败',
-          enable: true
-        });
+      })
+    })
+  },
+
+  // 点击重置蓝牙设备
+  clickResetLock () {
+    const lockData = this.data.lockData;
+     this.setData({
+      state: "正在重置智能锁"
+    })
+    /**
+     * 调用重置接口 
+     * 结果回调 res {
+     *   resultCode: 1,      // 0 -失败， 1 -成功  参数即将废止, 用于兼容旧版本
+     *   resultMsg: "",      // 错误信息描述, 参数即将废止, 用于兼容旧版本
+     *   errorMsg: "",       // 错误信息描述
+     *   errorCode: 0        // 错误码， 0 -成功，其它 -失败
+     * }
+     *
+     * 
+     */
+    plugin.resetLock(lockData.lockMac, 0, lockData.lockVersion, lockData.adminPwd, lockData.lockKey, lockData.lockFlagPos, lockData.aesKeyStr, res => {
+      console.log(res)
+      if (res.errorCode === 0) {
+        this.setData({
+          state: "智能锁已重置",
+          initFlag: false
+        })
+      } else {
+        this.setData({
+          state: "重置失败:" + res.errorMsg
+        })
       }
     })
   },
-  
-  /** 
-   * 执行开锁操作（入口）
-   */
-  toOpenDoor() {
-    let that = this;
-    this.setData({
-      enable: false,
-      state: '正在开启蓝牙设备'
-    });
-    that.enableBLESetting();
+
+  toOpenDoor () {
+    const lockData = this.data.lockData;
+     this.setData({
+      state: "正在开启智能锁"
+    })
+    /**
+     * 调用开锁接口 
+     * 结果回调 res {
+     *   success: 1,        // 0 -失败， 1 -成功  参数即将废止, 用于兼容旧版本
+     *   errorMsg:"",       // 错误信息描述
+     *   errorCode: 0,       // 错误码， 0 -成功，其它 -失败
+     *   lockDate: 锁中当前时间的时间戳   
+     *   electricQuantity: 锁电量 范围 0-100
+     * }
+     *
+     * 
+     */
+    plugin.UnlockBleLock(lockData.lockMac, 0, lockData.lockVersion, 0, 0, lockData.lockKey, lockData.lockFlagPos, lockData.aesKeyStr, lockData.timezoneRawOffset, res => {
+      console.log(res)
+      if (res.errorCode === 0) {
+        this.setData({
+          state: "已开锁"
+        })
+      } else {
+        this.setData({
+          state: "开锁失败:" + res.errorMsg
+        })
+      }
+    })
   },
 
-  toCheckLockTime() {
-    let that = this;
+  // 校准锁时间
+  toCheckLockTime () {
+    const lockData = this.data.lockData;
     this.setData({
-      enable: false,
-      state: '正在开启蓝牙设备',
-      type: 2
-    });
-    that.enableBLESetting();
+      state: "正在校准锁时间"
+    })
+    /**
+     * 调用校准锁时间接口 
+     * 结果回调 res {
+     *   success: 1,        // 0 -失败， 1 -成功  参数即将废止, 用于兼容旧版本
+     *   errCode:错误码       // 参数即将废止，用于兼容旧版本
+     *   errorMsg:"",       // 错误信息描述
+     *   errorCode: 0,       // 错误码， 0 -成功，其它 -失败
+     *   electricQuantity: 锁电量 范围 0-100
+     * }
+     *
+     * 
+     */
+    plugin.CorrectBleLockTime(lockData.lockMac, 0, lockData.lockVersion, 0, 0, lockData.lockKey, lockData.lockFlagPos, lockData.aesKeyStr, lockData.timezoneRawOffset, new Date().getTime(), res => {
+      console.log(res)
+      if (res.errorCode === 0) {
+        this.setData({
+          state: "锁时间已校准"
+        })
+      } else {
+        this.setData({
+          state: "校准锁时间失败:" + res.errorMsg
+        })
+      }
+    })
   }
 })

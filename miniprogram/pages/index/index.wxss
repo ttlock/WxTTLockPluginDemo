@@ -1,4 +1,5 @@
 /* pages/index/index.wxss */
+
 button {
   width: 80%;
   margin: 12rpx auto;
@@ -9,5 +10,16 @@ button {
 
 text {
   color: #666;
+  font-size: 28rpx;
+}
+
+.addBtn {
+  display: inline-block;
+  border: 0;
+  color: #00c9ff;
+}
+
+view {
+  color: #333;
   font-size: 28rpx;
 }

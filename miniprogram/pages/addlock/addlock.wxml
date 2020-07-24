@@ -1,8 +1,0 @@
-<!--miniprogram/pages/addlock/addlock.wxml-->
-<button bindtap='startScan'>开始扫描</button>
-<button bindtap='stopScan'>停止扫描</button>
-<button bindtap='clickResetLock'>重置锁</button>
-<text>蓝牙锁添列表</text>
-<view>
-  <view wx:for="{{lockList}}" wx:key="index">第{{index}}把：{{item.lockName}}<view class='addBtn' bindtap='add' data-index="{{index}}"wx:if="{{item.isSettingMode}}">+ 添加</view></view>
-</view>

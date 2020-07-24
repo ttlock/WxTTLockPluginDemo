@@ -1,5 +1,13 @@
-<button bindtap='toOpenDoor' disabled='{{!enable}}'>点击开锁</button>
-<button bindtap='toCheckLockTime' disabled='{{!enable}}'>点击校准锁时间</button>
+<button bindtap='startScan'>开始扫描</button>
+<button bindtap='stopScan'>停止扫描</button>
 
+<button bindtap='toOpenDoor' disabled='{{!initFlag}}'>点击开锁</button>
+<button bindtap='toCheckLockTime' disabled='{{!initFlag}}'>点击校准锁时间</button>
+<button bindtap='clickResetLock' disabled='{{!initFlag}}'>重置锁</button>
 <text>{{state}}</text>
-<button bindtap="toAddLock">+  添加锁</button>
+
+<view>蓝牙锁添列表</view>
+<view>
+  <view wx:for="{{lockList}}" wx:key="lockMac">第{{index}}把：{{item.lockName}}<view class='addBtn' bindtap='add' data-index="{{index}}"wx:if="{{item.isSettingMode}}">+ 添加</view></view>
+</view>
+

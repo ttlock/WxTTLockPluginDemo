@@ -1,4 +1,4 @@
-# WxTTLockPluginDemo 
+# WxTTLockPluginDemo (!!该文档主要面向1.3.1及其以下版本，1.3.2及其以上请参考DEMO中调用方案)
 接入插件参见微信开放平台：https://developers.weixin.qq.com/miniprogram/introduction/plugin.html#插件开发接入流程
 # **注意事项**：
 所有操作需要保证用户蓝牙开启才可以。扫描操作如果是Android 6.0 及 以上需要微信 拥有位置权限，才能扫描到设备。
