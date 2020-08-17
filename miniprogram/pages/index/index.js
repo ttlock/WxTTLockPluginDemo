@@ -9,6 +9,10 @@ Page({
 
     lockData: null
   },
+  
+  onLoad () {
+    plugin.setShowLog(false)
+  },
 
   // 开始扫描附近的智能锁设备
   startScan () {
@@ -22,6 +26,7 @@ Page({
         state: "正在搜索蓝牙设备"
       })
     }, err => {
+      console.log(err)
       this.setData({
         lockList: [],
         state: err.errorMsg
@@ -64,7 +69,6 @@ Page({
        * 调用初始化锁接口 
        * 扫描锁时返回的锁对象 lockItem
        * 锁初始化结果回调 res {
-       *   resultCode: 1,     // 0 -失败， 1 -成功  参数即将废止, 用于兼容旧版本
        *   errorMsg:"",       // 错误信息描述
        *   lockData:"",  对应开放锁初始化接口中lockData字段
        *   errorCode: 0       // 错误码， 0 -成功，其它 -失败
@@ -100,8 +104,6 @@ Page({
     /**
      * 调用重置接口 
      * 结果回调 res {
-     *   resultCode: 1,      // 0 -失败， 1 -成功  参数即将废止, 用于兼容旧版本
-     *   resultMsg: "",      // 错误信息描述, 参数即将废止, 用于兼容旧版本
      *   errorMsg: "",       // 错误信息描述
      *   errorCode: 0        // 错误码， 0 -成功，其它 -失败
      * }
@@ -131,7 +133,6 @@ Page({
     /**
      * 调用开锁接口 
      * 结果回调 res {
-     *   success: 1,        // 0 -失败， 1 -成功  参数即将废止, 用于兼容旧版本
      *   errorMsg:"",       // 错误信息描述
      *   errorCode: 0,       // 错误码， 0 -成功，其它 -失败
      *   lockDate: 锁中当前时间的时间戳   
@@ -140,8 +141,10 @@ Page({
      *
      * 
      */
-    plugin.UnlockBleLock(lockData.lockMac, 0, lockData.lockVersion, 0, 0, lockData.lockKey, lockData.lockFlagPos, lockData.aesKeyStr, lockData.timezoneRawOffset, res => {
-      console.log(res)
+    const start = new Date();
+    plugin.UnlockBleLock(lockData.lockMac, 0, lockData.lockVersion, new Date(2020, 2, 12).getTime(), new Date(2020, 9, 12).getTime(), lockData.lockKey, lockData.lockFlagPos, lockData.aesKeyStr, lockData.timezoneRawOffset, res => {
+      const end = new Date();
+      console.log(res,end.getTime() - start.getTime())
       if (res.errorCode === 0) {
         this.setData({
           state: "已开锁"
@@ -163,8 +166,6 @@ Page({
     /**
      * 调用校准锁时间接口 
      * 结果回调 res {
-     *   success: 1,        // 0 -失败， 1 -成功  参数即将废止, 用于兼容旧版本
-     *   errCode:错误码       // 参数即将废止，用于兼容旧版本
      *   errorMsg:"",       // 错误信息描述
      *   errorCode: 0,       // 错误码， 0 -成功，其它 -失败
      *   electricQuantity: 锁电量 范围 0-100
@@ -172,7 +173,7 @@ Page({
      *
      * 
      */
-    plugin.CorrectBleLockTime(lockData.lockMac, 0, lockData.lockVersion, 0, 0, lockData.lockKey, lockData.lockFlagPos, lockData.aesKeyStr, lockData.timezoneRawOffset, new Date().getTime(), res => {
+    plugin.CorrectBleLockTime(lockData.lockMac, 0, lockData.lockVersion, 0, 0, lockData.lockKey, lockData.lockFlagPos, lockData.aesKeyStr, lockData.timezoneRawOffset, new Date(2020, 1, 13).getTime(), res => {
       console.log(res)
       if (res.errorCode === 0) {
         this.setData({
