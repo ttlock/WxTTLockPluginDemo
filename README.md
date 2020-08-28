@@ -1,157 +1,665 @@
-# WxTTLockPluginDemo (!!该文档主要面向1.3.1及其以下版本，1.3.2及其以上请参考DEMO中调用方案)
-接入插件参见微信开放平台：https://developers.weixin.qq.com/miniprogram/introduction/plugin.html#插件开发接入流程
-# **注意事项**：
-所有操作需要保证用户蓝牙开启才可以。扫描操作如果是Android 6.0 及 以上需要微信 拥有位置权限，才能扫描到设备。
+# 通通锁蓝牙模块通信插件接口说明文档 (version: 2.0.0)
 
-# 小程序插件接口使用说明：
-## 初始化智能锁
-* 步骤1 扫描周边蓝牙设备
-startScanBleDevice(callBack) 
-callBack返回一个蓝牙锁设备对象
+## 说明
+ 通通锁蓝牙模块通信插件是基于微信小程序接口开发的蓝牙模块插件，使用时需配合通通锁开放平台接口使用。 
+ [通通锁开放平台](https://open.sciener.com/)  
+ **2.x版本接口适配开放平台Cloud API V3版本接口，相对1.x版本的接口有很大改动，升级时请特别注意**  
+
+1. 添加智能锁：调用开放平台/oauth2/token接口登录 -> 小程序initLock接口 -> 开放平台锁初始化接口/v3/lock/initialize  
+    **注意：若未上传服务器可能导致智能锁数据丢失，只能物理重置智能锁**  
+2. 开锁：调用获取锁的普通钥匙列表(其余获取钥匙的接口均可) -> 小程序controlLock接口开锁  
+    **注意：小程序接口不主动上传操作记录，如需上传请自行调用开放平台接口上传记录**  
+3. 校准锁时间：调用获取锁的普通钥匙列表(其余获取钥匙的接口均可) -> 获取服务器时间 -> 小程序setLockTime接口校准锁时间  
+
+
+
+## 重要参数
+#### 1. 变量 锁蓝牙模块的uuid  
+
+`LOCK_BLE_UUID`
+
+###### 版本更新内容
++ **2.0.0**  
+	 沿用1.4.0版本，无特殊改动  
+
+
+
+#### 2. 变量 三代锁  
+
+`LOCK_TYPE_V3`  
+
+###### 版本更新内容
++ **2.0.0**  
+	 沿用1.4.0版本，无特殊改动  
+
+
+#### 3. 变量 控制锁类型-开锁  
+
+`CONTROL_ACTION_OPEN` 
+
+###### 说明
++ 控制锁类型，固定值3，用于开锁/闭锁接口传参
+
+###### 版本更新内容
++ **2.0.0**  
+	 + 2.0.0版本新增，开锁/闭锁接口参数类型  
+
+
+
+#### 4. 变量 控制锁类型-闭锁  
+
+`CONTROL_ACTION_CLOSE` 
+
+###### 说明
++ 控制锁类型，固定值6，用于开锁/闭锁接口传参
+
+###### 版本更新内容
++ **2.0.0**  
+	 + 2.0.0版本新增，开锁/闭锁接口参数类型  
+
+
+
+#### 5. 变量 锁记录类型-全部读取  
+
+`RECORD_TYPE_ALL` 
+
+###### 说明
++ 锁记录类型，固定值1，用于读取锁操作记录传参，表示读取全部操作记录
+
+###### 版本更新内容
++ **2.0.0**  
+	 + 2.0.0版本新增
+
+
+#### 6. 变量 锁记录类型-未读取的操作记录  
+
+`RECORD_TYPE_NEW` 
+
+###### 说明
++ 锁记录类型，固定值2，用于读取锁操作记录传参，表示读取锁内未读取的操作记录
+
+###### 版本更新内容
++ **2.0.0**  
+	 + 2.0.0版本新增
+
+
+## 主要接口
+#### 1. 方法 获取当前锁类型
+
+`function getLockType(lockVersion)`  
+
+###### 参数
++ lockVersion：为锁版本信息json,添加锁时会返回该字段  
+
+###### 返回值
++ 0 -不开放或已不支持的锁类型 3 -二代门锁 4 -二代锁(带永久密码功能) 5 -三代锁  
+
+###### 版本更新内容
++ **2.0.0**  
+	 沿用1.4.0版本，无特殊改动  
+
+
+
+#### 2. 方法 判断设备是否允许远程开锁
+
+`function isRemoteUnlockEnabled(specialValue)`  
+
+###### 参数
++ specialValue:锁的特征值
+
+###### 返回值
++ Boolean
+
+###### 版本更新内容
++ **2.0.0**  
+	 沿用1.4.0版本，无特殊改动   
+
+
+
+#### 3. 方法 设置是否打开调试日志
+
+`function setShowLog(showLog: Boolean)`
+
+###### 参数
++ showLog: 是否打印调试日志，默认为false
+
+###### 返回值
++ 无
+
+###### 版本更新内容
++ **2.0.0**  
+	 沿用1.4.0版本，无特殊改动 
+
+
+
+#### 4. 方法 获取当前设备mac地址
+
+`function getDeviceMacAddress(deviceFromWx: Object)`
+
+###### 参数
++ deviceFromWx: 对象为微信小程序 蓝牙扫描接口返回的device对象
+
+###### 返回值
++ lockMac: String || null   -返回当前锁的mac地址, 格式`AA:AA:AA:BB:BB:BB`, 参数错误时返回null
+
+###### 版本更新内容
++ **2.0.0**  
+	 沿用1.4.0版本，无特殊改动 
+
+
+
+#### 5. 方法 扫描蓝牙设备接口
+
+`function startScanBleDevice(callBack: Function, failCallback: Function)`
+
+###### 参数
++ callBack扫描接口成功获取设备回调, 扫描成功该方法可能执行多次，请不要在该循环执行添加锁等操作，返回参数信息`callback(BleDevice: Option, BleDeviceList: Array)`
+	 + BleDevice为扫描到的单把锁信息, 同一把锁可能返回多次, 说明:
 ```
-wx.openBluetoothAdapter({
-   success: function (res) {
-     //开启成功才能调用
-      /**
-      * 注意！！！！!
-      * Android 6.0以上 因扫描蓝牙需要位置权限,确保微信已经获取到位置权限之后才能开始    
-      * 扫描设备，否则无法扫描到设备 但是目前测试的结果是微信小程序的位置权限 在部分机型上无法让微信直接获取到位置权限，需手动去设置界面开启。
-      */
-      
-      /**
-      ** lockDevice = {
-          lockName: "",
-          deviceId:"",
-          rssi: 0, 锁蓝牙信号值
-          lockMac: "",锁mac地址
-          protocolType: 0,
-          protocolVersion: 0,
-          scene: 0,
-          isSettingMode: false,是否是可初始化模式，只有处于可初始化模式才能初始化锁
-          electricQuantity: 0,
-      }
-      **/
-     plugin.startScanBleDevice(function (lockDevice) {
-          //lockDevice 为单个蓝牙锁对象
-     })
-   }
-})
+	{
+		 lockName: "",   -锁蓝牙名称
+		 deviceId: "",   -锁ID
+		 rssi: 0,        -蓝牙当前信号强度, 该参数, 1.3.0版本新增特殊返回值0, 表示该设备已掉线
+		 lockMac: "",    -当前的锁MAC值
+		 protocolType: 0,      -锁协议类型
+		 protocolVersion: 0,   -锁协议版本
+		 scene: 0,             -场景值
+		 isSettingMode: false，-是否是可初始化模式，只有处于可初始化模式才能初始化锁, 1.3.0版本以前无蓝牙超时处理, 设备超时无回调
+		 electricQuantity: 0,  -电池电量
+	}
 ```
-* 步骤2 选择处于添加模式的锁,非添加模式的锁不能初始化，调用锁初始化接口 plugin.initLock(lockDevice,callBack)
+	 + BleDeviceList说明: 1.3.0版本新增, **为当前扫描状态下周围锁信息列表, 以添加状态、蓝牙信号强度排序**, 参数信息参考BleDevice
+
++ failCallback: 1.3.0版本新增,用于开启蓝牙扫描失败回调, 返回参数形式：`failCallBack(err: Option)`
+
+	 + err说明：
 ```
-   /**
-    * 调用初始化锁接口 
-    * 扫描锁时返回的锁对象 lockDevice
-    * 锁初始化结果回调 
-    * initLockResult {
-    *   resultCode:, 0失败 1成功
-    *   errorMsg:"",
-    *   lockData:"" 对应开放平台锁初始化接口中lockData字段
-    * }
-    */
-  if(lockDevice.isSettingMode){
-    plugin.initLock(lockDevice, function (initLockResult){
-      
-    });
-  }
-  ```
-  ## 重置蓝牙锁
-  *  扫描周边蓝牙设备，找到需要重置的对象，调用重置接口plugin.resetLock
-  ```
-   /**
-    ** resetLockResult = {
-    *   resultCode : , 0失败，1成功
-    *   resultMsg:"",
-    *  }
-   **/
-   wx.openBluetoothAdapter({
-      success: function (res) {
-        if (plugin.getLockType(lockParam.lockVersion) === plugin.LOCK_TYPE_V3 && platform === "android") {
-          //可以直接调用重置锁接口
-          plugin.resetLock(deviceId, lockParam.uid, lockParam.lockVersion, lockParam.adminPwd, lockParam.lockKey,
-          lockParam.lockFlagPos, lockParam.aesKeyStr,function (resetLockResult) {
+	{
+		 errorCode: 错误码,
+		 errorMsg: 错误信息,
+		 description: 蓝牙失败原因描述
+	}
+```
 
-           });
-        }else{
-          //开启扫描周边设备，找到目标对象，开始连接并重置
-          wx.startBluetoothDevicesDiscovery({
-            services: [plugin.LOCK_BLE_UUID],
-            allowDuplicatesKey: false,
-            interval: 0,
-            success: function (res) {
-               //省略获取周边设备部分代码 是否是目标锁，可以通过锁名也可以通过mac地址，推荐使用mac地址。
-               if (plugin.getDeviceMacAddress(DeviceArray[i]) == lockParam.lockMac) {
-                 plugin.resetLock（...)
-               }else{
-               
-               }
-            }
-          }）
-        }
-      }
-   })
-  ```
-  ### 蓝牙开锁接口 plugin.UnlockBleLock（）
-  * 步骤同 重置蓝牙锁 操作  开启蓝牙适配器，如果是Android则可以直连，如果是IOS，则打开扫描。
-  ```
-  /** UnlockResult = 
-   * {
-   *  lockDate:锁中当前时间的时间戳 
-   *  success:1成功 0失败
-   *  errCode:错误码 普通错误 -1，锁可能被重置 10001
-   *  errorMsg:错误提示
-   *  electricQuantity:锁电量 范围 0-100
-   * }
-   **/
-   wx.openBluetoothAdapter({
-      success: function (res) {
-        if (plugin.getLockType(lockParam.lockVersion) === plugin.LOCK_TYPE_V3 && platform === "android") {
-          //可以直接调用开锁接口
-          plugin.UnlockBleLock(deviceId, lockParam.uid, lockParam.lockVersion, lockParam.startDate, 
-          lockParam.endDate,lockParam.lockKey, lockParam.lockFlagPos,lockParam.aesKeyStr,keyParams.timezoneRawOffset,
-          function (UnlockResult) {
-          
-           });
-        }else{
-          //开启扫描周边设备，找到目标对象，开始连接并开锁
-          wx.startBluetoothDevicesDiscovery({
-            services: [plugin.LOCK_BLE_UUID],
-            allowDuplicatesKey: false,
-            interval: 0,
-            success: function (res) {
-               //省略获取周边设备部分代码 是否是目标锁，可以通过锁名也可以通过mac地址，推荐使用mac地址。
-               if (plugin.getDeviceMacAddress(DeviceArray[i]) == lockParam.lockMac) {
-                 plugin.UnlockBleLock（...)
-               }else{
-               
-               }
-            }
-          }）
-        }
-      }
-   })
-  ```
+###### 返回值
++ 在callBack和failCallback回调中返回
 
-## 方法 校准锁时间
-### function CorrectBleLockTime(deviceId, uid, lockVersion, startDate, endDate, lockKey, lockFlagPos, aesKeyStr, timezoneOffset, serverTime, callBack)
-deviceId:蓝牙设备返回的deviceId
-uid:通通锁登录后返回的uid
-lockVersion:为锁版本信息json,添加锁时会返回该字段
-startDate：蓝牙钥匙的生效时间
-endDate：蓝牙钥匙的过期时间
-lockKey：蓝牙钥匙的开锁钥匙信息，由通通锁开发平台获取钥匙时返回
-lockFlagPos：钥匙重置标志位，由通通锁开放平台返回
-aesKeyStr：蓝牙钥匙的aes
-timezoneOffset：时区偏移量,由通通锁开放平台返回
-serverTime: 校准的服务器时间
-callBack：钥匙开门后的回调(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容
+###### 版本更新内容
++ **2.0.0**  
+	 沿用1.4.0版本，无特殊改动 
 
-CorrectLockTimeResult = 
-{
-  errCode:错误码 普通错误 -1，成功 -0，失败 -1
-  errMsg:错误提示
-}
 
-## 方法 判断设备是否允许远程开锁
-### function isRemoteUnlockEnabled(specialValue)
-specialValue:锁的特征值
+
+#### 6. 方法 停止扫描蓝牙设备接口
+
+`function stopScanBleDevice(callBack: Function, failCallback: Function)`
+
+###### 参数
++ callback为蓝牙停止扫描成功接口回调, 返回参数形式：`callback(res: Option)`
+	 + res说明：
+```
+	{
+		 errorCode: 0,           -错误码
+		 errorMsg: "操作成功"    -错误信息
+	}
+```
+
++ failCallback -蓝牙停止扫描失败接口回调, 返回参数形式：`failCallback(err: Option)`
+	 + err说明：
+```
+	{
+		 errorCode: 错误码,
+		 errorMsg: 错误信息,
+		 description: 蓝牙失败原因描述
+	}
+```
+
+###### 返回值
++ 在callBack和failCallback回调中返回
+
+###### 版本更新内容
++ **2.0.0**  
+	 沿用1.4.0版本，无特殊改动 
+
+
+
+#### 7. 方法 初始化锁
+
+`function initLock(device: Object, callBack: Function)`
+
+###### 参数
++ device为蓝牙扫描接口startScanBleDevice方法返回的单个对象, 仅isSettingMode=true的锁可进行初始化
++ callBack为蓝牙停止扫描成功接口回调, 返回参数形式：`callback(initLockResult: Option)`
+	 + initLockResult说明：
+```
+	{
+		 errorCode: 0 		-错误码
+		 errorMsg:"",			-错误信息
+		 lockData:"" 			-为锁初始化数据的字符串，对应于开放平台服务器锁初始化接口(V3)中的lockData字段
+	}
+```
+
+###### 返回值
++ 在callBack回调中返回  
+
+###### 版本更新内容
++ **2.0.0**  
+  1. 名称沿用1.4.0版本
+  2. 修改参数名称bleDevice为device
+  3. 返回值lockData修改为加密字符串
+
+
+
+#### 8. 方法 重置锁
+
+`function resetLock(lockData: String, callBack: Function)`
+
+###### 参数
++ lockData: **管理员**钥匙数据字符串
++ callBack：锁重置结果回调(由调用者传入，传入方法需有一个返回数据对象)，返回参数形式：`callback(resetLockResult: Option)`
+	 + resetLockResult说明：
+```
+	{
+		 errorCode: 0,   -错误码
+		 errorMsg: ""    -错误信息
+	}
+```
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.0.0**
+	 1. 钥匙数据改为传入加密字符串lockData
+
+
+
+#### 9. 方法 蓝牙开锁/闭锁接口
+
+`function controlLock(controlAction: Number, lockData: String, callBack: Function)`
+
+###### 参数
++ controlAction: 操作类型，3 -蓝牙开锁，6 -蓝牙闭锁，**目前仅支持3和6**，可使用参数CONTROL_ACTION_OPEN和CONTROL_ACTION_CLOSE
++ lockData: 钥匙数据字符串
++ callBack：钥匙开锁/闭锁后的回调(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容 返回参数形式：`callBack(controlLockResult: Option)`
+	 + controlLockResult说明：
+```
+	{
+		 lockTime: 锁中当前时间的时间戳, (!!仅在开锁成功后返回)
+		 errorCode: 0,	 		-错误码
+		 errorMsg: "",			-错误提示
+		 battery: 12,			-锁电量 范围 0-100, (!!仅在开锁成功后返回)
+		 controlAction: 3,			-操作类型
+		 uniqueid: 123456789		-唯一标识
+	}
+```
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.0.0**  
+	 1. 2.0.0版本新增，开锁功能继承1.x中UnlockBleLock接口
+	 2. 钥匙数据为传入加密字符串lockData, 去掉锁时间参数
+	 3. 增加controlAction参数控制开闭锁
+	 4. 增加返回值controlAction、uniqueid, 修改返回值lockDate为lockTime, 修改返回值electricQuantity为battery
+	 5. 为兼容离线版，开锁接口不再包含校准锁时间功能，需校准锁时间请调用setLockTime接口
+
+
+#### 10. 方法 设置锁时间
+
+`function setLockTime(timestamp: Number, lockData: String, callBack: Function)`
+
+###### 参数
++ timestamp: 服务器时间戳，请通过开放平台接口获取
++ lockData: 钥匙数据字符串
++ callBack：钥匙开门后的回调(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(setLockTimeResult: Option)`
+
+	 + setLockTimeResult说明：
+```
+	{
+		 errorCode: 0,   -错误码 
+		 errorMsg: ""    -错误信息
+	}
+```
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.0.0**  
+	 1. 2.0.0版本新增，开锁功能继承1.x中CorrectBleLockTime接口
+	 2. 钥匙数据为传入加密字符串lockData
+	 2. 接口名称改为setLockTime
+	 3. 删除返回值electricQuantity
+
+
+#### 11. 方法 读取锁内操作记录
+
+`function getOperationLog(logType: Number, lockData: String, callBack: Function)`
+
+###### 参数
++ logType: 记录类型，1 -ALL 锁内所有记录， 2 -NEW 锁内未读取的记录
++ lockData: 钥匙数据字符串
++ callBack：读取操作记录的回调(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(result: Option)`
+
+	 + result说明：
+```
+	{
+		 errorCode: 0,   -错误码（1.3.2版本新增） 
+		 errorMsg: ""    -错误信息（1.3.2版本新增）
+		 log:   -锁内操作记录的json字符串
+	}
+```
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.0.0**  
+	 1. 2.0.0版本新增
+
+
+
+#### 12. 方法 添加密码
+
+`function createCustomPasscode(passcode: String, startDate: Number, endDate: Number, lockData: String, callBack: Function)`
+
+###### 参数
++ passcode: 添加的密码字符串，由0-9组成的4-9位长度数字字符串，如"0123456"
++ startDate: 密码有效期开始时间，整点的时间戳
++ endDate: 密码有效期结束时间，整点时间戳
++ lockData: 锁数据字符串
++ callBack：添加密码的回调(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(result: Option)`
+
+	 + result说明：
+```
+	{
+		 errorCode: 0,   -错误码（1.3.2版本新增） 
+		 errorMsg: ""    -错误信息（1.3.2版本新增）
+		 passcode:   -写入锁内的密码
+	}
+```
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.0.0**  
+	 1. 2.0.0版本新增
+
+
+
+#### 13. 方法 修改密码
+
+`function modifyPasscode(originalCode: String, newCode: String, startDate: Number, endDate: Number, lockData: String, callBack: Function)`
+
+###### 参数
++ originalCode: 待修改的原始密码字符串, 由0-9组成的4-9位长度数字字符串，如"0123456"
++ newCode: 修改后的密码字符串，由0-9组成的4-9位长度数字字符串，如"0123456"
++ startDate: 新密码有效期开始时间，整点的时间戳
++ endDate: 新密码有效期结束时间，整点时间戳
++ lockData: 锁数据字符串
++ callBack：修改密码的回调(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(result: Option)`
+
+	 + result说明：
+```
+	{
+		 errorCode: 0,   -错误码
+		 errorMsg: ""    -错误信息
+	}
+```
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.0.0**  
+	 1. 2.0.0版本新增
+
+
+
+#### 14. 方法 删除密码
+
+`function deletePasscode(passcode: String, lockData: String, callBack: Function)`
+
+###### 参数
++ passcode: 待删除的密码字符串，由0-9组成的4-9位长度数字字符串，如"0123456"
++ lockData: 锁数据字符串
++ callBack：删除密码的回调(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(result: Option)`
+
+	 + result说明：
+```
+	{
+		 errorCode: 0,   -错误码
+		 errorMsg: ""    -错误信息
+	}
+```
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.0.0**
+	 1. 2.0.0版本新增
+
+
+#### 15. 方法 添加指纹
+
+`function addFingerprint(startDate: Number, endDate: Number, lockData: String, callBack: Function)`
+
+###### 参数
++ startDate: 指纹有效期开始时间，时间戳，精确到分钟
++ endDate: 指纹有效期结束时间，时间戳，精确到分钟
++ lockData: 锁数据字符串
++ callBack：添加指纹的回调(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(result: Option)`
+
+	 + result说明：
+```
+	{
+		 errorCode: 0,   -错误码
+		 errorMsg: "",    -错误信息
+		 type: 1,     -回调类型, 当type为1时表示回调: 1 -指纹完成添加，操作结束; 2 -已进入添加模式; 3 -录入指纹步骤回调; 未返回 -操作失败，errorCode不为0
+		 fingerprintNum: 1234567890,   -添加成功的指纹号，仅type=1时返回
+		 totalCount: 3,   -录入指纹的总次数，仅type=2时返回
+		 description: "已进入添加模式",    -操作描述
+		 currentCount: 1    -当前录入指纹的次数, 仅type=3时返回
+	}
+```
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.0.0**
+	 1. 2.0.0版本新增
+
+
+
+#### 16. 方法 修改指纹有效期
+
+`function modifyFingerprintValidityPeriod(startDate: Number, endDate: Number, fingerprintNum: Number, lockData: String, callBack: Function)`
+
+###### 参数
++ startDate: 指纹有效期开始时间，时间戳，精确到分钟
++ endDate: 指纹有效期结束时间，时间戳，精确到分钟
++ fingerprintNum: 待修改的指纹号
++ lockData: 锁数据字符串
++ callBack：修改指纹的回调(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(result: Option)`
+
+	 + result说明：
+```
+	{
+		 errorCode: 0,   -错误码
+		 errorMsg: "",    -错误信息
+	}
+```
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.0.0**
+	 1. 2.0.0版本新增
+
+
+
+#### 17. 方法 删除指纹
+
+`function deleteFingerprint(fingerprintNum: Number, lockData: String, callBack: Function)`
+
+###### 参数
++ fingerprintNum: 待删除的指纹号
++ lockData: 锁数据字符串
++ callBack：修改指纹的回调(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(result: Option)`
+
+	 + result说明：
+```
+	{
+		 errorCode: 0,   -错误码
+		 errorMsg: "",    -错误信息
+	}
+```
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.0.0**
+	 1. 2.0.0版本新增
+
+
+
+#### 18. 方法 添加IC卡
+
+`function addICCard(startDate: Number, endDate: Number, lockData: String, callBack: Function)`
+
+###### 参数
++ startDate: IC卡有效期开始时间，精确到分钟的时间戳
++ endDate: IC卡有效期结束时间，精确到分钟的时间戳
++ lockData: 锁数据字符串
++ callBack：添加IC卡的回调(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(result: Option)`
+
+	 + result说明：
+```
+	{
+		 errorCode: 0,   -错误码
+		 errorMsg: "",    -错误信息
+		 type: 1,     -回调类型, 当type为1时表示回调: 1 -IC卡完成添加，操作结束; 2 -已进入添加模式; 未返回 -操作失败，errorCode不为0
+		 cardNum: 123456,   -添加成功的IC卡号，仅type=1时返回
+		 description: "已进入添加模式",    -操作描述
+	}
+```
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.0.0**
+	 1. 2.0.0版本新增
+
+
+
+#### 19. 方法 修改IC卡有效期
+
+`function modifyICCardValidityPeriod(startDate: Number, endDate: Number, cardNum: Number, lockData: String, callBack: Function)`
+
+###### 参数
++ startDate: 新IC卡有效期开始时间，精确到分钟的时间戳
++ endDate: 新IC卡有效期结束时间，精确到分钟的时间戳
++ cardNum: 待修改的IC卡卡号, 如123456
++ lockData: 锁数据字符串
++ callBack：修改IC卡有效期的回调(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(result: Option)`
+
+	 + result说明：
+```
+	{
+		 errorCode: 0,   -错误码
+		 errorMsg: "",    -错误信息
+	}
+```
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.0.0**
+	 1. 2.0.0版本新增
+
+
+
+#### 20. 方法 删除IC卡
+
+`function deleteICCard(cardNum: Number, lockData: String, callBack: Function)`
+
+###### 参数
++ cardNum: 待删除的IC卡卡号, 如123456
++ lockData: 锁数据字符串
++ callBack：删除IC卡的回调(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(result: Option)`
+
+	 + result说明：
+```
+	{
+		 errorCode: 0,   -错误码
+		 errorMsg: "",    -错误信息
+	}
+```
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.0.0**
+	 1. 2.0.0版本新增
+
+
+
+## 返回errorCode说明
+**括号内为中文描述及相关处理方案，实际操作中不会返回**
+
++ 0               -OK (操作成功)
++ 1               -CRC error(CRC校验出错，请重试)
++ 2               -Not administrator, has no permission.
++ 3               -Wrong administrator password.
++ 5               -lock is in setting mode
++ 6               -lock has no administrator
++ 7               -Non-setting mode
++ 8               -invalid dynamic code
++ 10              -run out of battery
++ 11              -initialize keyboard password failed
++ 13              -invalid ekey, lock flag position is low
++ 14              -ekey expired
++ 15              -invalid password length
++ 16              -admin super password is same with delete password
++ 17              -ekey hasn't become effective
++ 18              -user not login
++ 19              -Failed. Undefined error.
++ 20              -password already exists.
++ 21              -password not exists or never be used
++ 22              -out of memory
++ 23              -no defined error
++ 24              -Card number not exist.
++ 26              -Finger print not exist.
++ 27              -Invalid command(智能锁不支持该操作或参数不符合要求)
++ 28              -lock frozen
++ 29              -invalid vendor string
++ 30              -门已反锁
++ 31              -record not exist
++ 10000           -钥匙或者锁时间不正确
++ 10001           -锁可能被重置，请重新添加
++ 10002           -锁连接超时，请确认是否在锁附近或者稍后重试
++ 10003           -锁连接已断开
++ 10004           -蓝牙数据发送失败，请稍后重试
++ 10005           -无效钥匙，请检查钥匙数据是否正确
++ 10006           -钥匙数据解析失败，请重试
++ 10007           -建立蓝牙连接失败或连接已中断
++ 10008           -停止蓝牙扫描失败
++ 10009           -不支持的锁类型
++ 10010           -锁未进入可添加模式
++ 10030           -启动蓝牙适配器失败
++ 10031           -停止蓝牙扫描失败
++ 10032           -启用蓝牙特征值监控失败，请重试
++ 10033           -蓝牙通信失败，请重试
++ 10034           -设备通信错误
++ 10035           -锁初始化失败
++ 10036           -搜索不到设备，已停止搜索，请确认是否在锁附近或稍后重试

@@ -1,0 +1,17 @@
+<!--miniprogram/pages/list/list.wxml-->
+<view wx:for="{{keyList}}" wx:for-item="item" wx:key="keyId" class="keyList" bindtap="toDetail"  data-index="{{index}}">
+  <text>{{item.lockAlias}}</text>
+  <text>></text>
+</view>
+
+<button bindtap='startScan'>开始扫描</button>
+<button bindtap='stopScan'>停止扫描</button>
+
+<text>{{state}}</text>
+<view>蓝牙锁添列表</view>
+<view>
+	<view wx:for="{{lockList}}" wx:key="lockMac" class="keyList" bindtap='add' data-index="{{index}}">
+    <text>第{{index}}把：{{item.lockName}}</text>
+		<text class='addBtn' wx:if="{{item.isSettingMode}}">+ 添加</text>
+	</view>
+</view>

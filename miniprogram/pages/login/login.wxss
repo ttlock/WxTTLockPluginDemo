@@ -1,0 +1,23 @@
+/* miniprogram/pages/login/login.wxss */
+
+button {
+  width: 80%;
+  margin: 12rpx auto;
+  background: #2886f7;
+  color: #fff;
+  font-size: 32rpx;
+}
+
+view {
+  width: 80%;
+  margin: 24rpx auto;
+  font-size: 32rpx;
+  color: #333;
+}
+
+input {
+  margin-top: 24rpx;
+  padding: 8rpx 32rpx;
+  border: 1px solid #eee;
+  border-radius: 8rpx;
+}

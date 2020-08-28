@@ -1,8 +1,9 @@
 /* pages/index/index.wxss */
 
 button {
-  width: 80%;
-  margin: 12rpx auto;
+  float: left;
+  width: 40%;
+  margin: 12rpx 5%;
   background: #2886f7;
   color: #fff;
   font-size: 32rpx;

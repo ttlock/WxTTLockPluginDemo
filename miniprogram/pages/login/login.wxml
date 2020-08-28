@@ -1,0 +1,10 @@
+<!--miniprogram/pages/login/login.wxml-->
+<form bindsubmit="submit">
+  <view>
+    账号：<input model:value="{{username}}" placeholder="请输入账号"></input>
+  </view>
+  <view>
+    密码：<input model:value="{{password}}" password="true" placeholder="请输入密码"></input>
+  </view>
+  <button form-type="submit">登录</button>
+</form>
