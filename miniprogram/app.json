@@ -1,12 +1,12 @@
 {
   "pages": [
     "pages/login/login",
-    "pages/list/list",
-    "pages/index/index"
+    "pages/index/index",
+    "pages/list/list"    
   ],
   "plugins": {
     "myPlugin": {
-      "version": "2.0.0",
+      "version": "2.1.0",
       "provider": "wx43d5971c94455481"
     }
   },

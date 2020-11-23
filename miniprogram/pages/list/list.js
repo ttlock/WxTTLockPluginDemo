@@ -1,5 +1,5 @@
 // miniprogram/pages/list/list.js
-import { modifyKeyList, addLock } from '../index/request';
+import { keyList, initialize } from '../../api/api.js';
 const plugin = requirePlugin("myPlugin");
 
 Page({
@@ -19,16 +19,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onShow (options) {
-    plugin.setShowLog(false);     // 关闭错误日志
-    const userData = JSON.parse(wx.getStorageSync('userInfo'));
-    this.setData({
-      userData: userData
-    });
-    modifyKeyList(userData.access_token, res => {
+    plugin.setShowLog(true);     // 关闭错误日志
+    this.modifyKeyList();
+  },
+
+  // 更新智能锁列表
+  modifyKeyList () {
+    keyList().then(res => {
       this.setData({
-        keyList: res.data.list
+        keyList: res.list
       })
-    })
+    }).catch(err => {})
   },
 
   // 开始扫描附近的智能锁设备
@@ -97,15 +98,14 @@ Page({
           this.setData({
             state: "设备已成功初始化，正在调用开放平台接口上传lockData"
           })
-          addLock({
-            access_token: this.data.userData.access_token,
+          initialize({
             lockData: res.lockData
-          }, res => {
+          }).then(res => {
+            this.modifyKeyList()
             this.setData({
-              state: "设备已添加",
-              keyList: res.data.list
+              state: "设备已添加"
             })
-          })
+          }).catch(err => {})
         } else {
           this.setData({
             state: "设备初始化失败:" + res.errorMsg
