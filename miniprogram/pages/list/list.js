@@ -90,26 +90,34 @@ Page({
         lockList: [],
         state: "正在初始化蓝牙智能锁" + lockItem.lockMac
       })
-      // 调用添加锁接口
-      plugin.initLock(lockItem, res => {
+      plugin.getLockVersion(lockItem.lockMac, res => {
         console.log(res)
         if (res.errorCode === 0) {
-          // 设备已成功初始化，请调用开放平台接口上传lockData
-          this.setData({
-            state: "设备已成功初始化，正在调用开放平台接口上传lockData"
-          })
-          initialize({
-            lockData: res.lockData
-          }).then(res => {
-            this.modifyKeyList()
-            this.setData({
-              state: "设备已添加"
+          //////////////////// 设备复位延迟
+          setTimeout(() => {
+            // 调用添加锁接口
+            plugin.initLock(lockItem, res => {
+              console.log(res)
+              if (res.errorCode === 0) {
+                // 设备已成功初始化，请调用开放平台接口上传lockData
+                this.setData({
+                  state: "设备已成功初始化，正在调用开放平台接口上传lockData"
+                })
+                initialize({
+                  lockData: res.lockData
+                }).then(res => {
+                  this.modifyKeyList()
+                  this.setData({
+                    state: "设备已添加"
+                  })
+                }).catch(err => {})
+              } else {
+                this.setData({
+                  state: "设备初始化失败:" + res.errorMsg
+                })
+              }
             })
-          }).catch(err => {})
-        } else {
-          this.setData({
-            state: "设备初始化失败:" + res.errorMsg
-          })
+          }, 100)
         }
       })
     })

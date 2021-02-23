@@ -1,4 +1,4 @@
-# 通通锁蓝牙模块通信插件接口说明文档 (version: 2.1.x)
+# 通通锁蓝牙模块通信插件接口说明文档 (version: 2.x)
 
 ## 说明
  通通锁蓝牙模块通信插件是基于微信小程序接口开发的蓝牙模块插件，使用时需配合通通锁开放平台接口使用。 
@@ -850,6 +850,38 @@
 ###### 版本更新内容
 + **2.1.0**
 	 1. 2.1.0版本新增
+
+
+#### 22. 方法 获取锁版本号
+
+`function getLockVersion(lockMac: String, callBack: Function)`
+
+###### 参数
++ lockMac: String  -目标锁的mac地址, 格式`AA:AA:AA:BB:BB:BB`
++ callBack：(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(result: Option)`
+
+	 + result说明：
+```
+	{
+		 errorCode: 0,   -错误码
+		 errorMsg: "",    -错误信息
+		 lockVersion: {		-锁版本信息（errorCode = 0 时返回）
+			 protocolType: -协议类型
+			 protocolVersion：	-协议版本
+			 scene：	-场景值
+			 groupId： 		-应用商ID
+			 orgId：		-应用商子ID
+		 }
+	}
+```
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.2.0**  
+	1. 2.2.0版本新增
+
 
 
 ## 返回errorCode说明
