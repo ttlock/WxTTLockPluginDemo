@@ -13,6 +13,10 @@
 <button bindtap='toAddICCard'>添加IC卡</button>
 <button bindtap='toModifyICCard'>修改IC卡</button>
 <button bindtap='toDeleteICCard'>删除IC卡</button>
+<button bindtap='toSetRemoteUnlock'>
+    {{specialValueObj.gatewayUnlock ? '关闭远程开锁' : '开启远程开关'}}
+</button>
+<button bindtap='toGetRemoteUnlock'>获取远程开关状态</button>
 
 <block></block>
 <text>错误信息：{{state}}</text>

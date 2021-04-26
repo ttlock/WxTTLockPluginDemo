@@ -883,6 +883,65 @@
 	1. 2.2.0版本新增
 
 
+#### 23. 方法 设置远程开锁开关状态
+
+`function setRemoteUnlockSwitchState(enable: Boolean, lockData: String, callBack: Function)`
+
+###### 参数
++ enable: Boolean  -是否开启远程开锁开关
++ lockData: String	-管理员锁数据
++ callBack：(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(result: Option)`
+
+	 + result说明：
+```
+	{
+		 errorCode: 0,   -错误码
+		 errorMsg: "",    -错误信息
+		 electricQuantity: 45,		-锁电量
+		 lockData: "...",		-状态修改成功后返回的锁数据，用于锁数据更新
+		 specialValue: 48645,		-修改后锁特征值
+	}
+```
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.3.0**  
+	1. 2.3.0版本新增 
+
+
+
+
+#### 24. 方法 获取远程开锁开关状态
+
+`function getRemoteUnlockSwitchState(lockData: String, callBack: Function)`
+
+###### 参数
++ lockData: String	-管理员锁数据
++ callBack：(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(result: Option)`
+
+	 + result说明：
+```
+	{
+		 errorCode: 0,   -错误码
+		 errorMsg: "",    -错误信息
+		 enabled: true,		-是否已开启远程开锁
+		 electricQuantity: 45,		-锁电量
+		 lockData: "...",		-状态修改成功后返回的锁数据，用于锁数据更新
+		 specialValue: 48645,		-修改后锁特征值
+	}
+```
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.3.0**  
+	1. 2.3.0版本新增 
+
+
+
 
 ## 返回errorCode说明
 **括号内为中文描述及相关处理方案，实际操作中不会返回**
