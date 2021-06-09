@@ -852,6 +852,7 @@
 	 1. 2.1.0版本新增
 
 
+
 #### 22. 方法 获取锁版本号
 
 `function getLockVersion(lockMac: String, callBack: Function)`
@@ -900,6 +901,7 @@
 		 electricQuantity: 45,		-锁电量
 		 lockData: "...",		-状态修改成功后返回的锁数据，用于锁数据更新
 		 specialValue: 48645,		-修改后锁特征值
+		 featureValue: "AABBCCDD"		-修改后的锁扩展特征值（2.3.1版本新增）
 	}
 ```
 
@@ -907,10 +909,12 @@
 + 在callBack回调中返回
 
 ###### 版本更新内容
++ **2.3.1**  
+	1. 修复部分情况下返回的lockData和specialValue不正确的问题
+	2. 增加扩展特征值featureValue参数 
+
 + **2.3.0**  
-	1. 2.3.0版本新增 
-
-
+	1. 2.3.0版本新增
 
 
 #### 24. 方法 获取远程开锁开关状态
@@ -930,6 +934,7 @@
 		 electricQuantity: 45,		-锁电量
 		 lockData: "...",		-状态修改成功后返回的锁数据，用于锁数据更新
 		 specialValue: 48645,		-修改后锁特征值
+		 featureValue: "AABBCCDD"		-修改后的锁扩展特征值（2.3.1版本新增）
 	}
 ```
 
@@ -937,10 +942,12 @@
 + 在callBack回调中返回
 
 ###### 版本更新内容
++ **2.3.1**  
+	1. 修复部分情况下返回的lockData和specialValue不正确的问题
+	2. 增加扩展特征值featureValue参数 
+	
 + **2.3.0**  
-	1. 2.3.0版本新增 
-
-
+	1. 2.3.0版本新增
 
 
 ## 返回errorCode说明
