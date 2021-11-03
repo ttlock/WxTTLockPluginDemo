@@ -32,7 +32,7 @@
         "useApiHostProcess": true
     },
     "appid": "wx43d5971c94455481",
-    "projectname": "pluginDemo",
+    "projectname": "WxTTLockPluginDemo",
     "libVersion": "2.12.2",
     "simulatorType": "wechat",
     "simulatorPluginLibVersion": {},
