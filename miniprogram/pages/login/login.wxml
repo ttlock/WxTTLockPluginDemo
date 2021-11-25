@@ -8,3 +8,6 @@
   </view>
   <button form-type="submit">登录</button>
 </form>
+<view>1.该demo仅用于展示通通锁微信小程序插件使用方法，demo禁止用于商业用途</view>
+<view>2.demo使用时，禁止下调project.config.json中的libVersion(微信基础库版本)</view>
+<view>3.账号密码为通通锁用户账号密码，请勿使用开发者账号密码</view>
