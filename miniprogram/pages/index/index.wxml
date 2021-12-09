@@ -17,6 +17,8 @@
     {{specialValueObj.gatewayUnlock ? '关闭远程开锁' : '开启远程开关'}}
 </button>
 <button bindtap='toGetRemoteUnlock'>获取远程开关状态</button>
+<button bindtap='toSetLockConfig' data-switch-on="{{true}}">设置锁开关配置开</button>
+<button bindtap='toGetLockConfig'>获取锁开关配置</button>
 
 <block></block>
 <text>错误信息：{{state}}</text>

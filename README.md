@@ -1,13 +1,13 @@
 # 通通锁蓝牙模块通信插件接口说明文档 (version: 2.x)
 
 ## 说明
- 通通锁蓝牙模块通信插件是基于微信小程序接口开发的蓝牙模块插件，使用时需配合通通锁开放平台接口或相关本地开发包使用。
- 小程序后台可通过搜索“**通通锁**”或小程序appid进行搜索
- 在线版appid: **wx43d5971c94455481** (免费使用)
- 离线版appid: **wxc788856964635783** (付费使用)
-
+ 通通锁蓝牙模块通信插件是基于微信小程序接口开发的蓝牙模块插件，使用时需配合通通锁开放平台接口或相关本地开发包使用。  
+ 小程序后台可通过搜索“**通通锁**”或小程序appid进行搜索  
+ 在线版appid: **wx43d5971c94455481** (免费使用)  
+ 离线版appid: **wxc788856964635783** (付费使用)  
+ 
  [通通锁开放平台](https://open.ttlock.com/)  
- **2.x版本接口适配开放平台Cloud API V3版本接口，相对1.x版本的接口有很大改动，升级时请特别注意**  
+ **2.x版本接口适配开放平台Cloud API V3版本接口，相对1.x版本的接口有很大改动，升级时请特别注意**    
  **2.x版本不再兼容1.x版本接口**
 
 1. 添加智能锁：调用开放平台/oauth2/token接口登录 -> 小程序initLock接口 -> 开放平台锁初始化接口/v3/lock/initialize  
@@ -86,6 +86,25 @@
 ###### 版本更新内容
 + **2.0.0**  
 	 1. 2.0.0版本新增
+
+#### 7. 变量 锁开关配置属性类型
+
+```
+	LockConfigType = {
+		TAMPER_ALERT = 0x01,   // 使能/禁用防撬开关
+		RESET_BUTTON = 0x02,   // 使能/禁用重置按键
+		PRIVACY_LOCK = 0x04,    // 使能/禁用反锁开关
+		UNLOCK_DIRECTION = 0x10,  // 左右开门设置
+		PASAGE_MODE_AUTO_UNLOCK_SETTING = 0x20,  // 使能/禁用常开模式自动开锁
+	}
+```
+
+###### 说明
++ 锁开关配置属性类型，文档中未说明的类型为当前不支持的类型，传入时可通过
+
+###### 版本更新内容
++ **2.5.0**  
+	 1. 2.5.0版本新增
 
 
 ## 主要接口
@@ -883,11 +902,15 @@
 	29. privacyLock:Boolean 反锁功能
 	30. deadLock:Boolean 死锁功能
 	31. cyclicCardOrFingerprint:Boolean 循环指纹或循环IC卡功能
-	32. fingerVein:Boolean 指静脉
-	33. ble5G:Boolean 5G蓝牙
-	34. NBAwake:Boolean NB激活配置
+	32. unlockDirection: Boolean 是否支持左右开门设置（**2.5.0版本新增**）
+	33. fingerVein:Boolean 指静脉
+	34. ble5G:Boolean 5G蓝牙
+	35. NBAwake:Boolean NB激活配置
 
-###### 版本更新内容
+###### 版本更新内容 
++ **2.5.0**  
+  1. 增加是否支持左右开门设置返回值
+
 + **2.4.1**  
   1. 支持传入featureValue特征值 
 
@@ -1054,7 +1077,83 @@
 
 ###### 版本更新内容
 + **2.4.0**  
-	1. 2.4.0版本新增
+	1. 2.4.0版本新增 
+
+#### 27. 方法 设置锁开关配置
+
+`function setLockConfig(TTLockConfigType: Number, switchOn: Boolean, lockData: String, callBack: Function)`
+
+###### 参数
++ TTLockConfigType: Number	-需要获取的开关配置类型，支持类型见本文档“重要参数-7 变量 锁开关配置属性类型”，
++ switchOn: Boolean	-是否设置开关为开启状态，true为使能，false为禁用（左右开门设置时传入true为左开门，false为右开门）
++ lockData: String	-管理员锁数据
++ callBack：(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(result: Option)`
+
+	 + result说明：
+```
+	{
+		 errorCode: 0,   -错误码
+		 errorMsg: "",    -错误信息
+		 electricQuantity: 45,		-锁电量
+		 lockConfigType: 3,		-开关配置属性实际开启状态
+		 lockConfigs：{			-开关使能状态（未查询或锁不支持的属性均不返回）
+		 	tamperAlert: true,		-使能/禁用防撬开关
+			resetButton: false,   	-使能/禁用重置按键
+			privacyLock: false,    	-使能/禁用反锁开关
+			unlockDirection: false,  -左右开门设置（true为左开门，false为右开门)
+			pasageModeAutoUnlockSetting: true,  -使能/禁用常开模式自动开锁
+		 }
+	}
+```
+
+###### 特殊说明
++ lockConfigType及lockConfigs均不返回智能锁不支持的属性
++ 支持同时设置多个属性时，如需同时重置按键属性和防撬开关配置属性时，TTLockConfigType传入`LockConfigType.RESET_BUTTON | LockConfigType.TAMPER_ALERT`
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.5.0**  
+	1. 2.5.0版本新增
+
+
+#### 28. 方法 获取锁开关配置
+
+`function getLockConfig(TTLockConfigType: Number, switchOn: Boolean, lockData: String, callBack: Function)`
+
+###### 参数
++ TTLockConfigType: Number	-需要获取的开关配置类型，支持类型见本文档“重要参数-7 变量 锁开关配置属性类型”
++ lockData: String	-管理员锁数据
++ callBack：(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(result: Option)`
+
+	 + result说明：
+```
+	{
+		 errorCode: 0,   -错误码
+		 errorMsg: "",    -错误信息
+		 electricQuantity: 45,		-锁电量
+		 lockConfigType: 3,		-开关配置属性实际开启状态
+		 lockConfigs：{			-开关使能状态（未查询或锁不支持的属性均不返回）
+		 	tamperAlert: true,		-使能/禁用防撬开关
+			resetButton: false,   	-使能/禁用重置按键
+			privacyLock: false,    	-使能/禁用反锁开关
+			unlockDirection: false,  -左右开门设置（true为左开门，false为右开门)
+			pasageModeAutoUnlockSetting: true,  -使能/禁用常开模式自动开锁
+		 }
+	}
+```
+
+###### 特殊说明
++ lockConfigType及lockConfigs均不返回智能锁不支持的属性
++ 支持同时获取多个属性时，如需同时获取重置按键属性和防撬开关配置属性时，TTLockConfigType传入`LockConfigType.RESET_BUTTON | LockConfigType.TAMPER_ALERT`
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.5.0**  
+	1. 2.5.0版本新增
 
 
 ## 返回errorCode说明

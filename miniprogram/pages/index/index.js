@@ -566,4 +566,49 @@ Page({
       }
     })
   },
+
+  // 设置锁开关配置（以重置功能和防撬警报为例)
+  toSetLockConfig (event) {
+    const lockConfigType = plugin.LockConfigType.RESET_BUTTON | plugin.LockConfigType.TAMPER_ALERT;
+    const switchOn = event.target.dataset.switchOn;
+    this.setData({
+      state: `正在设置锁开关配置--${lockConfigType}--`
+    })
+    plugin.setLockConfig(lockConfigType, switchOn, this.data.keyInfo.lockData, res => {
+      console.log(res)
+      if (res.errorCode === 0) {
+        this.setData({
+          state: `设置锁开关配置成功--${lockConfigType}--${switchOn}--`
+        })
+        ///////////////// DEMO中不展示上传数据，请额外调用接口同步服务器
+        // TO DO
+      } else {
+        this.setData({
+          state: "设置锁开关配置失败:" + res.errorMsg
+        })
+      }
+    })  
+  },
+
+  // 获取锁开关配置（以重置功能和防撬警报为例)
+  toGetLockConfig () {
+    const lockConfigType = plugin.LockConfigType.RESET_BUTTON | plugin.LockConfigType.TAMPER_ALERT;
+    this.setData({
+      state: `正在获取锁开关配置--${lockConfigType}--`
+    })
+    plugin.getLockConfig(lockConfigType, this.data.keyInfo.lockData, res => {
+      console.log(res)
+      if (res.errorCode === 0) {
+        this.setData({
+          state: `获取锁开关配置成功--${JSON.stringify(res)}--`
+        })
+        ///////////////// DEMO中不展示上传数据，请额外调用接口同步服务器
+        // TO DO
+      } else {
+        this.setData({
+          state: "获取锁开关配置失败:" + res.errorMsg
+        })
+      }
+    })  
+  },
 })
