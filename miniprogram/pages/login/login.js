@@ -21,6 +21,8 @@ Page({
       "password": hexMD5(this.data.password)
     }).then(res => {
       wx.setStorageSync('access_token', res.access_token);
+      wx.setStorageSync('psd', hexMD5(this.data.password));
+      wx.setStorageSync('uid', res.uid);
       wx.showLoading()
       wx.redirectTo({
         url: '../list/list'

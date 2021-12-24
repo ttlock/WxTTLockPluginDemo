@@ -17,7 +17,7 @@ Page({
     logList: []
   },
   // 设置初始化参数
-  onLoad() {
+  onLoad () {
     const keyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
     const specialValueObj = plugin.parseSpecialValues(keyInfo.specialValue);
     console.log(keyInfo)
@@ -28,8 +28,8 @@ Page({
   },
 
   // 点击开锁
-  toOpenDoor() {
-    this.setData({
+  toOpenDoor () {
+     this.setData({
       state: "正在开启智能锁"
     })
     const start = Date.now();
@@ -49,8 +49,8 @@ Page({
   },
 
   // 点击闭锁
-  toCloseDoor() {
-    this.setData({
+  toCloseDoor () {
+     this.setData({
       state: "正在关闭智能锁"
     })
     const start = Date.now();
@@ -70,7 +70,7 @@ Page({
   },
 
   // 校准锁时间
-  toCheckLockTime() {
+  toCheckLockTime () {
     this.setData({
       state: "正在校准锁时间"
     })
@@ -91,8 +91,8 @@ Page({
   },
 
   // 点击重置蓝牙设备
-  clickResetLock() {
-    this.setData({
+  clickResetLock () {
+     this.setData({
       state: "正在重置智能锁"
     })
     /**
@@ -112,16 +112,16 @@ Page({
           state: "智能锁已重置"
         })
         // 同步到服务器
-        deleteLock({ "lockId": this.data.keyInfo.lockId }).then(res => {
+        deleteLock({"lockId": this.data.keyInfo.lockId}).then(res => {
           wx.showToast({
             title: '智能锁已删除',
-            complete() {
+            complete () {
               setTimeout(() => {
                 wx.navigateBack()
-              }, 1000);
+              }, 1000);              
             }
           })
-        }).catch(err => { })
+        }).catch(err => {})
       } else {
         this.setData({
           state: `重置失败:${res.errorMsg}`
@@ -129,11 +129,11 @@ Page({
       }
     })
   },
-
+  
 
 
   // 读取操作记录
-  toReadRecord() {
+  toReadRecord () {
     this.setData({
       state: "正在读取锁内操作记录"
     })
@@ -153,7 +153,7 @@ Page({
           this.setData({
             state: "操作记录已上传"
           })
-        }).catch(err => { })
+        }).catch(err => {})
       } else {
         this.setData({
           state: "读取操作记录失败:" + res.errorMsg
@@ -164,7 +164,7 @@ Page({
 
 
   // 添加自定义密码
-  toGetDIYPasscode() {
+  toGetDIYPasscode () {
     const startDate = new Date().Format("yyyy/MM/dd 00:00");
     const endDate = new Date().Format("yyyy/MM/dd 23:00");
     const passcode = "123456";
@@ -191,7 +191,7 @@ Page({
             state: `自定义密码已上传--密码:${passcode}`,
             keyboardPwdId: res.keyboardPwdId
           })
-        }).catch(err => { })
+        }).catch(err => {})
       } else {
         this.setData({
           state: `自定义密码添加失败:${res.errorMsg}`
@@ -201,7 +201,7 @@ Page({
   },
 
   // 修改密码
-  toModifyPasscode() {
+  toModifyPasscode () {
     const startDate = new Date(new Date().Format("yyyy/MM/dd 00:00")).getTime();
     const endDate = new Date(new Date().Format("yyyy/MM/dd 23:00")).getTime();
     const passcode = "123456";
@@ -229,7 +229,7 @@ Page({
           this.setData({
             state: `数据已上传--密码:${newPasscode}，新密码有效期${new Date(start).Format('yyyy/MM/dd hh:mm')} - ${new Date(end).Format('yyyy/MM/dd hh:mm')}`
           })
-        }).catch(err => { })
+        }).catch(err => {})
       } else {
         this.setData({
           state: `密码修改失败:${res.errorMsg}`
@@ -240,7 +240,7 @@ Page({
 
 
   // 删除密码
-  toDeletePasscode() {
+  toDeletePasscode () {
     const passcode = "111111";
     this.setData({
       state: `正在删除密码‘${passcode}’`
@@ -260,7 +260,7 @@ Page({
           this.setData({
             state: `删除密码已上传--密码:${passcode}--操作时间::${Date.now() - startTime}`
           })
-        }).catch(err => { })
+        }).catch(err => {})
       } else {
         this.setData({
           state: `密码删除失败:${res.errorMsg}`
@@ -270,7 +270,7 @@ Page({
   },
 
   // 添加指纹
-  toAddFingerprint() {
+  toAddFingerprint () {
     const startDate = new Date().Format("yyyy/MM/dd 00:00");
     const endDate = new Date().Format("yyyy/MM/dd 23:00");
     const start = new Date(startDate).getTime();
@@ -300,7 +300,7 @@ Page({
                 state: `指纹已上传--指纹号:${this.data.fingerprintNum}--有效期${startDate} - ${endDate}, 操作时间:${Date.now() - startTime}`,
                 fingerprintId: res1.fingerprintId
               })
-            }).catch(err => { })
+            }).catch(err => {})
           } break;
           case 2: {
             totalCount = res.totalCount;
@@ -328,7 +328,7 @@ Page({
   },
 
   // 修改指纹
-  toModifyFingerprint() {
+  toModifyFingerprint () {
     const startDate = new Date(new Date().Format("yyyy/MM/dd 00:00")).getTime();
     const endDate = new Date(new Date().Format("yyyy/MM/dd 23:00")).getTime();
     const start = new Date(startDate + 24 * 3600000).getTime();
@@ -353,7 +353,7 @@ Page({
           this.setData({
             state: `指纹修改已上传--指纹号:${this.data.fingerprintNum}--有效期${new Date(start).Format('yyyy/MM/dd hh:mm')} - ${new Date(end).Format('yyyy/MM/dd hh:mm')}, 操作时间:${Date.now() - startTime}`
           })
-        }).catch(err => { })
+        }).catch(err => {})
       } else {
         this.setData({
           state: "指纹修改失败:" + res.errorMsg
@@ -363,7 +363,7 @@ Page({
   },
 
   // 删除指纹
-  toDeleteFingerprint() {
+  toDeleteFingerprint () {
     const startTime = Date.now();
     this.setData({
       state: `正在删除指纹, 指纹号${this.data.fingerprintNum}`
@@ -382,7 +382,7 @@ Page({
           this.setData({
             state: `指纹删除已上传--指纹号:${this.data.fingerprintNum}, 操作时间:${Date.now() - startTime}`
           })
-        }).catch(err => { })
+        }).catch(err => {})
       } else {
         this.setData({
           state: "指纹删除失败:" + res.errorMsg
@@ -393,7 +393,7 @@ Page({
 
 
   // 添加IC卡
-  toAddICCard() {
+  toAddICCard () {
     const startDate = new Date().Format("yyyy/MM/dd 00:00");
     const endDate = new Date().Format("yyyy/MM/dd 23:00");
     const start = new Date(startDate).getTime();
@@ -422,7 +422,7 @@ Page({
                 state: `IC卡已上传--卡号:${this.data.cardNum}--有效期${startDate} - ${endDate}, 操作时间:${Date.now() - startTime}`,
                 cardId: res1.cardId
               })
-            }).catch(err => { })
+            }).catch(err => {})
           } break;
           case 2: {
             this.setData({
@@ -444,7 +444,7 @@ Page({
   },
 
   // 修改IC卡有效期
-  toModifyICCard() {
+  toModifyICCard () {
     const startDate = new Date(new Date().Format("yyyy/MM/dd 00:00")).getTime();
     const endDate = new Date(new Date().Format("yyyy/MM/dd 23:00")).getTime();
     const start = new Date(startDate + 24 * 3600000);
@@ -467,9 +467,9 @@ Page({
           endDate: end.getTime()
         }).then(res => {
           this.setData({
-            state: `IC卡修改已上传--IC卡号:${this.data.cardNum}--有效期${start.Format('yyyy/MM/dd hh:mm')} - ${end.Format('yyyy/MM/dd hh:mm')}, 操作时间:${Date.now() - startTime}`
+            state: `IC卡修改已上传--指纹号:${this.data.cardNum}--有效期${start.Format('yyyy/MM/dd hh:mm')} - ${end.Format('yyyy/MM/dd hh:mm')}, 操作时间:${Date.now() - startTime}`
           })
-        }).catch(err => { })
+        }).catch(err => {})
       } else {
         this.setData({
           state: `IC卡有效期修改失败:${res.errorMsg}`
@@ -479,7 +479,7 @@ Page({
   },
 
   // 删除IC卡
-  toDeleteICCard() {
+  toDeleteICCard () {
     const startTime = Date.now();
     this.setData({
       state: `正在删除IC卡, IC卡号${this.data.cardNum}`
@@ -498,7 +498,7 @@ Page({
           this.setData({
             state: `IC卡删除已上传--IC卡号:${this.data.cardNum}, 操作时间:${Date.now() - startTime}`
           })
-        }).catch(err => { })
+        }).catch(err => {})
       } else {
         this.setData({
           state: `IC卡删除失败:${res.errorMsg}`
@@ -508,7 +508,7 @@ Page({
   },
 
   // 设置远程开关
-  toSetRemoteUnlock() {
+  toSetRemoteUnlock () {
     this.setData({
       state: this.data.specialValueObj.gatewayUnlock ? `正在关闭远程开关` : '正在开启远程开关'
     })
@@ -526,9 +526,9 @@ Page({
           lockData: res.lockData
         }).then(res1 => {
           this.setData({
-            state: `特征值已上传--远程开关状态--${plugin.parseSpecialValues(res.specialValue).gatewayUnlock ? '已关闭' : '已开启'}`
+            state: `特征值已上传--远程开关状态--${plugin.parseSpecialValues(res.specialValue).gatewayUnlock ? '已关闭': '已开启'}`
           })
-        }).catch(err => { })
+        }).catch(err => {})
       } else {
         this.setData({
           state: `远程开关设置失败:${res.errorMsg}`
@@ -538,7 +538,7 @@ Page({
   },
 
   // 获取远程开关状态
-  toGetRemoteUnlock() {
+  toGetRemoteUnlock () {
     this.setData({
       state: `正在获取远程开关状态`
     })
@@ -558,7 +558,7 @@ Page({
           this.setData({
             state: `特征值已上传--远程开关状态--${res.enabled ? '已开启' : '已关闭'}`
           })
-        }).catch(err => { })
+        }).catch(err => {})
       } else {
         this.setData({
           state: `远程开关获取失败:${res.errorMsg}`
@@ -567,9 +567,9 @@ Page({
     })
   },
 
-  // 设置锁开关配置（以重置功能和防撬警报为例)
+  // 设置锁开关配置（以重置功能为例)
   toSetLockConfig (event) {
-    const lockConfigType = plugin.LockConfigType.RESET_BUTTON | plugin.LockConfigType.TAMPER_ALERT;
+    const lockConfigType = plugin.LockConfigType.RESET_BUTTON;
     const switchOn = event.target.dataset.switchOn;
     this.setData({
       state: `正在设置锁开关配置--${lockConfigType}--`
@@ -580,8 +580,6 @@ Page({
         this.setData({
           state: `设置锁开关配置成功--${lockConfigType}--${switchOn}--`
         })
-        ///////////////// DEMO中不展示上传数据，请额外调用接口同步服务器
-        // TO DO
       } else {
         this.setData({
           state: "设置锁开关配置失败:" + res.errorMsg
@@ -590,9 +588,9 @@ Page({
     })  
   },
 
-  // 获取锁开关配置（以重置功能和防撬警报为例)
+  // 获取锁开关配置(以重置功能为例)
   toGetLockConfig () {
-    const lockConfigType = plugin.LockConfigType.RESET_BUTTON | plugin.LockConfigType.TAMPER_ALERT;
+    const lockConfigType = plugin.LockConfigType.RESET_BUTTON | plugin.LockConfigType.TAMPER_ALERT | plugin.LockConfigType.UNLOCK_DIRECTION;
     this.setData({
       state: `正在获取锁开关配置--${lockConfigType}--`
     })
@@ -602,8 +600,6 @@ Page({
         this.setData({
           state: `获取锁开关配置成功--${JSON.stringify(res)}--`
         })
-        ///////////////// DEMO中不展示上传数据，请额外调用接口同步服务器
-        // TO DO
       } else {
         this.setData({
           state: "获取锁开关配置失败:" + res.errorMsg
@@ -611,4 +607,43 @@ Page({
       }
     })  
   },
+
+  // 获取锁管理员密码
+  toGetAdminPasscode (event) {
+    this.setData({
+      state: `正在获取管理员密码`
+    })
+    plugin.getAdminPasscode(this.data.keyInfo.lockData, res => {
+      console.log(res)
+      if (res.errorCode === 0) {
+        this.setData({
+          state: `获取管理员密码成功--原密码：${res.passcode}--`
+        })
+      } else {
+        this.setData({
+          state: "获取管理员密码失败:" + res.errorMsg
+        })
+      }
+    })  
+  },
+
+  // 设置锁管理员密码
+  toSetAdminPasscode (event) {
+    const newPasscode = event.target.dataset.passcode;
+    this.setData({
+      state: `正在设置锁管理员密码为${newPasscode}`
+    })
+    plugin.modifyAdminPasscode(newPasscode, this.data.keyInfo.lockData, res => {
+      console.log(res)
+      if (res.errorCode === 0) {
+        this.setData({
+          state: `设置管理员密码成功`
+        })
+      } else {
+        this.setData({
+          state: "设置管理员密码失败:" + res.errorMsg
+        })
+      }
+    })
+  }
 })

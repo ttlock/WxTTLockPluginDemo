@@ -7,7 +7,7 @@
  离线版appid: **wxc788856964635783** (付费使用)  
  
  [通通锁开放平台](https://open.ttlock.com/)  
- **2.x版本接口适配开放平台Cloud API V3版本接口，相对1.x版本的接口有很大改动，升级时请特别注意**    
+ **2.x版本接口适配开放平台Cloud API V3版本接口，相对1.x版本的接口有很大改动，升级时请特别注意**  
  **2.x版本不再兼容1.x版本接口**
 
 1. 添加智能锁：调用开放平台/oauth2/token接口登录 -> 小程序initLock接口 -> 开放平台锁初始化接口/v3/lock/initialize  
@@ -107,7 +107,10 @@
 	 1. 2.5.0版本新增
 
 
-## 主要接口
+## 主要接口 
+
+### 智能锁相关接口 
+
 #### 1. 方法 获取当前锁类型
 
 `function getLockType(lockVersion)`  
@@ -1156,6 +1159,314 @@
 	1. 2.5.0版本新增
 
 
+#### 29. 方法 获取管理员密码
+
+`function getAdminPasscode(lockData: String, callBack: Function)`
+
+###### 参数
++ lockData: String	-管理员锁数据
++ callBack：(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(result: Option)`
+
+	 + result说明：
+```
+	{
+		 errorCode: 0,   -错误码
+		 errorMsg: "",    -错误信息
+		 electricQuantity: 45,		-锁电量
+		 passcode: "123456",		-管理员密码字符串，由0-9组成的4-9位长度数字字符串，如"0123456"
+		 lockData：""			-带管理员密码的字符串，用于数据更新
+	}
+```
+
+###### 特殊说明
++ **离线版本不支持该接口**
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.6.0**  
+	1. 2.6.0版本新增
+
+
+#### 30. 方法 修改管理员密码
+
+`function modifyAdminPasscode(newPasscode: String, lockData: String, callBack: Function)`
+
+###### 参数
++ newPasscode: String 	-4-9位新密码字符串，由0-9组成，如"0123456"
++ lockData: String	-管理员锁数据
++ callBack：(由调用者传入，传入方法需有一个返回数据对象)，以下为回调中返回的数据对象内容，返回参数形式：`callback(result: Option)`
+
+	 + result说明：
+```
+	{
+		 errorCode: 0,   -错误码
+		 errorMsg: "",    -错误信息
+		 electricQuantity: 45,		-锁电量
+		 lockData：""			-带管理员密码的字符串，用于数据更新
+	}
+```
+
+###### 特殊说明
+无
+
+###### 返回值
++ 在callBack回调中返回
+
+###### 版本更新内容
++ **2.6.0**  
+	1. 2.6.0版本新增
+
+### 网关相关接口 
+
+#### 1. 方法 开启蓝牙网关扫描
+
+`function startScanBleDevice(callBack: Function, failCallback: Function)`
+
+###### 参数
++ callBack扫描接口成功获取设备回调, 扫描成功该方法可能执行多次，请不要在该循环执行添加网关等操作，返回参数信息`callback(GatewayDevice: Option || null, GatewayDeviceList: Array)`
+	 + GatewayDevice为扫描到的单个网关信息, 同一设备可能返回多次, 说明:
+```
+	{
+		 isGateway: true,		-是否为网关设备, 一般为是
+		 deviceName: "",   		-网关蓝牙名称
+		 deviceId: "",   		-网关ID，安卓环境下与MAC地址一致，iOS环境下不同
+		 rssi: 0,        		-蓝牙当前信号强度
+		 MAC: "",    			-当前的网关MAC值
+		 type: 0,      			-网关版本， -1 -不支持， 2 -G2网关（WIFI）， 3	-G3网关（有线）， 4	-G4网关(4G)
+		 updatedTime: 0			-设备最后广播时间，可忽略
+	}
+```
+	 + GatewayDeviceList说明: **为当前扫描状态下周围锁信息列表, 以添加状态、蓝牙信号强度排序**, 参数信息参考GatewayDevice
+
++ failCallback: 用于开启蓝牙扫描失败回调, 返回参数形式：`failCallBack(err: Option)`
+
+	 + err说明：
+```
+	{
+		 errorCode: 错误码,
+		 errorMsg: 错误信息,
+		 description: 蓝牙失败原因描述
+	}
+```
+
+###### 返回值
++ 在callBack和failCallback回调中返回
+
+###### 版本更新内容
++ **2.6.0**  
+	 1. 2.6.0版本新增 
+
+
+#### 2. 方法 停止扫描网关设备接口
+
+`function stopScanGateway(callBack: Function, failCallback: Function)`
+
+###### 参数
++ callback为蓝牙停止扫描成功接口回调, 返回参数形式：`callback(res: Option)`
+	 + res说明：
+```
+	{
+		 errorCode: 0,           -错误码
+		 errorMsg: "操作成功"    -错误信息
+	}
+```
+
++ failCallback -蓝牙停止扫描失败接口回调, 返回参数形式：`failCallback(err: Option)`
+	 + err说明：
+```
+	{
+		 errorCode: 错误码,
+		 errorMsg: 错误信息,
+		 description: 蓝牙失败原因描述
+	}
+```
+
+###### 返回值
++ 在callBack和failCallback回调中返回
+
+###### 版本更新内容
++ **2.6.0**  
+	 1. 2.6.0版本新增 
+	
+
+#### 3. 方法 连接网关设备接口
+
+`function connectGateway(device: GatewayDevice, disconnectCallback: Function)`
+
+###### 参数
++ device	-扫描到的蓝牙设备，请参考开启蓝牙网关扫描接口
++ disconnectCallback	-设备断开连接监控接口回调, 当设备断开连接时触发，返回参数形式：`callback(res: Option)`
+	 + res说明：
+```
+	{
+		 errorCode: 0,           -错误码
+		 errorMsg: "操作成功"    -错误信息
+	}
+```
+
+###### 返回值
++ Promise返回，正确响应参数，仅调用一次，成功后断开连接将不返回而仅调用disconnectCallback
+	 + Promise-resolve值说明
+```
+	{
+		 errorCode: 0,           -错误码
+		 errorMsg: "操作成功",    -错误信息
+	}
+``` 
+
+###### 特殊说明
++ **添加网关时支持连续调用而不设置操作延迟**  
+
+###### 版本更新内容
++ **2.6.0**  
+	 1. 2.6.0版本新增 
+
+
+
+
+#### 4. 方法 搜索网关设备附近可连接的wifi列表
+
+`function scanWiFiByGateway(device: GatewayDevice, disconnectCallback: Function)`
+
+###### 参数
++ device	-扫描到的蓝牙设备，请参考开启蓝牙网关扫描接口
++ disconnectCallback	-设备断开连接监控接口回调, 当设备断开连接时触发，返回参数形式：`callback(res: Option)`
+	 + res说明：
+```
+	{
+		 errorCode: 0,           -错误码
+		 errorMsg: "操作成功"    -错误信息
+	}
+```
+
+###### 返回值
++ Promise返回，正确响应参数，仅调用一次，成功后断开连接将不返回而仅调用disconnectCallback
+	 + Promise-resolve值说明
+```
+	{
+		 errorCode: 0,           -错误码
+		 errorMsg: "操作成功",    -错误信息
+		 data: {
+			wifiList: [{			-网关附近的wifi列表
+				SSID: "HELLO",		-wifi名称
+				rssi: -45,			-wifi信号值			
+			}]
+		 }
+	}
+``` 
+
+###### 特殊说明
++ **添加网关时支持连续调用而不设置操作延迟**
+
+###### 版本更新内容
++ **2.6.0**  
+	 1. 2.6.0版本新增 
+
+
+#### 5. 方法 初始化网关
+
+`function initGateway(device: TTLockGateway, configureInfo: TTLockGatewayConfiguration, disconnectCallback: Function)`
+
+###### 参数
++ device	-扫描到的蓝牙设备，请参考开启蓝牙网关扫描接口
++ configureInfo		-网关配置参数
+	 + ConfigureInfo说明：
+```
+	{
+		 type: 2,		-网关版本， -1 -不支持， 2 -G2网关（WIFI）， 3	-G3网关（有线）， 4	-G4网关(4G)
+		 SSID: "SSID",           		-wifi名称
+		 wifiPwd: "12345678",			-wifi密码
+		 uid: 12458,					-通通锁账号uid
+		 password: "11111222223333344444555556666677",		-MD5加密的通通锁账号密码，32位
+		 companyId: 0,					-公司ID
+		 branchId: 0,					-分组ID
+		 plugName: "123",				-网关名称（最长50个字符）
+		 useLocalIPAddress: false,    	-是否使用本地服务器
+		 ////////// 使用网络服务器(在线版使用)
+		 serverIPAddress: "109.119.109.119",		-网关服务器IP地址，useLocalIPAddress为false时，[serverIPAddress, server]必须填写一项
+		 server: "hello.com",			-网关服务器域名，useLocalIPAddress为false时，[serverIPAddress, server]必须填写一项
+		 port: 1546,		-网关服务器端口号，useLocalIPAddress为false时必填
+		 ////////// 使用本地服务器(离线版使用)
+		 useDHCP: false,		-是否使用DHCP服务, useLocalIPAddress为true时必填
+		 ipAddress: "109.119.109.119",		-固定IP地址，useLocalIPAddress为true且useDHCP为false时必填
+		 subnetMask: "255.255.255.0",		-子网掩码，useLocalIPAddress为true且useDHCP为false时必填
+		 router: "109.119.109.119",		-默认网关，useLocalIPAddress为true且useDHCP为false时必填
+		 dns1: "109.119.109.119",		-首选DNS，useLocalIPAddress为true且useDHCP为false时必填
+		 dns2: "109.119.109.119",		-备用DNS，useLocalIPAddress为true且useDHCP为false时必填
+	}
+```
++ disconnectCallback	-设备断开连接监控接口回调, 当设备断开连接时触发，返回参数形式：`callback(res: Option)`
+	 + res说明：
+```
+	{
+		 errorCode: 0,           -错误码
+		 errorMsg: "操作成功"    -错误信息
+	}
+```
+
+###### 返回值
++ Promise返回，正确响应参数，仅调用一次，成功后断开连接将不返回而仅调用disconnectCallback
+	 + Promise-resolve值说明
+```
+	{
+		 errorCode: 0,           -错误码
+		 errorMsg: "操作成功",    -错误信息
+		 data: {
+			firmware: "6.0.0.211124",		-固件版本号
+			hardware: "1.6",			-硬件版本号
+			modelNum: "SN307"			-模块版本号
+		 }
+	}
+``` 
+
+###### 特殊说明
++ **添加网关时支持连续调用而不设置操作延迟**
++ **请勿使用真机调试模式，否则可能出现设备意外断连的问题**
+
+###### 版本更新内容
++ **2.6.1**  
+	 1. 修复部分情况下报错的问题
+	 2. 修改超时时间 
+
++ **2.6.0**  
+	 1. 2.6.0版本新增  
+
+
+#### 6. 方法 停止设备的网关操作并断开蓝牙（可用于退出网关添加操作）
+
+`function stopAllOperations(deviceId: String)`
+
+###### 参数
++ deviceId	-扫描到的蓝牙设备ID
+
+###### 返回值
++ Promise返回，正确响应参数，仅调用一次，成功后断开连接将不返回而仅调用disconnectCallback
+	 + Promise-resolve值说明
+```
+	{
+		 errorCode: 0,           -错误码
+		 errorMsg: "操作成功",    -错误信息
+	}
+``` 
+
+###### 特殊说明
++ **添加网关时支持连续调用而不设置操作延迟**
++ **暂不支持中止智能锁操作，请谨慎使用**
++ 调用后断开蓝牙适配器
+
+###### 版本更新内容
++ **2.6.1**  
+	 1. 修复停止扫描失败情况下返回为报错的问题 
+
++ **2.6.0**  
+	 1. 2.6.0版本新增 
+
+
+
+
+
 ## 返回errorCode说明
 **括号内为中文描述及相关处理方案，实际操作中不会返回**
 
@@ -1187,6 +1498,15 @@
 + 29              -invalid vendor string
 + 30              -门已反锁
 + 31              -record not exist
++ 128             -网关操作失败**2.6.0新增**
++ 129             -网关命令已接收，正在处理中，请稍候**2.6.0新增**（一般不返回）
++ 130             -SSID不正确**2.6.0新增**
++ 131             -密码错误**2.6.0新增**
++ 132             -网关处理已完成**2.6.0新增**（一般不返回）
++ 133             -未知命令**2.6.0新增**
++ 134             -网关命令超时**2.6.0新增**
++ 135             -设备未插入SIM卡**2.6.0新增**
++ 136             -设备无法连接网络**2.6.0新增**
 + 10000           -钥匙或者锁时间不正确
 + 10001           -锁可能被重置，请重新添加
 + 10002           -锁连接超时，请确认是否在锁附近或者稍后重试
@@ -1205,6 +1525,7 @@
 + 10034           -设备通信错误
 + 10035           -锁初始化失败
 + 10036           -搜索不到设备，已停止搜索，请确认是否在锁附近或稍后重试
++ 10037           -连接操作中，无法中止，请稍候**2.6.0新增**
 + 11001           -暂不支持该操作
 + 11002           -设备或平台不支持蓝牙功能调试**2.0.2新增**
 + 11003           -参数错误**2.1.0新增**

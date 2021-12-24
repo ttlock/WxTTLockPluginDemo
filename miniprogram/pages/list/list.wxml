@@ -6,12 +6,25 @@
 
 <button bindtap='startScan'>开始扫描</button>
 <button bindtap='stopScan'>停止扫描</button>
-
+<button bindtap='startScanGateway'>开始扫描网关</button>
+<button bindtap='stopScanGateway'>停止扫描网关</button>
+<button bindtap='stopAll'>停止所有操作</button>
 <text>{{state}}</text>
 <view>蓝牙锁添列表</view>
 <view>
 	<view wx:for="{{lockList}}" wx:key="lockMac" class="keyList" bindtap='add' data-index="{{index}}">
-    <text>第{{index}}把：{{item.lockName}}</text>
+    <text>第{{index}}把：{{item.lockName || item.deviceName}}</text>
 		<text class='addBtn' wx:if="{{item.isSettingMode}}">+ 添加</text>
 	</view>
 </view>
+<view>
+  <view>wifi列表</view>
+	<view wx:for="{{wifiList}}" wx:key="SSID" class="keyList" bindtap='toAddPsd' data-index="{{index}}" data-gateway-device="{{currentGateway}}">
+    <text>{{item.SSID}}</text>
+		<text class='addBtn'>+ 选择</text>
+	</view>
+</view>
+<form bindsubmit="initGateway" wx:if="{{showInput}}">
+  <input model:value="{{pwd}}" placeholder="请在此处输入wifi密码"></input>
+  <button form-type="submit">开始</button>
+</form>
