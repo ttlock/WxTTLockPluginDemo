@@ -1222,7 +1222,7 @@
 
 #### 1. 方法 开启蓝牙网关扫描
 
-`function startScanBleDevice(callBack: Function, failCallback: Function)`
+`function startScanGateway(callBack: Function, failCallback: Function)`
 
 ###### 参数
 + callBack扫描接口成功获取设备回调, 扫描成功该方法可能执行多次，请不要在该循环执行添加网关等操作，返回参数信息`callback(GatewayDevice: Option || null, GatewayDeviceList: Array)`
