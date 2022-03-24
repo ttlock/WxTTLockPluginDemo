@@ -1,31 +1,54 @@
-<button bindtap='toOpenDoor'>点击开锁</button>
-<button bindtap='toCloseDoor'>点击闭锁</button>
-<button bindtap='toCheckLockTime'>点击校准锁时间</button>
-<button bindtap='clickResetLock'>重置锁</button>
-
-<button bindtap='toReadRecord'>读取锁操作记录</button>
-<button bindtap='toGetDIYPasscode'>添加自定义密码</button>
-<button bindtap='toModifyPasscode'>修改密码</button>
-<button bindtap='toDeletePasscode'>删除密码</button>
-<button bindtap='toAddFingerprint'>添加指纹</button>
-<button bindtap='toModifyFingerprint'>修改指纹</button>
-<button bindtap='toDeleteFingerprint'>删除指纹</button>
-<button bindtap='toAddICCard'>添加IC卡</button>
-<button bindtap='toModifyICCard'>修改IC卡</button>
-<button bindtap='toDeleteICCard'>删除IC卡</button>
-<button bindtap='toSetRemoteUnlock'>
-    {{specialValueObj.gatewayUnlock ? '关闭远程开锁' : '开启远程开关'}}
-</button>
-<button bindtap='toGetRemoteUnlock'>获取远程开关状态</button>
-<button bindtap='toSetLockConfig' data-switch-on="{{true}}">设置锁开关配置开</button>
-<button bindtap='toGetLockConfig'>获取锁开关配置</button>
-<button bindtap='toGetAdminPasscode'>获取管理员密码</button>
-<button bindtap='toSetAdminPasscode' data-passcode="{{'1234567'}}">设置管理员密码</button>
-
-<block></block>
-<text>错误信息：{{state}}</text>
+<view>错误信息：{{state}}</view>
+<view>
+    <button bindtap='toOpenDoor'>点击开锁</button>
+    <button bindtap='toCloseDoor' wx:if="{{specialValueObj.locking}}">点击闭锁</button>
+</view>
+<view>
+    <button bindtap='toCheckLockTime'>点击校准锁时间</button>
+    <button bindtap='clickResetLock'>重置锁</button>
+</view>
+<view>
+    <button bindtap='toReadRecord' data-type="{{1}}">读取全部操作记录</button>
+    <button bindtap='toReadRecord' data-type="{{2}}">读取新操作记录</button>
+</view>
+<view>
+    <button bindtap='toGetDIYPasscode' wx:if="{{specialValueObj.passcode}}">添加自定义密码</button>
+    <button bindtap='toModifyPasscode' wx:if="{{specialValueObj.passcode}}">修改密码</button>
+    <button bindtap='toDeletePasscode' wx:if="{{specialValueObj.passcode}}">删除密码</button>
+</view>
+<view>
+    <button bindtap='toAddICCard' wx:if="{{specialValueObj.ICCard}}">添加IC卡</button>
+    <button bindtap='toModifyICCard' wx:if="{{specialValueObj.ICCard}}">修改IC卡</button>
+    <button bindtap='toDeleteICCard' wx:if="{{specialValueObj.ICCard}}">删除IC卡</button>
+    <button bindtap='toRecoverICCard' wx:if="{{specialValueObj.ICCard}}">恢复IC卡</button>
+</view>
+<view>
+    <button bindtap='toAddFingerprint' wx:if="{{specialValueObj.fingerprint}}">添加指纹</button>
+    <button bindtap='toModifyFingerprint' wx:if="{{specialValueObj.fingerprint}}">修改指纹</button>
+    <button bindtap='toDeleteFingerprint' wx:if="{{specialValueObj.fingerprint}}">删除指纹</button>
+</view>
+<view>
+    <button bindtap='toSetRemoteUnlock'>
+        {{specialValueObj.gatewayUnlock ? '关闭远程开锁' : '开启远程开关'}}
+    </button>
+    <button bindtap='toGetRemoteUnlock'>获取远程开关状态</button>
+</view>
+<view>
+    <button bindtap='toSetHotelData'>设置酒店信息</button>
+    <button bindtap='toSetHotelSector'>设置酒店扇区</button>
+    <button bindtap='toSetLiftWorkMode'>设置梯控工作模式</button>
+    <button bindtap='toSetLiftControlableFloors'>设置梯控关联楼层</button>
+</view>
+<view>
+    <button bindtap='toSetLockConfig' data-switch-on="{{true}}">设置锁开关配置开</button>
+    <button bindtap='toGetLockConfig'>获取锁开关配置</button>
+</view>
+<view>
+    <button bindtap='toGetAdminPasscode'>获取管理员密码</button>
+    <button bindtap='toSetAdminPasscode' data-passcode="{{'12345'}}">设置管理员密码</button>
+</view>
 <view wx:for="{{logList}}" wx:key="recordId">
- 第{{index + 1}}条记录-类型{{item.recordType}}-ID{{item.recordId}}-操作人{{item.uid}}-
- 密码{{item.password}}-修改后的密码{{item.newPassword}}-操作时间{{item.operateDate}}-删除日期{{item.deleteDate}}-
- 电量{{item.electricQuantity}}-遥控按键ID{{item.keyId}}
+    第{{index + 1}}条记录-类型{{item.recordType}}-ID{{item.recordId}}-操作人{{item.uid}}-
+    密码{{item.password}}-修改后的密码{{item.newPassword}}-操作时间{{item.operateDate}}-删除日期{{item.deleteDate}}-
+    电量{{item.electricQuantity}}-遥控按键ID{{item.keyId}}
 </view>

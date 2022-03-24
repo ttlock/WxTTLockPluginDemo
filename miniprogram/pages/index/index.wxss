@@ -1,27 +1,32 @@
 /* pages/index/index.wxss */
 
 button {
-  float: left;
-  width: 40%;
-  margin: 12rpx 5%;
-  background: #2886f7;
-  color: #fff;
-  font-size: 32rpx;
-  white-space: nowrap;
+    float: left;
+    width: 40%;
+    margin: 12rpx 5%;
+    background: #2886f7;
+    color: #fff;
+    font-size: 32rpx;
+    white-space: nowrap;
 }
 
 text {
-  color: #666;
-  font-size: 28rpx;
+    color: #666;
+    font-size: 28rpx;
 }
 
 .addBtn {
-  display: inline-block;
-  border: 0;
-  color: #00c9ff;
+    display: inline-block;
+    border: 0;
+    color: #00c9ff;
 }
 
 view {
-  color: #333;
-  font-size: 28rpx;
+    color: #333;
+    font-size: 28rpx;
+}
+view::after {
+    content: "";
+    display: block;
+    clear: both;
 }

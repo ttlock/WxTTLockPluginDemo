@@ -1,14 +1,14 @@
 {
-  "pages": [
-    "pages/login/login",
-    "pages/index/index",
-    "pages/list/list"    
-  ],
-  "plugins": {
-    "myPlugin": {
-      "version": "2.6.2",
-      "provider": "wx43d5971c94455481"
-    }
-  },
-  "sitemapLocation": "sitemap.json"
+    "pages": [
+        "pages/login/login",
+        "pages/index/index",
+        "pages/list/list"
+    ],
+    "plugins": {
+        "myPlugin": {
+            "version": "dev-c00906853f0a9921392d0059ddb7b152",
+            "provider": "wx43d5971c94455481"
+        }
+    },
+    "sitemapLocation": "sitemap.json"
 }

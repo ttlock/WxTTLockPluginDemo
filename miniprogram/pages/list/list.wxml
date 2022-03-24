@@ -1,7 +1,7 @@
 <!--miniprogram/pages/list/list.wxml-->
 <view wx:for="{{keyList}}" wx:for-item="item" wx:key="keyId" class="keyList" bindtap="toDetail"  data-index="{{index}}">
-  <text>{{item.lockAlias}}</text>
-  <text>></text>
+    <text>{{item.lockAlias}}</text>
+    <text>></text>
 </view>
 
 <button bindtap='startScan'>开始扫描</button>
@@ -12,19 +12,19 @@
 <text>{{state}}</text>
 <view>蓝牙锁添列表</view>
 <view>
-	<view wx:for="{{lockList}}" wx:key="lockMac" class="keyList" bindtap='add' data-index="{{index}}">
-    <text>第{{index}}把：{{item.lockName || item.deviceName}}</text>
-		<text class='addBtn' wx:if="{{item.isSettingMode}}">+ 添加</text>
-	</view>
+    <view wx:for="{{lockList}}" wx:key="lockMac" class="keyList" bindtap='init' data-index="{{index}}">
+        <text>第{{index}}把：{{item.lockName || item.deviceName}}</text>
+        <text class='addBtn' wx:if="{{item.isSettingMode}}">+ 添加</text>
+    </view>
 </view>
 <view>
-  <view>wifi列表</view>
-	<view wx:for="{{wifiList}}" wx:key="SSID" class="keyList" bindtap='toAddPsd' data-index="{{index}}" data-gateway-device="{{currentGateway}}">
-    <text>{{item.SSID}}</text>
-		<text class='addBtn'>+ 选择</text>
-	</view>
+    <view>wifi列表</view>
+    <view wx:for="{{wifiList}}" wx:key="SSID" class="keyList" bindtap='toAddPsd' data-index="{{index}}" data-gateway-device="{{currentGateway}}">
+        <text>{{item.SSID}}</text>
+        <text class='addBtn'>+ 选择</text>
+    </view>
 </view>
 <form bindsubmit="initGateway" wx:if="{{showInput}}">
-  <input model:value="{{pwd}}" placeholder="请在此处输入wifi密码"></input>
-  <button form-type="submit">开始</button>
+    <input model:value="{{pwd}}" placeholder="请在此处输入wifi密码"></input>
+    <button form-type="submit">开始</button>
 </form>

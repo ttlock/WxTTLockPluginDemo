@@ -18,9 +18,9 @@
         "checkSiteMap": true,
         "uploadWithSourceMap": true,
         "compileHotReLoad": false,
-        "useMultiFrameRuntime": false,
-        "useApiHook": false,
-        "useApiHostProcess": false,
+        "useMultiFrameRuntime": true,
+        "useApiHook": true,
+        "useApiHostProcess": true,
         "babelSetting": {
             "ignore": [],
             "disablePlugins": [],
@@ -35,11 +35,13 @@
         "disableUseStrict": false,
         "minifyWXML": true,
         "showES6CompileOption": false,
-        "useCompilerPlugins": false
+        "useCompilerPlugins": [
+            "typescript"
+        ]
     },
     "appid": "wx43d5971c94455481",
     "projectname": "WxTTLockPluginDemo",
-    "libVersion": "2.9.5",
+    "libVersion": "2.14.1",
     "simulatorType": "wechat",
     "simulatorPluginLibVersion": {},
     "condition": {}
