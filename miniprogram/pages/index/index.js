@@ -846,15 +846,11 @@ Page({
                 this.setData({
                     state: `正在设置酒店信息--hotelInfo:${res.hotelInfo}--楼栋号:${buildingNumber}--楼层号:${floorNumber}--`
                 })
-                let hotelInfo = "LTMsLTEsLTUsLTMwLC04NiwtMywtMywtNywtMiwtMiwtNCwtMSwtMSwtOSwtMTAsLTg4LC0zMCwtODEsLTg0LC04OCwtOCwtODgsLTYsLTg2LC0xLC04NiwtMSwtNiwtODMsLTMsLTg0LC05LC0xLC0xLC04OCwtNSwtMTAsLTksLTYsLTEsLTg4LC05LC0zLC04NSwtNywtNiwtODEsLTYsLTg1LC0zMCwtNCwtNywtNiwtOCwtMTAsLTIsLTksLTksMTQ=";
                 // 调用设置酒店信息参数
                 plugin.setHotelData({
-                    // hotelInfo: res.hotelInfo,
-                    // buildingNumber: buildingNumber,
-                    // floorNumber: floorNumber,
-                    hotelInfo: hotelInfo,
+                    hotelInfo: res.hotelInfo,
                     buildingNumber: buildingNumber,
-                    floorNumber: floorNumber,
+                    floorNumber: floorNumber
                 }, this.data.keyInfo.lockData, res => {
                     if (res.errorCode === 10003) {
                         console.log("监控到设备连接已断开", res)
