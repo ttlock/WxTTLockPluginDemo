@@ -1084,5 +1084,28 @@ Page({
                 })
             }
         })
+    },
+
+    // 获取锁开关状态
+    toGetLockStatus(event) {
+        wx.showLoading({
+            state: `正在获取智能锁开关状态`
+        })
+        plugin.getLockStatus(this.data.keyInfo.lockData, res => {
+            console.log("监控到设备连接已断开", res);
+        }, deviceId).then(res => {
+            wx.hideLoading({});
+            if (!!res.deviceId) deviceId = res.deviceId;
+            console.log(res)
+            if (res.errorCode === 0) {
+                this.setData({
+                    state: `获取智能锁开关状态成功--${JSON.stringify(res)}--`
+                })
+            } else {
+                this.setData({
+                    state: "获取智能锁开关状态失败:" + res.errorMsg
+                })
+            }
+        })
     }
 })

@@ -1,9 +1,11 @@
 # 通通锁蓝牙模块通信插件接口说明文档 (version: 2.x)
 
 ## 说明
- 通通锁蓝牙模块通信插件是基于微信小程序接口开发的蓝牙模块插件，使用时需配合通通锁开放平台接口使用。
- 开放平台地址： https://open.ttlock.com/
- [通通锁开放平台](https://open.ttlock.com/)  
+ 通通锁蓝牙模块通信插件是基于微信小程序接口开发的蓝牙模块插件，使用时需配合通通锁开放平台接口或相关本地开发包使用。
+ 小程序后台可通过搜索“**通通锁**”或小程序appid进行搜索  
+ 在线版appid: **wx43d5971c94455481** (免费使用)  
+ 离线版appid: **wxc788856964635783** (付费使用)  
+
  **2.x版本接口适配开放平台Cloud API V3版本接口，相对1.x版本的接口有很大改动，升级时请特别注意**  
  **2.x版本不再兼容1.x版本接口**
  **接口为蓝牙通信模块，操作时需通过蓝牙进行设备交互，操作中将向用户请求scope.bluetooth权限**
@@ -135,8 +137,29 @@
 	 1. 2.7.0版本新增
 
 
+#### 6. 智能锁开关状态-LockStatus (2.7.3) 
 
-#### 6. 变量 锁蓝牙模块的uuid (deprecated 已过期, 后期将不再使用) 
+`enum LockStatus`
+
+###### 参数说明
++ LockStatus参数说明
+```
+	enum LockStatus {
+		 LOCK = 0, // 智能锁关
+    	 UNLOCKED = 1, // 智能锁开
+    	 UNKNOWN = 2, // 状态未知
+	}
+```
+
+###### 说明
++ 智能锁开关状态
+
+###### 版本更新内容
++ **2.7.0**  
+	 1. 2.7.0版本新增
+
+
+#### 7. 变量 锁蓝牙模块的uuid (deprecated 已过期, 后期将不再使用) 
 
 `LOCK_BLE_UUID`
 
@@ -149,7 +172,7 @@
 
 
 
-#### 7. 变量 三代锁  (deprecated 已过期, 后期将不再使用)
+#### 8. 变量 三代锁  (deprecated 已过期, 后期将不再使用)
 
 `LOCK_TYPE_V3`  
 
@@ -161,7 +184,7 @@
 	 1. 沿用1.4.1版本，无特殊改动  
 
 
-#### 8. 变量 控制锁类型-开锁  (deprecated 已过期, 后期将不再使用) 
+#### 9. 变量 控制锁类型-开锁  (deprecated 已过期, 后期将不再使用) 
 
 `CONTROL_ACTION_OPEN` 
 
@@ -177,7 +200,7 @@
 
 
 
-#### 9. 变量 控制锁类型-闭锁  (deprecated 已过期, 后期将不再使用) 
+#### 10. 变量 控制锁类型-闭锁  (deprecated 已过期, 后期将不再使用) 
 
 `CONTROL_ACTION_CLOSE` 
 
@@ -193,7 +216,7 @@
 
 
 
-#### 10. 变量 锁记录类型-全部读取   (deprecated 已过期, 后期将不再使用) 
+#### 11. 变量 锁记录类型-全部读取   (deprecated 已过期, 后期将不再使用) 
 
 `RECORD_TYPE_ALL` 
 
@@ -208,7 +231,7 @@
 	 1. 2.0.0版本新增
 
 
-#### 11. 变量 锁记录类型-未读取的操作记录  (deprecated 已过期, 后期将不再使用)  
+#### 12. 变量 锁记录类型-未读取的操作记录  (deprecated 已过期, 后期将不再使用)  
 
 `RECORD_TYPE_NEW` 
 
@@ -1955,6 +1978,37 @@
 + **2.6.0**  
 	1. 2.6.0版本新增
 
+
+
+#### 27. 方法 获取智能锁锁开关状态(2.7.3) 
+
+`function getLockStatus(lockData: string, disconnectCallback: function, deviceId?: string):Promise<TTLockError>`
+
+###### 参数
++ lockData: string	-锁数据
++ disconnectCallback：设备断连回调, 返回参数形式：`disconnectCallback(res: TTLockError)`
++ deviceId			-用于iOS设备优化，非必传，安卓设备不传 
+
+###### 返回值
++ 异步返回TTLockError
+	 + TTLockError：
+```
+	{
+		 errorCode: number,		// 错误码, 请参照错误码说明
+		 errorMsg: string,		// 错误信息
+		 description?: string,		// 蓝牙失败原因描述
+		 errMsg?: string,		// 蓝牙错误信息描述
+		 errCode?: number,		// 微信返回的蓝牙错误码
+		 deviceId?: string,		// 设备ID，用于下一次蓝牙操作性能优化(2.7.0版本新增)
+		 // 操作成功回调
+		 electricQuantity: number,		// 锁电量
+		 lockStatus：LockStatus			// 智能锁状态，请参考“重要参数-6. 智能锁开关状态-LockStatus”
+	}
+``` 
+
+###### 版本更新内容  
++ **2.7.3**  
+	 1. 新增接口 
 
 
 
