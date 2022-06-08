@@ -421,7 +421,7 @@
 
 #### 1. 方法 扫描蓝牙智能锁设备
 
-`function startScanLock (callback: function, failCallback: function):Promise<void>`
+`function startScanBleDevice (callback: function, failCallback: function):Promise<void>`
 
 ###### 参数
 + callBack扫描接口成功获取设备回调, 扫描成功该方法可能执行多次，请不要在该循环执行添加锁等操作，返回参数信息`callback(bleDevice: TTLockDevice | null, bleDeviceList: Array<TTLockDevice>)`
@@ -684,7 +684,7 @@
 `function initLock(deviceFromScan: TTLockDevice, callBack: function, vendor?:string|null, deviceId?: string):Promise<TTLockError>` 
 
 ###### 参数
-+ deviceFromScan	-扫描到的蓝牙设备，请参考开启蓝牙智能锁扫描接口startScanLock
++ deviceFromScan	-扫描到的蓝牙设备，请参考开启蓝牙智能锁扫描接口startScanBleDevice
 + callBack			-蓝牙初始化接口回调, 返回参数形式：`callback(res: TTLockError)` 
 	+ 之后版本将改为设备断连回调，**请尽快调整为Promise模式** 
 + verdor 			-**2.1.0版本新增**, 为定制智能锁板约定字符串, **常规智能锁不传入该值** 
