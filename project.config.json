@@ -18,6 +18,7 @@
         "checkSiteMap": true,
         "uploadWithSourceMap": true,
         "compileHotReLoad": false,
+        "lazyloadPlaceholderEnable": false,
         "useMultiFrameRuntime": true,
         "useApiHook": true,
         "useApiHostProcess": true,
@@ -26,7 +27,6 @@
             "disablePlugins": [],
             "outputPath": ""
         },
-        "enableEngineNative": false,
         "useIsolateContext": false,
         "userConfirmedBundleSwitch": false,
         "packNpmManually": false,
@@ -37,7 +37,8 @@
         "showES6CompileOption": false,
         "useCompilerPlugins": [
             "typescript"
-        ]
+        ],
+        "ignoreUploadUnusedFiles": true
     },
     "appid": "wx43d5971c94455481",
     "projectname": "WxTTLockPluginDemo",
