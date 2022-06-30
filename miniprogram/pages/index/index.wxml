@@ -47,6 +47,9 @@
     <button bindtap='toGetAdminPasscode'>获取管理员密码</button>
     <button bindtap='toSetAdminPasscode' data-passcode="{{'12345'}}">设置管理员密码</button>
 </view>
+<view>
+    <button bindtap='toGetLockStatus'>获取锁开关状态</button>
+</view>
 <view wx:for="{{logList}}" wx:key="recordId">
     第{{index + 1}}条记录-类型{{item.recordType}}-ID{{item.recordId}}-操作人{{item.uid}}-
     密码{{item.password}}-修改后的密码{{item.newPassword}}-操作时间{{item.operateDate}}-删除日期{{item.deleteDate}}-

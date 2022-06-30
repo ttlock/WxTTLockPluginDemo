@@ -6,7 +6,7 @@
     ],
     "plugins": {
         "myPlugin": {
-            "version": "2.7.2",
+            "version": "2.7.5",
             "provider": "wx43d5971c94455481"
         }
     },
