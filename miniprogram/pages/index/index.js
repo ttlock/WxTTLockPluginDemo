@@ -89,7 +89,7 @@ Page({
         })
         const start = Date.now();
         // 调用设置锁时间接口，（！！为安全考虑，开锁时间请传入服务器时间）
-        // 2.7.0版本开始，开锁接口成功后自动校准本地锁时间
+        // 1.7.0版本开始，开锁接口成功后自动校准本地锁时间
         plugin.setLockTime(Date.now(), this.data.keyInfo.lockData, res => {
             if (res.errorCode === 10003) {
                 console.log("获取版本信息时设备连接已断开", res)
@@ -378,7 +378,7 @@ Page({
             if (res.errorCode === 10003) {
                 console.log("监控到设备连接已断开", res)
             } else if (res.errorCode === 0) {
-                console.log(res)
+                console.log(res, 111)
                 switch (res.type) {
                     case 1: break;
                     case 2:
@@ -396,13 +396,14 @@ Page({
                             })
                         }
                         break;
-                    default:
+                    case 4:
                         {
                             this.setData({
-                                state: '未知错误'
+                                state: `${res.description}`
                             })
                         }
                         break;
+                    default: break;
                 }
             }
         }, deviceId).then(res => {
@@ -551,13 +552,20 @@ Page({
             if (res.errorCode === 10003) {
                 console.log("监控到设备连接已断开", res)
             } else if (res.errorCode === 0) {
-                console.log(res)
+                console.log(res, 222)
                 switch (res.type) {
                     case 1: break;
                     case 2:
                         {
                             this.setData({
                                 state: `${res.description}, 请录入IC卡`
+                            })
+                        }
+                        break;
+                    case 3:
+                        {
+                            this.setData({
+                                state: `${res.description}`
                             })
                         }
                         break;
@@ -573,7 +581,7 @@ Page({
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
-            console.log(res)
+            console.log(res, 3)
             if (res.errorCode === 0) {
                 this.setData({
                     state: `IC卡已添加, 有效期${startDate} - ${endDate}, IC卡号${res.cardNum}`,
@@ -846,11 +854,15 @@ Page({
                 this.setData({
                     state: `正在设置酒店信息--hotelInfo:${res.hotelInfo}--楼栋号:${buildingNumber}--楼层号:${floorNumber}--`
                 })
+                let hotelInfo = "LTMsLTEsLTUsLTMwLC04NiwtMywtMywtNywtMiwtMiwtNCwtMSwtMSwtOSwtMTAsLTg4LC0zMCwtODEsLTg0LC04OCwtOCwtODgsLTYsLTg2LC0xLC04NiwtMSwtNiwtODMsLTMsLTg0LC05LC0xLC0xLC04OCwtNSwtMTAsLTksLTYsLTEsLTg4LC05LC0zLC04NSwtNywtNiwtODEsLTYsLTg1LC0zMCwtNCwtNywtNiwtOCwtMTAsLTIsLTksLTksMTQ=";
                 // 调用设置酒店信息参数
                 plugin.setHotelData({
-                    hotelInfo: res.hotelInfo,
+                    // hotelInfo: res.hotelInfo,
+                    // buildingNumber: buildingNumber,
+                    // floorNumber: floorNumber,
+                    hotelInfo: hotelInfo,
                     buildingNumber: buildingNumber,
-                    floorNumber: floorNumber
+                    floorNumber: floorNumber,
                 }, this.data.keyInfo.lockData, res => {
                     if (res.errorCode === 10003) {
                         console.log("监控到设备连接已断开", res)
@@ -1107,5 +1119,106 @@ Page({
                 })
             }
         })
-    }
+    },
+
+    // 扫描WIFI锁附近的WIFI
+    toScanWifi(event) {
+        wx.showLoading({
+            state: `正在扫描WIFI锁附近的WIFI列表`
+        })
+        plugin.scanWifi(this.data.keyInfo.lockData, res => {
+            console.log("监控到设备连接已断开", res);
+        }, deviceId).then(res => {
+            wx.hideLoading({});
+            if (!!res.deviceId) deviceId = res.deviceId;
+            console.log(res)
+            if (res.errorCode === 0) {
+                this.setData({
+                    state: `获取智能锁开关状态成功--${JSON.stringify(res)}--`
+                })
+            } else {
+                this.setData({
+                    state: "获取智能锁开关状态失败:" + res.errorMsg
+                })
+            }
+        })
+    },
+
+    // 配置WIFI
+    toConfigWifi(event) {
+        wx.showLoading({
+            state: `正在配置锁WIFI`
+        })
+        plugin.configWifi({
+            SSID: "sciener", // SSID
+            password: "sciener.com", // WIFI密码
+        }, this.data.keyInfo.lockData, res => {
+            console.log("监控到设备连接已断开", res);
+        }, deviceId).then(res => {
+            wx.hideLoading({});
+            if (!!res.deviceId) deviceId = res.deviceId;
+            console.log(res)
+            if (res.errorCode === 0) {
+                this.setData({
+                    state: `配置锁WIFI成功--${JSON.stringify(res)}--`
+                })
+            } else {
+                this.setData({
+                    state: "配置锁WIFI失败:" + res.errorMsg
+                })
+            }
+        })
+    },
+
+    // 配置服务器地址
+    toConfigServer(event) {
+        wx.showLoading({
+            state: `正在配置服务器地址`
+        })
+        plugin.configServer({
+            server: "plug.sciener.cn", // 服务器地址(地址与IP地址二选一, 首选)
+            ipAddress: "", // 服务器IP地址(地址与IP地址二选一)
+            port: 2999, // 服务器端口地址
+        }, this.data.keyInfo.lockData, res => {
+            console.log("监控到设备连接已断开", res);
+        }, deviceId).then(res => {
+            wx.hideLoading({});
+            if (!!res.deviceId) deviceId = res.deviceId;
+            console.log(res)
+            if (res.errorCode === 0) {
+                this.setData({
+                    state: `获取智能锁开关状态成功--${JSON.stringify(res)}--`
+                })
+            } else {
+                this.setData({
+                    state: "获取智能锁开关状态失败:" + res.errorMsg
+                })
+            }
+        })
+    },
+
+    // 配置静态IP地址
+    toConfigIP(event) {
+        wx.showLoading({
+            state: `正在配置静态IP地址`
+        })
+        plugin.configIp({
+            useDHCP: true,
+        }, this.data.keyInfo.lockData, res => {
+            console.log("监控到设备连接已断开", res);
+        }, deviceId).then(res => {
+            wx.hideLoading({});
+            if (!!res.deviceId) deviceId = res.deviceId;
+            console.log(res)
+            if (res.errorCode === 0) {
+                this.setData({
+                    state: `获取智能锁开关状态成功--${JSON.stringify(res)}--`
+                })
+            } else {
+                this.setData({
+                    state: "获取智能锁开关状态失败:" + res.errorMsg
+                })
+            }
+        })
+    },
 })

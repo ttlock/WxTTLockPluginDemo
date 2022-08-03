@@ -9,3 +9,4 @@
     <button form-type="submit">登录</button>
     <view>该demo仅用于展示通通锁微信小程序插件使用方法，使用时，基础库版本请设置在2.14.1及其以上</view>
 </form>
+

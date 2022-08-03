@@ -3,6 +3,7 @@ import API from "../../api/API";
 const plugin = requirePlugin("myPlugin");
 console.log(plugin)
 
+
 Page({
     /**
      * 页面的初始数据
@@ -48,9 +49,6 @@ Page({
             state: "正在搜索蓝牙设备"
         })
         plugin.startScanBleDevice((lockDevice, lockList) => {
-            if (!!lockDevice && lockDevice.isTouch) {
-                console.log(lockDevice, lockList)
-            }
             this.setData({
                 lockList: lockList
             })
@@ -83,7 +81,6 @@ Page({
             state: "正在搜索蓝牙网关设备"
         })
         plugin.startScanGateway((deviceItem, deviceList) => {
-            console.log(deviceItem, deviceList)
             this.setData({
                 lockList: deviceList
             })
@@ -289,12 +286,7 @@ Page({
             server: "plug.sciener.cn",
             port: 2999,
             useLocalIPAddress: false,
-            // useDHCP: false,
-            // ipAddress: "121.196.45.100",
-            // subnetMask: "255.255.255.0",
-            // router: "192.168.10.254",
-            // dns1: "114.114.114.114",
-            // dns2: "0.0.0.0",
+            useDHCP: true,
         }, err => {
             console.log("检测到设备断开连接（扫描WIFI)", err)
             this.setData({
