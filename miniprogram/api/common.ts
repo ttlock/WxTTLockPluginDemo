@@ -10,7 +10,7 @@ interface RequestRes {
 }
 
 class RequestToolImpl implements RequestTool {
-    private static baseServer:string = "https://cnapi.ttlock.com";
+    private static baseServer:string = "https://api.ttlock.com";
     public static getResponseData (response: RequestRes):Record<string, any>|null {
         switch (response.type) {
             case 0: return response["data"];        // 操作成功
