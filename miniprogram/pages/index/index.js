@@ -29,16 +29,14 @@ Page({
     },
 
     // 点击开锁
-    toOpenDoor() {
+    async toOpenDoor() {
         wx.showLoading({
             title: "正在开启智能锁",
         })
         const start = Date.now();
         // 调用开锁接口
         plugin.controlLock(plugin.ControlAction.OPEN, this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("获取版本信息时设备连接已断开", res)
-            }
+            console.log("控制智能锁时设备连接已断开", res)
         }, null, deviceId).then(res => {
             wx.hideLoading({});
             console.log(res)
@@ -63,9 +61,7 @@ Page({
         const start = Date.now();
         // 调用闭锁接口
         plugin.controlLock(plugin.ControlAction.CLOSE, this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("获取版本信息时设备连接已断开", res)
-            }
+            console.log("操作闭锁时设备连接已断开", res)
         }, null, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -89,11 +85,9 @@ Page({
         })
         const start = Date.now();
         // 调用设置锁时间接口，（！！为安全考虑，开锁时间请传入服务器时间）
-        // 1.7.0版本开始，开锁接口成功后自动校准本地锁时间
+        // 2.7.0版本开始，开锁接口成功后自动校准本地锁时间
         plugin.setLockTime(Date.now(), this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("获取版本信息时设备连接已断开", res)
-            }
+            console.log("校准锁时间时设备连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -120,9 +114,7 @@ Page({
          * 请传入钥匙lockData, 初始化返回的lockData不做任何限制，直接使用调用接口仅适用于本地测试
          */
         plugin.resetLock(this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            }
+            console.log("重置智能锁连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -173,9 +165,7 @@ Page({
         const start = Date.now();
         // 获取操作记录
         plugin.getOperationLog(type, this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            }
+            console.log("上传操作记录连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -224,9 +214,7 @@ Page({
         const startTime = Date.now();
         // 添加自定义密码
         plugin.createCustomPasscode(passcode, start, end, this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            }
+            console.log("添加自定义密码连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -277,9 +265,7 @@ Page({
         const startTime = Date.now();
         // 修改密码
         plugin.modifyPasscode(passcode, newPasscode, start, end, this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            }
+            console.log("修改密码连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -326,9 +312,7 @@ Page({
         const startTime = Date.now();
         // 删除密码
         plugin.deletePasscode(passcode, this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            }
+            console.log("删除密码连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -455,9 +439,7 @@ Page({
         })
         // 修改指纹
         plugin.modifyFingerprintValidityPeriod(start, end, this.data.fingerprintNum, this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            }
+            console.log("修改指纹连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -501,9 +483,7 @@ Page({
         })
         // 删除指纹
         plugin.deleteFingerprint(this.data.fingerprintNum, this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            }
+            console.log("删除指纹连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -627,9 +607,7 @@ Page({
         })
         // 修改IC卡有效期
         plugin.modifyICCardValidityPeriod(start.getTime(), end.getTime(), this.data.cardNum, this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            }
+            console.log("修改IC卡连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -673,9 +651,7 @@ Page({
         })
         // 删除IC卡
         plugin.deleteICCard(this.data.cardNum, this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            }
+            console.log("删除IC卡连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -722,9 +698,7 @@ Page({
         })
         // 恢复IC卡
         plugin.recoverICCardNumber(this.data.cardNum, start, end, this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            }
+            console.log("恢复IC卡连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -765,9 +739,7 @@ Page({
         })
         // 设置远程开关
         plugin.setRemoteUnlockSwitchState(this.data.specialValueObj.gatewayUnlock ? false : true, this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            }
+            console.log("设置远程开关连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -807,9 +779,7 @@ Page({
         })
         // 获取远程开关状态
         plugin.getRemoteUnlockSwitchState(this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            }
+            console.log("获取远程开关状态连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -864,9 +834,7 @@ Page({
                     buildingNumber: buildingNumber,
                     floorNumber: floorNumber,
                 }, this.data.keyInfo.lockData, res => {
-                    if (res.errorCode === 10003) {
-                        console.log("监控到设备连接已断开", res)
-                    }
+                    console.log("设置酒店信息连接已断开", res)
                 }, deviceId).then(res => {
                     wx.hideLoading({});
                     if (!!res.deviceId) deviceId = res.deviceId;
@@ -900,9 +868,7 @@ Page({
         })
         // 调用设置酒店扇区
         plugin.setHotelSector(sectors, this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            }
+            console.log("设置酒店扇区连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -985,9 +951,7 @@ Page({
             state: `正在设置锁开关配置--${lockConfigType}--`
         })
         plugin.setLockConfig(lockConfigType, switchOn, this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            }
+            console.log("设置锁开关配置连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -1014,9 +978,7 @@ Page({
             state: `正在获取锁开关配置--${lockConfigType}--`
         })
         plugin.getLockConfig(lockConfigType, this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            }
+            console.log("获取锁开关配置连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -1039,9 +1001,7 @@ Page({
             state: `正在获取管理员密码`
         })
         plugin.getAdminPasscode(this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            }
+            console.log("获取管理员密码连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
@@ -1065,9 +1025,7 @@ Page({
             state: `正在获取管理员密码`
         })
         plugin.modifyAdminPasscode(newPasscode, this.data.keyInfo.lockData, res => {
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            }
+            console.log("获取锁开关配置连接已断开", res)
         }, deviceId).then(res => {
             wx.hideLoading({});
             if (!!res.deviceId) deviceId = res.deviceId;
