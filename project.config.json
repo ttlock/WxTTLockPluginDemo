@@ -39,7 +39,8 @@
             "typescript"
         ],
         "ignoreUploadUnusedFiles": true,
-        "useStaticServer": true
+        "useStaticServer": true,
+        "condition": false
     },
     "appid": "wx43d5971c94455481",
     "projectname": "WxTTLockPluginDemo",

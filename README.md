@@ -338,6 +338,19 @@
     }
 ``` 
 
+#### 9. 智能锁音量
+```
+    enum LOCK_SOUND_VOLUME {
+        ON = -1, // 开启
+        OFF = 0, // 关闭锁声音
+        FIRST_LEVEL = 1, // 一级
+        SECOND_LEVEL = 2, // 二级
+        THIRD_LEVEL = 3, // 三级
+        FOURTH_LEVEL = 4, // 四级
+        FIFTH_LEVEL = 5, // 五级
+    }
+``` 
+
 
 
 ## 参数声明
@@ -2473,6 +2486,62 @@ function getAutomaticLockingPeriod(
 
 ###### 版本更新内容  
 + **2.8.2**  
+    1. 新增接口 
+
+
+#### 40. 方法 设置智能锁音量 (2.8.4) 
+
+```
+function setLockSoundWithSoundVolume(
+    soundVolume: LOCK_SOUND_VOLUME,
+    lockData: string,
+    disconnectCallback?: (res: TTLockError) => void,
+    deviceId?: string
+): Promise<TTLockError>
+```
+
+###### 参数
++ soundVolume: [智能锁音量设置](#9-智能锁音量)
++ lockData: **管理员**锁数据字符串
++ disconnectCallback: 设备断连的回调
++ deviceId: 设备ID, 用于iOS设备优化，非必传，安卓设备不传
+
+###### 返回值
++ 异步返回[TTLockError](#1-常规返回参数)  
+
+###### 版本更新内容  
++ **2.8.4**  
+    1. 新增接口 
+
+
+#### 41. 方法 获取智能锁音量 (2.8.4) 
+
+```
+function getLockSoundWithSoundVolume(
+    lockData: string,
+    disconnectCallback?: (res: TTLockError) => void,
+    deviceId?: string
+): Promise<TTLockError>
+```
+
+###### 参数
++ lockData: **管理员**锁数据字符串
++ disconnectCallback: 设备断连的回调
++ deviceId: 设备ID, 用于iOS设备优化，非必传，安卓设备不传
+
+###### 返回值
++ 异步返回[TTLockError](#1-常规返回参数)  
+```
+    interface X extends TTLockError {
+        soundVolume: LOCK_SOUND_VOLUME; // 智能锁音量(操作成功后返回)
+    }
+``` 
+
+###### 特殊说明
++ 智能锁音量-[LOCK_SOUND_VOLUME](#9-智能锁音量)  
+
+###### 版本更新内容  
++ **2.8.4**  
     1. 新增接口
 
 
@@ -2603,6 +2672,9 @@ function initGateway(
 + **添加网关时支持连续调用而不设置操作延迟**
 
 ###### 版本更新内容  
++ **2.8.3**  
+    1. 修改网关版本号问题
+
 + **2.7.6**  
     1. 修改参数要求，服务器地址必须填写
     2. 修改useLocalIPAddress参数描述
