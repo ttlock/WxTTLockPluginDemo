@@ -1,0 +1,19 @@
+@import "../custom.less";
+
+// 通用按钮
+button,
+.btn-primary {
+    padding: @btn-padding;
+    color: @btn-default-color;
+    background: @btn-default-bg-color;
+    font-size: @btn-font-size;
+    border-radius: @btn-border-radius;
+    &::after {
+        border-radius: @btn-border-radius;
+        border: 1px solid @btn-default-color;
+    }
+    &.button-hover { // 默认悬浮色
+        color: @btn-default-color-hover;
+        background-color: @btn-default-bg-color-hover;
+    }
+}

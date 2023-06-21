@@ -1,14 +1,24 @@
 {
+    "entryPagePath": "pages/login/login",
     "pages": [
         "pages/login/login",
         "pages/index/index",
-        "pages/list/list"
+        "pages/list/list",
+        "pages/initLock/initLock"
     ],
+    "window": {
+        "navigationBarTitleText": "TTLock Demo",
+        "navigationBarBackgroundColor": "#2886f7"
+    },
+    "networkTimeout": {
+        "request": 30000
+    },
     "plugins": {
         "myPlugin": {
-            "version": "2.8.4",
+            "version": "dev-b083fd5461208e5fc0acf31ce39b585c",
             "provider": "wx43d5971c94455481"
         }
     },
-    "sitemapLocation": "sitemap.json"
+    "sitemapLocation": "sitemap.json",
+    "debug": false
 }

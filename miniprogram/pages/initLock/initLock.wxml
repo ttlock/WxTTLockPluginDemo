@@ -1,20 +1,9 @@
-<!-- 智能锁列表 -->
+<!-- 添加智能锁 -->
 <view class="block">
-    <navigator url="../initLock/initLock" class="mv-24">添加智能锁</navigator>
-    <navigator url="../initLock/initLock" class="mv-24">添加网关</navigator>
+    <button bindtap="startScan" class="mv-24">开始扫描</button>
+    <button bindtap='stopScan' class="mv-24">停止扫描</button>
+    <button bindtap='stopAll' class="mv-24">停止所有操作</button>
 </view>
-<view>
-    <view wx:for="{{keyList}}" wx:for-item="item" wx:key="keyId" data-index="{{index}}"
-        class="tapline"
-        hover-class="tapline-hover"
-        bindtap="toDetail">{{item.lockAlias}}</view>
-</view>
-
-<button bindtap='startScan'>开始扫描</button>
-<button bindtap='stopScan'>停止扫描</button>
-<button bindtap='startScanGateway'>开始扫描网关</button>
-<button bindtap='stopScanGateway'>停止扫描网关</button>
-<button bindtap='stopAll'>停止所有操作</button>
 <text>{{state}}</text>
 <view>蓝牙锁添列表</view>
 <view>

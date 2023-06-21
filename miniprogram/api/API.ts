@@ -1,4 +1,5 @@
 import RequestTool, { RequestRes } from './common';
+import { AES_Decrypt } from "../utils/crypto";
 
 const CLIENT_ID = "7946f0d923934a61baefb3303de4d132";
 const CLIENT_SECRET = "56d9721abbc3d22a58452c24131a5554";
@@ -19,7 +20,7 @@ class API {
     keyList(): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/key/list", "POST", {
             "clientId": CLIENT_ID,
-            "accessToken": wx.getStorageSync('access_token'),
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "pageNo": 1,
             "pageSize": 20,
             "date": Date.now()
@@ -30,7 +31,7 @@ class API {
     initialize(params: Record<string, any>): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/lock/initialize", "POST", {
             "clientId": CLIENT_ID,
-            "accessToken": wx.getStorageSync('access_token'),
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "date": Date.now(),
             ...params
         });
@@ -40,7 +41,7 @@ class API {
     isInitSuccess(params: Record<string, any>): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/gateway/isInitSuccess", "POST", {
             "clientId": CLIENT_ID,
-            "accessToken": wx.getStorageSync('access_token'),
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "date": Date.now(),
             ...params
         });
@@ -50,7 +51,7 @@ class API {
     uploadDetail(params: Record<string, any>): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/gateway/uploadDetail", "POST", {
             "clientId": CLIENT_ID,
-            "accessToken": wx.getStorageSync('access_token'),
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "date": Date.now(),
             ...params
         });
@@ -60,7 +61,7 @@ class API {
     deleteLock(params: Record<string, any>): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/lock/delete", "POST", {
             "clientId": CLIENT_ID,
-            "accessToken": wx.getStorageSync('access_token'),
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "date": Date.now(),
             ...params
         });
@@ -70,7 +71,7 @@ class API {
     uploadOperation(params: Record<string, any>): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/lockRecord/upload", "POST", {
             "clientId": CLIENT_ID,
-            "accessToken": wx.getStorageSync('access_token'),
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "date": Date.now(),
             ...params
         });
@@ -80,7 +81,7 @@ class API {
     addKeyboardPwd(params: Record<string, any>): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/keyboardPwd/add", "POST", {
             "clientId": CLIENT_ID,
-            "accessToken": wx.getStorageSync('access_token'),
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "addType": 1,
             "date": Date.now(),
             ...params
@@ -91,7 +92,7 @@ class API {
     modifyKeyboardPwd(params: Record<string, any>): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/keyboardPwd/change", "POST", {
             "clientId": CLIENT_ID,
-            "accessToken": wx.getStorageSync('access_token'),
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "changeType": 1,
             "date": Date.now(),
             ...params
@@ -102,7 +103,7 @@ class API {
     deleteKeyboardPwd(params: Record<string, any>): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/keyboardPwd/delete", "POST", {
             "clientId": CLIENT_ID,
-            "accessToken": wx.getStorageSync('access_token'),
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "deleteType": 1,
             "date": Date.now(),
             ...params
@@ -113,7 +114,7 @@ class API {
     addFingerprint(params: Record<string, any>): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/fingerprint/add", "POST", {
             "clientId": CLIENT_ID,
-            "accessToken": wx.getStorageSync('access_token'),
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "date": Date.now(),
             ...params
         });
@@ -123,7 +124,7 @@ class API {
     modifyFingerprint(params: Record<string, any>): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/fingerprint/changePeriod", "POST", {
             "clientId": CLIENT_ID,
-            "accessToken": wx.getStorageSync('access_token'),
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "changeType": 1,
             "date": Date.now(),
             ...params
@@ -134,7 +135,7 @@ class API {
     deleteFingerprint(params: Record<string, any>): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/fingerprint/delete", "POST", {
             "clientId": CLIENT_ID,
-            "accessToken": wx.getStorageSync('access_token'),
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "deleteType": 1,
             "date": Date.now(),
             ...params
@@ -145,7 +146,7 @@ class API {
     addICCard(params: Record<string, any>): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/identityCard/add", "POST", {
             "clientId": CLIENT_ID,
-            "accessToken": wx.getStorageSync('access_token'),
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "addType": 1,
             "date": Date.now(),
             ...params
@@ -156,7 +157,7 @@ class API {
     modifyICCard(params: Record<string, any>): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/identityCard/changePeriod", "POST", {
             "clientId": CLIENT_ID,
-            "accessToken": wx.getStorageSync('access_token'),
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "changeType": 1,
             "date": Date.now(),
             ...params
@@ -167,7 +168,7 @@ class API {
     deleteICCard(params: Record<string, any>): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/identityCard/delete", "POST", {
             "clientId": CLIENT_ID,
-            "accessToken": wx.getStorageSync('access_token'),
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "deleteType": 1,
             "date": Date.now(),
             ...params
@@ -178,7 +179,7 @@ class API {
     updateLockData(params: Record<string, any>): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/lock/updateLockData", "POST", {
             "clientId": CLIENT_ID,
-            "accessToken": wx.getStorageSync('access_token'),
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "date": Date.now(),
             ...params
         });

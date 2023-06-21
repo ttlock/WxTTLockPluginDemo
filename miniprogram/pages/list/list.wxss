@@ -9,18 +9,18 @@ view.keyList {
     border-bottom: 1px solid #eee;
 }
 
-button {
+/* button {
     width: 80%;
     margin: 12rpx auto;
     background: #2886f7;
     color: #fff;
     font-size: 32rpx;
-}
+} */
 
-text {
+/* text {
     color: #666;
     font-size: 28rpx;
-}
+} */
 
 .addBtn {
     display: inline-block;

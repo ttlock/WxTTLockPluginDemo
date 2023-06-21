@@ -21,10 +21,16 @@ Page({
         state: '' // 错误提示
     },
 
+    // 页面加载
+    onLoad(options) {
+        console.log("load")
+    },
+
     /**
      * 生命周期函数--监听页面加载
      */
     onShow(options) {
+        console.log("show")
         plugin.setShowLog(true); // 开启错误日志
         this.modifyKeyList();
     },
