@@ -351,6 +351,16 @@
     }
 ``` 
 
+#### 10. 取电开关控制模式
+```
+    enum LOCK_POWER_SAVER_WORK_MODE {
+        OFF = 0, // 禁用
+        ANY_CARD = 1, // 任意卡取电
+        HOTEL_CARD = 4, // 酒店卡取电
+        ROOM_CARD = 8, // 房间卡取电
+    }
+``` 
+
 
 
 ## 参数声明
@@ -2542,7 +2552,57 @@ function getLockSoundWithSoundVolume(
 
 ###### 版本更新内容  
 + **2.8.4**  
-    1. 新增接口
+    1. 新增接口 
+
+
+#### 42. 方法 设置取电开关工作模式 (2.8.5) 
+
+```
+function setPowerSaverWorkMode(
+    powerSaverWorkMode: LOCK_POWER_SAVER_WORK_MODE,
+    lockData: string,
+    disconnectCallback?: (res: TTLockError) => void,
+    deviceId?: string
+): Promise<TTLockError>
+```
+
+###### 参数
++ powerSaverWorkMode: [取电开关工作模式](#10-取电开关控制模式)
++ lockData: **管理员**锁数据字符串
++ disconnectCallback: 设备断连的回调
++ deviceId: 设备ID, 用于iOS设备优化，非必传，安卓设备不传
+
+###### 返回值
++ 异步返回[TTLockError](#1-常规返回参数)  
+
+###### 版本更新内容  
++ **2.8.5**  
+    1. 新增接口 
+
+
+#### 43. 方法 设置取电开关关联的智能锁 (2.8.5) 
+
+```
+function setPowerSaverControlableLock(
+    lockMac: string,
+    lockData: string,
+    disconnectCallback?: (res: TTLockError) => void,
+    deviceId?: string
+): Promise<TTLockError>
+```
+
+###### 参数
++ lockMac: 待绑定的智能锁MAC地址, 如“AA:BB:CC:DD:EE:FF”
++ lockData: **管理员**锁数据字符串
++ disconnectCallback: 设备断连的回调
++ deviceId: 设备ID, 用于iOS设备优化，非必传，安卓设备不传
+
+###### 返回值
++ 异步返回[TTLockError](#1-常规返回参数)  
+
+###### 版本更新内容  
++ **2.8.5**  
+    1. 新增接口 
 
 
 ### 网关相关接口 

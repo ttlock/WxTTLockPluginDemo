@@ -1,0 +1,49 @@
+<!-- 添加网关 -->
+<view class="block flex-row">
+    <button bindtap="startScan">扫描网关</button>
+    <button bindtap='stopScan'>停止扫描</button>
+    <button bindtap='handleStopAllOperations'>停止所有操作</button>
+</view>
+<view class="block" wx:if="{{wifiList && wifiList.length > 0}}">
+    <button bindtap="scanWifi">扫描WIFI列表</button>
+</view>
+<view class="description">{{state}}</view>
+<block wx:if="{{plugList && plugList.length > 0}}">
+    <view class="description mv-24">网关列表</view>
+    <view wx:for="{{plugList}}" wx:key="MAC" data-index="{{index}}"
+        data-value="{{item}}"
+        class="tapline {{item.isSettingMode ? 'add' : 'no-icon'}}"
+        hover-class="tapline-hover"
+        bindtap="init">
+        <text>{{item.deviceName}}</text>
+    </view>
+</block>
+<block wx:if="{{wifiList && wifiList.length > 0}}">
+    <view class="description mv-24">WIFI列表</view>
+    <view wx:for="{{wifiList}}" wx:key="SSID" data-index="{{index}}"
+        data-value="{{item}}"
+        class="tapline add}}"
+        hover-class="tapline-hover"
+        bindtap="toConfigWifiInfo">
+        <text>{{item.SSID}}</text>
+    </view>
+</block>
+<block wx:if="{{showInput}}">
+    <form bindsubmit="initGateway">
+        <view class="form-item">
+            <text class="form-item-label">SSID：</text>
+            <text>{{currentWifi ? currentWifi.SSID : ""}}</text>
+        </view>
+        <view class="form-item">
+            <text class="form-item-label">密码：</text>
+            <input model:value="{{password}}"
+                password="true"
+                placeholder="请输入密码"
+                name="password"
+                bindinput="handleInputEmpty"></input>
+        </view>
+        <view class="form-item">
+            <button form-type="submit">开始初始化</button>
+        </view>
+    </form>
+</block>

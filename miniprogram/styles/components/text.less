@@ -1,7 +1,11 @@
 @import "../custom.less";
 
 // 通用文本内容
-text {
+.text () {
     font-size: @base-font-size;
     color: @text-color;
+}
+text,
+.description {
+    .text();
 }

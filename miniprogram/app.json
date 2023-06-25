@@ -4,7 +4,8 @@
         "pages/login/login",
         "pages/index/index",
         "pages/list/list",
-        "pages/initLock/initLock"
+        "pages/initLock/initLock",
+        "pages/initGateway/initGateway"
     ],
     "window": {
         "navigationBarTitleText": "TTLock Demo",
@@ -15,7 +16,7 @@
     },
     "plugins": {
         "myPlugin": {
-            "version": "dev-b083fd5461208e5fc0acf31ce39b585c",
+            "version": "dev-5b8421eeb4ae4b424fc3642771bda725",
             "provider": "wx43d5971c94455481"
         }
     },
