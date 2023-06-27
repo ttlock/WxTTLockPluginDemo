@@ -2,17 +2,6 @@
     <text class="title">当前智能锁：{{keyInfo.lockAlias}}</text>
 </view>
 <block>
-    <navigator class="tapline" hover-class="tapline-hover"
-        wx:if="{{keyInfo && keyInfo.noKeyPwd && specialValueObj.passcode}}">
-        <text>1</text>
-    </navigator>
-    <navigator class="tapline" hover-class="tapline-hover"
-        wx:if="{{keyInfo && keyInfo.noKeyPwd && specialValueObj.ICCard}}">
-        <text>2</text>
-    </navigator>
-    <navigator class="tapline" hover-class="tapline-hover"
-        wx:if="{{keyInfo && keyInfo.noKeyPwd && specialValueObj.fingerprint}}">
-        <text>3</text>
-    </navigator>
+    施工中...
 </block>
 <view class="description mv-24 mh-16">{{state}}</view>

@@ -1,66 +1,21 @@
-// pages/lockConfig/lockConfig.ts
+import API from "../../api/API";
+const plugin = requirePlugin("myPlugin");
+let deviceId: string = ""; // 当前智能锁ID
+
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
-
+        state: '',
+        keyInfo: {}, // 钥匙数据
+        specialValueObj: {}, // 智能锁特征值
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
+    // 设置初始化参数
     onLoad() {
-
+        deviceId = "";
+        const keyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const specialValueObj = plugin.parseSpecialValues(keyInfo.featureValue || keyInfo.specialValue);
+        this.setData({
+            keyInfo: keyInfo,
+            specialValueObj: specialValueObj
+        });
     },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage() {
-
-    }
 })

@@ -164,18 +164,4 @@ Page({
             }
         })
     },
-
-    // 进入开门方式页面
-    toOpenMethods(event) {
-        wx.navigateTo({
-            url: "../openMethods/openMethods"
-        })
-    },
-
-    // 进入设置智能锁页面
-    toConfigLock(event) {
-        wx.navigateTo({
-            url: "../lockBase/lockBase"
-        })
-    }
 })

@@ -22,7 +22,7 @@
     </navigator>
     <navigator class="tapline" hover-class="tapline-hover"
         wx:if="{{keyInfo && keyInfo.noKeyPwd}}"
-        url="../openMethods/openMethods">
+        url="../lockConfig/lockConfig">
         <text>智能锁设置</text>
     </navigator>
     <view class="tapline no-icon" hover-class="tapline-hover" bindtap="toResetLock"
