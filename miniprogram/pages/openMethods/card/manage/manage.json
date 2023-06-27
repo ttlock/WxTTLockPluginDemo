@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "DatespanPicker": "/components/datespan-picker/datespan-picker"
+    },
+    "navigationBarTitleText": "管理IC卡"
+}

@@ -1,0 +1,16 @@
+<view class="block">
+    <text class="title">当前智能锁：{{keyInfo.lockAlias}}</text>
+    <navigator class="iconfont icon-add btn-add"
+        url="./add/add"></navigator>
+</view>
+<view wx:if="{{fingerprintList && fingerprintList.length > 0}}">
+    <view wx:for="{{fingerprintList}}" wx:for-item="item" wx:key="fingerprintId" data-index="{{index}}"
+        data-value="{{item}}"
+        class="tapline"
+        hover-class="tapline-hover"
+        bindtap="toDetail">
+        {{item.fingerprintNumber}} {{item.fingerprintName || ""}}
+    </view>
+</view>
+<view class="description mv-24 mh-16 fc-9" wx:else>暂无指纹</view>
+<view class="description mv-24 mh-16">{{state}}</view>

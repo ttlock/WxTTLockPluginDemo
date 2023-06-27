@@ -120,6 +120,16 @@ class API {
         });
     }
 
+    // 获取指纹列表
+    listFingerprint(params: Record<string, any>): Promise<Record<string, any> | null> {
+        return RequestTool.$request("/v3/fingerprint/list", "GET", {
+            "clientId": CLIENT_ID,
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
+            "date": Date.now(),
+            ...params
+        });
+    }
+
     // 添加指纹
     addFingerprint(params: Record<string, any>): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/fingerprint/add", "POST", {
@@ -147,6 +157,16 @@ class API {
             "clientId": CLIENT_ID,
             "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "deleteType": 1,
+            "date": Date.now(),
+            ...params
+        });
+    }
+
+    // 获取IC卡列表
+    listIdentityCard(params: Record<string, any>): Promise<Record<string, any> | null> {
+        return RequestTool.$request("/v3/identityCard/list", "GET", {
+            "clientId": CLIENT_ID,
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "date": Date.now(),
             ...params
         });

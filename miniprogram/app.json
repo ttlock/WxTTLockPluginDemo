@@ -11,7 +11,13 @@
         "pages/lockConfig/lockConfig",
         "pages/openMethods/passcode/passcode",
         "pages/openMethods/passcode/add/add",
-        "pages/openMethods/passcode/manage/manage"
+        "pages/openMethods/passcode/manage/manage",
+        "pages/openMethods/card/card",
+        "pages/openMethods/fingerprint/fingerprint",
+        "pages/openMethods/card/add/add",
+        "pages/openMethods/fingerprint/add/add",
+        "pages/openMethods/fingerprint/manage/manage",
+        "pages/openMethods/card/manage/manage"
     ],
     "window": {
         "navigationBarTitleText": "TTLock Demo",
