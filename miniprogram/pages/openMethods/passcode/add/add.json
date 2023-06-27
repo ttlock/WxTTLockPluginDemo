@@ -1,0 +1,5 @@
+{
+    "usingComponents": {
+        "DatespanPicker": "/components/datespan-picker/datespan-picker"
+    }
+}

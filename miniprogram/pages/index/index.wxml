@@ -1,3 +1,5 @@
+<view>智能锁：</view>
+
 <view>错误信息：{{state}}</view>
 <view>
     <button bindtap='toOpenDoor'>点击开锁</button>

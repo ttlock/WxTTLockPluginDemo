@@ -1,0 +1,29 @@
+<!-- 管理密码 -->
+<view class="block">
+    <text class="title">密码: {{passcodeInfo.keyboardPwdName}} ({{passcodeInfo.keyboardPwdType === 3 ? "限时" : "永久"}})</text>
+</view>
+<form bindsubmit="handleSubmit">
+    <view class="form-item">
+        <text class="form-item-label">密码：</text>
+        <input model:value="{{passcode}}"
+            placeholder="请输入密码"
+            name="passcode"
+            bindinput="handleInputEmpty"></input>
+    </view>
+    <view class="form-item">
+        <text class="form-item-label">永久开关：</text>
+        <switch model:checked="{{permanent}}" type="switch" color="#2886f7"></switch>
+    </view>
+    <DatespanPicker wx:if="{{!permanent}}" model:value="{{dateSpan}}" id="dateSpan"
+        label="有效期"
+        start-placeholder="请选择开始时间"
+        end-placeholder="请选择结束时间"
+        use-minute="{{false}}"
+        bindupdate="handleUpdateDateSpan"></DatespanPicker>
+    <view class="form-item">
+        <button form-type="submit">修改</button>
+    </view>
+</form>
+<view class="form-item">
+    <button bindtap="handleDelete">删除</button>
+</view>

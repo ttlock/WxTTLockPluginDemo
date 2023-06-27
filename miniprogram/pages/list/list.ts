@@ -50,7 +50,7 @@ Page({
         const keyItem = JSON.stringify(event.target.dataset.value);
         wx.setStorageSync("keyInfo", keyItem);
         wx.navigateTo({
-            url: "../index/index"
+            url: "../lockBase/lockBase"
         })
     }
 })

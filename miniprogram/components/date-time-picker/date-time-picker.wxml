@@ -1,0 +1,12 @@
+<!--components/date-time-picker/date-time-picker.wxml-->
+<!-- <view class="form-item {{class}}"> -->
+    <picker mode="multiSelector" model:value="{{dateTime}}"
+        range="{{dateRange}}"
+        range-key="text"
+        data-key="value"
+        bindcolumnchange="_handleColumnChange"
+        bindchange="_handleDateChange">
+        <!-- <text class="form-item-label">{{label}}：</text> -->
+        <view class="input {{dateTimeStr ? '' : 'fc-9'}}">{{dateTimeStr || placeholder}}</view>
+    </picker>
+<!-- </view> -->

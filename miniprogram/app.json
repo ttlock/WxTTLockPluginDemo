@@ -5,7 +5,13 @@
         "pages/index/index",
         "pages/list/list",
         "pages/initLock/initLock",
-        "pages/initGateway/initGateway"
+        "pages/initGateway/initGateway",
+        "pages/lockBase/lockBase",
+        "pages/openMethods/openMethods",
+        "pages/lockConfig/lockConfig",
+        "pages/openMethods/passcode/passcode",
+        "pages/openMethods/passcode/add/add",
+        "pages/openMethods/passcode/manage/manage"
     ],
     "window": {
         "navigationBarTitleText": "TTLock Demo",

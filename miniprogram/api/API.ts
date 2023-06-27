@@ -77,6 +77,16 @@ class API {
         });
     }
 
+    // 获取键盘密码列表
+    listKeyboardPwd(params: Record<string, any>): Promise<Record<string, any> | null> {
+        return RequestTool.$request("/v3/lock/listKeyboardPwd", "GET", {
+            "clientId": CLIENT_ID,
+            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
+            "date": Date.now(),
+            ...params
+        });
+    }
+
     // 添加键盘密码
     addKeyboardPwd(params: Record<string, any>): Promise<Record<string, any> | null> {
         return RequestTool.$request("/v3/keyboardPwd/add", "POST", {

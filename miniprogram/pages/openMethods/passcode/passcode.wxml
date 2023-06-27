@@ -1,0 +1,16 @@
+<view class="block">
+    <text class="title">当前智能锁：{{keyInfo.lockAlias}}</text>
+    <navigator class="iconfont icon-add btn-add"
+        url="./add/add"></navigator>
+</view>
+<view wx:if="{{passcodeList && passcodeList.length > 0}}">
+    <view wx:for="{{passcodeList}}" wx:for-item="item" wx:key="keyboardPwdId" data-index="{{index}}"
+        data-value="{{item}}"
+        class="tapline"
+        hover-class="tapline-hover"
+        bindtap="toDetail">
+        {{item.keyboardPwd}} {{item.keyboardPwdName || ""}}
+    </view>
+</view>
+<view class="description mv-24 mh-16 fc-9" wx:else>暂无密码</view>
+<view class="description mv-24 mh-16">{{state}}</view>
