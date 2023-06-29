@@ -2,6 +2,21 @@
     <text class="title">当前智能锁：{{keyInfo.lockAlias}}</text>
 </view>
 <block>
-    施工中...
+    <view class="tapline" hover-class="tapline-hover"
+        bindtap="toSetRemoteUnlock">
+        <text>{{specialValueObj.gatewayUnlock ? '关闭远程开锁' : '开启远程开关'}}</text>
+    </view>
+    <view class="tapline" hover-class="tapline-hover"
+        bindtap="toGetRemoteUnlock">
+        <text>获取远程开锁开关状态</text>
+    </view>
+    <view class="tapline" hover-class="tapline-hover"
+        bindtap="toGetAdminPasscode">
+        <text>获取管理员密码</text>
+    </view>
+    <view class="tapline" hover-class="tapline-hover"
+        bindtap="toGetLockStatus">
+        <text>获取锁开关状态</text>
+    </view>
 </block>
 <view class="description mv-24 mh-16">{{state}}</view>

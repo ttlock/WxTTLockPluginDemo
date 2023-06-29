@@ -28,7 +28,7 @@
     },
     "plugins": {
         "myPlugin": {
-            "version": "dev-5b8421eeb4ae4b424fc3642771bda725",
+            "version": "2.8.6",
             "provider": "wx43d5971c94455481"
         }
     },
