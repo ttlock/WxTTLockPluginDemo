@@ -855,6 +855,10 @@ function initLock(
 ``` 
 
 ###### 版本更新内容 
++ **2.8.6**  
+    1. 修改lockData返回内置参数
+    2. 修复初始化智能锁错误返回未进入初始化状态的问题
+
 + **2.8.0**  
     1. 修改callBack参数名称为disconnectCallback
     2. 除断开连接外，disconnectCallback不再返回调用
@@ -2381,7 +2385,7 @@ function configPassageMode(
 
 ###### 版本更新内容  
 + **2.8.7**  
-    1. 修复时间设置不正确的问题 
+    1. 修复时间设置不正确的问题
 
 + **2.8.2**  
     1. 新增接口
@@ -2523,6 +2527,9 @@ function setLockSoundWithSoundVolume(
 + 异步返回[TTLockError](#1-常规返回参数)  
 
 ###### 版本更新内容  
++ **2.8.6**  
+    1. 修复锁声音无法设置为禁用的问题 
+
 + **2.8.4**  
     1. 新增接口 
 
@@ -2605,6 +2612,57 @@ function setPowerSaverControlableLock(
 
 ###### 版本更新内容  
 + **2.8.5**  
+    1. 新增接口 
+
+
+
+#### 44. 方法 智能锁固件升级 (2.9.0) 
+
+```
+function enterDfuMode(
+    packageInfo: TTLockPackageInfo,
+    lockData: string,
+    callback?: Function,
+    deviceId?: string
+): Promise<TTLockError>
+```
+
+###### 参数
++ packageInfo: 智能锁升级相关数据
+```
+    interface TTLockPackageInfo {
+        clientId: string; // 开放平台应用clientId
+        accessToken: string; // 用户token
+        lockId: number; // 智能锁ID
+    }
+```  
++ lockData: **管理员**锁数据字符串
++ callback: 中间步骤及设备断连的回调
+```
+    interface B extends TTLockError {
+        type?: number; // 回调类型, 当errorCode为0时表示回调: 1 -智能锁升级准备中; 2 -固件升级中; 3 -固件升级完成, 正在获取新的锁数据; 4 -操作完成; 5 -固件升级成功，同步服务器失败
+        progress?: number; // type=2时返回，固件升级进度
+        lockData?: string; // 用于更新的智能锁数据，不可用于开锁操作(操作成功或同步服务器失败返回)
+    }
+``` 
++ deviceId: 设备ID, 用于iOS设备优化，非必传，安卓设备不传
+
+###### 返回值
++ 异步返回[TTLockError](#1-常规返回参数)  
+```
+    interface X extends TTLockError {
+        lockData: string; // 用于更新的智能锁数据，不可用于开锁操作(操作成功或同步服务器失败返回)
+    }
+``` 
+
+###### 特殊
++ 注意：当前仅支持telink(泰凌微)蓝牙模块，操作成功后不会自动校准服务器时间
+
+###### 版本更新内容  
++ **2.9.1**  
+    1. 升级成功后自动同步服务器 
+
++ **2.9.0**  
     1. 新增接口 
 
 
