@@ -1,0 +1,10 @@
+@import "../custom.scss";
+@import "../mixins/clearfix.scss";
+
+.flex-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16rpx 16rpx;
+    flex-wrap: wrap;
+}

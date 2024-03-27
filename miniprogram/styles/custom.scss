@@ -26,7 +26,7 @@ $btn-font-size: $base-font-size;
 // @btn-default-bg-color-hover: tint(@primary-color, 20);
 // @btn-default-boder-color-hover: @base-border-color;
 $btn-padding: 0px $base-padding-horizontal;
-// // 链接
+// 链接
 // @navigator-font-size: @base-font-size;
 // @navigator-border-radius: @base-border-radius;
 // @navigator-default-color: #fff;
@@ -35,14 +35,14 @@ $btn-padding: 0px $base-padding-horizontal;
 // @navigator-default-color-hover: #fff;
 // @navigator-default-bg-color-hover: tint(@primary-color, 20);
 // @navigator-default-boder-color-hover: @base-border-color;
-// @navigator-padding: 24rpx @base-padding-horizontal;
+$navigator-padding: 0rpx $base-padding-horizontal;
 // // 可点击行按钮
 // @tapline-font-size: 30rpx;
 // @tapline-default-color: @text-color;
-// @tapline-default-bg-color: #f2f4f8;
+$tapline-default-bg-color: #f2f4f8;
 // @tapline-default-boder-color: @base-border-color;
-// @tapline-default-bg-color-hover: #eee;
-// @tapline-padding: 32rpx 72rpx 32rpx @base-padding-horizontal;
+$tapline-default-bg-color-hover: #eee;
+$tapline-padding: 0rpx 72rpx 0rpx $base-padding-horizontal;
 // 表单数据
 // $form-font-size: $base-font-size;
 // @form-text-color: @text-color;

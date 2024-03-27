@@ -1,5 +1,5 @@
 <!--miniprogram/pages/login/login.wxml-->
-<i-message id="IMessage" model:value="{{errorMsg}}"></i-message>
+<i-message id="IMessage"></i-message>
 <view class="form">
     <form bindsubmit="handleSubmit">
         <view class="form-item">
