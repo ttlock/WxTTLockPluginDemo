@@ -1,0 +1,10 @@
+@import "../mixins/clearfix.scss";
+@import "../mixins/color.scss";
+@import "../mixins/font.scss";
+
+.clearfix {
+    @include clearfix();
+}
+
+@include colors();
+@include font-sizes();

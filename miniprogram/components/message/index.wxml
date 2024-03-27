@@ -1,0 +1,8 @@
+<!-- 错误提醒 -->
+<view class="message" wx:if="{{list.length !== 0}}">
+    <view class="message-wrapper {{innerClass}}" wx:for="{{list}}" wx:for-index="index" wx:key="id">
+        <view class="message-item" onanimationend="_animationEnd" data-index="{{index}}" data-id="{{item.id}}">
+        {{item.errMsg}}
+        </view>
+    </view>
+</view>

@@ -1,8 +1,10 @@
 <!-- 智能锁列表 -->
 <view class="block flex-row">
-    <navigator url="../initLock/initLock" class="mh-16">添加智能锁</navigator>
-    <navigator url="../initGateway/initGateway" class="mh-16">添加网关</navigator>
+    <navigator url="../initLock/initLock" class="mh-8">添加智能锁</navigator>
+    <navigator url="../initGateway/initGateway" class="mh-8">添加网关</navigator>
+    <button class="mh-8 btn-primary" hover-class="btn-hover" bind:tap="handleLogOut">退出登录</button>
 </view>
+<button class="mh-8" bind:tap="handleLogOut">退出登录</button>
 <view>
     <view wx:for="{{keyList}}" wx:for-item="item" wx:key="keyId" data-index="{{index}}"
         data-value="{{item}}"

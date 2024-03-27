@@ -1,25 +1,28 @@
 <!--miniprogram/pages/login/login.wxml-->
-<form bindsubmit="handleSubmit">
-    <view class="form-item">
-        <text class="form-item-label">账号：</text>
-        <input model:value="{{username}}"
-            placeholder="请输入账号"
-            name="username"
-            bindinput="handleInputEmpty"></input>
-    </view>
-    <view class="form-item">
-        <text class="form-item-label">密码：</text>
-        <input model:value="{{password}}"
-            password="true"
-            placeholder="请输入密码"
-            name="password"
-            bindinput="handleInputEmpty"></input>
-    </view>
-    <view class="form-item">
-        <button form-type="submit">登录</button>
-    </view>
-    <view class="form-item">
-        该demo仅用于展示通通锁微信小程序插件使用方法，使用时，基础库版本请设置在2.14.1及其以上
-    </view>
-</form>
+<i-message id="IMessage" model:value="{{errorMsg}}"></i-message>
+<view class="form">
+    <form bindsubmit="handleSubmit">
+        <view class="form-item">
+            <text class="form-item-label">账号</text>
+            <input model:value="{{username}}"
+                placeholder="请输入通通锁用户登录账号"
+                name="username"
+                bindinput="handleInputEmpty"></input>
+        </view>
+        <view class="form-item">
+            <text class="form-item-label">密码</text>
+            <input model:value="{{password}}"
+                password="true"
+                placeholder="请输入登录密码"
+                name="password"
+                bindinput="handleInputEmpty"></input>
+        </view>
+        <view class="form-item">
+            <button hover-class="btn-hover" form-type="submit">登录</button>
+        </view>
+        <view class="form-item fc-6 fs-14">
+            该demo仅用于展示通通锁微信小程序插件使用方法，使用时，基础库版本请设置在2.19.2及其以上
+        </view>
+    </form>
+</view>
 

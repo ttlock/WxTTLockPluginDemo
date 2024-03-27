@@ -1,0 +1,16 @@
+@import "../custom.scss";
+@import "../mixins/clearfix.scss";
+
+.form {
+    @include clearfix();
+}
+// 表单元素样式
+.form-item {
+    margin: $form-item-margin;
+    font-size: $base-font-size;
+    color: $text-color;
+    &-label {
+        display: inline-block;
+        margin-bottom: 24rpx;
+    }
+}

@@ -1,49 +1,67 @@
-// miniprogram/pages/list/list.js
-import API from "../../api/API";
-const { setShowLog } = requirePlugin("myPlugin");
+// 智能锁列表
+import * as EKeyAPI from "../../api/interfaces/key";
+import { HttpHandler } from "../../api/handle/httpHandler";
+import debounce from "debounce";
 
 Page({
-    /**
-     * 页面的初始数据
-     */
     data: {
         isReady: false, // 页面数据是否已准备好
-        keyList: [], // 电子钥匙列表
+        keyList: new Array<IEKeyAPI.List.EKeyInfo>(), // 电子钥匙列表
+    },
+    onLoad() {
+        console.log("load page");
+        requirePlugin("myPlugin", ({ setShowLog }: TTLockPlugin) => {
+            // 开启用户错误日志输出
+            setShowLog(true, this.handleShowLog);
+        });
+        wx.showLoading({ title: "" });
+        this.modifyKeyList();
     },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onShow() {
-        setShowLog(true); // 开启错误日志
-        this.setData({ isReady: false }, () => {
-            this.modifyKeyList();
-        });
+    /* TODO 处理用户错误日志, 用户可自行操作日志上传 */
+    handleShowLog(...args: any) {
+        console.log("操作日志:", ...args);
     },
 
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh() {
-        this.setData({ isReady: false }, () => {
-            this.modifyKeyList();
-        });
+        this.modifyKeyList();
     },
 
-    // 更新智能锁列表
-    modifyKeyList() {
-        if (this.data.isReady) return;
-        this.setData({ isReady: true });
-        API.keyList().then(res => {
-            if (res) {
-                this.setData({ keyList: res.list });
+    /* 更新电子钥匙列表 */
+    modifyKeyList: debounce(function (pageNo: number = 1) {
+        EKeyAPI.list({
+            pageNo: pageNo,
+            pageSize: 20
+        }).then(res => {
+            if (HttpHandler.isResponseTrue(res)) {
+                if (pageNo == 1) this.data.keyList.splice(0, this.data.keyList.length, ...res.list);
+                else res.list.forEach(item => this.data.keyList.push(item));
+                this.setData({ keyList: this.data.keyList });
                 wx.stopPullDownRefresh();
             } else {
                 wx.removeStorageSync("access_token");
+                HttpHandler.handleResponseError(res);
                 wx.reLaunch({ url: "/pages/login/login" });
             }
+            wx.hideLoading();
+        }).catch(err => {
+            wx.removeStorageSync("access_token");
+            HttpHandler.handleServerError(err);
+            wx.reLaunch({ url: "/pages/login/login" });
+            wx.hideLoading();
         })
-    },
+    }, 100),
+
+    /* 退出登录 */
+    handleLogOut: debounce(function () {
+        wx.showLoading({ title: "退出登录" });
+        wx.removeStorageSync("access_token");
+        wx.removeStorageSync("user_psd");
+        wx.reLaunch({ url: "/pages/login/login", complete: () => { wx.hideLoading(); }});
+    }, 100),
 
     // 进入锁详情页
     toDetail(event) {

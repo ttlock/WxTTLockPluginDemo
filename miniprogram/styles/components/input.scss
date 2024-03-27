@@ -1,0 +1,15 @@
+@import "../custom.scss";
+
+// 通用输入框
+input,
+.input {
+    padding: $input-padding;
+    border: 1px solid $input-border-color;
+    border-radius: 6px;
+    font-size: $base-font-size;
+    color: $text-color;
+    height: $el-medium;
+    min-height: 64rpx;
+    line-height: 38px;
+    box-sizing: border-box;
+}

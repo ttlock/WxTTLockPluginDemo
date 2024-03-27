@@ -19,6 +19,9 @@
         "pages/openMethods/fingerprint/manage/manage",
         "pages/openMethods/card/manage/manage"
     ],
+    "usingComponents": {
+        "i-message": "components/message/index"
+    },
     "window": {
         "navigationBarTitleText": "TTLock Demo",
         "navigationBarBackgroundColor": "#2886f7"
@@ -28,7 +31,7 @@
     },
     "plugins": {
         "myPlugin": {
-            "version": "2.9.1",
+            "version": "dev-931294d9e42e1b614ab8cf0911d5136f",
             "provider": "wx43d5971c94455481"
         }
     },

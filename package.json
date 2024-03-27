@@ -11,6 +11,8 @@
     },
     "dependencies": {
         "crypto-js": "^4.1.1",
-        "dayjs": "^1.11.8"
+        "dayjs": "^1.11.8",
+        "debounce": "^2.0.0",
+        "tslib": "^2.6.2"
     }
 }

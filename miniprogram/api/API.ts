@@ -1,5 +1,6 @@
 import RequestTool, { RequestRes } from './common';
 import { AES_Decrypt } from "../utils/crypto";
+import { HttpRequestUtil } from "./tools/httpRequest";
 
 const CLIENT_ID = "7946f0d923934a61baefb3303de4d132";
 const CLIENT_SECRET = "56d9721abbc3d22a58452c24131a5554";
@@ -18,13 +19,20 @@ class API {
 
     // 钥匙列表
     keyList(): Promise<Record<string, any> | null> {
-        return RequestTool.$request("/v3/key/list", "POST", {
+        return HttpRequestUtil.post("/v3/key/list", {
             "clientId": CLIENT_ID,
             "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
             "pageNo": 1,
             "pageSize": 20,
             "date": Date.now()
         });
+        // return HttpRequestUtil.post("/v3/key/list", "POST", {
+        //     "clientId": CLIENT_ID,
+        //     "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
+        //     "pageNo": 1,
+        //     "pageSize": 20,
+        //     "date": Date.now()
+        // });
     }
 
     // 上传初始化智能锁参数
