@@ -50,7 +50,7 @@ Page({
             if (HttpHandler.isResponseTrue(res)) {
                 if (pageNo == 1) this.data.keyList.splice(0, this.data.keyList.length, ...res.list);
                 else res.list.forEach(item => this.data.keyList.push(item));
-                this.setData({ keyList: this.data.keyList, currentPageNo: 1 });
+                this.setData({ keyList: this.data.keyList, currentPageNo: pageNo });
                 wx.stopPullDownRefresh();
             } else {
                 wx.removeStorageSync("access_token");

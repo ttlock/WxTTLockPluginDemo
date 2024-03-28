@@ -1,3 +1,4 @@
+/// <reference path="./keyboardPwd.d.ts" />
 import { HttpRequestUtil } from "../tools/httpRequest";
 
 /** 添加键盘密码 */

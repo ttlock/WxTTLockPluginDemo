@@ -3,9 +3,6 @@ import * as LockAPI from "../../api/interfaces/lock";
 import * as LockRecordAPI from "../../api/interfaces/lockRecord";
 import { HttpHandler } from "../../api/handle/httpHandler";
 
-import API from "../../api/API";
-const plugin = requirePlugin("myPlugin");
-
 Page({
     data: {
         state: '',

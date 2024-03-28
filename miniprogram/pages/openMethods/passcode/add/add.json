@@ -1,4 +1,5 @@
 {
+    "navigationBarTitleText": "添加自定义密码",
     "usingComponents": {
         "DatespanPicker": "/components/datespan-picker/datespan-picker"
     }

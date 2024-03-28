@@ -1,5 +1,6 @@
 // components/datespan-picker/datespan-picker.ts
 Component({
+    behaviors: ['wx://form-field'],
     /**
      * 组件的属性列表
      */

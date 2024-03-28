@@ -1,8 +1,4 @@
-<view class="block">
-    <text class="title">当前智能锁：{{keyInfo.lockAlias}}</text>
-    <navigator class="iconfont icon-add btn-add"
-        url="./add/add"></navigator>
-</view>
+<navigator class="iconfont icon-add btn-add" url="./add/add"></navigator>
 <view wx:if="{{passcodeList && passcodeList.length > 0}}">
     <view wx:for="{{passcodeList}}" wx:for-item="item" wx:key="keyboardPwdId" data-index="{{index}}"
         data-value="{{item}}"
@@ -12,5 +8,5 @@
         {{item.keyboardPwd}} {{item.keyboardPwdName || ""}}
     </view>
 </view>
-<view class="description mv-24 mh-16 fc-9" wx:else>暂无密码</view>
-<view class="description mv-24 mh-16">{{state}}</view>
+<view class="ph-32 pv-16 fs-14 fc-9" wx:else>暂无密码，请点击右下角按钮进行添加</view>
+<view class="ph-16 fc-3 fs-12 mt-32">{{state}}</view>

@@ -12,8 +12,8 @@ export function Delete(params: ILockAPI.Params.Delete) {
 }
 
 /** 获取键盘密码列表 */
-export function listKeyboardPwd(params) {
-    return HttpRequestUtil.get("/v3/lock/listKeyboardPwd", params);
+export function listKeyboardPwd(params: ILockAPI.Params.KeyboardPwdList) {
+    return HttpRequestUtil.get<ILockAPI.Result.KeyboardPwdList>("/v3/lock/listKeyboardPwd", params);
 }
 
 /** 更新智能锁信息 */
