@@ -1,12 +1,14 @@
 // 智能锁列表
+import debounce from "debounce";
 import * as EKeyAPI from "../../api/interfaces/key";
 import { HttpHandler } from "../../api/handle/httpHandler";
-import debounce from "debounce";
+
 
 Page({
     data: {
         isReady: false, // 页面数据是否已准备好
         keyList: new Array<IEKeyAPI.List.EKeyInfo>(), // 电子钥匙列表
+        currentPageNo: 1,
     },
     onLoad() {
         console.log("load page");
@@ -14,6 +16,11 @@ Page({
             // 开启用户错误日志输出
             setShowLog(true, this.handleShowLog);
         });
+        wx.showLoading({ title: "" });
+        this.modifyKeyList();
+    },
+
+    onShow() {
         wx.showLoading({ title: "" });
         this.modifyKeyList();
     },
@@ -30,6 +37,10 @@ Page({
         this.modifyKeyList();
     },
 
+    onReachBottom() {
+        this.modifyKeyList(this.data.currentPageNo + 1);
+    },
+
     /* 更新电子钥匙列表 */
     modifyKeyList: debounce(function (pageNo: number = 1) {
         EKeyAPI.list({
@@ -39,7 +50,7 @@ Page({
             if (HttpHandler.isResponseTrue(res)) {
                 if (pageNo == 1) this.data.keyList.splice(0, this.data.keyList.length, ...res.list);
                 else res.list.forEach(item => this.data.keyList.push(item));
-                this.setData({ keyList: this.data.keyList });
+                this.setData({ keyList: this.data.keyList, currentPageNo: 1 });
                 wx.stopPullDownRefresh();
             } else {
                 wx.removeStorageSync("access_token");

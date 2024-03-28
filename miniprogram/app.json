@@ -31,7 +31,7 @@
     },
     "plugins": {
         "myPlugin": {
-            "version": "dev-931294d9e42e1b614ab8cf0911d5136f",
+            "version": "dev-c089f8f0bdf971c24e27e78893048f24",
             "provider": "wx43d5971c94455481"
         }
     },

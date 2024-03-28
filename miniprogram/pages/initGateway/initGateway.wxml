@@ -1,15 +1,16 @@
 <!-- 添加网关 -->
-<view class="block flex-row">
-    <button bindtap="startScan">扫描网关</button>
-    <button bindtap='stopScan'>停止扫描</button>
-    <button bindtap='handleStopAllOperations'>停止所有操作</button>
+<i-message id="IMessage"></i-message>
+<view class="flex-row ph-32 pv-16">
+    <button class="mh-0 btn-primary" hover-class="btn-hover" bindtap="startScan">开始扫描</button>
+    <button class="mh-0 btn-primary" hover-class="btn-hover" bindtap='stopScan'>停止扫描</button>
+    <button class="mh-0 btn-primary" hover-class="btn-hover" bindtap='handleStopAllOperations'>停止所有操作</button>
 </view>
-<view class="block" wx:if="{{wifiList && wifiList.length > 0}}">
-    <button bindtap="scanWifi">扫描WIFI列表</button>
+<view class="flex-row ph-32 mb-32" wx:if="{{wifiList && wifiList.length > 0}}">
+    <button class="mh-0 btn-primary" hover-class="btn-hover" style="width: 100%" bindtap="scanWifi">重新扫描WIFI列表</button>
 </view>
-<view class="description">{{state}}</view>
+<view class="ph-16 fc-3 fs-12">{{state}}</view>
 <block wx:if="{{plugList && plugList.length > 0}}">
-    <view class="description mv-24">网关列表</view>
+    <view class="ph-32 mv-16">网关列表</view>
     <view wx:for="{{plugList}}" wx:key="MAC" data-index="{{index}}"
         data-value="{{item}}"
         class="tapline {{item.isSettingMode ? 'add' : 'no-icon'}}"
@@ -19,7 +20,7 @@
     </view>
 </block>
 <block wx:if="{{wifiList && wifiList.length > 0}}">
-    <view class="description mv-24">WIFI列表</view>
+    <view class="ph-32 mv-16">wifi列表</view>
     <view wx:for="{{wifiList}}" wx:key="SSID" data-index="{{index}}"
         data-value="{{item}}"
         class="tapline add}}"
@@ -31,14 +32,14 @@
 <block wx:if="{{showInput}}">
     <form bindsubmit="initGateway">
         <view class="form-item">
-            <text class="form-item-label">SSID：</text>
-            <text>{{currentWifi ? currentWifi.SSID : ""}}</text>
+            <text class="form-item-label">SSID: </text>
+            <text class="fc-0 ml-16">{{currentWifi ? currentWifi.SSID : ""}}</text>
         </view>
         <view class="form-item">
-            <text class="form-item-label">密码：</text>
+            <text class="form-item-label">wifi密码</text>
             <input model:value="{{password}}"
                 password="true"
-                placeholder="请输入密码"
+                placeholder="请输入wifi密码"
                 name="password"
                 bindinput="handleInputEmpty"></input>
         </view>

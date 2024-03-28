@@ -1,4 +1,5 @@
 <!-- 智能锁列表 -->
+<i-message id="IMessage"></i-message>
 <view class="flex-row ph-32 pv-16">
     <navigator url="../initLock/initLock" class="navigator" hover-class="navigator-hover">添加智能锁</navigator>
     <navigator url="../initGateway/initGateway" class="navigator" hover-class="navigator-hover">添加网关</navigator>

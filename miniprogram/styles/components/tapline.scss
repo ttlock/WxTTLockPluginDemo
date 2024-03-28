@@ -42,6 +42,7 @@
     }
     &.add::after {
         content: "\e6f9";
+        color: $primary-color;
     }
     &.no-icon::after {
         content: none;

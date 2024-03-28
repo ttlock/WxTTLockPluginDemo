@@ -1,8 +1,9 @@
+/// <reference path="./lock.d.ts" />
 import { HttpRequestUtil } from "../tools/httpRequest";
 
 /** 上传初始化智能锁参数 */
-export function initialize(params) {
-    return HttpRequestUtil.post("/v3/lock/initialize", params);
+export function initialize(params: ILockAPI.Params.Initialize) {
+    return HttpRequestUtil.post<ILockAPI.Result.Initialize>("/v3/lock/initialize", params);
 }
 
 /** 删除智能锁 */
