@@ -7,7 +7,7 @@ export function initialize(params: ILockAPI.Params.Initialize) {
 }
 
 /** 删除智能锁 */
-export function Delete(params) {
+export function Delete(params: ILockAPI.Params.Delete) {
     return HttpRequestUtil.post("/v3/lock/delete", params);
 }
 

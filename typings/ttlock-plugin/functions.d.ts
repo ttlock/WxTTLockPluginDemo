@@ -7,7 +7,7 @@
 declare namespace TTLockPluginModel {
     export function setShowLog(openLog: boolean, callback?: TTLockShowLogCallback): void;
     export function getLockType(lockVersion: TTLockVersion): TTLOCK_TYPE;
-    export function parseFeatureValue(featureValue: string | number): TTLockFeatureValue;
+    export function parseSpecialValues(featureValue: string | number): TTLockFeatureValue;
 
     export function startScanBleDevice(callback?: TTLockScanLockCallback, failCallback?: TTLockCallback): Promise<TTLockError>;
     export function startScanGateway(callback?: TTLockScanGatewayCallback, failCallback?: TTLockCallback): Promise<TTLockError>;

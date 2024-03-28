@@ -4,9 +4,6 @@ import * as GatewayAPI from "../../api/interfaces/gateway";
 import { HttpHandler } from "../../api/handle/httpHandler";
 import { AES_Decrypt, MD5_Encrypt } from "../../utils/crypto";
 
-import API from "../../api/API";
-const plugin = requirePlugin("myPlugin");
-
 interface FormStatus {
     password?: string; // 密码
 }
@@ -153,23 +150,6 @@ Page({
                 else this.setData({ isInitGateway: false, state: `网关连接失败：${res.errorMsg}` });
             });
         });
-        // // 连接智能网关
-        // plugin.connectGateway(deviceFromScan, err => {
-        //     console.log("检测到设备断开连接(连接设备）", err);
-        //     this.handleResetData("网关设备已断开连接");
-        // }).then(res => {
-        //     console.log(res)
-        //     if (res.errorCode === 0) {
-        //         this.setData({ state: `设备${deviceFromScan.deviceName}已连接，正在搜索WIFI列表` }, () => {
-        //             this.handleScanWifi(deviceFromScan);
-        //         });
-        //     } else {
-        //         this.setData({
-        //             plugList: [],
-        //             state: `网关连接失败, 错误信息：${res.errorMsg}`
-        //         });
-        //     }
-        // })
     },
 
     // 扫描WIFI列表
@@ -265,7 +245,7 @@ Page({
                     this.setData({ isInitGateway: false, state: `网关初始化成功, 正在查询服务器` });
                     wx.showLoading({ title: "" });
                     GatewayAPI.isInitSuccess({ gatewayNetMac: deviceFromScan.MAC }).then(checkRes => {
-                        if (checkRes) {
+                        if (HttpHandler.isResponseTrue(checkRes)) {
                             this.setData({ state: `网关已初始化，正在更新设备信息` });
                             GatewayAPI.uploadDetail({
                                 gatewayId: checkRes.gatewayId,
@@ -274,7 +254,7 @@ Page({
                                 firmwareRevision: initRes.data.firmware,
                                 networkName: wifiItem.SSID
                             }).then(res => {
-                                if (res) {
+                                if (HttpHandler.isResponseTrue(res)) {
                                     wx.hideLoading();
                                     this.setData({ state: "网关初始化完成" });
                                     HttpHandler.showErrorMsg("网关已初始化");

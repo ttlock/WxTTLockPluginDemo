@@ -1,6 +1,3 @@
-<view class="block">
-    <text class="title">当前智能锁：{{keyInfo.lockAlias}}</text>
-</view>
 <block>
     <view class="tapline no-icon" hover-class="tapline-hover" bindtap="toOpenDoor">
         <text>点击开锁</text>
@@ -30,4 +27,4 @@
         <text>重置锁</text>
     </view>
 </block>
-<view class="description mv-24 mh-16">{{state}}</view>
+<view class="ph-16 fc-3 fs-12 mt-32">{{state}}</view>

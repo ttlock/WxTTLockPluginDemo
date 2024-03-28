@@ -6,6 +6,11 @@ namespace ILockAPI.Params {
         groupId?: number; // 分组ID
         nbInitSuccess?: 1 | 0; // NB-IoT锁是否初始化成功，1-是、0-否，只有NB-IoT锁需要传
     }
+
+    /** 删除智能锁参数 */
+    interface Delete {
+        lockId: number; // 智能锁ID
+    }
 }
 
 namespace ILockAPI.List {
