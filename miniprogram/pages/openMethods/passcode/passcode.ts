@@ -6,7 +6,6 @@ Page({
     data: {
         state: '',
         keyInfo: {}, // 钥匙数据
-        specialValueObj: {}, // 智能锁特征值
         passcodeList: [], // 密码列表
         currentPageIndex: 0,
         isFinished: false, // 数据是否已完成加载
@@ -17,10 +16,6 @@ Page({
         this.setData({ keyInfo: keyInfo }, () => {
             this.modifyPasscodeList();
         });
-        requirePlugin("myPlugin", ({ parseSpecialValues }: TTLockPlugin) => {
-            const specialValueObj = parseSpecialValues(keyInfo.featureValue);
-            this.setData({ specialValueObj: specialValueObj });
-        })
         wx.setNavigationBarTitle({ title: keyInfo.lockAlias });
     },
 
@@ -41,6 +36,7 @@ Page({
             pageNo: pageNo,
             pageSize: 20,
         }).then(res => {
+            console.log(res)
             if (HttpHandler.isResponseTrue(res)) {
                 const resultList = res.list.filter(item => (
                     item.keyboardPwdVersion === 4 && (item.keyboardPwdType == 2 || item.keyboardPwdType == 3)

@@ -42,9 +42,9 @@ Page({
     },
 
     // 输入校验
-    handleCheckInput(event) {
-        if (!event.passcode) { HttpHandler.showErrorMsg("请输入密码"); return false; }
-        else if (this.data.permanent) return true;
+    handleCheckInput(value: FormStatus) {
+        if (!value.passcode) { HttpHandler.showErrorMsg("请输入密码"); return false; }
+        else if (value.permanent) return true;
         else {
             const btnEl = this.selectComponent("#dateSpan");
             const errorMsg = btnEl.toCheckDateSpan();

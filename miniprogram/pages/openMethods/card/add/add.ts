@@ -1,8 +1,15 @@
 // 添加自定义密码
-import API from "../../../../api/API";
+import debounce from "debounce";
+import * as IdentityCardAPI from "../../../../api/interfaces/identityCard";
+import { HttpHandler } from "../../../../api/handle/httpHandler";
 const dayjs = require("dayjs");
-const plugin = requirePlugin("myPlugin");
-let deviceId: string = ""; // 当前智能锁ID
+
+interface FormStatus {
+    cardNo?: string; // IC卡卡号
+    name?: string; // IC卡名称
+    permanent?: boolean; // 是否为永久IC卡
+    dateSpan?: DateSpanBase; // 有效期
+}
 
 Page({
     data: {
@@ -15,9 +22,8 @@ Page({
     },
     // 设置初始化参数
     onLoad() {
-        deviceId = "";
-        const keyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
-        const startDate = dayjs().startOf("hour");
+        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const startDate = dayjs().startOf("minute");
         this.setData({
             keyInfo: keyInfo,
             dateSpan: {
@@ -33,138 +39,136 @@ Page({
     },
 
     // 输入校验
-    handleCheckInput(event, type: "RECOVER" | "INIT") {
-        console.log(event)
-        if (type === "RECOVER" && !event.cardNo) { wx.showToast({ icon: "none", title: "请输入IC卡卡号" }); return false; }
-        else if (!event.name) { wx.showToast({ icon: "none", title: "请输入IC卡名称" }); return false; }
-        else if (this.data.permanent) return true;
+    handleCheckInput(event: FormStatus, type: "RECOVER" | "INIT") {
+        if (type === "RECOVER" && !event.cardNo) { HttpHandler.showErrorMsg("请输入IC卡卡号"); return false; }
+        else if (!event.name) { HttpHandler.showErrorMsg("请输入IC卡名称"); return false; }
+        else if (event.permanent) return true;
         else {
             const btnEl = this.selectComponent("#dateSpan");
             const errorMsg = btnEl.toCheckDateSpan();
             if (errorMsg) {
-                wx.showToast({ icon: "none", title: errorMsg });
+                HttpHandler.showErrorMsg(errorMsg)
                 return false;
             } else return true;
         }
     },
 
-    handleSubmit(event) {
-        const value = event.detail.value;
+    handleSubmit: debounce(function (event) {
+        const value = event.detail.value as FormStatus;
         const type = event.detail.target.dataset.type;
         const flag = this.handleCheckInput(value, type);
         if (!flag) return;
         switch(type) {
-        case "INIT": this.handleInitCard(); break;
-        case "RECOVER": this.handleRecoverCard(); break;
+        case "INIT": this.handleInitCard(value); break;
+        case "RECOVER": this.handleRecoverCard(value); break;
         }
-    },
+    }, 100),
 
     // 添加IC卡
-    handleInitCard() {
-        const startDate = this.data.permanent ? 0 : this.data.dateSpan.startDate;
-        const endDate = this.data.permanent ? 0 : this.data.dateSpan.endDate;
-        const lockData = this.data.keyInfo.lockData;
-        const lockId = this.data.keyInfo.lockId;
-        const start = Date.now();
+    handleInitCard(value: FormStatus) {
+        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
         wx.showLoading({ title: "正在添加IC卡" });
-        plugin.addICCard(startDate, endDate, lockData, res => {
-            console.log("step", res);
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            } else if (res.errorCode === 0) {
-                switch (res.type) {
-                    case 1: break;
+        requirePlugin("myPlugin", ({ addICCard }: TTLockPlugin) => {
+            // 添加IC卡
+            addICCard({
+                startDate: !value.permanent ? value.dateSpan.startDate : 0,
+                endDate: !value.permanent ? value.dateSpan.endDate : 0,
+                lockData: ekeyInfo.lockData,
+                callback: (result) => {
+                    console.log(result, "中间步骤")
+                    switch (result.type) {
+                    case 1: {
+                        wx.showLoading({ title: `添加成功，正在上传` });
+                        this.setData({ state: "IC卡添加成功" });
+                    }; break;
                     case 2:{
-                        wx.showLoading({ title: `${res.description}, 请录入IC卡` });
-                        this.setData({ state: `${res.description}, 请录入IC卡` });
+                        wx.showLoading({ title: `${result.description}, 请录入IC卡` });
+                        this.setData({ state: `${result.description}, 请录入IC卡` });
                     }; break;
                     case 3: {
-                        wx.showLoading({ title: res.description });
-                        this.setData({ state: res.description });
+                        wx.showLoading({ title: result.description });
+                        this.setData({ state: result.description });
                     }; break;
                     default: {
-                        wx.showLoading({ title: '未知错误' });
-                        this.setData({ state: '未知错误' });
+                        wx.hideLoading();
+                        HttpHandler.showErrorMsg(result.errorMsg);
                     }; break;
-                }
-            }
-        }, deviceId).then(res => {
-            console.log(res)
-            if (res.deviceId) deviceId = res.deviceId;
-            if (res.errorCode === 0) {
-                this.setData({ state: `IC卡已添加, 正在上传, 操作时间: ${Date.now() - start}ms.`})
-                API.addICCard({
-                    lockId: lockId,
-                    cardName: this.data.name,
-                    cardNumber: res.cardNum,
-                    startDate: startDate,
-                    endDate: endDate
-                }).then(res1 => {
-                    console.log(res1);
-                    if (res1) {
-                        wx.showToast({
-                            icon: "success",
-                            title: 'IC卡已添加',
-                            mask: true,
-                            complete: () => {
-                                setTimeout(wx.navigateBack, 2000);
-                            }
-                        });
-                    } else {
-                        wx.showToast({ icon: "error", title: "上传失败, IC卡已添加" });
-                        this.setData({ state: "上传失败, IC卡已添加" });
                     }
-                })
-            } else {
-                wx.showToast({ icon: "error", title: "IC卡添加失败" });
-                this.setData({ state: `IC卡添加失败, 错误信息: ${res.errorMsg}`});
-            }
-        })
+                }
+            }).then(res => {
+                if (res.errorCode === 0) {
+                    wx.showLoading({ title: "添加成功，正在上传" });
+                    console.log(`IC卡已添加, 正在上传`);
+                    IdentityCardAPI.add({
+                        lockId: ekeyInfo.lockId,
+                        cardName: value.name,
+                        cardNumber: String(res.cardNum),
+                        startDate: !value.permanent ? value.dateSpan.startDate : 0,
+                        endDate: !value.permanent ? value.dateSpan.endDate : 0,
+                    }).then(res => {
+                        console.log(res);
+                        if (HttpHandler.isResponseTrue(res)) {
+                            wx.hideLoading();
+                            HttpHandler.showErrorMsg("IC卡已添加成功");
+                            setTimeout(wx.navigateBack, 2000);
+                        } else {
+                            HttpHandler.handleResponseError(res);
+                            wx.hideLoading();
+                            console.log(`上传失败, IC卡已添加`);
+                        }
+                    }).catch(err => {
+                        HttpHandler.handleServerError(err);
+                        wx.hideLoading();
+                    })
+                } else {
+                    wx.hideLoading();
+                    HttpHandler.showErrorMsg(`IC卡添加失败：${res.errorMsg}`);
+                }
+            })
+        });
     },
 
     // 通过卡号恢复IC卡
-    handleRecoverCard() {
-        const startDate = this.data.permanent ? 0 : this.data.dateSpan.startDate;
-        const endDate = this.data.permanent ? 0 : this.data.dateSpan.endDate;
-        const lockData = this.data.keyInfo.lockData;
-        const lockId = this.data.keyInfo.lockId;
-        const cardNo = parseInt(this.data.cardNo);
-        const start = Date.now();
-        wx.showLoading({ title: "正在恢复IC卡" });
-        // 恢复IC卡
-        plugin.recoverICCardNumber(cardNo, startDate, endDate, lockData, res => {
-            console.log("恢复IC卡连接已断开", res)
-        }, deviceId).then(res => {
-            console.log(res)
-            if (res.deviceId) deviceId = res.deviceId;
-            if (res.errorCode === 0) {
-                this.setData({ state: `IC卡已恢复, 正在上传, 操作时间: ${Date.now() - start}ms.`});
-                API.addICCard({
-                    lockId: lockId,
-                    cardName: this.data.name,
-                    cardNumber: cardNo,
-                    startDate: startDate,
-                    endDate: endDate
-                }).then(res1 => {
-                    console.log(res1);
-                    if (res1) {
-                        wx.showToast({
-                            icon: "success",
-                            title: 'IC卡已恢复',
-                            mask: true,
-                            complete: () => {
-                                setTimeout(wx.navigateBack, 2000);
-                            }
-                        });
-                    } else {
-                        wx.showToast({ icon: "error", title: "上传失败, IC卡已恢复" });
-                        this.setData({ state: "上传失败, IC卡已恢复" });
-                    }
-                })
-            } else {
-                wx.showToast({ icon: "error", title: "IC卡恢复失败" });
-                this.setData({ state: `IC卡恢复失败, 错误信息: ${res.errorMsg}`});
-            }
-        })
+    handleRecoverCard(value: FormStatus) {
+        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        wx.showLoading({ title: "正在通过卡号添加IC卡" });
+        requirePlugin("myPlugin", ({ recoverICCardNumber }: TTLockPlugin) => {
+            // 恢复IC卡
+            recoverICCardNumber({
+                startDate: !value.permanent ? value.dateSpan.startDate : 0,
+                endDate: !value.permanent ? value.dateSpan.endDate : 0,
+                cardNum: parseInt(value.cardNo),
+                lockData: ekeyInfo.lockData
+            }).then(res => {
+                if (res.errorCode === 0) {
+                    wx.showLoading({ title: "添加成功，正在上传" });
+                    console.log(`IC卡已恢复, 正在上传`);
+                    IdentityCardAPI.add({
+                        lockId: ekeyInfo.lockId,
+                        cardName: value.name,
+                        cardNumber: value.cardNo,
+                        startDate: !value.permanent ? value.dateSpan.startDate : 0,
+                        endDate: !value.permanent ? value.dateSpan.endDate : 0,
+                    }).then(res => {
+                        console.log(res);
+                        if (HttpHandler.isResponseTrue(res)) {
+                            wx.hideLoading();
+                            HttpHandler.showErrorMsg("IC卡已恢复成功");
+                            setTimeout(wx.navigateBack, 2000);
+                        } else {
+                            HttpHandler.handleResponseError(res);
+                            wx.hideLoading();
+                            console.log(`上传失败, 指纹已恢复`);
+                        }
+                    }).catch(err => {
+                        HttpHandler.handleServerError(err);
+                        wx.hideLoading();
+                    })
+                } else {
+                    wx.hideLoading();
+                    HttpHandler.showErrorMsg(`IC卡恢复失败：${res.errorMsg}`);
+                }
+            })
+        });
     },
 })

@@ -1,8 +1,15 @@
 // 添加指纹
-import API from "../../../../api/API";
+import debounce from "debounce";
+import * as FingerprintAPI from "../../../../api/interfaces/fingerprint";
+import { HttpHandler } from "../../../../api/handle/httpHandler";
 const dayjs = require("dayjs");
-const plugin = requirePlugin("myPlugin");
-let deviceId: string = ""; // 当前智能锁ID
+
+interface FormStatus {
+    cardNo?: string; // IC卡号
+    name?: string; // IC卡名称
+    permanent?: boolean; // 是否为永久IC卡
+    dateSpan?: DateSpanBase; // 有效期
+}
 
 Page({
     data: {
@@ -14,9 +21,8 @@ Page({
     },
     // 设置初始化参数
     onLoad() {
-        deviceId = "";
-        const keyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
-        const startDate = dayjs().startOf("hour");
+        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const startDate = dayjs().startOf("minute");
         this.setData({
             keyInfo: keyInfo,
             dateSpan: {
@@ -32,95 +38,95 @@ Page({
     },
 
     // 输入校验
-    handleCheckInput(event) {
+    handleCheckInput(event: FormStatus) {
         console.log(event)
-        if (!event.name) { wx.showToast({ icon: "none", title: "请输入指纹名称" }); return false; }
-        else if (this.data.permanent) return true;
+        if (!event.name) { HttpHandler.showErrorMsg("请输入指纹名称"); return false; }
+        else if (event.permanent) return true;
         else {
             const btnEl = this.selectComponent("#dateSpan");
             const errorMsg = btnEl.toCheckDateSpan();
             if (errorMsg) {
-                wx.showToast({ icon: "none", title: errorMsg });
+                HttpHandler.showErrorMsg(errorMsg)
                 return false;
             } else return true;
         }
     },
 
-    handleSubmit(event) {
-        const value = event.detail.value;
+    handleSubmit: debounce(function (event) {
+        const value = event.detail.value as FormStatus;
         const flag = this.handleCheckInput(value);
         if (!flag) return;
-        this.handleInitFinterprint();
-    },
+        this.handleInitFinterprint(value);
+    }, 100),
 
     // 添加指纹
-    handleInitFinterprint() {
-        const startDate = this.data.permanent ? 0 : this.data.dateSpan.startDate;
-        const endDate = this.data.permanent ? 0 : this.data.dateSpan.endDate;
-        const lockData = this.data.keyInfo.lockData;
-        const lockId = this.data.keyInfo.lockId;
-        const start = Date.now();
+    handleInitFinterprint(value: FormStatus) {
+        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
         wx.showLoading({ title: "正在添加指纹" });
         let totalCount = 0;
-        // 添加指纹
-        plugin.addFingerprint(startDate, endDate, lockData, res => {
-            console.log("step", res);
-            if (res.errorCode === 10003) {
-                console.log("监控到设备连接已断开", res)
-            } else if (res.errorCode === 0) {
-                switch (res.type) {
-                    case 1: break;
+        requirePlugin("myPlugin", ({ addFingerprint }: TTLockPlugin) => {
+            // 添加指纹
+            addFingerprint({
+                startDate: !value.permanent ? value.dateSpan.startDate : 0,
+                endDate: !value.permanent ? value.dateSpan.endDate : 0,
+                lockData: ekeyInfo.lockData,
+                callback: (result) => {
+                    console.log(result, "中间步骤")
+                    switch (result.type) {
+                    case 1: {
+                        wx.showLoading({ title: `添加成功，正在上传` });
+                        this.setData({ state: "指纹添加成功" });
+                    }; break;
                     case 2:{
-                        totalCount = res.totalCount;
-                        wx.showLoading({ title: `请录入指纹, 0/${res.totalCount}` });
-                        this.setData({ state: `${res.description}, 请录入指纹, 进度 0/${res.totalCount}` });
+                        totalCount = result.totalCount;
+                        wx.showLoading({ title: `请录入指纹, 0/${result.totalCount}` });
+                        this.setData({ state: `${result.description}, 请录入指纹, 进度 0/${result.totalCount}` });
                     }; break;
                     case 3: {
-                        wx.showLoading({ title: `请再录入指纹, ${res.currentCount}/${totalCount}` });
-                        this.setData({ state: `${res.description}, 请录入指纹, 进度 ${res.currentCount}/${totalCount}` });
+                        wx.showLoading({ title: `请再录入指纹, ${result.currentCount}/${totalCount}` });
+                        this.setData({ state: `${result.description}, 请录入指纹, 进度 ${result.currentCount}/${totalCount}` });
                     }; break;
                     case 4: {
-                        wx.showLoading({ title: res.description });
-                        this.setData({ state: res.description });
+                        wx.showLoading({ title: result.description });
+                        this.setData({ state: result.description });
                     }; break;
                     default: {
-                        wx.showLoading({ title: '未知错误' });
-                        this.setData({ state: '未知错误' });
+                        wx.hideLoading();
+                        HttpHandler.showErrorMsg(result.errorMsg);
                     }; break;
-                }
-            }
-        }, deviceId).then(res => {
-            console.log(res)
-            if (res.deviceId) deviceId = res.deviceId;
-            if (res.errorCode === 0) {
-                this.setData({ state: `在奇偶位已添加, 正在上传, 操作时间: ${Date.now() - start}ms.`});
-                API.addFingerprint({
-                    lockId: lockId,
-                    fingerprintName: this.data.name,
-                    fingerprintNumber: res.fingerprintNum,
-                    fingerprintType: 1,
-                    startDate: startDate,
-                    endDate: endDate
-                }).then(res1 => {
-                    console.log(res1);
-                    if (res1) {
-                        wx.showToast({
-                            icon: "success",
-                            title: '指纹已添加',
-                            mask: true,
-                            complete: () => {
-                                setTimeout(wx.navigateBack, 2000);
-                            }
-                        });
-                    } else {
-                        wx.showToast({ icon: "error", title: "上传失败, 指纹已添加" });
-                        this.setData({ state: "上传失败, 指纹已添加" });
                     }
-                })
-            } else {
-                wx.showToast({ icon: "error", title: "指纹添加失败" });
-                this.setData({ state: `指纹添加失败, 错误信息: ${res.errorMsg}`});
-            }
-        })
+                },
+            }).then(res => {
+                if (res.errorCode === 0) {
+                    wx.showLoading({ title: "添加成功，正在上传" });
+                    console.log(`指纹已添加, 正在上传`);
+                    FingerprintAPI.add({
+                        lockId: ekeyInfo.lockId,
+                        fingerprintName: value.name,
+                        fingerprintNumber: res.fingerprintNum,
+                        fingerprintType: 1,
+                        startDate: !value.permanent ? value.dateSpan.startDate : 0,
+                        endDate: !value.permanent ? value.dateSpan.endDate : 0,
+                    }).then(res => {
+                        console.log(res);
+                        if (HttpHandler.isResponseTrue(res)) {
+                            wx.hideLoading();
+                            HttpHandler.showErrorMsg("指纹已添加成功");
+                            setTimeout(wx.navigateBack, 2000);
+                        } else {
+                            HttpHandler.handleResponseError(res);
+                            wx.hideLoading();
+                            console.log(`上传失败, 指纹已添加`);
+                        }
+                    }).catch(err => {
+                        HttpHandler.handleServerError(err);
+                        wx.hideLoading();
+                    })
+                } else {
+                    wx.hideLoading();
+                    HttpHandler.showErrorMsg(`指纹添加失败：${res.errorMsg}`);
+                }
+            })
+        });
     },
 })

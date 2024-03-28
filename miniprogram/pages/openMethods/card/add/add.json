@@ -1,4 +1,5 @@
 {
+    "navigationBarTitleText": "添加IC卡",
     "usingComponents": {
         "DatespanPicker": "/components/datespan-picker/datespan-picker"
     }

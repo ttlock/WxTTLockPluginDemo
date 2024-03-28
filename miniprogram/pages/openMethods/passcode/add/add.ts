@@ -15,7 +15,6 @@ Page({
     data: {
         state: '',
         keyInfo: {}, // 钥匙数据
-        specialValueObj: {}, // 智能锁特征值
 
         name: "", // 密码名称
         passcode: "", // 密码值
@@ -25,14 +24,9 @@ Page({
     // 设置初始化参数
     onLoad() {
         const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
-        this.setData({ keyInfo: keyInfo });
-        requirePlugin("myPlugin", ({ parseSpecialValues }: TTLockPlugin) => {
-            const specialValueObj = parseSpecialValues(keyInfo.featureValue);
-            this.setData({ specialValueObj: specialValueObj });
-        })
-        
         const startDate = dayjs().startOf("hour");
         this.setData({
+            keyInfo: keyInfo,
             dateSpan: {
                 startDate: startDate.valueOf(),
                 endDate: startDate.add(1, "hour").endOf("minute").valueOf()
@@ -49,7 +43,7 @@ Page({
     handleCheckInput(event: FormStatus) {
         if (!event.name) { HttpHandler.showErrorMsg("请输入密码名称"); return false; }
         else if (!event.passcode) { HttpHandler.showErrorMsg("请输入自定义密码"); return false; }
-        else if (this.data.permanent) return true;
+        else if (event.permanent) return true;
         else {
             const btnEl = this.selectComponent("#dateSpan");
             const errorMsg = btnEl.toCheckDateSpan();

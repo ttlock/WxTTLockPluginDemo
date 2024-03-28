@@ -1,23 +1,25 @@
 <!-- 管理IC卡 -->
-<view class="block">
+<i-message id="IMessage"></i-message>
+<view class="ph-32 pv-16 fs-18">
     <text class="title">IC卡: {{cardInfo.cardName || ""}} ({{cardInfo.cardNumber}})</text>
 </view>
-<form bindsubmit="handleSubmit">
-    <view class="form-item">
-        <text class="form-item-label">永久开关：</text>
-        <switch model:checked="{{permanent}}" type="switch" color="#2886f7"></switch>
-    </view>
-    <DatespanPicker wx:if="{{!permanent}}" model:value="{{dateSpan}}" id="dateSpan"
-        label="有效期"
-        start-placeholder="请选择开始时间"
-        end-placeholder="请选择结束时间"
-        use-minute="{{false}}"
-        bindupdate="handleUpdateDateSpan"></DatespanPicker>
-    <view class="form-item">
-        <button form-type="submit">修改</button>
-    </view>
-</form>
-<view class="form-item">
-    <button bindtap="handleDelete">删除</button>
+<view class="form">
+    <form bindsubmit="handleSubmit">
+        <view class="form-item" wx:if="{{ cardInfo && cardInfo.startDate == 0 && cardInfo.endDate == 0 }}">
+            <text class="form-item-label">永久开关：</text>
+            <switch model:checked="{{permanent}}" name="permanent" type="switch" color="#2886f7"></switch>
+        </view>
+        <DatespanPicker wx:if="{{!permanent}}" model:value="{{dateSpan}}" id="dateSpan" name="dateSpan"
+            label="有效期"
+            start-placeholder="请选择开始时间"
+            end-placeholder="请选择结束时间"
+            use-minute="{{true}}"
+            bindupdate="handleUpdateDateSpan"></DatespanPicker>
+        <view class="form-item">
+            <button hover-class="btn-hover" form-type="submit">修改有效期</button>
+        </view>
+        <view class="form-item">
+            <button hover-class="btn-hover" bindtap="handleDelete">删除</button>
+        </view>
+    </form>
 </view>
-<view class="description mv-24 mh-16">{{state}}</view>

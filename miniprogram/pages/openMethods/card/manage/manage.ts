@@ -1,8 +1,13 @@
 // 管理IC卡
-import API from "../../../../api/API";
+import debounce from "debounce";
+import * as IdentityCardAPI from "../../../../api/interfaces/identityCard";
+import { HttpHandler } from "../../../../api/handle/httpHandler";
 const dayjs = require("dayjs");
-const plugin = requirePlugin("myPlugin");
-let deviceId: string = ""; // 当前智能锁ID
+
+interface FormStatus {
+    permanent?: boolean; // 是否为永久IC卡
+    dateSpan?: DateSpanBase; // 有效期
+}
 
 Page({
     data: {
@@ -13,10 +18,9 @@ Page({
     },
     // 设置初始化参数
     onLoad() {
-        deviceId = "";
-        const keyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
-        const cardInfo = JSON.parse(wx.getStorageSync('cardInfo'));
-        const startDate = dayjs().startOf("hour");
+        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const cardInfo: ICardAPI.List.CardInfo = JSON.parse(wx.getStorageSync('cardInfo'));
+        const startDate = dayjs().startOf("minute");
         const permanent = cardInfo.startDate === 0 && cardInfo.endDate === 0;
         this.setData({
             keyInfo: keyInfo,
@@ -35,109 +39,110 @@ Page({
     },
 
     // 输入校验
-    handleCheckInput(event) {
-        if (this.data.permanent) return true;
+    handleCheckInput(value: FormStatus) {
+        if (value.permanent) return true;
         else {
             const btnEl = this.selectComponent("#dateSpan");
             const errorMsg = btnEl.toCheckDateSpan();
             if (errorMsg) {
-                wx.showToast({ icon: "none", title: errorMsg });
+                HttpHandler.showErrorMsg(errorMsg)
                 return false;
             } else return true;
         }
     },
 
-    handleSubmit(event) {
-        const value = event.detail.value;
+    handleSubmit: debounce(function (event) {
+        const value = event.detail.value as FormStatus;
         const flag = this.handleCheckInput(value);
         if (!flag) return;
-        this.handleModifyCard();
-    },
+        this.handleModifyCard(value);
+    }, 100),
 
     // 点击修改IC卡
-    handleModifyCard() {
-        const cardNo = this.data.cardInfo.cardNumber;
-        const startDate = this.data.permanent ? 0 : this.data.dateSpan.startDate;
-        const endDate = this.data.permanent ? 0 : this.data.dateSpan.endDate;
-        const lockData = this.data.keyInfo.lockData;
-        const lockId = this.data.keyInfo.lockId;
+    handleModifyCard(value: FormStatus) {
+        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const cardInfo = this.data.cardInfo as ICardAPI.List.CardInfo;
         const start = Date.now();
         wx.showLoading({ title: "正在修改IC卡有效期" });
-        // 修改IC卡有效期
-        plugin.modifyICCardValidityPeriod(startDate, endDate, cardNo, lockData, res => {
-            console.log("修改IC卡连接已断开", res)
-        }, deviceId).then(res => {
-            console.log(res)
-            if (res.deviceId) deviceId = res.deviceId;
-            if (res.errorCode === 0) {
-                this.setData({ state: `IC卡已修改, 正在上传, 操作时间: ${Date.now() - start}ms.` });
-                API.modifyICCard({
-                    lockId: lockId,
-                    cardId: this.data.cardInfo.cardId,
-                    startDate: startDate,
-                    endDate: endDate
-                }).then(res1 => {
-                    console.log(res1);
-                    if (res1) {
-                        wx.showToast({
-                            icon: "success",
-                            title: 'IC卡已修改',
-                            mask: true,
-                            complete: () => {
-                                setTimeout(wx.navigateBack, 2000);
-                            }
-                        });
-                    } else {
-                        wx.showToast({ icon: "error", title: "上传失败, IC卡已修改" });
-                        this.setData({ state: `上传失败, IC卡已修改` });
-                    }
-                })
-            } else {
-                wx.showToast({ icon: "error", title: "修改失败" });
-                this.setData({ state: `IC卡有效期修改失败, 错误信息: ${res.errorMsg}` });
-            }
+        requirePlugin("myPlugin", ({ modifyICCardValidityPeriod }: TTLockPlugin) => {
+            // 修改IC卡有效期
+            modifyICCardValidityPeriod({
+                startDate: value.permanent ? 0 : value.dateSpan.startDate,
+                endDate: value.permanent ? 0 : value.dateSpan.endDate,
+                cardNum: parseInt(cardInfo.cardNumber),
+                lockData: ekeyInfo.lockData
+            }).then(res => {
+                if (res.errorCode == 0) {
+                    wx.showLoading({ title: "修改成功，正在上传" });
+                    console.log(`IC卡已修改, 正在上传, 操作时间: ${Date.now() - start}ms.`);
+                    IdentityCardAPI.changePeriod({
+                        lockId: ekeyInfo.lockId,
+                        cardId: cardInfo.cardId,
+                        startDate: value.permanent ? 0 : value.dateSpan.startDate,
+                        endDate: value.permanent ? 0 : value.dateSpan.endDate,
+                    }).then(res => {
+                        console.log(res);
+                        if (HttpHandler.isResponseTrue(res)) {
+                            wx.hideLoading();
+                            HttpHandler.showErrorMsg("IC卡已修改成功");
+                            setTimeout(wx.navigateBack, 2000);
+                        } else {
+                            HttpHandler.handleResponseError(res);
+                            wx.hideLoading();
+                            console.log(`上传失败, IC卡已修改`);
+                        }
+                    }).catch(err => {
+                        HttpHandler.handleServerError(err);
+                        wx.hideLoading();
+                    })
+                } else {
+                    wx.hideLoading();
+                    HttpHandler.showErrorMsg(`IC卡有效期修改失败：${res.errorMsg}`);
+                }
+            })
         })
     },
 
 
     // 删除IC卡
     handleDelete() {
-        const cardNo = this.data.cardInfo.cardNumber;
-        const lockData = this.data.keyInfo.lockData;
-        const lockId = this.data.keyInfo.lockId;
+        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const cardInfo = this.data.cardInfo as ICardAPI.List.CardInfo;
         const start = Date.now();
         wx.showLoading({ title: "正在删除IC卡" });
-        // 删除IC卡
-        plugin.deleteICCard(cardNo, lockData, res => {
-            console.log("删除IC卡连接已断开", res)
-        }, deviceId).then(res => {
-            console.log(res)
-            if (res.deviceId) deviceId = res.deviceId;
-            if (res.errorCode === 0) {
-                this.setData({ state: `IC卡已删除, 正在上传, 操作时间: ${Date.now() - start}ms.` });
-                API.deleteICCard({
-                    lockId: lockId,
-                    cardId: this.data.cardInfo.cardId
-                }).then(res1 => {
-                    console.log(res1);
-                    if (res1) {
-                        wx.showToast({
-                            icon: "success",
-                            title: 'IC卡已删除',
-                            mask: true,
-                            complete: () => {
-                                setTimeout(wx.navigateBack, 2000);
-                            }
-                        });
-                    } else {
-                        wx.showToast({ icon: "error", title: "上传失败, IC卡已删除" });
-                        this.setData({ state: `上传失败, IC卡已删除` });
-                    }
-                })
-            } else {
-                wx.showToast({ icon: "error", title: "删除失败" });
-                this.setData({ state: `IC卡删除失败, 错误信息: ${res.errorMsg}` });
-            }
+        requirePlugin("myPlugin", ({ deleteICCard }: TTLockPlugin) => {
+            // 删除IC卡
+            deleteICCard({
+                cardNum: parseInt(cardInfo.cardNumber),
+                lockData: ekeyInfo.lockData
+            }).then(res => {
+                console.log(res)
+                if (res.errorCode == 0) {
+                    wx.showLoading({ title: "删除成功，正在上传" });
+                    console.log(`IC卡已删除, 正在上传, 操作时间: ${Date.now() - start}ms.`);
+                    IdentityCardAPI.Delete({
+                        lockId: ekeyInfo.lockId,
+                        cardId: cardInfo.cardId
+                    }).then(res => {
+                        console.log(res);
+                        if (HttpHandler.isResponseTrue(res)) {
+                            wx.hideLoading();
+                            HttpHandler.showErrorMsg("IC卡已删除");
+                            setTimeout(wx.navigateBack, 2000);
+                        } else {
+                            HttpHandler.handleResponseError(res);
+                            wx.hideLoading();
+                            console.log(`上传失败, IC卡已删除`);
+                        }
+                    }).catch(err => {
+                        HttpHandler.handleServerError(err);
+                        wx.hideLoading();
+                    })
+                } else {
+                    wx.hideLoading();
+                    HttpHandler.showErrorMsg(`IC卡删除失败：${res.errorMsg}`);
+                }
+            });
         });
     },
 })
