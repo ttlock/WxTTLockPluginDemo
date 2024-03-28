@@ -4,10 +4,6 @@ import * as KeyboardPwdAPI from "../../../../api/interfaces/keyboardPwd";
 import { HttpHandler } from "../../../../api/handle/httpHandler";
 const dayjs = require("dayjs");
 
-import API from "../../../../api/API";
-const plugin = requirePlugin("myPlugin");
-let deviceId: string = ""; // 当前智能锁ID
-
 interface FormStatus {
     passcode?: string; // 密码值
     permanent?: boolean; // 是否为永久密码
@@ -107,8 +103,8 @@ Page({
                         wx.hideLoading();
                     })
                 } else {
-                    wx.showToast({ icon: "error", title: "修改失败" });
-                    console.log(`密码修改失败, 错误信息: ${res.errorMsg}`);
+                    wx.hideLoading();
+                    HttpHandler.showErrorMsg(`密码修改失败：${res.errorMsg}`);
                 }
             })
         });
@@ -149,8 +145,8 @@ Page({
                         wx.hideLoading();
                     })
                 } else {
-                    wx.showToast({ icon: "error", title: "删除失败" });
-                    console.log(`密码删除失败: ${res.errorMsg}`);
+                    wx.hideLoading();
+                    HttpHandler.showErrorMsg(`密码删除失败：${res.errorMsg}`);
                 }
             });
         });

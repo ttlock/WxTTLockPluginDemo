@@ -12,7 +12,7 @@
                 name="passcode"
                 bindinput="handleInputEmpty"></input>
         </view>
-        <view class="form-item">
+        <view class="form-item" wx:if="{{ passcodeInfo && passcodeInfo.keyboardPwdType == 2 }}">
             <text class="form-item-label">永久开关：</text>
             <switch model:checked="{{permanent}}" name="permanent" type="switch" color="#2886f7"></switch>
         </view>
