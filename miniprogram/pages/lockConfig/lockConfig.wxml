@@ -1,17 +1,21 @@
 <i-message id="IMessage"></i-message>
 <block>
     <view class="tapline no-icon" hover-class="tapline-hover"
+        bindtap="toGetRemoteUnlock">
+        <text>查询远程开关状态  ({{specialValueObj.gatewayUnlock ? '已开启' : '已关闭'}})</text>
+    </view>
+    <view class="tapline no-icon" hover-class="tapline-hover"
         bindtap="toSetRemoteUnlock">
         <text>{{specialValueObj.gatewayUnlock ? '关闭远程开锁' : '开启远程开关'}}</text>
     </view>
     <view class="tapline no-icon" hover-class="tapline-hover"
-        bindtap="toGetRemoteUnlock">
-        <text>获取远程开锁开关状态</text>
-    </view>
-    <view class="tapline no-icon" hover-class="tapline-hover"
         bindtap="toGetAdminPasscode">
-        <text>查询管理员密码</text>
+        <text>查询管理员密码  ({{keyInfo.noKeyPwd}})</text>
     </view>
+    <navigator class="tapline" hover-class="tapline-hover"
+        url="./adminpwd/adminpwd">
+        <text>设置管理员密码</text>
+    </navigator>
     <view class="tapline no-icon" hover-class="tapline-hover"
         bindtap="toGetLockStatus">
         <text>查询锁开闭状态</text>

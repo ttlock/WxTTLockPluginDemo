@@ -11,7 +11,7 @@ Page({
         specialValueObj: {}, // 智能锁特征值
     },
     // 设置初始化参数
-    onLoad() {
+    onShow() {
         const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
         this.setData({ keyInfo: keyInfo });
         requirePlugin("myPlugin", ({ parseSpecialValues }: TTLockPlugin) => {
@@ -36,6 +36,8 @@ Page({
                 lockData: ekeyInfo.lockData
             }).then(result => {
                 if (result.errorCode === 0) {
+                    this.data.keyInfo.featureValue = result.featureValue;
+                    wx.setStorageSync("keyInfo", JSON.stringify(this.data.keyInfo));
                     this.setData({
                         state: `远程开关设置成功, 操作时间：${Date.now() - start}ms.`,
                         'keyInfo.featureValue': result.featureValue,
@@ -77,6 +79,8 @@ Page({
             // 获取远程开关状态
             getRemoteUnlockSwitchState({ lockData: ekeyInfo.lockData }).then(result => {
                 if (result.errorCode === 0) {
+                    this.data.keyInfo.featureValue = result.featureValue;
+                    wx.setStorageSync("keyInfo", JSON.stringify(this.data.keyInfo));
                     this.setData({
                         state: `远程开关获取成功，开启状态：${result.enabled ? '已开启' : '已关闭'}, 操作时间：${Date.now() - start}ms.`,
                         'keyInfo.featureValue': result.featureValue,
@@ -117,8 +121,26 @@ Page({
         requirePlugin("myPlugin", ({ getAdminPasscode }: TTLockPlugin) => {
             getAdminPasscode({ lockData: ekeyInfo.lockData }).then(result => {
                 if (result.errorCode === 0) {
-                    wx.showToast({ icon: "success", title: "操作成功" });
                     this.setData({ state: `查询管理员密码成功, 密码: ${result.passcode}, 操作时间：${Date.now() - start}ms.` });
+                    wx.showLoading({ title: "上传服务器中" });
+                    LockAPI.changeAdminKeyboardPwd({
+                        lockId: ekeyInfo.lockId, // 智能锁ID
+                        password: result.passcode, // 管理员密码
+                    }).then(res => {
+                        if (HttpHandler.isResponseTrue(res)) {
+                            this.data.keyInfo.noKeyPwd = result.passcode;
+                            this.setData({ "keyInfo.noKeyPwd": result.passcode });
+                            wx.setStorageSync("keyInfo", JSON.stringify(this.data.keyInfo));
+                            wx.hideLoading();
+                            HttpHandler.showErrorMsg("服务器上传成功");
+                        } else {
+                            HttpHandler.handleResponseError(res);
+                            wx.hideLoading();
+                        }
+                    }).catch(err => {
+                        HttpHandler.handleServerError(err);
+                        wx.hideLoading();
+                    })
                 } else {
                     wx.hideLoading();
                     HttpHandler.showErrorMsg("查询管理员密码失败");

@@ -20,10 +20,22 @@ namespace ILockAPI.Params {
         pageSize: number; // 单页数量
     }
 
+    /** 查询智能锁详情参数 */
+    interface Detail {
+        lockId: number; // 智能锁ID
+    }
+
     /** 更新智能锁数据参数 */
     interface UpdateLockData {
         lockId: number; // 智能锁ID
         lockData: string; // 更新数据
+    }
+
+    /** 修改锁管理员开锁密码参数 */
+    interface ChangeAdminKeyboardPwd {
+        lockId: number; // 智能锁ID
+        password: string; // 管理员密码
+        changeType?: 1 | 2 | 3; // 修改方式
     }
 }
 
@@ -52,4 +64,19 @@ namespace ILockAPI.Result {
 
     /** 密码列表返回数据 */
     interface KeyboardPwdList extends ResultListData<IEKeyAPI.List.KeyboardPwdInfo>, HttpResponseError {}
+
+    /** 智能锁详情 */
+    interface Detail extends HttpResponseError {
+        lockId?: number; // 智能锁ID
+        lockName?: string; // 智能锁蓝牙名称
+        lockAlias?: string; // 智能锁别名
+        lockMac?: string; // 智能锁mac地址
+        noKeyPwd?: string; // 管理员开锁密码，管理员钥匙返回
+        featureValue?: string; // 锁特征值，用于表示锁支持的功能
+        timezoneRawOffset?: number; // 时区便宜量
+        modelNum?: string;
+        hardwareRevision?: string;
+        firmwareRevision?: string;
+        date?: number;
+    }
 }

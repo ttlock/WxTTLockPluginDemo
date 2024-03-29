@@ -79,15 +79,13 @@ interface TTLockGetAllValidPasscodeResult extends TTLockError {
 /** 查询管理员密码 */
 interface TTLockGetAdminPasscodeResult extends TTLockError {
     /* 管理员密码值 */
-    passcode: string;
-    /* 智能锁更新数据，用于上传服务器，不可用于蓝牙操作 */
-    lockData: string;
+    passcode?: string;
 }
 
 /** 修改管理员密码 */
 interface TTLockModifyAdminPasscodeResult extends TTLockError {
-    /* 智能锁更新数据，用于上传服务器，不可用于蓝牙操作 */
-    lockData: string;
+    /* 管理员密码值 3.0.0 */
+    passcode?: string;
 }
 
 /** 添加IC卡中间步骤及结果 */
