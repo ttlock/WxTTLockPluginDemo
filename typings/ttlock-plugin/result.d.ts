@@ -145,7 +145,7 @@ interface TTLockGetAllValidFingerprintResult extends TTLockError {
 /** 查询智能锁远程开关开启状态结果 */
 interface TTLockGetRemoteUnlockSwitchStateResult extends TTLockError {
     /* 远程开关开启状态 */
-    enable?: boolean;
+    enabled?: boolean;
     /* 智能锁更新数据，用于上传服务器，不可用于智能锁蓝牙操作 */
     lockData?: string; 
     /* 智能锁更新后特征值(完整数据)，2.3.1版本 */
@@ -157,7 +157,7 @@ interface TTLockGetRemoteUnlockSwitchStateResult extends TTLockError {
 /** 设置智能锁远程开关开启状态结果 */
 interface TTLockSetRemoteUnlockSwitchStateResult extends TTLockError {
     /* 远程开关开启状态(3.0.0版本) */
-    enable?: boolean;
+    enabled?: boolean;
     /* 智能锁更新数据，用于上传服务器，不可用于智能锁蓝牙操作 */
     lockData?: string; 
     /* 智能锁更新后特征值(完整数据)，2.3.1版本 */

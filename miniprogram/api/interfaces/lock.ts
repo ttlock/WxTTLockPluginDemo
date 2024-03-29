@@ -17,6 +17,6 @@ export function listKeyboardPwd(params: ILockAPI.Params.KeyboardPwdList) {
 }
 
 /** 更新智能锁信息 */
-export function updateLockData(params) {
+export function updateLockData(params: ILockAPI.Params.UpdateLockData) {
     return HttpRequestUtil.post("/v3/lock/updateLockData", params);
 }

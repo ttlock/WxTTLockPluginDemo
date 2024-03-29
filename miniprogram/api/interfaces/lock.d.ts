@@ -19,6 +19,12 @@ namespace ILockAPI.Params {
         pageNo: number; // 页码，从1开始
         pageSize: number; // 单页数量
     }
+
+    /** 更新智能锁数据参数 */
+    interface UpdateLockData {
+        lockId: number; // 智能锁ID
+        lockData: string; // 更新数据
+    }
 }
 
 namespace ILockAPI.List {
