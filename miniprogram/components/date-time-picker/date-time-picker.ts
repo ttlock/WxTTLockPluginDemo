@@ -44,10 +44,12 @@ const getMinuteList = (useMinute: boolean = true) => {
 };
 
 Component({
+    behaviors: ['wx://form-field'],
     /**
      * 组件的属性列表
      */
     properties: {
+        name: String, // 参数名称
         value: Number, // 默认时间
         class: String, // 类名
         label: String, // 标题

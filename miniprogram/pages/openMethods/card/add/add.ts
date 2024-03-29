@@ -8,7 +8,8 @@ interface FormStatus {
     cardNo?: string; // IC卡卡号
     name?: string; // IC卡名称
     permanent?: boolean; // 是否为永久IC卡
-    dateSpan?: DateSpanBase; // 有效期
+    startDate?: number;
+    endDate?: number;
 }
 
 Page({
@@ -71,8 +72,8 @@ Page({
         requirePlugin("myPlugin", ({ addICCard }: TTLockPlugin) => {
             // 添加IC卡
             addICCard({
-                startDate: !value.permanent ? value.dateSpan.startDate : 0,
-                endDate: !value.permanent ? value.dateSpan.endDate : 0,
+                startDate: !value.permanent ? value.startDate : 0,
+                endDate: !value.permanent ? value.endDate : 0,
                 lockData: ekeyInfo.lockData,
                 callback: (result) => {
                     console.log(result, "中间步骤")
@@ -103,8 +104,8 @@ Page({
                         lockId: ekeyInfo.lockId,
                         cardName: value.name,
                         cardNumber: String(res.cardNum),
-                        startDate: !value.permanent ? value.dateSpan.startDate : 0,
-                        endDate: !value.permanent ? value.dateSpan.endDate : 0,
+                        startDate: !value.permanent ? value.startDate : 0,
+                        endDate: !value.permanent ? value.endDate : 0,
                     }).then(res => {
                         console.log(res);
                         if (HttpHandler.isResponseTrue(res)) {
@@ -135,8 +136,8 @@ Page({
         requirePlugin("myPlugin", ({ recoverICCardNumber }: TTLockPlugin) => {
             // 恢复IC卡
             recoverICCardNumber({
-                startDate: !value.permanent ? value.dateSpan.startDate : 0,
-                endDate: !value.permanent ? value.dateSpan.endDate : 0,
+                startDate: !value.permanent ? value.startDate : 0,
+                endDate: !value.permanent ? value.endDate : 0,
                 cardNum: parseInt(value.cardNo),
                 lockData: ekeyInfo.lockData
             }).then(res => {
@@ -147,8 +148,8 @@ Page({
                         lockId: ekeyInfo.lockId,
                         cardName: value.name,
                         cardNumber: value.cardNo,
-                        startDate: !value.permanent ? value.dateSpan.startDate : 0,
-                        endDate: !value.permanent ? value.dateSpan.endDate : 0,
+                        startDate: !value.permanent ? value.startDate : 0,
+                        endDate: !value.permanent ? value.endDate : 0,
                     }).then(res => {
                         console.log(res);
                         if (HttpHandler.isResponseTrue(res)) {

@@ -1,13 +1,13 @@
 <view class="form-item {{class}}">
     <text class="form-item-label">{{label}}：</text>
-    <DateTimePicker model:value="{{startDate}}"
+    <DateTimePicker model:value="{{startDate}}" name="{{startName}}"
         placeholder="{{startPlaceholder}}"
         format="{{format}}"
         use-minute="{{useMinute}}"
         bindinput="_handleUpdateStartDate"></DateTimePicker>
 </view>
 <view class="form-item">
-    <DateTimePicker model:value="{{endDate}}"
+    <DateTimePicker model:value="{{endDate}}" name="{{endName}}"
         placeholder="{{endPlaceholder}}"
         format="{{format}}"
         use-minute="{{useMinute}}"

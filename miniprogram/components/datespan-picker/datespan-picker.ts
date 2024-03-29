@@ -1,10 +1,19 @@
 // components/datespan-picker/datespan-picker.ts
 Component({
-    behaviors: ['wx://form-field'],
+    
+    behaviors: ['wx://form-field-group'],
     /**
      * 组件的属性列表
      */
     properties: {
+        startName: {
+            type: String,
+            value: "startDate"
+        },
+        endName: {
+            type: String,
+            value: "endDate"
+        },
         value: Object, // 默认时间
         label: String, // 标题
         startPlaceholder: String, // 开始时间提示语

@@ -6,7 +6,8 @@ const dayjs = require("dayjs");
 
 interface FormStatus {
     permanent?: boolean; // 是否为永久IC卡
-    dateSpan?: DateSpanBase; // 有效期
+    startDate?: number;
+    endDate?: number;
 }
 
 Page({
@@ -30,10 +31,13 @@ Page({
                 startDate: permanent ? startDate.valueOf() : cardInfo.startDate,
                 endDate: permanent ? startDate.add(1, "hour").endOf("minute").valueOf() : cardInfo.endDate
             },
+        }, () =>{
+            console.log(this.data.dateSpan)
         });
     },
     handleInputEmpty() {}, // 解决绑定数据输入报错
     handleUpdateDateSpan(event) {
+        console.log(123, event.detail)
         this.data.dateSpan.startDate = event.detail.startDate;
         this.data.dateSpan.endDate = event.detail.endDate;
     },
@@ -67,8 +71,8 @@ Page({
         requirePlugin("myPlugin", ({ modifyICCardValidityPeriod }: TTLockPlugin) => {
             // 修改IC卡有效期
             modifyICCardValidityPeriod({
-                startDate: value.permanent ? 0 : value.dateSpan.startDate,
-                endDate: value.permanent ? 0 : value.dateSpan.endDate,
+                startDate: value.permanent ? 0 : value.startDate,
+                endDate: value.permanent ? 0 : value.endDate,
                 cardNum: parseInt(cardInfo.cardNumber),
                 lockData: ekeyInfo.lockData
             }).then(res => {
@@ -78,8 +82,8 @@ Page({
                     IdentityCardAPI.changePeriod({
                         lockId: ekeyInfo.lockId,
                         cardId: cardInfo.cardId,
-                        startDate: value.permanent ? 0 : value.dateSpan.startDate,
-                        endDate: value.permanent ? 0 : value.dateSpan.endDate,
+                        startDate: value.permanent ? 0 : value.startDate,
+                        endDate: value.permanent ? 0 : value.endDate,
                     }).then(res => {
                         console.log(res);
                         if (HttpHandler.isResponseTrue(res)) {

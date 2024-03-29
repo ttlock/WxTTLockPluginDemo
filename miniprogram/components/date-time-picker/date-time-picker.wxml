@@ -1,6 +1,6 @@
 <!--components/date-time-picker/date-time-picker.wxml-->
 <!-- <view class="form-item {{class}}"> -->
-    <picker mode="multiSelector" model:value="{{dateTime}}"
+    <picker mode="multiSelector" model:value="{{dateTime}}" name="{{name}}"
         range="{{dateRange}}"
         range-key="text"
         data-key="value"

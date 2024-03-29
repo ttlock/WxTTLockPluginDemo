@@ -8,7 +8,8 @@ interface FormStatus {
     name?: string; // 密码名称
     passcode?: string; // 密码值
     permanent?: boolean; // 是否为永久密码
-    dateSpan?: DateSpanBase; // 有效期
+    startDate?: number;
+    endDate?: number;
 }
 
 Page({
@@ -70,8 +71,8 @@ Page({
             // 添加自定义密码
             createCustomPasscode({
                 passcode: value.passcode,
-                startDate: value.permanent ? 0 : value.dateSpan.startDate,
-                endDate: value.permanent ? 0 : value.dateSpan.endDate,
+                startDate: value.permanent ? 0 : value.startDate,
+                endDate: value.permanent ? 0 : value.endDate,
                 lockData: ekeyInfo.lockData
             }).then(res => {
                 if (res.errorCode == 0) {
@@ -82,8 +83,8 @@ Page({
                         keyboardPwd: res.passcode,
                         keyboardPwdName: value.name,
                         keyboardPwdType: value.permanent ? 2 : 3,
-                        startDate: !value.permanent ? value.dateSpan.startDate : undefined,
-                        endDate: !value.permanent ? value.dateSpan.endDate : undefined,
+                        startDate: !value.permanent ? value.startDate : undefined,
+                        endDate: !value.permanent ? value.endDate : undefined,
                     }).then(res => {
                         console.log(res);
                         if (HttpHandler.isResponseTrue(res)) {

@@ -8,7 +8,8 @@ interface FormStatus {
     cardNo?: string; // IC卡号
     name?: string; // IC卡名称
     permanent?: boolean; // 是否为永久IC卡
-    dateSpan?: DateSpanBase; // 有效期
+    startDate?: number;
+    endDate?: number;
 }
 
 Page({
@@ -67,8 +68,8 @@ Page({
         requirePlugin("myPlugin", ({ addFingerprint }: TTLockPlugin) => {
             // 添加指纹
             addFingerprint({
-                startDate: !value.permanent ? value.dateSpan.startDate : 0,
-                endDate: !value.permanent ? value.dateSpan.endDate : 0,
+                startDate: !value.permanent ? value.startDate : 0,
+                endDate: !value.permanent ? value.endDate : 0,
                 lockData: ekeyInfo.lockData,
                 callback: (result) => {
                     console.log(result, "中间步骤")
@@ -105,8 +106,8 @@ Page({
                         fingerprintName: value.name,
                         fingerprintNumber: res.fingerprintNum,
                         fingerprintType: 1,
-                        startDate: !value.permanent ? value.dateSpan.startDate : 0,
-                        endDate: !value.permanent ? value.dateSpan.endDate : 0,
+                        startDate: !value.permanent ? value.startDate : 0,
+                        endDate: !value.permanent ? value.endDate : 0,
                     }).then(res => {
                         console.log(res);
                         if (HttpHandler.isResponseTrue(res)) {
