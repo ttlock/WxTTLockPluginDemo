@@ -39,7 +39,8 @@ Page({
             console.log(res)
             if (HttpHandler.isResponseTrue(res)) {
                 const resultList = res.list.filter(item => (
-                    item.keyboardPwdVersion === 4 && (item.keyboardPwdType == 2 || item.keyboardPwdType == 3)
+                    item.keyboardPwdVersion === 4
+                    // && (item.keyboardPwdType == 2 || item.keyboardPwdType == 3)
                 ));
                 if (pageNo == 1) this.data.passcodeList.splice(0, this.data.passcodeList.length, ...resultList);
                 else resultList.forEach(item => this.data.keyList.push(item));
@@ -60,10 +61,31 @@ Page({
         })
     }, 100),
 
+    handleGetAll() {
+        wx.showLoading({ title: "" });
+        this.setData({ state: "正在读取锁内所有密码" });
+        requirePlugin("myPlugin", ({ getAllValidPasscode }: TTLockPlugin) => {
+            const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+            // 读取所有有效密码
+            getAllValidPasscode({ lockData: ekeyInfo.lockData }).then(res => {
+                if (res.errorCode == 0) {
+                    wx.hideLoading();
+                    this.setData({ state: `共读取到 ${res.keyboardPwdList.length} 条密码` });
+                    HttpHandler.showErrorMsg("操作成功");
+                } else {
+                    wx.hideLoading();
+                    this.setData({ state: `读取有效密码失败：${res.errorMsg}` });
+                    HttpHandler.showErrorMsg("操作失败");
+                }
+            })
+        })
+    },
+
     // 进入密码管理页
     toDetail(event) {
-        const passcodeItem = JSON.stringify(event.target.dataset.value);
-        wx.setStorageSync("passcodeInfo", passcodeItem);
+        const value = event.target.dataset.value as ILockAPI.List.KeyboardPwdInfo;
+        if (value.keyboardPwdType != 2 && value.keyboardPwdType != 3) return HttpHandler.showErrorMsg("当前仅支持限时、永久密码修改");
+        wx.setStorageSync("passcodeInfo", JSON.stringify(value));
         wx.navigateTo({
             url: "./manage/manage"
         })

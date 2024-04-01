@@ -58,6 +58,26 @@ Page({
         })
     }, 100),
 
+    handleGetAll() {
+        wx.showLoading({ title: "" });
+        this.setData({ state: "正在读取锁内所有IC卡" });
+        requirePlugin("myPlugin", ({ getAllValidICCard }: TTLockPlugin) => {
+            const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+            // 读取所有有效IC卡
+            getAllValidICCard({ lockData: ekeyInfo.lockData }).then(res => {
+                if (res.errorCode == 0) {
+                    wx.hideLoading();
+                    this.setData({ state: `共读取到 ${res.cardList.length} 条IC卡记录` });
+                    HttpHandler.showErrorMsg("操作成功");
+                } else {
+                    wx.hideLoading();
+                    this.setData({ state: `读取IC卡记录失败：${res.errorMsg}` });
+                    HttpHandler.showErrorMsg("操作失败");
+                }
+            })
+        })
+    },
+
     // 进入IC卡管理页
     toDetail(event) {
         const cardItem = JSON.stringify(event.target.dataset.value);

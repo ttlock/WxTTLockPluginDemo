@@ -58,6 +58,26 @@ Page({
         })
     }, 100),
 
+    handleGetAll() {
+        wx.showLoading({ title: "" });
+        this.setData({ state: "正在读取锁内所有指纹" });
+        requirePlugin("myPlugin", ({ getAllValidFingerprint }: TTLockPlugin) => {
+            const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+            // 读取所有有效指纹
+            getAllValidFingerprint({ lockData: ekeyInfo.lockData }).then(res => {
+                if (res.errorCode == 0) {
+                    wx.hideLoading();
+                    this.setData({ state: `共读取到 ${res.fingerprintList.length} 条指纹记录` });
+                    HttpHandler.showErrorMsg("操作成功");
+                } else {
+                    wx.hideLoading();
+                    this.setData({ state: `读取指纹记录失败：${res.errorMsg}` });
+                    HttpHandler.showErrorMsg("操作失败");
+                }
+            })
+        })
+    },
+
     // 进入指纹管理页
     toDetail(event) {
         const fingerprintItem = JSON.stringify(event.target.dataset.value);
