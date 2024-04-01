@@ -20,5 +20,9 @@
         bindtap="toGetLockStatus">
         <text>查询锁开闭状态</text>
     </view>
+    <navigator class="tapline" hover-class="tapline-hover"
+        url="./lockStatus/lockStatus">
+        <text>智能锁开关设置状态</text>
+    </navigator>
 </block>
 <view class="ph-16 fc-3 fs-12 mv-32">{{state}}</view>

@@ -26,7 +26,12 @@ export function updateLockData(params: ILockAPI.Params.UpdateLockData) {
     return HttpRequestUtil.post("/v3/lock/updateLockData", params);
 }
 
-/** 修改管理员密码参数 */
+/** 修改管理员密码 */
 export function changeAdminKeyboardPwd(params: ILockAPI.Params.ChangeAdminKeyboardPwd) {
     return HttpRequestUtil.post("/v3/lock/changeAdminKeyboardPwd", params);
+}
+
+/** 修改智能锁设置项 */
+export function updateSetting(params: ILockAPI.Params.UpdateSetting) {
+    return HttpRequestUtil.post("/v3/lock/updateSetting", params);
 }

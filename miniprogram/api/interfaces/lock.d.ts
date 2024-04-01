@@ -37,6 +37,14 @@ namespace ILockAPI.Params {
         password: string; // 管理员密码
         changeType?: 1 | 2 | 3; // 修改方式
     }
+
+    /** 修改智能锁设置项 */
+    interface UpdateSetting {
+        lockId: number; // 智能锁ID
+        type: number; // 要修改的项
+        value: number; // 设置值: 1-开启、2-关闭;
+        changeType?: 1 | 2; // 修改方式
+    }
 }
 
 namespace ILockAPI.List {

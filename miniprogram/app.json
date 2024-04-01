@@ -18,7 +18,8 @@
         "pages/openMethods/fingerprint/add/add",
         "pages/openMethods/fingerprint/manage/manage",
         "pages/openMethods/card/manage/manage",
-        "pages/lockConfig/adminpwd/adminpwd"
+        "pages/lockConfig/adminpwd/adminpwd",
+        "pages/lockConfig/lockStatus/lockStatus"
     ],
     "usingComponents": {
         "i-message": "components/message/index"
@@ -32,7 +33,7 @@
     },
     "plugins": {
         "myPlugin": {
-            "version": "dev-79ca955c1cfa1cfbe5fe901019e70af5",
+            "version": "dev-570c71cd8ed760d6ed62cb5f900e6956",
             "provider": "wx43d5971c94455481"
         }
     },
