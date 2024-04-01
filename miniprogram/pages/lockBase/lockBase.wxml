@@ -23,8 +23,12 @@
         <text>智能锁设置</text>
     </navigator>
     <view class="tapline no-icon" hover-class="tapline-hover" bindtap="toResetLock"
-        wx:if="{{keyInfo && (keyInfo.noKeyPwd && keyInfo.keyRight === 0)}}">
+        wx:if="{{keyInfo && (keyInfo.userType == '110301' && keyInfo.keyRight === 0)}}">
         <text>重置锁</text>
+    </view>
+    <view class="tapline no-icon" hover-class="tapline-hover" bindtap="toUpgradeLock"
+        wx:if="{{keyInfo && keyInfo.userType == '110301' && specialValueObj.ble5G}}">
+        <text>智能锁升级</text>
     </view>
 </block>
 <view class="ph-16 fc-3 fs-12 mt-32">{{state}}</view>

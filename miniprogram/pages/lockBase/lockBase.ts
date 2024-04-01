@@ -2,6 +2,8 @@ import debounce from "debounce";
 import * as LockAPI from "../../api/interfaces/lock";
 import * as LockRecordAPI from "../../api/interfaces/lockRecord";
 import { HttpHandler } from "../../api/handle/httpHandler";
+import { HttpConfigs } from "../../api/tools/config";
+import { AES_Decrypt } from "../../utils/crypto";
 
 Page({
     data: {
@@ -178,6 +180,60 @@ Page({
                     wx.hideLoading();
                     HttpHandler.showErrorMsg("重置智能锁失败");
                     this.setData({ state: `重置智能锁失败: ${res.errorMsg}` });
+                }
+            })
+        });
+    },
+
+    // 点击升级智能锁
+    toUpgradeLock() {
+        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        wx.showLoading({ title: "" });
+        this.setData({ state: `正在升级智能锁` });
+        requirePlugin("myPlugin", ({ enterDfuMode }: TTLockPlugin) => {
+            /**
+             * 调用重置接口 
+             * 请传入钥匙lockData, 初始化返回的lockData不做任何限制，直接使用调用接口仅适用于本地测试
+             */
+            enterDfuMode({
+                dfuPackageInfo: {
+                    clientId: HttpConfigs.CLIENT_ID,
+                    accessToken: AES_Decrypt(wx.getStorageSync<string>("access_token")),
+                    lockId: ekeyInfo.lockId,
+                },
+                lockData: ekeyInfo.lockData,
+                callback: (result) => {
+                    this.setData({ state: result.description });
+                    switch (result.type) {
+                    case 1: {
+                        this.setData({ state: result.description });
+                    }; break;
+                    case 2:{
+                        wx.showLoading({ title: `${result.progress}%` });
+                        this.setData({ state: `${result.description}, 进度：${result.progress}%` });
+                    }; break;
+                    case 3: {
+                        this.setData({ state: result.description });
+                    }; break;
+                    case 4: {
+                        this.setData({ state: result.description });
+                    }; break;
+                    case 5: {
+                        this.setData({ state: result.description });
+                    }; break;
+                    default: {
+                        wx.hideLoading();
+                        HttpHandler.showErrorMsg(result.errorMsg);
+                    }; break;
+                    }
+                }
+            }).then(res => {
+                if (res.errorCode == 0) {
+                    this.setData({ state: `智能锁已升级` });
+                } else {
+                    wx.hideLoading();
+                    HttpHandler.showErrorMsg("智能锁升级失败");
+                    this.setData({ state: `智能锁升级失败: ${res.description || res.errorMsg}` });
                 }
             })
         });

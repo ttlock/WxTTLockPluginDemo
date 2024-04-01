@@ -32,7 +32,7 @@
     },
     "plugins": {
         "myPlugin": {
-            "version": "dev-75a1c4c716d02191ad9aa318daabe7ae",
+            "version": "dev-79ca955c1cfa1cfbe5fe901019e70af5",
             "provider": "wx43d5971c94455481"
         }
     },
