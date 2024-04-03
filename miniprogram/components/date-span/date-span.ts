@@ -78,7 +78,6 @@ Component({
     methods: {
         // 设置默认有效期attached
         _setDefaultValue(startDate?: number, endDate?: number, flag?: string) {
-            // console.log("setDateSpan", startDate, endDate, flag)
         },
         // 修改开始时间
         _handleUpdateStartDate(event) {
@@ -94,13 +93,9 @@ Component({
             const startDate = this.data.startDate;
             const endDate = event.detail;
             this._handleChangeDateSpan(startDate, endDate);
-            // this.setData({ endDate: endDate }, () => {
-            //     this._handleChangeDateSpan(startDate, endDate);
-            // });
         },
         // 修改结果
         _handleChangeDateSpan(startDate?: number, endDate?: number) {
-            // console.log("修改有效期", startDate, endDate);
             this.triggerEvent("update", {
                 startDate: startDate,
                 endDate: endDate,

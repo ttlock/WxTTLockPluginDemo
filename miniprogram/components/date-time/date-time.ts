@@ -177,12 +177,6 @@ Component({
             const dateValue = dayjs(dayjs(dateStr).format(this.data.submitFormat)).valueOf(); // 更新后时间戳
             this.setData({ value: dateValue, dateTimeStr: dayjs(dateValue).format(this.data.format)});
             this.triggerEvent("input", dateValue);
-            // console.log(dateValue)
-            // this.setData({
-            //     currentValue: dateValue.valueOf(),
-            //     dateTimeStr: dateValue.format(this.data.format),
-            // });
-            // this.triggerEvent("input", dateValue.valueOf());
         }
     }
 })
