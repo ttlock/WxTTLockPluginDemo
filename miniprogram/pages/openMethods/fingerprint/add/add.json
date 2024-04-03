@@ -1,6 +1,6 @@
 {
     "navigationBarTitleText": "添加指纹",
     "usingComponents": {
-        "DatespanPicker": "/components/datespan-picker/datespan-picker"
+        "i-date-span": "/components/date-span/date-span"
     }
 }

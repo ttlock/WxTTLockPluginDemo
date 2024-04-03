@@ -1,0 +1,15 @@
+<view class="form-item {{class}}">
+    <text class="form-item-label">{{label}}：</text>
+    <i-date-time model:value="{{startDate}}" name="{{startName}}"
+        placeholder="{{startPlaceholder}}"
+        format="{{format}}"
+        useDatePicker="{{useDatePicker}}" useTimePicker="{{useTimePicker}}" useMinute="{{useMinute}}" submitFormat="{{startSubmitFormat}}"
+        bindinput="_handleUpdateStartDate"></i-date-time>
+</view>
+<view class="form-item">
+    <i-date-time model:value="{{endDate}}" name="{{endName}}"
+        placeholder="{{endPlaceholder}}"
+        format="{{format}}"
+        useDatePicker="{{useDatePicker}}" useTimePicker="{{useTimePicker}}" useMinute="{{useMinute}}" submitFormat="{{endSubmitFormat}}"
+        bindinput="_handleUpdateEndDate"></i-date-time>
+</view>

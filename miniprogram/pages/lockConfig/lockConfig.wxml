@@ -24,5 +24,20 @@
         url="./lockStatus/lockStatus">
         <text>智能锁开关设置状态</text>
     </navigator>
+    <navigator class="tapline" hover-class="tapline-hover"
+        wx:if="{{specialValueObj.passageMode}}"
+        url="./passageMode/passageMode">
+        <text>常开模式</text>
+    </navigator>
+    <navigator class="tapline" hover-class="tapline-hover"
+        wx:if="{{specialValueObj.autoLock}}"
+        url="./autolock/autolock">
+        <text>自动闭锁时间</text>
+    </navigator>
+    <navigator class="tapline" hover-class="tapline-hover"
+        wx:if="{{specialValueObj.soundVolume}}"
+        url="./voice/voice">
+        <text>音量</text>
+    </navigator>
 </block>
 <view class="ph-16 fc-3 fs-12 mv-32">{{state}}</view>

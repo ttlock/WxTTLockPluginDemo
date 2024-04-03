@@ -85,7 +85,7 @@ declare namespace TTLockPluginModel {
     export function getLockSoundWithSoundVolume(option: TTLockGetLockSoundWithSoundVolume): Promise<TTLockGetLockSoundWithSoundVolumeResult>
     export function getLockSoundWithSoundVolume(lockData: string, disconnectCallback?: TTLockCallback): Promise<TTLockGetLockSoundWithSoundVolumeResult>
     export function setLockSoundWithSoundVolume(option: TTLockSetLockSoundWithSoundVolume): Promise<TTLockError>
-    export function setLockSoundWithSoundVolume(config: TTLOCK_SOUND_VOLUME, lockData: string, disconnectCallback?: TTLockCallback): Promise<TTLockError>
+    export function setLockSoundWithSoundVolume(soundVolume: TTLOCK_SOUND_VOLUME, lockData: string, disconnectCallback?: TTLockCallback): Promise<TTLockError>
 
     export function setHotelData(option: TTLockSetHotelData): Promise<TTLockError>
     export function setHotelData(hotelData: TTLockHotelData, lockData: string, disconnectCallback?: TTLockCallback): Promise<TTLockError>

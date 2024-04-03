@@ -45,6 +45,30 @@ namespace ILockAPI.Params {
         value: number; // 设置值: 1-开启、2-关闭;
         changeType?: 1 | 2; // 修改方式
     }
+
+    /** 修改智能锁自动闭锁时间 */
+    interface SetAutoLockTime {
+        lockId: number; // 智能锁ID
+        seconds: number; // 自动闭锁时间
+        type?: 1 | 2; // 修改方式
+    }
+
+    /** 获取常开模式设置 */
+    interface GetPassageModeConfig {
+        lockId: number; // 智能锁ID
+    }
+
+    /** 修改常开模式设置 */
+    interface ConfigPassageMode {
+        lockId: number; // 智能锁ID
+        passageMode: 1 | 2; // 常开模式开闭状态
+        startDate?: number;
+        endDate?: number;
+        isAllDay?: 1 | 2;
+        weekDays?: Array<number>;
+        autoUnlock?: 1 | 2;
+        type?: 1 | 2; // 修改方式
+    }
 }
 
 namespace ILockAPI.List {
@@ -86,5 +110,15 @@ namespace ILockAPI.Result {
         hardwareRevision?: string;
         firmwareRevision?: string;
         date?: number;
+    }
+
+    /** 获取常开模式设置 */
+    interface GetPassageModeConfig extends HttpResponseError {
+        passageMode: 1 | 2; // 常开模式开闭状态
+        startDate?: number;
+        endDate?: number;
+        isAllDay?: 1 | 2;
+        weekDays?: Array<number>;
+        autoUnlock?: 1 | 2;
     }
 }

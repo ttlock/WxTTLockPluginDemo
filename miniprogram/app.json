@@ -19,7 +19,10 @@
         "pages/openMethods/fingerprint/manage/manage",
         "pages/openMethods/card/manage/manage",
         "pages/lockConfig/adminpwd/adminpwd",
-        "pages/lockConfig/lockStatus/lockStatus"
+        "pages/lockConfig/lockStatus/lockStatus",
+        "pages/lockConfig/voice/voice",
+        "pages/lockConfig/autolock/autolock",
+        "pages/lockConfig/passageMode/passageMode"
     ],
     "usingComponents": {
         "i-message": "components/message/index"
@@ -33,7 +36,7 @@
     },
     "plugins": {
         "myPlugin": {
-            "version": "dev-570c71cd8ed760d6ed62cb5f900e6956",
+            "version": "dev-85c4316c481974fcbe6a4ccf2b1ab5b4",
             "provider": "wx43d5971c94455481"
         }
     },

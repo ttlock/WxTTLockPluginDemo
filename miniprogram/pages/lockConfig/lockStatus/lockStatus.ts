@@ -62,7 +62,6 @@ Page({
 
 
     handleChange: debounce(function(event) {
-        console.log(event)
         const switchOn = event.detail.value as boolean;
         const configType = event.target.dataset.type;
         const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
@@ -114,6 +113,5 @@ Page({
                 }
             })
         });
-        console.log(event, 11111)
     }, 100)
 })

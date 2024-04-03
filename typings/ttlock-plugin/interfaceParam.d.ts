@@ -351,7 +351,7 @@ interface TTLockGetLockSoundWithSoundVolume {
 /** 设置智能锁音量参数 */
 interface TTLockSetLockSoundWithSoundVolume {
     /* 音量设置 */
-    config: TTLOCK_SOUND_VOLUME;
+    soundVolume: TTLOCK_SOUND_VOLUME;
     /* 管理员电子钥匙数据 */
     lockData: string;
     /* 设备断连回调 */

@@ -21,12 +21,12 @@
             <text class="form-item-label">永久开关：</text>
             <switch name="permanent" model:checked="{{permanent}}" type="switch" color="#2886f7"></switch>
         </view>
-        <DatespanPicker wx:if="{{!permanent}}" model:value="{{dateSpan}}" id="dateSpan"
+        <i-date-span wx:if="{{!permanent}}" model:value="{{dateSpan}}" id="dateSpan"
             label="有效期" startName="startDate" endName="endDate"
             start-placeholder="请选择开始时间"
             end-placeholder="请选择结束时间"
             use-minute="{{false}}"
-            bindinput="handleUpdateDateSpan"></DatespanPicker>
+            bindinput="handleUpdateDateSpan"></i-date-span>
         <view class="form-item">
             <button hover-class="btn-hover" form-type="submit">添加</button>
         </view>

@@ -11,8 +11,8 @@
         "miniprogram": {
             "list": [
                 {
-                    "name": "",
-                    "pathName": "pages/openMethods/passcode/add/add",
+                    "name": "pages/lockConfig/passageMode/passageMode",
+                    "pathName": "pages/lockConfig/lockConfig",
                     "query": "",
                     "launchMode": "default",
                     "scene": null

@@ -1,6 +1,6 @@
 {
     "usingComponents": {
-        "DatespanPicker": "/components/datespan-picker/datespan-picker"
+        "i-date-span": "/components/date-span/date-span"
     },
     "navigationBarTitleText": "管理密码"
 }
