@@ -15,7 +15,8 @@ Page({
         keyInfo: {}, // 钥匙数据
         cardInfo: {}, // IC卡数据
         permanent: true, // 永久开关
-        dateSpan: {}, // 有效期
+        startDate: 0,
+        endDate: 0,
     },
     // 设置初始化参数
     onLoad() {
@@ -27,20 +28,13 @@ Page({
             keyInfo: keyInfo,
             cardInfo: cardInfo,
             permanent: permanent,
-            dateSpan: {
-                startDate: permanent ? startDate.valueOf() : cardInfo.startDate,
-                endDate: permanent ? startDate.add(1, "hour").endOf("minute").valueOf() : cardInfo.endDate
-            },
+            startDate: permanent ? startDate.valueOf() : cardInfo.startDate,
+            endDate: permanent ? startDate.add(1, "hour").endOf("minute").startOf("second").valueOf() : cardInfo.endDate
         }, () =>{
             console.log(this.data.dateSpan)
         });
     },
     handleInputEmpty() {}, // 解决绑定数据输入报错
-    handleUpdateDateSpan(event) {
-        console.log(123, event.detail)
-        this.data.dateSpan.startDate = event.detail.startDate;
-        this.data.dateSpan.endDate = event.detail.endDate;
-    },
 
     // 输入校验
     handleCheckInput(value: FormStatus) {

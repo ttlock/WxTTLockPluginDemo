@@ -39,16 +39,6 @@ Page({
         });
     },
     handleInputEmpty() {}, // 解决绑定数据输入报错
-    handleInputStartDate(e) {
-        console.log(e);
-    },
-    handleUpdateDateSpan(event) {
-        this.data.dateSpan.startDate = event.detail.startDate;
-        this.data.dateSpan.endDate = event.detail.endDate;
-    },
-
-    checkboxChange(event) {
-    },
 
     handleUpdate: debounce(function() {
         const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;

@@ -22,7 +22,8 @@
         "pages/lockConfig/lockStatus/lockStatus",
         "pages/lockConfig/voice/voice",
         "pages/lockConfig/autolock/autolock",
-        "pages/lockConfig/passageMode/passageMode"
+        "pages/lockConfig/passageMode/passageMode",
+        "pages/lockConfig/wifi/wifi"
     ],
     "usingComponents": {
         "i-message": "components/message/index"

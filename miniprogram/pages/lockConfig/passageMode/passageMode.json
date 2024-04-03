@@ -1,7 +1,6 @@
 {
     "navigationBarTitleText": "常开模式设置",
     "usingComponents": {
-        "i-date-span": "../../../components/date-span/date-span",
-        "i-date-time": "../../../components/date-time/date-time"
+        "i-date-span": "../../../components/date-span/date-span"
     }
 }

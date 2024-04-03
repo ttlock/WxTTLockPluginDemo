@@ -15,7 +15,8 @@ Page({
         keyInfo: {}, // 钥匙数据
         fingerprintInfo: {}, // 指纹数据
         permanent: true, // 永久开关
-        dateSpan: {}, // 有效期
+        startDate: 0,
+        endDate: 0,
     },
     // 设置初始化参数
     onLoad() {
@@ -27,10 +28,8 @@ Page({
             keyInfo: keyInfo,
             fingerprintInfo: fingerprintInfo,
             permanent: permanent,
-            dateSpan: {
-                startDate: permanent ? startDate.valueOf() : fingerprintInfo.startDate,
-                endDate: permanent ? startDate.add(1, "hour").endOf("minute").valueOf() : fingerprintInfo.endDate
-            },
+            startDate: permanent ? startDate.valueOf() : fingerprintInfo.startDate,
+            endDate: permanent ? startDate.add(1, "hour").endOf("minute").startOf("second").valueOf() : fingerprintInfo.endDate
         });
     },
     handleInputEmpty() {}, // 解决绑定数据输入报错

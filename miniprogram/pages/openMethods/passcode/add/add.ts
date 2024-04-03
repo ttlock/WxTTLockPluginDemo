@@ -20,7 +20,8 @@ Page({
         name: "", // 密码名称
         passcode: "", // 密码值
         permanent: true, // 永久开关
-        dateSpan: {}, // 有效期
+        startDate: 0,
+        endDate: 0,
     },
     // 设置初始化参数
     onLoad() {
@@ -28,17 +29,11 @@ Page({
         const startDate = dayjs().startOf("hour");
         this.setData({
             keyInfo: keyInfo,
-            dateSpan: {
-                startDate: startDate.valueOf(),
-                endDate: startDate.add(1, "hour").endOf("minute").valueOf()
-            },
+            startDate: startDate.valueOf(),
+            endDate: startDate.add(1, "hour").valueOf()
         });
     },
     handleInputEmpty() {}, // 解决绑定数据输入报错
-    handleUpdateDateSpan(event) {
-        this.data.dateSpan.startDate = event.detail.startDate;
-        this.data.dateSpan.endDate = event.detail.endDate;
-    },
 
     // 输入校验
     handleCheckInput(event: FormStatus) {
