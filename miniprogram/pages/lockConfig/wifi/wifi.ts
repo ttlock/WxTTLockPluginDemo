@@ -1,10 +1,7 @@
 // 智能锁wifi设置
-import dayjs from "dayjs";
 import debounce from "debounce";
-import * as LockAPI from "../../../api/interfaces/lock";
 import * as WifiLockAPI from "../../../api/interfaces/wifiLock";
 import { HttpHandler } from "../../../api/handle/httpHandler";
-import { Assert } from "../../../utils/assert";
 
 interface FormStatus {
     password?: string; // wifi密码
@@ -33,24 +30,7 @@ Page({
         WifiLockAPI.detail({ lockId: ekeyInfo.lockId }).then(res => {
             wx.hideLoading();
             if (HttpHandler.isResponseTrue(res)) {
-                this.setData({ configSwitch: true });
-                // const option = {
-                //     passageModeSwitch: res.passageMode == 1 ? true : false, // 是否常开
-                //     isAllDays: res.isAllDay == 1 ? true : false, // 是否全天常开
-                //     startDate: res.startDate ? dayjs().startOf("day").add(res.startDate, "minute").valueOf() : dayjs().startOf("minute").valueOf(),
-                //     endDate: res.endDate ? dayjs().startOf("day").add(res.endDate, "minute").valueOf() :  dayjs().startOf("minute").add(1, "hour").valueOf(),
-                // };
-                // const weekDays = ((Assert.isString(res.weekDays) ? JSON.parse(res.weekDays) : res.weekDays) || []) as Array<number>;
-                // this.data.passageDayList.forEach((item, index) => {
-                //     if (weekDays.includes(parseInt(item.value))) {
-                //         option[`passageDayList[${index}].checked`] = true;
-                //     } else {
-                //         option[`passageDayList[${index}].checked`] = false;
-                //     }
-                //     option[`passageDayList[${index}].value`] = item.value;
-                //     option[`passageDayList[${index}].name`] = item.name;
-                // })
-                // this.setData(option);
+                this.setData({ configSwitch: res.networkName });
             } else {
                 HttpHandler.handleResponseError(res);
                 this.setData({ configSwitch: false });
@@ -136,8 +116,8 @@ Page({
                     this.setData({ state: `正在配置服务器信息` });
                     configServer({
                         config: {
-                            server: "plug.sciener.cn",
-                            port: 2999,
+                            server: "cnwifilock.ttlock.com",
+                            port: 4999,
                         },
                         lockData: ekeyInfo.lockData
                     }).then(res => {
