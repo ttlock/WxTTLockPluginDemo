@@ -36,7 +36,7 @@
     },
     "plugins": {
         "myPlugin": {
-            "version": "dev-85c4316c481974fcbe6a4ccf2b1ab5b4",
+            "version": "3.0.0",
             "provider": "wx43d5971c94455481"
         }
     },

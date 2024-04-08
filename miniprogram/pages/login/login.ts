@@ -23,6 +23,7 @@ Page({
         wx.removeStorageSync("access_token"); // 清空当前用户保存的登录状态
         const defaultUserID = AES_Decrypt(wx.getStorageSync<string>("user_id")); // 本地保存的用户名
         const defaultUserPSD = AES_Decrypt(wx.getStorageSync<string>("user_psd")); // 本地保存的密码
+
         this.setData({
             username: defaultUserID,
             password: defaultUserPSD,
