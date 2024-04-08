@@ -11,6 +11,8 @@ function setShowLog(openLog: boolean, callback?: TTLockShowLogCallback): void
 ## 功能描述
  开启/关闭用户调试日志，允许用户自定义输出方法  
  方法未被调用时，默认不输出操作日志  
+ **1.4.1版本开始支持**  
+ **离线版1.0.0版本开始支持**  
 <br />
 
 ## 参数说明

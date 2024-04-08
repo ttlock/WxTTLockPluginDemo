@@ -18,6 +18,8 @@ function modifyFingerprintValidityPeriod(
 ## 功能描述
  修改指纹有效期  
  接口仅支持三代智能锁操作  
+ **2.0.0版本开始支持**  
+ **离线版1.0.0版本开始支持**  
  **3.0.0版本支持option调用模式**
 <br />
 

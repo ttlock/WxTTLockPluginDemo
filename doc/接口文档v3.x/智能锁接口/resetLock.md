@@ -12,6 +12,8 @@ function resetLock(lockData: string, disconnectCallback?: TTLockCallback): Promi
 ## 功能描述
  重置智能锁，使智能锁回到可初始化状态  
  接口仅支持三代智能锁操作  
+ **1.3.2版本开始支持**  
+ **离线版1.0.0版本开始支持**  
  **3.0.0版本支持option调用模式**
 <br />
 

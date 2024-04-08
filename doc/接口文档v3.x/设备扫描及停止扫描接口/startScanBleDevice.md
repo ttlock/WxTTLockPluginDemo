@@ -10,6 +10,8 @@ function startScanBleDevice(callback?: TTLockScanLockCallback, failCallback?: TT
 
 ## 功能描述
  扫描周围的智能锁设备  
+ **1.0.0版本开始支持**  
+ **离线版1.0.0版本开始支持**  
 <br />
 
 ## 参数说明

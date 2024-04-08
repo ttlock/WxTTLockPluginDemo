@@ -10,6 +10,8 @@ function getLockType(lockVersion: TTLockVersion): TTLOCK_TYPE
 
 ## 功能描述
  解析智能锁版本类型  
+ **1.0.0版本开始支持**  
+ **离线版1.0.0版本开始支持**  
 <br />
 
 ## 参数说明

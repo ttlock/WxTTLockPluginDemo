@@ -10,8 +10,9 @@ function parseSpecialValues(featureValue: string | number): TTLockFeatureValue
 
 ## 功能描述
  解析智能锁特征值  
- 2.1.0版本开始支持  
- 2.4.1及其以上版本开始支持传入featureValue，低版本仅支持specialValue  
+ **2.1.0版本开始支持**  
+ **离线版1.1.0版本开始支持**  
+ **2.4.1(离线1.4.1)及其以上版本**开始支持传入featureValue，低版本仅支持specialValue  
 <br />
 
 ## 参数说明

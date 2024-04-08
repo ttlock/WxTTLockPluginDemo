@@ -11,6 +11,8 @@ function stopScanBleDevice(): Promise<TTLockError>
 ## 功能描述
  停止周围的智能锁设备  
  操作将停止扫描网关操作  
+ **1.0.0版本开始支持**  
+ **离线版1.0.0版本开始支持**  
 <br />
 
 ## 返回值

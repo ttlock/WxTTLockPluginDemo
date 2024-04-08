@@ -10,7 +10,8 @@ function startScanGateway(callback?: TTLockScanGatewayCallback, failCallback?: T
 
 ## 功能描述
  扫描周围的网关设备  
- 2.6.0版本开始支持
+ **2.6.0版本开始支持**  
+ **离线版1.6.0版本开始支持**  
 <br />
 
 ## 参数说明
