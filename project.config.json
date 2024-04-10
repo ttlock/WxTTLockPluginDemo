@@ -51,7 +51,7 @@
         "condition": false
     },
     "projectname": "WxTTLockPluginDemo",
-    "libVersion": "2.14.1",
+    "libVersion": "2.19.2",
     "simulatorType": "wechat",
     "simulatorPluginLibVersion": {},
     "condition": {},
