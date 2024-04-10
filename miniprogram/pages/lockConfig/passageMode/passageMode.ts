@@ -170,6 +170,9 @@ Page({
                             this.setData({ state: `常开模式设置失败：${res.errorMsg}` });
                             return;
                         }
+                    } else {
+                        this.setData({ state: `常开模式已设置` });
+                        this.getPassageMode();
                     }
                 } else {
                     wx.hideLoading();

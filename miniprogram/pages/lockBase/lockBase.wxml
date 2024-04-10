@@ -13,7 +13,7 @@
         <text>读取操作记录</text>
     </view>
     <navigator class="tapline" hover-class="tapline-hover"
-        wx:if="{{keyInfo && keyInfo.userType == '110301'}}"
+        wx:if="{{keyInfo && (keyInfo.userType == '110301' || keyInfo.keyRight == 1)}}"
         url="../openMethods/openMethods">
         <text>开门方式</text>
     </navigator>

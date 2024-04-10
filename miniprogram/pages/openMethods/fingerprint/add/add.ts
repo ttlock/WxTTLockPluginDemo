@@ -61,17 +61,11 @@ Page({
         wx.showLoading({ title: "正在添加指纹" });
         let totalCount = 0;
         requirePlugin("myPlugin", ({ addFingerprint }: TTLockPlugin) => {
-            // addFingerprint(!value.permanent ? value.startDate : 0,
-            //     !value.permanent ? value.endDate : 0,
-            //     // lockData: ekeyInfo.lockData,
-            //     "HgMkt4qAR1jun7os7iOrs8VQE20V+IRqD+2xX1edxF2Sww2ZZdjCUqli64YhlvWOJieTU3EpVdU0/6a2UfrzsY/QyCDwNQEddOBpMR25wVUmztdo75pLEhXDAgXFNQYFXGCdQ1a8IH35AF5YJpzcX+M6riFN0P9yQPp6m3YTZwdSgwubfTYE4jwHTQIR13YyxjvirCQ6qq6ET7IswRNtFMmQlSowV6EsdOc/W/2kcsaW1Zx6KGTAC0SXS0OO53hEZNLGb10JzPHT64rJ1y/fYydMk8EJdsM3tMbMqws/6/nTBtg23ZJ6x+gw9TdKv3vdoQWH+iuCbNM4wgWRirRwH6PSKjjYA/3omd2/4iKz/GcNQWERyEy5ZP3ZHZfguFkrqE+fq6nefjX9zbFBz14g+jXxKHO2AmyggoOPOZ8BVDUT0d3IWFqKxdByohhMAeSjPYpZ5lR0LcuxmKtlw2D0EwMrPojSlgBTQSKYJOVEYayMqPy/wGC4fvL/YWTL5mlpPngsdCfCE4er/p5Ho0+IRRHRzPJdobzqcTaymVzF5S679lwraHsNjZRlJkjamFosZaCYCfOE0I+2KLsaX7TwlSNbYAAZL+v8dl3kOh4XEPtAwUxt3QJe0Ac4K1O4RuSt/+fY74cyZz9i92QxdNo8lItBvn/bikH/frK9gc1S/GOrLE3XCb9tuOPM20AdqVySKqNnbdtLxRm8oG2wiHBW0U3PcBeZySOqWeazvbfNWYkwIv8fpxt+Qg2sraxD66pA19kxtXtA",
-            // )
             // 添加指纹
             addFingerprint({
                 startDate: !value.permanent ? value.startDate : 0,
                 endDate: !value.permanent ? value.endDate : 0,
-                // lockData: ekeyInfo.lockData,
-                lockData: "HgMkt4qAR1jun7os7iOrs8VQE20V+IRqD+2xX1edxF2Sww2ZZdjCUqli64YhlvWOJieTU3EpVdU0/6a2UfrzsY/QyCDwNQEddOBpMR25wVUmztdo75pLEhXDAgXFNQYFXGCdQ1a8IH35AF5YJpzcX+M6riFN0P9yQPp6m3YTZwdSgwubfTYE4jwHTQIR13YyxjvirCQ6qq6ET7IswRNtFMmQlSowV6EsdOc/W/2kcsaW1Zx6KGTAC0SXS0OO53hEZNLGb10JzPHT64rJ1y/fYydMk8EJdsM3tMbMqws/6/nTBtg23ZJ6x+gw9TdKv3vdoQWH+iuCbNM4wgWRirRwH6PSKjjYA/3omd2/4iKz/GcNQWERyEy5ZP3ZHZfguFkrqE+fq6nefjX9zbFBz14g+jXxKHO2AmyggoOPOZ8BVDUT0d3IWFqKxdByohhMAeSjPYpZ5lR0LcuxmKtlw2D0EwMrPojSlgBTQSKYJOVEYayMqPy/wGC4fvL/YWTL5mlpPngsdCfCE4er/p5Ho0+IRRHRzPJdobzqcTaymVzF5S679lwraHsNjZRlJkjamFosZaCYCfOE0I+2KLsaX7TwlSNbYAAZL+v8dl3kOh4XEPtAwUxt3QJe0Ac4K1O4RuSt/+fY74cyZz9i92QxdNo8lItBvn/bikH/frK9gc1S/GOrLE3XCb9tuOPM20AdqVySKqNnbdtLxRm8oG2wiHBW0U3PcBeZySOqWeazvbfNWYkwIv8fpxt+Qg2sraxD66pA19kxtXtA",
+                lockData: ekeyInfo.lockData,
                 callback: (result) => {
                     console.log(result, "中间步骤")
                     switch (result.type) {

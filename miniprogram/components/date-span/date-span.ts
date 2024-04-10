@@ -107,7 +107,7 @@ Component({
             const endDate = this.data.endDate;
             if (!startDate) return "请选择开始时间";
             else if (!endDate) return "请选择结束时间";
-            else if (endDate <= Date.now()) return "结束时间不能早于当前时间";
+            // else if (endDate <= Date.now()) return "结束时间不能早于当前时间";
             else if (endDate <= startDate) return "开始时间不能晚于结束时间";
             else return "";
         }
