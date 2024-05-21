@@ -47,7 +47,8 @@ Page({
             currentWifi: null,
             password: "",
             showInput: false,
-            state: errorMsg
+            state: errorMsg,
+            isInitGateway: false,
         });
     },
 
