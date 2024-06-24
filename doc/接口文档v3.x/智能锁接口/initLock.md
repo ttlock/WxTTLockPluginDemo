@@ -101,6 +101,9 @@ function initLock(deviceFromScan: TTLockFromScan, disconnectCallback?: TTLockCal
 <br />
 
 ## 版本更新内容
+#### **3.0.3(离线版2.0.2)**  
+    1. 修复部分智能锁操作异常返回循环校验码错误的问题  
+
 #### **3.0.0**  
     1. 增加option传参方式  
     2. 取消deviceId参数，降低因设备无法连接造成的失败率  
