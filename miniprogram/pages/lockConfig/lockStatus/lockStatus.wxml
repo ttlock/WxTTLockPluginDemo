@@ -25,3 +25,13 @@
     <switch name="permanent" model:checked="{{unlockDirection}}" type="switch" color="#2886f7" bindchange="handleChange"
         data-type="{{16}}"></switch>
 </view>
+<view class="form-item" wx:if="{{pasageModeAutoUnlockSetting !== undefined }}">
+    <text class="form-item-label">常开模式：</text>
+    <switch name="permanent" model:checked="{{pasageModeAutoUnlockSetting}}" type="switch" color="#2886f7" bindchange="handleChange"
+        data-type="{{32}}"></switch>
+</view>
+<view class="form-item" wx:if="{{wifiPowerSavingMode !== undefined }}">
+    <text class="form-item-label">wifi省电模式：</text>
+    <switch name="permanent" model:checked="{{wifiPowerSavingMode}}" type="switch" color="#2886f7" bindchange="handleChange"
+        data-type="{{128}}"></switch>
+</view>

@@ -1,7 +1,7 @@
 // 智能锁wifi设置
 import debounce from "debounce";
 import * as WifiLockAPI from "../../../api/interfaces/wifiLock";
-import { HttpHandler } from "../../../api/handle/httpHandler";
+import * as HttpHandler from "../../../api/handle/httpHandler";
 
 interface FormStatus {
     password?: string; // wifi密码

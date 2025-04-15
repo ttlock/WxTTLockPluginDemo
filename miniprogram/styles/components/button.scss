@@ -1,13 +1,13 @@
-@import "../custom.scss";
+$primary-color: #2886f7;
 
 button,
 .btn-primary {
-    padding: $btn-padding;
+    padding: 0 12px;
     color: #ffffff;
     background: $primary-color;
-    font-size: $btn-font-size;
-    height: $el-medium;
-    line-height: $el-medium;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
     border-radius: 6px;
     &::after {
         border: 1px solid $primary-color;

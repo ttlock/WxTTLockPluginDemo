@@ -22,7 +22,8 @@
         "pages/lockConfig/voice/voice",
         "pages/lockConfig/autolock/autolock",
         "pages/lockConfig/passageMode/passageMode",
-        "pages/lockConfig/wifi/wifi"
+        "pages/lockConfig/wifi/wifi",
+        "pages/lockConfig/powerSave/index"
     ],
     "usingComponents": {
         "i-message": "components/message/index"
@@ -36,7 +37,7 @@
     },
     "plugins": {
         "myPlugin": {
-            "version": "3.0.5",
+            "version": "3.1.0",
             "provider": "wx43d5971c94455481"
         }
     },

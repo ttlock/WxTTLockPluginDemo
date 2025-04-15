@@ -1,6 +1,6 @@
 import debounce from "debounce";
 import * as FingerprintAPI from "../../../api/interfaces/fingerprint";
-import { HttpHandler } from "../../../api/handle/httpHandler";
+import * as HttpHandler from "../../../api/handle/httpHandler";
 
 Page({
     data: {

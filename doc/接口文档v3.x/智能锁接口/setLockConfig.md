@@ -76,6 +76,7 @@ function setLockConfig(
  |privacyLock                   |boolean  |           |使能/禁用反锁开关|
  |unlockDirection               |boolean  |           |左右开门设置（true为左开门，false为右开门)|
  |pasageModeAutoUnlockSetting   |boolean  |           |使能/禁用常开模式下自动开锁|
+ |wifiPowerSavingMode           |boolean  |           |wifi锁省电模式(部分非wifi锁支持该设置，但不生效)|
 <br />
 
 ### <span name="TTLockError">常规错误返回结果 TTLockError</span>  
@@ -92,6 +93,9 @@ function setLockConfig(
 <br />
 
 ## 版本更新内容
+#### **3.1.0**  
+    1. 增加wifi锁省电模式开关设置  
+
 #### **3.0.0**  
     1. 增加option传参方式  
     2. 取消deviceId参数，降低因设备无法连接造成的失败率  
@@ -107,6 +111,7 @@ function setLockConfig(
  |4             |           |智能锁反锁开关|
  |16            |           |左右开门设置 1 -左开门， 0 -右开门|
  |32            |           |常开模式下自动开锁|
+ |128           |           |是否开启wifi锁省电模式(部分非wifi锁支持该设置，但不生效)|
 <br />
 
 ### <span name="ERROR_CODE">ERROR_CODE 通通锁错误码</span>  

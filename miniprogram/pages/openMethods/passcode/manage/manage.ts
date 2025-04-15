@@ -1,7 +1,7 @@
 // 管理密码
 import debounce from "debounce";
 import * as KeyboardPwdAPI from "../../../../api/interfaces/keyboardPwd";
-import { HttpHandler } from "../../../../api/handle/httpHandler";
+import * as HttpHandler from "../../../../api/handle/httpHandler";
 const dayjs = require("dayjs");
 
 interface FormStatus {

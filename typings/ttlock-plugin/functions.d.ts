@@ -14,6 +14,7 @@ declare namespace TTLockPluginModel {
     export function stopScanBleDevice(): Promise<TTLockError>;
     export function stopScanGateway(): Promise<TTLockError>;
     export function stopAllOperations(): Promise<TTLockError>;
+    export function finishOperations(): Promise<TTLockError>;
 
     export function getLockVersion(option: TTLockGetVersion): Promise<TTLockGetVersionResult>
     export function getLockVersion(deviceFromScan: TTLockFromScan, disconnectCallback?: TTLockCallback): Promise<TTLockGetVersionResult>

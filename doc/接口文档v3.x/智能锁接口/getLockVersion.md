@@ -100,7 +100,10 @@ function getLockVersion(macOrLockData: string, disconnectCallback?: TTLockCallba
  |electricQuantity              |boolean                    |2.7.0      |设备电量|
 <br />
 
-## 版本更新内容
+## 版本更新内容  
+#### **3.1.0**  
+    1. 操作成功不再修改原始传入参数  
+
 #### **3.0.0**  
     1. 增加option传参方式  
     2. 取消deviceId参数，降低因设备无法连接造成的失败率  

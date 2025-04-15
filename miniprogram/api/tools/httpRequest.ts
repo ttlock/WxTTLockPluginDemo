@@ -1,98 +1,72 @@
-import * as Enums from "../enums";
-import { HttpConfigs } from "./config";
-import { Assert } from "../../utils/assert";
-import { AES_Decrypt } from "../../utils/crypto";
-const baseServer = "https://api.ttlock.com"; // 网络接口请求域名地址
+import wxp from "../../utils/promise";
+import { CLIENT_ID } from "./config";
+import * as Assert from "../../utils/assert";
+import * as Crypto from "../../utils/crypto";
+import { G as GenerateDefaultError, E as ErrCode } from "../../utils/error";
 
-/** @namespace 接口调用 */
-export namespace HttpRequestUtil {
-    function _requestAPI<T extends HttpResponseError>(
-        url: string,
-        method: "GET" | "POST" = "GET",
-        params?: Record<string, any>,
-        header?: Record<string, string>
-    ): Promise<T> {
-        return new Promise((resolve, reject) => {
-            wx.request<T>({
-                url,
-                method,
-                dataType: "json",
-                data: params,
-                header: {
-                    "content-type": "application/x-www-form-urlencoded",
-                    ...header,
-                },
-                success (response) {
-                    switch(response.statusCode) {
-                    case 200: {
-                        return resolve(response.data); // 服务器处理成功
-                        // const result = response.data;
-                        // if (Assert.isNumber(result.errcode) && result.errcode !== 0) { // 服务器处理成功，但请求结果为失败
-                        //     return resolve({
-                        //         httpResult: Enums.HTTP_RES_TYPE.RETURN_ERROR,
-                        //         errcode: response.data.errcode,
-                        //         errmsg: response.data.errmsg,
-                        //         description: response.data.description
-                        //     });
-                        // }
-                        // else return resolve(response.data);
-                    };
-                    default: {
-                        const result: HttpRequestError = { httpResult: Enums.HTTP_RES_TYPE.RESPONSE_ERROR, errcode: response.statusCode, errmsg: "服务器响应失败，请稍候再试" };
-                        result.description = `服务器响应失败，状态码：${response.statusCode}`;
-                        return reject(result);
-                    };
-                    }
-                },
-                fail (err) {
-                    const result: HttpRequestError = JSON.parse(JSON.stringify({ httpResult: Enums.HTTP_RES_TYPE.REQUEST_ERROR, errcode: err.errno, errmsg: err.errMsg }));
-                    let description = `服务器请求失败，错误描述：${err.errMsg || ""}`;
-                    if (Assert.isNumber(err.errno)) {
-                        switch(err.errno) {
-                        case 600000: description = "未知错误, 服务器请求失败"; break;
-                        case 600002: description = "服务器请求失败，请检查服务器域名是否已被列入白名单"; break;
-                        case 600009: description = "无效的URL地址"; break;
-                        default: description = `服务器请求失败，错误码: ${err.errno}`; break;
-                        }
-                    }
-                    result.description = description;
-                    reject(result);
-                }
-            })
-        });
-    };
+const _BASE_SERVER_ = "https://api.ttlock.com";  // 网络接口请求域名地址
 
-    function _generateParams(params?: Record<string, any>) {
-        if (!params) return {};
-        for (let key of Object.keys(params)) {
-            if (params[key] === null) { params[key] = undefined; continue; }
-            const type = typeof params[key];
-            switch(type) {
-            case "function": { params[key] = undefined; } break;
-            case "object": { params[key] = JSON.stringify(params[key]); }; break;
-            case "number":
-            case "string":
-            case "boolean":
-            default: break;
-            }
-        }
-        return JSON.parse(JSON.stringify(params));
-    };
+function _generate(params?: any) {
+    for (let key of Object.keys(params || {})) {
+        if (Assert.isFunction(params[key])) delete params[key];
+        else if (params[key] === null) delete params[key];
+        else if (Assert.isObject(params[key])) params[key] = JSON.stringify(params[key]);
+    }
+    return JSON.parse(JSON.stringify(params || {}));
+};
 
-    function _makeParams(params?: Record<string, any>) {
-        return JSON.parse(JSON.stringify({
-            ..._generateParams(params),
-            "clientId": HttpConfigs.CLIENT_ID,
-            "accessToken": AES_Decrypt(wx.getStorageSync<string>("access_token")),
-            "date": Date.now(),
-        }))
-    };
-
-    export function post<T extends HttpResponseError>(url: string, params?: Record<string, any>, useToken: boolean = true, headers?: Record<string, string>, host: string = baseServer) {
-        return _requestAPI<T>(`${host || ""}${url}`, "POST", useToken ? _makeParams(params) : _generateParams(params), _generateParams(headers));
-    };
-
-    export function get<T extends HttpResponseError>(url: string, params?: Record<string, any>, useToken: boolean = true, headers?: Record<string, string>, host: string = baseServer) {
-        return _requestAPI<T>(`${host}${url}`, "GET", useToken ? _makeParams(params) : _generateParams(params), _generateParams(headers));
-    };
+function _generateDefaultParams(params: any) {
+    const token = Crypto.AES_Decrypt(wx.getStorageSync<string>("access_token"));
+    return _generate({ 
+        date: Date.now(),
+        clientId: CLIENT_ID,
+        accessToken: token || undefined,
+        ...(params || {}),
+    })
 }
+
+function _generateDefaultHeader(header: any) {
+    return _generate({
+        "content-type": "application/x-www-form-urlencoded",
+        ...(header || {})
+    });
+}
+
+async function _requestAPI<T>(
+    url: string,
+    method: "GET" | "POST" = "GET",
+    params: Record<string, any> = {},
+    header: Record<string, string> = {}
+): Promise<T> {
+    try {
+        console.log("[Request]请求参数", params);
+        const result: WechatMiniprogram.RequestSuccessCallbackResult<T> = await wxp.request<T>({
+			url,
+			method,
+			dataType: "json",
+			data: _generateDefaultParams(params),
+			header: _generateDefaultHeader(header)
+		}) as any;
+        switch(result?.statusCode) {
+        case 200: {
+            console.log("[Request]网络请求结果", result?.data);
+            return result?.data;
+        };
+        default: {
+            console.log("[Request]请求失败", result);
+            throw(GenerateDefaultError(ErrCode.REQUEST_API_FAILED, null, null, null, result?.statusCode));
+        };
+        }
+    } catch (err) {
+        console.log("[Request]请求报错", err);
+        throw(GenerateDefaultError(ErrCode.FAIL));
+    }
+};
+
+export function $post<T = HttpResponseResult>(url: string, params?: any, headers?: any, host?: string) {
+    return _requestAPI<T>(`${host || _BASE_SERVER_ }${url}`, "POST", params, headers);
+};
+
+export function $get<T = HttpResponseResult>(url: string, params?: any, headers?: any, host?: string) {
+    return _requestAPI<T>(`${host || _BASE_SERVER_ }${url}`, "GET", params, headers);
+};

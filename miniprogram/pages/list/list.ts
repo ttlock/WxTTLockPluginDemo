@@ -1,85 +1,62 @@
 // 智能锁列表
-import debounce from "debounce";
 import * as EKeyAPI from "../../api/interfaces/key";
-import { HttpHandler } from "../../api/handle/httpHandler";
-
+import * as HttpHandler from "../../api/handle/httpHandler";
 
 Page({
     data: {
-        isReady: false, // 页面数据是否已准备好
-        keyList: new Array<IEKeyAPI.List.EKeyInfo>(), // 电子钥匙列表
-        currentPageNo: 1,
+        keyList: [], // 电子钥匙列表
     },
     onLoad() {
-        console.log("load page");
-        requirePlugin("myPlugin", ({ setShowLog }: TTLockPlugin) => {
-            // 开启用户错误日志输出
-            setShowLog(true, this.handleShowLog);
-        });
-        wx.showLoading({ title: "" });
-        this.modifyKeyList();
+        // 设置日志回调方法
+        const plugin = requirePlugin("myPlugin");
+        plugin.setShowLog(true, this.handleShowLog);
     },
-
     onShow() {
         wx.showLoading({ title: "" });
         this.modifyKeyList();
     },
-
+    onPullDownRefresh() {
+        this.modifyKeyList();
+    },
     /* TODO 处理用户错误日志, 用户可自行操作日志上传 */
     handleShowLog(...args: any) {
         console.log("操作日志:", ...args);
     },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh() {
-        this.modifyKeyList();
-    },
-
-    onReachBottom() {
-        this.modifyKeyList(this.data.currentPageNo + 1);
-    },
-
     /* 更新电子钥匙列表 */
-    modifyKeyList: debounce(function (pageNo: number = 1) {
-        EKeyAPI.list({
-            pageNo: pageNo,
-            pageSize: 20
-        }).then(res => {
+    async modifyKeyList() {
+        try {
+            const res = await EKeyAPI.list({ pageNo: 1, pageSize: 20 });
+            wx.hideLoading();
+            wx.stopPullDownRefresh();
             if (HttpHandler.isResponseTrue(res)) {
-                if (pageNo == 1) this.data.keyList.splice(0, this.data.keyList.length, ...res.list);
-                else res.list.forEach(item => this.data.keyList.push(item));
-                this.setData({ keyList: this.data.keyList, currentPageNo: pageNo });
-                wx.stopPullDownRefresh();
+                const list = this.data?.keyList || [];
+                list.splice(0, list?.length, ...(res?.list || []));
+                this.setData({ keyList:list });
             } else {
                 wx.removeStorageSync("access_token");
                 HttpHandler.handleResponseError(res);
                 wx.reLaunch({ url: "/pages/login/login" });
             }
+        } catch(err) {
             wx.hideLoading();
-        }).catch(err => {
+            wx.stopPullDownRefresh();
             wx.removeStorageSync("access_token");
             HttpHandler.handleServerError(err);
             wx.reLaunch({ url: "/pages/login/login" });
-            wx.hideLoading();
-        })
-    }, 100),
+        }
+    },
 
     /* 退出登录 */
-    handleLogOut: debounce(function () {
-        wx.showLoading({ title: "退出登录" });
+    handleLogOut() {
         wx.removeStorageSync("access_token");
         wx.removeStorageSync("user_psd");
-        wx.reLaunch({ url: "/pages/login/login", complete: () => { wx.hideLoading(); }});
-    }, 100),
+        wx.reLaunch({ url: "/pages/login/login" });
+    },
 
     // 进入锁详情页
     toDetail(event) {
         const keyItem = JSON.stringify(event.target.dataset.value);
         wx.setStorageSync("keyInfo", keyItem);
-        wx.navigateTo({
-            url: "../lockBase/lockBase"
-        })
+        wx.navigateTo({ url: "../lockBase/lockBase" })
     }
 })

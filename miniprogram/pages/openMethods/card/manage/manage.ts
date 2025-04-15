@@ -1,7 +1,7 @@
 // 管理IC卡
 import debounce from "debounce";
 import * as IdentityCardAPI from "../../../../api/interfaces/identityCard";
-import { HttpHandler } from "../../../../api/handle/httpHandler";
+import * as HttpHandler from "../../../../api/handle/httpHandler";
 const dayjs = require("dayjs");
 
 interface FormStatus {

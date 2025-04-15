@@ -1,6 +1,6 @@
 import debounce from "debounce";
 import * as LockAPI from "../../../api/interfaces/lock";
-import { HttpHandler } from "../../../api/handle/httpHandler";
+import * as HttpHandler from "../../../api/handle/httpHandler";
 
 Page({
     data: {
@@ -64,6 +64,45 @@ Page({
     handleGetAll() {
         wx.showLoading({ title: "" });
         this.setData({ state: "正在读取锁内所有密码" });
+        requirePlugin("myPlugin", ({ getAllValidPasscode }: TTLockPlugin) => {
+            const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+            // 读取所有有效密码
+            getAllValidPasscode({ lockData: ekeyInfo.lockData }).then(res => {
+                if (res.errorCode == 0) {
+                    wx.hideLoading();
+                    this.setData({ state: `共读取到 ${res.keyboardPwdList.length} 条密码` });
+                    HttpHandler.showErrorMsg("操作成功");
+                } else {
+                    wx.hideLoading();
+                    this.setData({ state: `读取有效密码失败：${res.errorMsg}` });
+                    HttpHandler.showErrorMsg("操作失败");
+                }
+            })
+        })
+    },
+
+    async handleReset() {
+        const plugin = requirePlugin("myPlugin");
+        wx.showLoading({ title: "" });
+        this.setData({ state: "正在重置智能锁密码" });
+        try {
+            const ekeyInfo = this.data.keyInfo;
+            const res = await plugin.resetPasscode({ lockData: ekeyInfo.lockData  });
+            if (res?.errorCode != 0) {
+                HttpHandler.showErrorMsg("操作失败");
+                return;
+            } else {
+                await LockAPI.updateLockData({
+                    lockId: ekeyInfo?.lockId, // 智能锁ID
+                    lockData: res?.lockData // 更新数据
+                })
+            }
+        } catch(err) {
+            console.log(err)
+        } finally {
+            await plugin.finishOperations();
+            wx.hideLoading();
+        }
         requirePlugin("myPlugin", ({ getAllValidPasscode }: TTLockPlugin) => {
             const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
             // 读取所有有效密码

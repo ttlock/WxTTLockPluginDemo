@@ -1,0 +1,62 @@
+# 通通锁蓝牙模块通信插件接口v3.x - clearWifiPowerSavingTime
+[返回接口文档](../../../README.md)  
+<br />
+
+## 方法
+```
+function clearWifiPowerSavingTime(option: TTLockClearSavePower): Promise<TTLockError>
+```  
+<br />
+
+## 功能描述
+ 清空wifi锁省电模式时间段配置  
+ **3.1.0版本开始支持**  
+<br />
+
+## 参数说明 
+ |PARAMS                |TYPE                                               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|---------------------------------------------------|--------------|----------------|-----------|
+ |option                |[TTLockClearSavePower](#TTLockClearSavePower)      |Y             |IN              |完整参数|
+<br />
+
+### <span name="TTLockClearSavePower">清空wifi锁省电模式时间段配置完整参数 TTLockClearSavePower</span>  
+ |PARAMS                |TYPE                                               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|---------------------------------------------------|--------------|----------------|-----------|
+ |lockData              |string                                             |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |[TTLockCallback](#TTLockCallback)                  |N             |OUT             |设备断开连接回调|
+<br />
+
+### <span name="TTLockCallback">设备断开连接 TTLockCallback</span>  
+```
+(res: TTLockError) => any
+```  
+#### 回调方法参数说明
+ |PARAMS                    |TYPE                           |IN/OUT         |DESCRIPTION|
+ |--------------------------|-------------------------------|---------------|-----------|
+ |res                       |[TTLockError](#TTLockError)    |OUT            |设备断开连接错误信息|
+<br />
+
+## 返回值
+ 异步返回操作回调结果 [TTLockError](#TTLockError)  
+<br />
+
+### <span name="TTLockError">常规错误返回结果 TTLockError</span>  
+ [更多信息](../对象类型说明/返回对象.md#TTLockError)
+ |NAME                          |TYPE                       |VERSION    |DESCRIPTION|
+ |------------------------------|---------------------------|-----------|-----------|
+ |errorCode                     |[ERROR_CODE](#ERROR_CODE)  |           |通通锁常规错误码|
+ |errorMsg                      |string                     |           |错误信息描述|
+ |description                   |boolean                    |           |错误信息描述补充|
+ |errCode                       |number                     |           |微信蓝牙接口返回错误码|
+ |errMsg                        |string                     |           |微信蓝牙错误信息描述|
+ |electricQuantity              |boolean                    |2.7.0      |设备电量|
+<br />
+
+## 版本更新内容
+#### **3.1.0**  
+    1. 新增接口  
+<br />
+
+## 固定参数补充说明  
+### <span name="ERROR_CODE">ERROR_CODE 通通锁错误码</span>  
+ [更多信息](../参数声明/错误码.md#ERROR_CODE)  

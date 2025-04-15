@@ -1,21 +1,22 @@
 @import "../custom.scss";
 @import "./iconfont/iconfont.scss";
 
-// 可点击行
 .tapline {
     position: relative;
     display: flex;
-    height: $el-medium;
+    height: 40px;
+    width: 100%;
+    box-sizing: border-box;
     justify-self: flex-start;
     align-items: center;
-    font-size: $btn-font-size;
-    padding: $tapline-padding;
+    font-size: 14px;
+    padding: 0 32px 0 16px;
     white-space: nowrap;
     text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: $text-color;
-    background: $tapline-default-bg-color;
+    color: #333333;
+    background:#F4F7F9;
     border-radius: 0px;
     &::before {
         content: " ";

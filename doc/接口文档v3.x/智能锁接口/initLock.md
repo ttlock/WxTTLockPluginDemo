@@ -60,8 +60,8 @@ function initLock(deviceFromScan: TTLockFromScan, disconnectCallback?: TTLockCal
  |protocolVersion       |number       |Y             |协议版本号|
  |protocolType          |number       |Y             |智能锁协议类型|
  |scene                 |number       |Y             |场景值|
- |groupId               |number       |Y             |应用商ID|
- |orgId                 |number       |Y             |应用商子ID|
+ |groupId               |number       |N             |应用商ID|
+ |orgId                 |number       |N             |应用商子ID|
  |logoUrl               |string       |N             |LOGO链接|
  |showAdminKbpwdFlag    |boolean      |N             |是否展示管理员密码|
 <br />
@@ -101,6 +101,11 @@ function initLock(deviceFromScan: TTLockFromScan, disconnectCallback?: TTLockCal
 <br />
 
 ## 版本更新内容
+#### **3.1.0**  
+    1. 初始化时不再自动停止设备扫描  
+    2. 扫描到的设备lockVersion参数中将不再返回groupId和orgId  
+    3. 取消MAC地址填入操作
+
 #### **3.0.3(离线版2.0.2)**  
     1. 修复部分智能锁操作异常返回循环校验码错误的问题  
 

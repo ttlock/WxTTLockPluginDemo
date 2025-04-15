@@ -1,6 +1,5 @@
 import * as LockAPI from "../../api/interfaces/lock";
-import { HttpHandler } from "../../api/handle/httpHandler";
-import API from "../../api/API";
+import * as HttpHandler from "../../api/handle/httpHandler";
 const plugin = requirePlugin("myPlugin");
 let deviceId: string = ""; // 当前智能锁ID
 

@@ -20,8 +20,8 @@
         <view class="form-item">
             <button hover-class="btn-hover" form-type="submit">登录</button>
         </view>
-        <view class="form-item fc-6 fs-14">
-            该demo仅用于展示通通锁微信小程序插件使用方法，使用时，基础库版本请设置在2.19.2及其以上
+        <view class="form-item">
+            该demo仅用于展示通通锁微信小程序插件使用方法，使用时，基础库版本请设置在3.0.2及其以上
         </view>
     </form>
 </view>

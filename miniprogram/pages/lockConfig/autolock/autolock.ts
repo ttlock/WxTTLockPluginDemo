@@ -1,7 +1,7 @@
 // 智能锁自动闭锁时间设置
 import debounce from "debounce";
 import * as LockAPI from "../../../api/interfaces/lock";
-import { HttpHandler } from "../../../api/handle/httpHandler";
+import * as HttpHandler from "../../../api/handle/httpHandler";
 
 interface FormStatus {
     enable?: boolean;

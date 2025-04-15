@@ -1,4 +1,4 @@
-// 智能锁自动闭锁时间设置
+// 智能锁省电模式开启时间设置
 import dayjs from "dayjs";
 import debounce from "debounce";
 import * as LockAPI from "../../../api/interfaces/lock";
@@ -6,7 +6,7 @@ import * as HttpHandler from "../../../api/handle/httpHandler";
 import * as Assert from "../../../utils/assert";
 
 interface FormStatus {
-    passageModeSwitch?: boolean;
+    powerSavingSwitch?: boolean;
     isAllDays?: boolean;
     weekDays?: Array<string>;
     startDate?: number;
@@ -17,7 +17,7 @@ Page({
     data: {
         state: '',
         keyInfo: {}, // 钥匙数据
-        passageDayList: [
+        powerSaveDayList: [
             {value: 7, name: '周日', checked: false},
             {value: 1, name: '周一', checked: false},
             {value: 2, name: '周二', checked: false},
@@ -26,8 +26,8 @@ Page({
             {value: 5, name: '周五', checked: false},
             {value: 6, name: '周六', checked: false}
         ],
-        passageModeSwitch: true, // 是否常开
-        isAllDays: false, // 是否全天常开
+        powerSavingSwitch: true, // 是否开启
+        isAllDays: false, // 是否全天
         dateSpan: {}, // 有效期
         startDate: 0,
         endDate: 0,
@@ -43,27 +43,27 @@ Page({
     handleUpdate: debounce(function() {
         const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
         wx.showLoading({ title: "" });
-        LockAPI.getPassageModeConfig({
+        LockAPI.getWifiConfig({
             lockId: ekeyInfo.lockId, // 智能锁ID
         }).then(res => {
             wx.hideLoading();
             if (HttpHandler.isResponseTrue(res)) {
                 console.log(res)
                 const option = {
-                    passageModeSwitch: res.passageMode == 1 ? true : false, // 是否常开
+                    powerSavingSwitch: res?.powerSavingMode == 1 ? true : false, // 是否常开
                     isAllDays: res.isAllDay == 1 ? true : false, // 是否全天常开
                     startDate: res.startDate ? dayjs().startOf("day").add(res.startDate, "minute").valueOf() : dayjs().startOf("minute").valueOf(),
                     endDate: res.endDate ? dayjs().startOf("day").add(res.endDate, "minute").valueOf() :  dayjs().startOf("minute").add(1, "hour").valueOf(),
                 };
                 const weekDays = ((Assert.isString(res.weekDays) ? JSON.parse(res.weekDays) : res.weekDays) || []) as Array<number>;
-                this.data.passageDayList.forEach((item, index) => {
+                this.data.powerSaveDayList.forEach((item, index) => {
                     if (weekDays.includes(parseInt(item.value))) {
-                        option[`passageDayList[${index}].checked`] = true;
+                        option[`powerSaveDayList[${index}].checked`] = true;
                     } else {
-                        option[`passageDayList[${index}].checked`] = false;
+                        option[`powerSaveDayList[${index}].checked`] = false;
                     }
-                    option[`passageDayList[${index}].value`] = item.value;
-                    option[`passageDayList[${index}].name`] = item.name;
+                    option[`powerSaveDayList[${index}].value`] = item.value;
+                    option[`powerSaveDayList[${index}].name`] = item.name;
                 })
                 this.setData(option);
             } else {
@@ -78,9 +78,9 @@ Page({
 
     // 输入校验
     handleCheckInput(value: FormStatus) {
-        if (!value.passageModeSwitch) return true;
+        if (!value.powerSavingSwitch) return true;
         else if (!(value.weekDays.length > 0)) {
-            HttpHandler.showErrorMsg(`请选择常开日`);
+            HttpHandler.showErrorMsg(`请选择开启日`);
             return false;
         } else if (value.isAllDays) return true;
         else {
@@ -101,26 +101,23 @@ Page({
         this.handleChange(value);
     }, 100),
 
-    /* 查询常开模式 */
-    getPassageMode: debounce(function () {
+    /* 查询省电模式 */
+    getPowerSavingMode: debounce(function () {
         const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
         wx.showLoading({ title: "" });
-        this.setData({ state: `正在查询常开模式` })
-        requirePlugin("myPlugin", ({ getPassageMode }: TTLockPlugin) => {
-            getPassageMode({ lockData: ekeyInfo.lockData }).then(res => {
+        this.setData({ state: `正在查询省电模式开启状态` })
+        requirePlugin("myPlugin", ({ getWifiPowerSavingTime }: TTLockPlugin) => {
+            getWifiPowerSavingTime({ lockData: ekeyInfo.lockData }).then(res => {
                 if (res.errorCode == 0) {
                     wx.hideLoading();
-                    const option = JSON.parse(JSON.stringify({
+                    this.setData({ state: `查询省电模式成功` });
+                    LockAPI.updateSetting({
                         lockId: ekeyInfo.lockId, // 智能锁ID
-                        passageMode: res.passageModeConfigList.length > 0 ? 1 : 2, // 常开模式开闭状态
-                        startDate: res.passageModeConfigList.length > 0 ? res.passageModeConfigList[0].startDate : undefined,
-                        endDate: res.passageModeConfigList.length > 0 ? res.passageModeConfigList[0].endDate : undefined,
-                        isAllDay: res.passageModeConfigList.length > 0 ? (res.passageModeConfigList[0].startDate == 0 &&  res.passageModeConfigList[0].endDate == 0 ? 1 : 2) : 2,
-                        weekDays: res.passageModeConfigList.map(item => item.weekOrDay),
-                        type: 1,
-                    }));
-                    this.setData({ state: `查询常开模式成功` });
-                    LockAPI.configPassageMode(option).then(res => {
+                        type: 10, // 要修改的项
+                        value: res?.configs?.length > 0 ? 1 : 2, // 设置值: 1-开启、2-关闭;
+                        changeType: 1,
+                         // 修改方式
+                    }).then(res => {
                         wx.hideLoading();
                         if (HttpHandler.isResponseTrue(res)) {
                             HttpHandler.showErrorMsg("已同步服务器")
@@ -146,14 +143,14 @@ Page({
         wx.showLoading({ title: "" });
         this.setData({ state: `正在清空常开模式` })
         
-        requirePlugin("myPlugin", ({ clearPassageMode, configPassageMode }: TTLockPlugin) => {
-            clearPassageMode({ lockData: ekeyInfo.lockData }).then(async res => {
+        requirePlugin("myPlugin", ({ clearWifiPowerSavingTime, configWifiPowerSavingTime }: TTLockPlugin) => {
+            clearWifiPowerSavingTime({ lockData: ekeyInfo.lockData }).then(async res => {
                 if (res.errorCode == 0) {
-                    if (value.passageModeSwitch) {
-                        this.setData({ state: `常开模式已清空，正在设置` });
+                    if (value.powerSavingSwitch) {
+                        this.setData({ state: `模式已清空，正在设置` });
                         const start = dayjs(value.startDate).hour() * 60 + dayjs(value.startDate).minute();
                         const end = dayjs(value.endDate).hour() * 60 + dayjs(value.endDate).minute();
-                        const configRes = await configPassageMode({
+                        const configRes = await configWifiPowerSavingTime({
                             config: {
                                 type: 1,
                                 repeatWeekOrDays: value.weekDays.map(item => parseInt(item)),

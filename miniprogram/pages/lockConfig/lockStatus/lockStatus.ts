@@ -1,7 +1,7 @@
 // 智能锁开关设置
 import debounce from "debounce";
 import * as LockAPI from "../../../api/interfaces/lock";
-import { HttpHandler } from "../../../api/handle/httpHandler";
+import * as HttpHandler from "../../../api/handle/httpHandler";
 
 Page({
     data: {
@@ -12,6 +12,7 @@ Page({
         privacyLock: undefined,
         unlockDirection: undefined,
         pasageModeAutoUnlockSetting: undefined,
+        wifiPowerSavingMode: undefined,
     },
     onLoad() {
         const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
@@ -39,7 +40,7 @@ Page({
         this.setData({ state: `正在查询智能锁设置项` })
         requirePlugin("myPlugin", ({ getLockConfig }: TTLockPlugin) => {
             getLockConfig({
-                configType: 1 | 2 | 4 | 16,
+                configType: 1 | 2 | 4 | 16 | 32 | 128,
                 lockData: ekeyInfo.lockData
             }).then(res => {
                 if (res.errorCode == 0) {
@@ -51,6 +52,7 @@ Page({
                         privacyLock: res.lockConfigs.privacyLock,
                         unlockDirection: res.lockConfigs.unlockDirection,
                         pasageModeAutoUnlockSetting: res.lockConfigs.pasageModeAutoUnlockSetting,
+                        wifiPowerSavingMode: res.lockConfigs?.wifiPowerSavingMode
                     });
                 } else {
                     wx.hideLoading();
@@ -81,6 +83,7 @@ Page({
                     case 2: type = 4; break;
                     case 4: type = 2; break;
                     case 16: type = 7; break;
+                    case 128: type = 10; break;
                     default: wx.hideLoading(); return;
                     };
                     LockAPI.updateSetting({
@@ -109,6 +112,7 @@ Page({
                     case 4: this.setData({ privacyLock: !switchOn }); break;
                     case 16: this.setData({ unlockDirection: !switchOn }); break;
                     case 32: this.setData({ pasageModeAutoUnlockSetting: !switchOn }); break;
+                    case 128: this.setData({ wifiPowerSavingMode: !switchOn }); break;
                     };
                 }
             })

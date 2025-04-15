@@ -2,6 +2,7 @@
 <navigator class="iconfont icon-add btn-add" url="./add/add"></navigator>
 <view class="flex-row ph-32 pv-16">
     <button class="mh-0 btn-primary" hover-class="btn-hover" bind:tap="handleGetAll">读取锁内所有密码</button>
+    <button class="mh-0 btn-primary" hover-class="btn-hover" bind:tap="handleReset">重置密码</button>
 </view>
 <view wx:if="{{passcodeList && passcodeList.length > 0}}">
     <view wx:for="{{passcodeList}}" wx:for-item="item" wx:key="keyboardPwdId" data-index="{{index}}"

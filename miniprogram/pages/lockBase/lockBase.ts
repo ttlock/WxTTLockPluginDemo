@@ -1,9 +1,9 @@
 import debounce from "debounce";
 import * as LockAPI from "../../api/interfaces/lock";
 import * as LockRecordAPI from "../../api/interfaces/lockRecord";
-import { HttpHandler } from "../../api/handle/httpHandler";
-import { HttpConfigs } from "../../api/tools/config";
-import { AES_Decrypt } from "../../utils/crypto";
+import * as HttpHandler from "../../api/handle/httpHandler";
+import { CLIENT_ID } from "../../api/tools/config";
+import * as Crypto from "../../utils/crypto";
 
 Page({
     data: {
@@ -197,8 +197,8 @@ Page({
              */
             enterDfuMode({
                 dfuPackageInfo: {
-                    clientId: HttpConfigs.CLIENT_ID,
-                    accessToken: AES_Decrypt(wx.getStorageSync<string>("access_token")),
+                    clientId: CLIENT_ID,
+                    accessToken: Crypto.AES_Decrypt(wx.getStorageSync<string>("access_token")),
                     lockId: ekeyInfo.lockId,
                 },
                 lockData: ekeyInfo.lockData,
@@ -228,10 +228,10 @@ Page({
                     }
                 }
             }).then(res => {
+                wx.hideLoading();
                 if (res.errorCode == 0) {
                     this.setData({ state: `智能锁已升级` });
                 } else {
-                    wx.hideLoading();
                     HttpHandler.showErrorMsg("智能锁升级失败");
                     this.setData({ state: `智能锁升级失败: ${res.description || res.errorMsg}` });
                 }

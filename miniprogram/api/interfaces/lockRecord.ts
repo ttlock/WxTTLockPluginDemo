@@ -1,7 +1,7 @@
 /// <reference path="./lockRecord.d.ts" />
-import { HttpRequestUtil } from "../tools/httpRequest";
+import { $post } from "../tools/httpRequest";
 
 /** 上传操作记录 */
-export function uploadOperation(params: ILockRecordAPI.Params.Upload) {
-    return HttpRequestUtil.post("/v3/lockRecord/upload", params);
+export const uploadOperation = (params: ILockRecord.Params.Upload) => {
+    return $post("/v3/lockRecord/upload", params);
 }

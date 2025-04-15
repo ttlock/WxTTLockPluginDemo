@@ -14,8 +14,7 @@ interface HttpRequestError {
     description?: string; // 补充描述
 }
 
-/** HTTP请求服务器响应数据(resolve) */
-interface HttpResponseError {
+declare interface HttpResponseError {
     errcode?: number; // 对应结果错误码 
     errmsg?: string; // 错误提示语
     description?: string; // 补充描述

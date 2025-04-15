@@ -7,12 +7,12 @@
  离线版appid: **wxc788856964635783** (付费使用)  
  **该插件仅支持企业账号添加**  
   
- **开发版本：3.0.6**  
+ **开发版本：3.1.0**  
  **稳定版本：2.9.4**  
  **插件接口接口适配开放平台Cloud API V3版本接口，请配合云端接口使用**  
  **接口为蓝牙通信模块，操作时需通过蓝牙进行设备交互，操作中将向用户请求scope.bluetooth权限，安卓设备需授权微信位置权限**  
  **3.0版本兼容2.x的调用模式**
- **最低支持微信基础库版本：2.19.2**  
+ **最低支持微信基础库版本：3.0.2**  
 
 ## 引用方式
 > 1. 登录小程序后台-选择设置->第三方设置->插件管理->点击“添加插件”->搜索对应APPID->添加插件->等待审核通过  
@@ -22,7 +22,7 @@
 ```
     "plugins": {
         "myPlugin": {
-            "version": "3.0.0",
+            "version": "3.1.0",
             "provider": "wx..."
         }
     },
@@ -85,6 +85,7 @@
 + [停止扫描蓝牙智能锁](./doc/接口文档v3.x/设备扫描及停止扫描接口/stopScanBleDevice.md)  
 + [停止扫描蓝牙网关](./doc/接口文档v3.x/设备扫描及停止扫描接口/stopScanGateway.md)  
 + [停止蓝牙操作](./doc/接口文档v3.x/设备扫描及停止扫描接口/stopAllOperations.md)  
++ [完成蓝牙操作](./doc/接口文档v3.x/设备扫描及停止扫描接口/finishOperations.md)  
 <br />
 
 ### 智能锁相关接口  
@@ -100,6 +101,7 @@
 + [添加自定义密码](./doc/接口文档v3.x/智能锁接口/createCustomPasscode.md)  
 + [修改键盘密码](./doc/接口文档v3.x/智能锁接口/modifyPasscode.md)  
 + [删除键盘密码](./doc/接口文档v3.x/智能锁接口/deletePasscode.md)  
++ [重置密码](./doc/接口文档v3.x/智能锁接口/resetPasscode.md)  
 + [读取智能锁内所有有效键盘密码](./doc/接口文档v3.x/智能锁接口/getAllValidPasscode.md)  
 + [查询管理员密码](./doc/接口文档v3.x/智能锁接口/getAdminPasscode.md)  
 + [修改管理员密码](./doc/接口文档v3.x/智能锁接口/modifyAdminPasscode.md)  
@@ -118,6 +120,10 @@
 + [修改指纹有效期](./doc/接口文档v3.x/智能锁接口/modifyFingerprintValidityPeriod.md)  
 + [删除指纹](./doc/接口文档v3.x/智能锁接口/deleteFingerprint.md)  
 + [读取智能锁内所有有效指纹数据](./doc/接口文档v3.x/智能锁接口/getAllValidFingerprint.md)  
+<br />
+
+#### 人脸管理  
++ [删除人脸](./doc/接口文档v3.x/智能锁接口/deleteFaceNumber.md) 
 <br />
 
 #### 智能锁设置  
@@ -149,6 +155,9 @@
 + [配置智能锁连接的wifi信息](./doc/接口文档v3.x/智能锁接口/configWifi.md)  
 + [配置智能锁连接的服务器](./doc/接口文档v3.x/智能锁接口/configServer.md)  
 + [配置wifi锁本地IP地址](./doc/接口文档v3.x/智能锁接口/configIp.md)  
++ [设置wifi省电模式时间](./doc/接口文档v3.x/智能锁接口/configWifiPowerSavingTime.md)  
++ [查询wifi锁省电模式时间设置](./doc/接口文档v3.x/智能锁接口/getWifiPowerSavingTime.md)  
++ [清空wifi锁省电模式时间段设置](./doc/接口文档v3.x/智能锁接口/clearWifiPowerSavingTime.md)  
 <br />
 
 #### 特殊功能  

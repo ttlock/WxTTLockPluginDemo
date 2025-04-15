@@ -1,20 +1,19 @@
-@import "../custom.scss";
+$primary-color: #2886f7;
 
-// 链接地址
 navigator,
 .navigator {
     display: block;
     text-align: center;
-    padding: $navigator-padding;
-    color: #ffffff;
+    padding: 0 12px;
+    color: #FFFFFF;
     background: $primary-color;
-    font-size: $btn-font-size;
-    height: $el-medium;
-    line-height: $el-medium;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
     border-radius: 6px;
     &.navigator-hover { // 默认悬浮色
         opacity: 1;
-        color: #ffffff;
+        color: #FFFFFF;
         background-color: darken($primary-color, 10%);
     }
 }
