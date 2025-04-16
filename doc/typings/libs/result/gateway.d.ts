@@ -1,10 +1,10 @@
-/// <reference path="./default.d.ts" />
+/// <reference path="../options/index.d.ts" />
 
 declare namespace TTGateway {
     /**
 	 * 扫描到的wifi信息
 	 */
-    interface WiFiFromScan {
+    interface WiFiInfo {
         /**
          * @description wifi名称
          */
@@ -22,7 +22,7 @@ declare namespace TTGateway {
         /**
          * @description 网关附近可用的wifi列表
          */
-        wifiList?: Array<WiFiFromScan>;
+        wifiList?: Array<WiFiInfo>;
     }
 
     /**

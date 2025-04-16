@@ -1,4 +1,4 @@
-/// <reference path="./default.d.ts" />
+/// <reference path="../options/index.d.ts" />
 
 declare namespace TTLock {
     /**
@@ -60,6 +60,16 @@ declare namespace TTLock {
          * @description 自定义密码
          */
         passcode?: string;
+    }
+
+    /**
+     * @description 重置密码操作结果
+     */
+    interface ResetPasscodeResult extends TTLockError {
+        /**
+         * @description 锁数据，用于同步服务器，不可操作蓝牙
+         */
+        lockData?: string;
     }
 
     /**
@@ -347,7 +357,7 @@ declare namespace TTLock {
     /**
 	 * 扫描到的wifi信息
 	 */
-    interface WiFiFromScan {
+    interface WiFiInfo {
         /**
          * @description wifi名称
          */
@@ -365,7 +375,7 @@ declare namespace TTLock {
         /**
          * @description 智能锁附近可用的wifi列表
          */
-        wifiList?: Array<WiFiFromScan>;
+        wifiList?: Array<WiFiInfo>;
     }
 
     /**
@@ -541,6 +551,11 @@ declare type TTLockGetOperationLogResult = TTLock.GetOperationRecordResult;
  * 添加自定义密码操作记录结果
  */
 declare type TTLockCreateCustomPasscodeResult = TTLock.CreateCustomPasscodeResult;
+
+/**
+ * 重置密码操作记录结果
+ */
+declare type TTLockResetPasscodeResult = TTLock.ResetPasscodeResult;
 
 /**
  * 读取智能锁内所有有效密码结果

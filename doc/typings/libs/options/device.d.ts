@@ -49,18 +49,4 @@ declare namespace TTDevice {
 		 */
 		updatedTime?: number;
     }
-    
-    /**
-	 * 扫描到的wifi信息
-	 */
-    interface WiFiFromScan {
-        /**
-         * @description wifi名称
-         */
-        SSID: string;
-        /**
-         * @description wifi信号值
-         */
-        rssi: number;
-    }
 }

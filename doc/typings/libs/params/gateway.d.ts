@@ -167,12 +167,6 @@ declare namespace TTGateway {
 	}
 }
 
-// /**
-//  * @description Gateway information scanned by Bluetooth
-//  * @since 2.6.0
-//  */
-// declare type TTGatewayScanModel = TTGateway.DeviceModel;
-
 /**
  * 连接网关设备参数
  * @since 2.6.0
@@ -190,9 +184,3 @@ declare type TTLockScanWifiByGateway = TTGateway.ScanWiFi;
  * @since 2.6.0
  */
 declare type TTLockInitGateway = TTGateway.InitGateway;
-
-// /**
-//  * 网关配置信息
-//  * @since 2.6.0
-//  */
-// declare type TTLockGatewayConfiguration = TTGateway.Configuration;

@@ -128,7 +128,7 @@ declare interface TTLockPlugin {
 	 * @description 重置普通键盘密码
 	 * @since 3.1.0
 	 */
-    resetPasscode(option: TTLockResetPasscode): Promise<TTLockError>;
+    resetPasscode(option: TTLockResetPasscode): Promise<TTLockResetPasscodeResult>;
 
     /**
 	 * @description 获取智能锁内全部有效键盘密码

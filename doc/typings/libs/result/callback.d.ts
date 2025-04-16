@@ -1,4 +1,4 @@
-/// <reference path="./default.d.ts" />
+/// <reference path="./lock.d.ts" />
 
 declare namespace TTDevice {
     /**
