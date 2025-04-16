@@ -216,7 +216,6 @@ export const TTLOCK_SOUND_VOLUME = {
 export const TTLOCK_POWER_SAVER_WORKMODE = {
     OFF: 0, // 禁用
     ANY_CARD: 1, // 任意卡取电
-    ID_CARD: 2, // 身份证取电
     HOTEL_CARD: 4, // 酒店卡取电
     ROOM_CARD: 8, // 房间卡取电
 } as const;
