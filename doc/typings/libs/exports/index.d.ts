@@ -17,7 +17,7 @@ declare interface TTLockPlugin {
 	 * @param callback -日志回调方法
 	 * @since 1.0.0
 	 */
-	setShowLog(open: boolean, callback?: TTDevice.LogCallback): void;
+	setShowLog(open: boolean, callback?: (...args: any | void) => any): void;
 	
 	/**
 	 * @description 解析智能锁版本信息

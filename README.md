@@ -1,171 +1,60 @@
-# 通通锁蓝牙模块通信插件接口说明文档 (version: 3.x)
+# 通通锁蓝牙模块通信插件接口说明文档 (version: 3.1.0)
+<br />
 
 ## 说明
  通通锁蓝牙模块通信插件是基于微信小程序接口开发的蓝牙模块插件，使用时需配合通通锁开放平台接口或相关本地开发包使用。  
  小程序后台可通过搜索“**通通锁**”或小程序appid进行搜索  
  在线版appid: **wx43d5971c94455481** (免费使用)  
  离线版appid: **wxc788856964635783** (付费使用)  
+
+#### 重要说明
  **该插件仅支持企业账号添加**  
-  
- **开发版本：3.1.0**  
- **稳定版本：2.9.4**  
  **插件接口接口适配开放平台Cloud API V3版本接口，请配合云端接口使用**  
  **接口为蓝牙通信模块，操作时需通过蓝牙进行设备交互，操作中将向用户请求scope.bluetooth权限，安卓设备需授权微信位置权限**  
  **3.0版本兼容2.x的调用模式**
+  
+#### 版本信息及环境
+ **开发版本：3.1.0**  
+ **稳定版本：2.9.4**  
  **最低支持微信基础库版本：3.0.2**  
+ **最低支持微信版本：8.0.2**  
 
-## 引用方式
-> 1. 登录小程序后台-选择设置->第三方设置->插件管理->点击“添加插件”->搜索对应APPID->添加插件->等待审核通过  
-    在线版appid: **wx43d5971c94455481** (免费使用)  
-    离线版appid: **wxc788856964635783** (付费使用)  
-> 2. 审核通过后，在app.json中引入插件  
+## 引用方式  
+##### Ⅰ. 第一步 申请小程序使用权限  
+> 1. 登录小程序后台
+> 2. 点击左下角小程序头像，选择“账号设置” -> “第三方设置” -> “插件管理”
+> 3. 点击“添加插件” -> 搜索小程序插件APPID -> 添加插件  
+    在线版APPID: **wx43d5971c94455481** (免费使用)  
+    离线版APPID: **wxc788856964635783** (付费使用)  
+> 4. 等待审核通过  
+
+##### Ⅱ. 第二步 在小程序中引入插件
+> 1. 审核通过后，在app.json中添加相关代码  
 ```
     "plugins": {
-        "myPlugin": {
-            "version": "3.1.0",
-            "provider": "wx..."
+        ...
+        "ttlock-plugin": {
+            "version": "{插件版本号}",
+            "provider": "{APPID}"
         }
-    },
+    }
 ```  
-> 3. 使用requirePlugin引用小程序接口  
+
+##### Ⅲ. 第三步 使用插件  
+> 1. 在页面 x.js 中引入插件  
+```
+    const plugin = requirePlugin("ttlock-plugin");
+    const plugin = requirePlugin("ttlock-plugin") as TTLockPlugin; // ts
+```  
+> 2. 使用 plugin.x 调用插件方法  
+```
+    plugin.setShowLog(true, (...args) => {
+        ...
+    })
+```  
 
 ## 其它链接
-1. [接口文档v3.1](./doc/接口文档v3.x/接口文档3.x.md)  
+1. [接口文档](./doc/接口文档v3.x/接口文档.md)  
 2. [版本更新说明](./doc/版本更新说明.md)  
 3. [常见问题](./doc/接口文档v3.x/常见问题.md)  
-4. [接口文档v1.x](./doc/旧版本接口文档/接口文档v1.4.1.md)  
-5. [接口文档v2.x](./doc/旧版本接口文档/接口文档v2.9.4.md)  
-6. [常见问题v1.x & v2.x](./doc/旧版本接口文档/常见问题v1.x&v2.x.md)  
-1. [散列方法调用接口文档v3.0](https://gitee.com/sciener/WxTTLockPluginDemo/tree/master-3.0/)  
-
-## 特别说明
-1. 添加智能锁：通过蓝牙操作将未初始化的智能锁初始化，该操作为本地操作，不与服务器交互，需在初始化成功后调用远程接口进行数据同步  
-    **若未上传服务器可能导致智能锁数据丢失，只能物理重置智能锁**  
-2. 开锁：通过云端获取智能锁数据或钥匙数据后，调用小程序controlLock接口开锁  
-    **小程序接口不会主动上传操作记录，如需上传请在接口操作成功后，自行调用开放平台接口上传记录**  
-3. 小程序插件接口内部自动连接，无需额外连接蓝牙操作
-4. 受数据通信影响，真机调试可能导致设备意外断连而无法正常操作，因此  
-    **不建议使用真机调试模式**  
-    **iOS设备不支持真机调试**  
-	**调试时建议使用预览模式并打开手机端进行开发调试**
-5. 通通锁蓝牙模块通信插件将向用户请求以下权限  
-    a. 设备蓝牙权限(用户操作时需**手动打开**系统蓝牙开关)  
-    b. 安卓设备需授予微信位置权限(需**手动打开**, 系统设置->授权管理->微信->授予位置权限)  
-    c. iOS设备需授予微信蓝牙权限(需**手动打开**, 系统设置->授权管理->微信->授予蓝牙权限)  
-    d. 小程序蓝牙权限(**首次调用蓝牙接口时将自动向用户请求授权**，小程序设置->蓝牙->使用小程序时允许)  
-    e. 安卓13及其以上设备需**手动打开**系统位置服务开关方能扫描并正常操作设备  
-6. 因本地存储连接的智能锁列表，建议**定期调用stopAllOperations以清空本地操作过的智能锁设备列表**  
-7. 关于“附近设备”权限
-    a. 华为鸿蒙系列设备在微信首次请求用户“附近设备”权限时，若用户拒绝授权，可能返回11002错误，需用户手动打开(3.0.4版本更新后，增加10043错误码以表示该状态)
-    b. 该权限目前无法获取授权状态且无法主动向用户请求，导致部分安卓设备无法连接设备而超时，请引导用户手动开启该权限
-        已知部分安卓13及其以上设备(如小米、红米等)必需授予该权限后方可操作蓝牙接口
-    c. 部分安卓设备在系统设置和长按APP后弹出的“应用权限”设置中，显示的授权状态不一致，若出现相关错误，请检查两处授权均为开启状态
-
-
-## 2.x升级3.x版本特别注意事项
-**stopAllOperation在3.x版本中不再支持打断正在操作wx.createBLEConnection的接口，因此可能返回设备正在忙碌中，wx.createBLEConnection必须等待完成**  
-**为降低wx.createBLEConnection引起的失败，蓝牙接口操作前需进行设备扫描定位，单台设备的首次蓝牙操作时间将延长**  
-**3.x插件将存储用户设备操作的历史记录，记录过多可能导致操作时间延长，请定期调用stopAllOperation接口以清除设备缓存**  
-
-## 通用错误码
-+ [完整的通用错误码](./doc/接口文档v3.x/参数声明/错误码.md)  
-
-## 主要接口
-
-### 非蓝牙接口  
-+ [开启/关闭调试日志](./doc/接口文档v3.x/非蓝牙接口/setShowLog.md)  
-+ [解析智能锁版本类型](./doc/接口文档v3.x/非蓝牙接口/getLogType.md)  
-+ [解析智能锁特征值](./doc/接口文档v3.x/非蓝牙接口/parseSpecialValues.md)  
-<br />
-  
-### 设备搜索、停止搜索  
-### 基础接口  
-+ [扫描蓝牙智能锁](./doc/接口文档v3.x/设备扫描及停止扫描接口/startScanBleDevice.md)  
-+ [扫描蓝牙网关](./doc/接口文档v3.x/设备扫描及停止扫描接口/startScanGateway.md)  
-+ [停止扫描蓝牙智能锁](./doc/接口文档v3.x/设备扫描及停止扫描接口/stopScanBleDevice.md)  
-+ [停止扫描蓝牙网关](./doc/接口文档v3.x/设备扫描及停止扫描接口/stopScanGateway.md)  
-+ [停止蓝牙操作](./doc/接口文档v3.x/设备扫描及停止扫描接口/stopAllOperations.md)  
-+ [完成蓝牙操作](./doc/接口文档v3.x/设备扫描及停止扫描接口/finishOperations.md)  
-<br />
-
-### 智能锁相关接口  
-+ [获取智能锁版本号](./doc/接口文档v3.x/智能锁接口/getLockVersion.md)  
-+ [初始化蓝牙智能锁](./doc/接口文档v3.x/智能锁接口/initLock.md)  
-+ [重置蓝牙智能锁](./doc/接口文档v3.x/智能锁接口/resetLock.md)  
-+ [蓝牙开锁/闭锁](./doc/接口文档v3.x/智能锁接口/controlLock.md)  
-+ [设置智能锁时间](./doc/接口文档v3.x/智能锁接口/setLockTime.md)  
-+ [读取智能锁操作记录](./doc/接口文档v3.x/智能锁接口/getOperationLog.md)  
-<br /> 
-
-#### 密码管理  
-+ [添加自定义密码](./doc/接口文档v3.x/智能锁接口/createCustomPasscode.md)  
-+ [修改键盘密码](./doc/接口文档v3.x/智能锁接口/modifyPasscode.md)  
-+ [删除键盘密码](./doc/接口文档v3.x/智能锁接口/deletePasscode.md)  
-+ [重置密码](./doc/接口文档v3.x/智能锁接口/resetPasscode.md)  
-+ [读取智能锁内所有有效键盘密码](./doc/接口文档v3.x/智能锁接口/getAllValidPasscode.md)  
-+ [查询管理员密码](./doc/接口文档v3.x/智能锁接口/getAdminPasscode.md)  
-+ [修改管理员密码](./doc/接口文档v3.x/智能锁接口/modifyAdminPasscode.md)  
-<br />
-
-#### IC卡管理  
-+ [添加IC卡](./doc/接口文档v3.x/智能锁接口/addICCard.md)  
-+ [恢复IC卡/通过IC卡卡号添加IC卡](./doc/接口文档v3.x/智能锁接口/recoverICCardNumber.md)  
-+ [修改IC卡有效期](./doc/接口文档v3.x/智能锁接口/modifyICCardValidityPeriod.md)  
-+ [删除IC卡](./doc/接口文档v3.x/智能锁接口/deleteICCard.md)  
-+ [读取智能锁内所有有效IC卡数据](./doc/接口文档v3.x/智能锁接口/getAllValidICCard.md)  
-<br />
-
-#### 指纹管理  
-+ [添加指纹](./doc/接口文档v3.x/智能锁接口/addFingerprint.md)  
-+ [修改指纹有效期](./doc/接口文档v3.x/智能锁接口/modifyFingerprintValidityPeriod.md)  
-+ [删除指纹](./doc/接口文档v3.x/智能锁接口/deleteFingerprint.md)  
-+ [读取智能锁内所有有效指纹数据](./doc/接口文档v3.x/智能锁接口/getAllValidFingerprint.md)  
-<br />
-
-#### 人脸管理  
-+ [删除人脸](./doc/接口文档v3.x/智能锁接口/deleteFaceNumber.md) 
-<br />
-
-#### 智能锁设置  
-+ [查询远程开锁开关开启状态](./doc/接口文档v3.x/智能锁接口/getRemoteUnlockSwitchState.md)  
-+ [设置远程开锁开关开启状态](./doc/接口文档v3.x/智能锁接口/setRemoteUnlockSwitchState.md)  
-+ [查询智能锁开关开启状态](./doc/接口文档v3.x/智能锁接口/getLockConfig.md)  
-+ [设置智能锁开关开启状态](./doc/接口文档v3.x/智能锁接口/setLockConfig.md)  
-+ [查询智能锁开闭状态](./doc/接口文档v3.x/智能锁接口/getLockStatus.md)  
-+ [查询常开模式配置](./doc/接口文档v3.x/智能锁接口/getPassageMode.md)  
-+ [设置常开模式](./doc/接口文档v3.x/智能锁接口/configPassageMode.md)  
-+ [清空常开模式](./doc/接口文档v3.x/智能锁接口/clearPassageMode.md)  
-+ [查询自动闭锁时间](./doc/接口文档v3.x/智能锁接口/getAutomaticLockingPeriod.md)  
-+ [设置自动闭锁时间](./doc/接口文档v3.x/智能锁接口/setAutomaticLockingPeriod.md)  
-+ [查询智能锁音量](./doc/接口文档v3.x/智能锁接口/getLockSoundWithSoundVolume.md)  
-+ [设置智能锁音量](./doc/接口文档v3.x/智能锁接口/setLockSoundWithSoundVolume.md)  
-<br />
-
-#### 酒店锁  
-+ [设置酒店锁信息](./doc/接口文档v3.x/智能锁接口/setHotelData.md)  
-+ [设置酒店锁使用扇区](./doc/接口文档v3.x/智能锁接口/setHotelSector.md)  
-+ [设置梯控工作模式](./doc/接口文档v3.x/智能锁接口/setLiftWorkMode.md)  
-+ [设置梯控关联楼层](./doc/接口文档v3.x/智能锁接口/setLiftControlableFloors.md)  
-+ [设置取电开关工作模式](./doc/接口文档v3.x/智能锁接口/setPowerSaverWorkMode.md)  
-+ [设置取电开关关联的智能锁](./doc/接口文档v3.x/智能锁接口/setPowerSaverControlableLock.md)  
-<br />
-
-#### WIFI锁  
-+ [扫描智能锁附近可用的wifi列表](./doc/接口文档v3.x/智能锁接口/scanWifi.md)  
-+ [配置智能锁连接的wifi信息](./doc/接口文档v3.x/智能锁接口/configWifi.md)  
-+ [配置智能锁连接的服务器](./doc/接口文档v3.x/智能锁接口/configServer.md)  
-+ [配置wifi锁本地IP地址](./doc/接口文档v3.x/智能锁接口/configIp.md)  
-+ [设置wifi省电模式时间](./doc/接口文档v3.x/智能锁接口/configWifiPowerSavingTime.md)  
-+ [查询wifi锁省电模式时间设置](./doc/接口文档v3.x/智能锁接口/getWifiPowerSavingTime.md)  
-+ [清空wifi锁省电模式时间段设置](./doc/接口文档v3.x/智能锁接口/clearWifiPowerSavingTime.md)  
-<br />
-
-#### 特殊功能  
-+ [智能锁固件升级](./doc/接口文档v3.x/智能锁接口/enterDfuMode.md)  
-<br />
-
-### 网关相关接口  
-+ [连接网关设备](./doc/接口文档v3.x/网关接口/connectGateway.md)  
-+ [搜索网关设备附近可连接的wifi列表](./doc/接口文档v3.x/网关接口/scanWiFiByGateway.md)  
-+ [初始化网关](./doc/接口文档v3.x/网关接口/initGateway.md)  
-<br />
+4. [离线版本更新说明](./doc/版本更新说明-离线版.md)  

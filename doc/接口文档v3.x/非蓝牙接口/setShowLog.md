@@ -1,41 +1,34 @@
-# 通通锁蓝牙模块通信插件接口v3.x - setShowLog
-[返回接口文档](../../../README.md)
-<br />
+# 通通锁蓝牙模块通信插件接口
 
-## 方法
+## 方法  
 ```
-function setShowLog(openLog: boolean, callback?: TTLockShowLogCallback): void
-```
-<br />
+    function setShowLog(open: boolean, callback?: (...args: any) => any): void
+```  
 
-## 功能描述
+### 功能描述   
  开启/关闭用户调试日志，允许用户自定义输出方法  
  方法未被调用时，默认不输出操作日志  
- **1.4.1版本开始支持**  
- **离线版1.0.0版本开始支持**  
-<br />
 
-## 参数说明
- |PARAMS         |TYPE                                              |REQUIRED      |IN/OUT         |DESCRIPTION|
- |---------------|--------------------------------------------------|--------------|---------------|-----------|
- |openLog        |boolean                                           |Y             |IN           |是否需要输出调试日志，默认false|
- |callback       |[TTLockShowLogCallback](#TTLockShowLogCallback)   |N             |OUT          |自定义日志回调，不传入则在控制台输出日志，openLog为false时不生效|
-<br />
+### 版本支持   
+ 在线版最低支持版本： **1.4.1**   
+ 离线版最低支持版本： **1.0.0**   
 
-### <span name="TTLockShowLogCallback">自定义日志输出回调方法 TTLockShowLogCallback</span>  
-```
-(...logs: any) => any
-```  
-#### 回调方法参数说明
- |PARAMS                    |TYPE                                               |IN/OUT          |DESCRIPTION|
- |--------------------------|---------------------------------------------------|----------------|-----------|
- |...logs                   |any                                                |OUT           |输出日志内容|
-<br /> 
+### 参数说明 
+ |PARAMS    |TYPE                                  |REQUIRED      |DESCRIPTION|
+ |----------|--------------------------------------|--------------|-----------|
+ |open      |boolean                               |Y             |是否需要输出调试日志，默认false|
+ |callback  |(...args: any) => void                |Y             |日志回调方法, openLog为false时不生效|  
 
-## 返回值
+### 返回值  
  void  
-<br />
+
+## 相关链接  
+ 1. [集成方法](../../../README.md)  
+ 2. [接口文档](../接口文档.md)  
+ 3. [版本更新说明](../../版本更新说明.md)  
+ 4. [错误码说明](../参数声明/错误码.md)  
+ 5. [常见问题及相关处理方法](../常见问题.md)  
 
 ## 版本更新内容
 #### **3.0.0**  
-    1. 允许用户自定义日志输出方法
+    1. 允许用户自定义日志输出方法  

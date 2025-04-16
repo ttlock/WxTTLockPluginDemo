@@ -1,32 +1,28 @@
-# 通通锁蓝牙模块通信插件接口v3.x - parseSpecialValues
-[返回接口文档](../../../README.md)
-<br />
+# 通通锁蓝牙模块通信插件接口  
 
 ## 方法
 ```
-function parseSpecialValues(featureValue: string | number): TTLockFeatureValue
-```
-<br />
+    function parseSpecialValues(featureValue: string | number): TTLockFeatureValue
+```  
 
-## 功能描述
+### 功能描述   
  解析智能锁特征值  
- **2.1.0版本开始支持**  
- **离线版1.1.0版本开始支持**  
- **2.4.1(离线1.4.1)及其以上版本**开始支持传入featureValue，低版本仅支持specialValue  
-<br />
+ 
+### 版本支持   
+ 在线版最低支持版本： **2.1.0**   
+ 离线版最低支持版本： **1.1.0**   
+ 在线版 **2.4.1** 及其以上版本支持传入featureValue，低版本仅支持specialValue   
+ 离线版 **1.4.1** 及其以上版本支持传入featureValue，低版本仅支持specialValue   
 
-## 参数说明
- |PARAMS         |TYPE                                  |REQUIRED      |IN/OUT          |DESCRIPTION|
- |---------------|--------------------------------------|--------------|----------------|-----------|
- |featureValue   |string | number                       |Y             |IN              |智能锁特征值(允许传入featureValue或specialValue)|
-<br />
+### 参数说明  
+ |PARAMS         |TYPE              |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |---------------|------------------|--------------|----------------|-----------|
+ |featureValue   |string/number     |Y             |IN              |智能锁特征值(允许传入featureValue或specialValue)|  
 
-## 返回值
- 智能锁特征值解析结果 [TTLockFeatureValue](#TTLockFeatureValue)  
-<br />
+### 返回值  
+ <span name="TTLockFeatureValue">智能锁特征值解析结果</span>  
+> 类型定义：[TTLockFeatureValue](../对象类型说明/智能锁.md#TTLockFeatureValue)  
 
-### <span name="TTLockFeatureValue">智能锁特征值解析结果 TTLockFeatureValue</span>  
-[更多信息](../对象类型说明/智能锁.md#TTLockFeatureValue)  
  |NAME                          |TYPE           |VERSION    |DESCRIPTION|
  |------------------------------|---------------|-----------|-----------|
  |passcode                      |boolean        |           |是否支持键盘密码功能|
@@ -87,4 +83,15 @@ function parseSpecialValues(featureValue: string | number): TTLockFeatureValue
  |twoFactorAuth                 |boolean        |2.8.2      |支持双重认证|
  |catEyeXM                      |boolean        |2.8.2      |支持雄迈可视对讲功能|
  |faceZA                        |boolean        |2.8.2      |支持指安人脸下发|
- |palmVein                      |boolean        |2.8.2      |支持掌静脉|
+ |palmVein                      |boolean        |2.8.2      |支持掌静脉|  
+
+## 相关链接  
+ 1. [集成方法](../../../README.md)  
+ 2. [接口文档](../接口文档.md)  
+ 3. [版本更新说明](../../版本更新说明.md)  
+ 4. [错误码说明](../参数声明/错误码.md)  
+ 5. [常见问题及相关处理方法](../常见问题.md)  
+
+## 版本更新内容
+#### **2.4.1**  
+    1. 支持传入featureValue  
