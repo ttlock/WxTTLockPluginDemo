@@ -1,17 +1,19 @@
-# 通通锁蓝牙模块通信插件接口v3.x - finishOperations
-[返回接口文档](../../../README.md)  
-<br />
+# 通通锁蓝牙模块通信插件接口  
 
-## 方法
+## 方法  
 ```
-function finishOperations(): Promise<TTLockError>
+    function finishOperations(): Promise<TTLockError>
 ```  
-<br />
 
-## 功能描述
- 批量操作结束，关闭蓝牙占用  
- **3.1.0版本开始支持**  
-<br />
+### 功能描述   
+ 批量操作结束后调用，解除蓝牙占用  
+
+### 版本支持   
+ 在线版最低支持版本： **3.1.0**   
+ 离线版最低支持版本： 暂不支持   
+
+### 参数说明  
+ void  
 
 ## 返回值
  异步返回操作回调结果 [TTLockError](#TTLockError)  

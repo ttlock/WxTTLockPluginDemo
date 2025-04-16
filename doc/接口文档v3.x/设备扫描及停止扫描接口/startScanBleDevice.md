@@ -1,37 +1,44 @@
-# 通通锁蓝牙模块通信插件接口v3.x - startScanBleDevice
-[返回接口文档](../../../README.md)  
-<br />
+# 通通锁蓝牙模块通信插件接口  
 
-## 方法
+## 方法  
 ```
-function startScanBleDevice(callback?: TTLockScanLockCallback, failCallback?: TTLockCallback): Promise<TTLockError>
+    function startScanBleDevice(callback?: TTLockScanCallback, failCallback?: TTLockCallback): Promise<TTLockError>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  扫描周围的智能锁设备  
- **1.0.0版本开始支持**  
- **离线版1.0.0版本开始支持**  
+
+### 版本支持   
+ 在线版最低支持版本： **1.0.0**   
+ 离线版最低支持版本： **1.0.0**  
+
+### 权限说明   
+ 1. 需开启小程序【蓝牙】授权
+ 2. 需开启系统【蓝牙】开关  
+ 3. 需开启系统【位置信息】开关（安卓）
+ 4. 需授权微信【蓝牙】权限  
+ 5. 需授权微信【附近设备】权限（安卓）
+ 6. 需授权微信【精确位置】权限（安卓），并设置为 **始终允许** 。若设置为 “每次使用中询问” 可能导致操作失败  
+
+### 参数说明
+ |PARAMS            |TYPE                   |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |------------------|-----------------------|--------------|----------------|-----------|
+ |callback          |TTLockScanCallback     |Y             |OUT             |智能锁扫描成功回调，可能回调多次, 请参考[设备扫描回调](#TTLockScanCallback)|
+ |failCallback      |TTLockCallback         |Y             |OUT             |智能锁扫描失败回调, 请参考[设备扫描失败回调](#TTLockCallback)|
 <br />
 
-## 参数说明
- |PARAMS            |TYPE                                               |REQUIRED      |IN/OUT          |DESCRIPTION|
- |------------------|---------------------------------------------------|--------------|----------------|-----------|
- |callback          |[TTLockScanLockCallback](#TTLockScanLockCallback)  |Y             |OUT             |智能锁扫描成功回调，可能回调多次|
- |failCallback      |[TTLockCallback](#TTLockCallback)                  |Y             |OUT             |智能锁扫描失败回调|
-<br />
-
-### <span name="TTLockScanLockCallback">TTLockScanLockCallback 成功扫描到设备回调</span>  
-成功扫描到智能锁的回调，接口可能返回多次，deviceFromScanList**为当前扫描状态下周围锁信息列表, 以添加状态、蓝牙信号强度排序**
+### <span name="TTLockScanCallback">成功扫描到设备回调</span>  
+成功扫描到智能锁的回调，接口可能返回多次，deviceFromScanList**为当前扫描状态下周围锁信息列表, 以添加状态、蓝牙信号强度排序**  
+> 类型定义：TTLockScanCallback  
 ```
-(deviceFromScan: TTLockFromScan | null, deviceFromScanList: Array<TTLockFromScan>) => any
+    (deviceFromScan: TTLockFromScan | null, deviceFromScanList: Array<TTLockFromScan>) => any
 ```  
 #### 回调方法参数说明
- |PARAMS                    |TYPE                                               |IN/OUT         |DESCRIPTION|
- |--------------------------|---------------------------------------------------|---------------|-----------|
- |deviceFromScan            |[TTLockFromScan](#TTLockFromScan) / null           |OUT            |扫描到的单把智能锁(可能为空值)|
- |deviceFromScanList        |Array<[TTLockFromScan](#TTLockFromScan)>           |OUT            |扫描到的智能锁列表|
-<br />
+ |PARAMS                    |TYPE                       |IN/OUT         |DESCRIPTION|
+ |--------------------------|---------------------------|---------------|-----------|
+ |deviceFromScan            |TTLockFromScan / null      |OUT            |扫描到的单把智能锁(可能为空值)|
+ |deviceFromScanList        |Array<TTLockFromScan>      |OUT            |扫描到的智能锁列表|  
+
 
 ##### <span name="TTLockFromScan">扫描到的智能锁设备 TTLockFromScan</span>
  [更多信息](../对象类型说明/智能锁.md#TTLockFromScan)  

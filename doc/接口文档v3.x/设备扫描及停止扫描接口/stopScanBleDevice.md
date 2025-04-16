@@ -1,19 +1,20 @@
-# 通通锁蓝牙模块通信插件接口v3.x - stopScanBleDevice
-[返回接口文档](../../../README.md)  
-<br />
+# 通通锁蓝牙模块通信插件接口  
 
 ## 方法
 ```
-function stopScanBleDevice(): Promise<TTLockError>
+    function stopScanBleDevice(): Promise<TTLockError>
 ```  
-<br />
 
-## 功能描述
- 停止周围的智能锁设备  
- 操作将停止扫描网关操作  
- **1.0.0版本开始支持**  
- **离线版1.0.0版本开始支持**  
-<br />
+### 功能描述   
+ 停止扫描周围的蓝牙设备  
+ 操作将停止所有扫描操作  
+
+### 版本支持   
+ 在线版最低支持版本： **1.0.0**   
+ 离线版最低支持版本： **1.0.0**  
+
+### 参数说明  
+ void  
 
 ## 返回值
  异步返回操作回调结果 [TTLockError](#TTLockError)  

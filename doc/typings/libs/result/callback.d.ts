@@ -54,12 +54,12 @@ declare type TTLockShowLogCallback = TTDevice.LogCallback;
 /**
  * 智能锁扫描回调
  */
-declare type TTLockScanLockCallback = TTLock.OnScanCallback;
+declare type TTLockScanCallback = TTLock.OnScanCallback;
 
 /**
  * 网关扫描回调
  */
-declare type TTLockScanGatewayCallback = TTGateway.OnScanCallback;
+declare type TTGatewayScanCallback = TTGateway.OnScanCallback;
 
 /**
  * 添加IC卡中间步骤回调

@@ -1,27 +1,34 @@
-# 通通锁蓝牙模块通信插件接口v3.x - startScanGateway
-[返回接口文档](../../../README.md)  
-<br />
+# 通通锁蓝牙模块通信插件接口  
 
 ## 方法
 ```
-function startScanGateway(callback?: TTLockScanGatewayCallback, failCallback?: TTLockCallback): Promise<TTLockError>
+    function startScanGateway(callback?: TTGatewayScanCallback, failCallback?: TTLockCallback): Promise<TTLockError>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  扫描周围的网关设备  
- **2.6.0版本开始支持**  
- **离线版1.6.0版本开始支持**  
+
+### 版本支持   
+ 在线版最低支持版本： **2.6.0**   
+ 离线版最低支持版本： **1.6.0**  
+
+### 权限说明   
+ 1. 需开启小程序【蓝牙】授权
+ 2. 需开启系统【蓝牙】开关  
+ 3. 需开启系统【位置信息】开关（安卓）
+ 4. 需授权微信【蓝牙】权限  
+ 5. 需授权微信【附近设备】权限（安卓）
+ 6. 需授权微信【精确位置】权限（安卓），并设置为 **始终允许** 。若设置为 “每次使用中询问” 可能导致操作失败  
+
+### 参数说明
+ |PARAMS            |TYPE                       |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |------------------|---------------------------|--------------|----------------|-----------|
+ |callback          |TTGatewayScanCallback      |Y             |OUT             |网关扫描成功回调，可能回调多次, 请参考[设备扫描回调](#TTGatewayScanCallback)|
+ |failCallback      |TTLockCallback             |Y             |OUT             |网关扫描失败回调, 请参考[设备扫描失败回调](#TTLockCallback)|
 <br />
 
-## 参数说明
- |PARAMS            |TYPE                                                       |REQUIRED      |IN/OUT          |DESCRIPTION|
- |------------------|-----------------------------------------------------------|--------------|----------------|-----------|
- |callback          |[TTLockScanGatewayCallback](#TTLockScanGatewayCallback)    |Y             |OUT             |网关扫描成功回调，可能回调多次|
- |failCallback      |[TTLockCallback](#TTLockCallback)                          |Y             |OUT             |网关扫描失败回调|
-<br />
+### <span name="TTGatewayScanCallback">成功扫描到设备回调</span>  
 
-### <span name="TTLockScanGatewayCallback">TTLockScanGatewayCallback 成功扫描到设备回调</span>  
 成功扫描到网关的回调，接口可能返回多次，deviceFromScanList**为当前扫描状态下周围网关信息列表, 以添加状态、蓝牙信号强度排序**
 ```
 (deviceFromScan: TTGatewayFromScan | null, deviceFromScanList: Array<TTGatewayFromScan>) => any
@@ -33,7 +40,7 @@ function startScanGateway(callback?: TTLockScanGatewayCallback, failCallback?: T
  |deviceFromScanList        |Array<[TTGatewayFromScan](#TTGatewayFromScan)>     |OUT            |扫描到的网关列表|
 <br />
 
-##### <span name="TTGatewayFromScan">扫描到的网关设备 TTGatewayFromScan</span>
+##### <span name="TTLockCallback">扫描到的网关设备 TTGatewayFromScan</span>
  [更多信息](../对象类型说明/网关.md#TTGatewayFromScan)  
  |NAME              |TYPE                               |VERSION    |DESCRIPTION|
  |------------------|-----------------------------------|-----------|-----------|
