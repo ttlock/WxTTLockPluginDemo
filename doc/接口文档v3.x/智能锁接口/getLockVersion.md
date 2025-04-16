@@ -4,16 +4,15 @@
 ```
     function getLockVersion(option: TTLockGetVersion | string): Promise<TTLockGetVersionResult>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  获取智能锁版本信息  
  接口操作完成后将更新option.deviceFromScan/deviceFromScan参数的lockVersion值  
  设备未初始化时，需摸亮智能锁后操作  
- **2.2.0版本开始支持**  
- **离线版1.2.0版本开始支持**  
- **3.0.0版本支持option调用模式**
-<br />
+
+### 版本支持   
+ 在线版最低支持版本： **2.2.0**   
+ 离线版最低支持版本： **1.2.0**  
 
 ## 参数说明 
  |PARAMS                |TYPE                                   |REQUIRED      |IN/OUT          |DESCRIPTION|

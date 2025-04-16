@@ -78,13 +78,13 @@ declare interface TTLockPlugin {
     
     /**
 	 * @description 初始化蓝牙智能锁
-	 * @since 1.0.0
+	 * @since 1.3.2
 	 */
     initLock(option: TTLockInit): Promise<TTLockInitResult>;
 
     /**
 	 * @description 重置/删除蓝牙智能锁
-	 * @since 1.0.0
+	 * @since 1.3.2
 	 */
     resetLock(option: TTLockReset): Promise<TTLockError>;
 
@@ -102,25 +102,25 @@ declare interface TTLockPlugin {
 
     /**
 	 * @description 读取智能锁操作记录
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 */
     getOperationLog(option: TTLockGetOperationLog): Promise<TTLockGetOperationLogResult>;
 
     /**
 	 * @description 添加自定义密码
-	 * @since 1.3.4
+	 * @since 2.0.0
 	 */
     createCustomPasscode(option: TTLockCreateCustomPasscode): Promise<TTLockCreateCustomPasscodeResult>;
 
     /**
 	 * @description 修改密码及其有效期
-	 * @since 1.3.4
+	 * @since 2.0.0
 	 */
     modifyPasscode(option: TTLockModifyPasscode): Promise<TTLockError>;
 
     /**
 	 * @description 删除键盘密码
-	 * @since 1.3.4
+	 * @since 2.0.0
 	 */
     deletePasscode(option: TTLockDeletePasscode): Promise<TTLockError>;
 
@@ -150,7 +150,7 @@ declare interface TTLockPlugin {
 
     /**
 	 * @description 添加IC卡
-	 * @since 1.3.4
+	 * @since 2.0.0
 	 */
     addICCard(option: TTLockAddICCard): Promise<TTLockAddICCardResult>;
 
@@ -162,13 +162,13 @@ declare interface TTLockPlugin {
 
     /**
 	 * @description 修改IC卡有效期
-	 * @since 1.3.4
+	 * @since 2.0.0
 	 */
     modifyICCardValidityPeriod(option: TTLockModifyICCardPeriod): Promise<TTLockError>;
 
     /**
 	 * @description 删除IC卡
-	 * @since 1.3.4
+	 * @since 2.0.0
 	 */
     deleteICCard(option: TTLockDeleteICCard): Promise<TTLockError>;
 
@@ -180,19 +180,19 @@ declare interface TTLockPlugin {
 
     /**
 	 * @description 添加指纹
-	 * @since 1.3.4
+	 * @since 2.0.0
 	 */
     addFingerprint(option: TTLockAddFingerprint): Promise<TTLockAddFingerprintResult>;
 
     /**
 	 * @description 修改指纹有效期
-	 * @since 1.3.4
+	 * @since 2.0.0
 	 */
     modifyFingerprintValidityPeriod(option: TTLockModifyFingerprintPeriod): Promise<TTLockError>;
 
     /**
 	 * @description 删除指纹
-	 * @since 1.3.4
+	 * @since 2.0.0
 	 */
     deleteFingerprint(option: TTLockDeleteFingerprint): Promise<TTLockError>;
 

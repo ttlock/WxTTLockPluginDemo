@@ -4,18 +4,17 @@
 ```
     function controlLock(option: TTLockControl): Promise<TTLockControlResult>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  控制智能锁开锁/闭锁  
  接口仅支持三代智能锁操作  
     1. 智能锁开锁成功后将自动校准一次锁时间  
     2. 如因锁时间不正确导致开锁失败，接口内部将进行一次锁时间校准后重新开锁
-    3. **梯控开锁**时floorList传入需要点亮的楼层编号列表，**有且至少传入一个楼层编号**，如[1,2,3]，单个楼层编号为[1, 127]**闭区间**的正整数，**非梯控开锁时，该参数不填**
- **1.0.0版本开始支持**  
- **离线版1.0.0版本开始支持**  
- **3.0.0版本支持option调用模式**
-<br />
+    3. **梯控开锁**时floorList传入需要点亮的楼层编号列表，**有且至少传入一个楼层编号**，如[1,2,3]，单个楼层编号为[1, 127]**闭区间**的正整数，**非梯控开锁时，该参数不填**  
+
+### 版本支持   
+ 在线版最低支持版本： **1.0.0**   
+ 离线版最低支持版本： **1.0.0**  
 
 ## 参数说明 
  |PARAMS                |TYPE                                           |REQUIRED      |IN/OUT          |DESCRIPTION|
@@ -35,7 +34,6 @@
  |disconnectCallback    |[TTLockCallback](#TTLockCallback)              |N          |OUT             |设备断开连接回调|
  |floorList             |Array<number>                                  |N          |IN              |梯控开启楼层号列表, **梯控开锁时必传，非梯控开锁时不传**, 取值范围[1, 127], 整数|
  |serverTime            |number                                         |N          |IN              |服务器时间戳，若不传入该参数，则请求通通锁服务器时间，若获取失败则使用本地时间进行校准|
- |noCorrectAfterUnlock  |boolean                                        |N          |IN              |开锁成功后是否跳过校准锁时间，默认不跳过，如锁时间不正确，将强制校准锁时间|
 <br />
 
 ### <span name="TTLockCallback">设备断开连接 TTLockCallback</span>  

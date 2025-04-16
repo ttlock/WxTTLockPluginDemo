@@ -4,16 +4,15 @@
 ```
     function getOperationLog(option: TTLockGetOperationLog): Promise<TTLockGetOperationLogResult>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  读取智能锁操作记录  
  接口仅支持三代智能锁操作  
  操作记录读取后需调用云端接口上传，否则可能造成操作记录丢失  
- **2.0.0版本开始支持**  
- **离线版1.0.0版本开始支持**  
- **3.0.0版本支持option调用模式**
-<br />
+
+### 版本支持   
+ 在线版最低支持版本： **2.0.0**   
+ 离线版最低支持版本： **1.0.0**  
 
 ## 参数说明 
  |PARAMS                |TYPE                                                   |REQUIRED      |IN/OUT          |DESCRIPTION|

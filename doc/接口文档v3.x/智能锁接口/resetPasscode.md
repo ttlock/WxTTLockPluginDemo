@@ -4,13 +4,14 @@
 ```
     function resetPasscode(option: TTLockResetPasscode): Promise<TTLockError>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  重置普通密码  
  接口仅支持三代智能锁操作  
- **3.1.0版本开始支持**  
-<br />
+
+### 版本支持   
+ 在线版最低支持版本： **3.1.0**   
+ 离线版最低支持版本： 暂不支持  
 
 ## 参数说明 
  |PARAMS                |TYPE                                                   |REQUIRED      |IN/OUT          |DESCRIPTION|

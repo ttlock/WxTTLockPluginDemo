@@ -4,17 +4,17 @@
 ```
     function getLockConfig(option: TTLockGetLockConfig): Promise<TTLockGetLockConfigResult>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  查询智能锁开关设置状态  
  接口仅支持三代智能锁操作  
- **2.5.0版本开始支持**  
- **离线版1.5.0版本开始支持**  
  **lockConfigType及lockConfigs均不返回智能锁不支持的属性**  
  **支持同时获取多个属性时，如需同时获取重置按键属性和防撬开关配置属性时，configType传入3**  
- **3.0.0版本支持option调用模式**  
-<br />
+ 非wifi锁省电模式开关参数也可设置，请通过特征值进行判断  
+
+### 版本支持   
+ 在线版最低支持版本： **2.5.0**   
+ 离线版最低支持版本： **1.5.0**  
 
 ## 参数说明 
  |PARAMS                |TYPE                                               |REQUIRED      |IN/OUT          |DESCRIPTION|

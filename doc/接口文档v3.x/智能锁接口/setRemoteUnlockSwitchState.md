@@ -4,15 +4,14 @@
 ```
     function setRemoteUnlockSwitchState(option: TTLockSetRemoteUnlockSwitchState): Promise<TTLockSetRemoteUnlockSwitchStateResult>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  设置智能锁远程开关开启状态  
  接口仅支持三代智能锁操作  
- **2.3.0版本开始支持**  
- **离线版1.3.0版本开始支持**  
- **3.0.0版本支持option调用模式**
-<br />
+
+### 版本支持   
+ 在线版最低支持版本： **2.3.0**   
+ 离线版最低支持版本： **1.3.0**  
 
 ## 参数说明 
  |PARAMS                |TYPE                                                                   |REQUIRED      |IN/OUT          |DESCRIPTION|

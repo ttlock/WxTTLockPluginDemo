@@ -4,15 +4,14 @@
 ```
     function scanWifi(option: TTLockScanWifi): Promise<TTLockScanWifiResult>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  扫描智能锁附近可用的wifi列表  
  接口仅支持三代智能锁操作，智能锁需支持wifi功能  
- **2.7.6版本开始支持**  
- **离线版1.7.6版本开始支持**  
- **3.0.0版本支持option调用模式**  
-<br />
+
+### 版本支持   
+ 在线版最低支持版本： **2.7.6**   
+ 离线版最低支持版本： **1.7.6**  
 
 ## 参数说明 
  |PARAMS                |TYPE                                   |REQUIRED      |IN/OUT          |DESCRIPTION|

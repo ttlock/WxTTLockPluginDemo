@@ -4,15 +4,14 @@
 ```
     function getLockSoundWithSoundVolume(option: TTLockGetLockSoundWithSoundVolume): Promise<TTLockGetLockSoundWithSoundVolumeResult>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  查询智能锁音量设置  
  接口仅支持三代智能锁操作，智能锁需支持音量设置  
- **2.8.4版本开始支持**  
- **离线版1.8.4版本开始支持**  
- **3.0.0版本支持option调用模式**  
-<br />
+
+### 版本支持   
+ 在线版最低支持版本： **2.8.4**   
+ 离线版最低支持版本： **1.8.4**  
 
 ## 参数说明 
  |PARAMS                |TYPE                                                                       |REQUIRED      |IN/OUT          |DESCRIPTION|

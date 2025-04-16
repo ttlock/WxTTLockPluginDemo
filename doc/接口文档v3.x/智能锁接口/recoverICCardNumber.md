@@ -4,15 +4,14 @@
 ```
     function recoverICCardNumber(option: TTLockRecoverICCard): Promise<TTLockError>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  恢复IC卡有效信息或通过IC卡卡号添加IC卡  
  接口仅支持三代智能锁操作  
- **2.6.3版本开始支持**  
- **离线版1.6.3版本开始支持**  
- **3.0.0版本支持option调用模式**
-<br />
+
+### 版本支持   
+ 在线版最低支持版本： **2.6.3**   
+ 离线版最低支持版本： **1.6.3**  
 
 ## 参数说明 
  |PARAMS                |TYPE                                           |REQUIRED      |IN/OUT          |DESCRIPTION|

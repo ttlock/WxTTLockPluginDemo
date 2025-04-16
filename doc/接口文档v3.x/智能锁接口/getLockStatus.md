@@ -4,15 +4,14 @@
 ```
     function getLockStatus(option: TTLockGetLockStatus): Promise<TTLockGetLockStatusResult>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  查询智能锁开闭状态  
  接口仅支持三代智能锁操作  
- **2.7.3版本开始支持**  
- **离线版1.7.3版本开始支持**  
- **3.0.0版本支持option调用模式**  
-<br />
+
+### 版本支持   
+ 在线版最低支持版本： **2.7.3**   
+ 离线版最低支持版本： **1.7.3**  
 
 ## 参数说明 
  |PARAMS                |TYPE                                               |REQUIRED      |IN/OUT          |DESCRIPTION|

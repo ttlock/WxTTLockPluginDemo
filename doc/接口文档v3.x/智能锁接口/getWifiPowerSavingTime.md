@@ -4,12 +4,14 @@
 ```
     function getWifiPowerSavingTime(option: TTLockGetSavePower): Promise<TTLockError>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  查询wifi锁省电模式开启时间段   
- **3.1.0版本开始支持**  
-<br />
+ 接口仅支持三代智能锁操作，智能锁需支持wifi及省电时间段配置功能  
+
+### 版本支持   
+ 在线版最低支持版本： **3.1.0**   
+ 离线版最低支持版本： 暂不支持  
 
 ## 参数说明 
  |PARAMS                |TYPE                                               |REQUIRED      |IN/OUT          |DESCRIPTION|

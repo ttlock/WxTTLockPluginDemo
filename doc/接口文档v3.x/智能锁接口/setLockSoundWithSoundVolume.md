@@ -4,15 +4,14 @@
 ```
     function setLockSoundWithSoundVolume(option: TTLockSetLockSoundWithSoundVolume): Promise<TTLockError>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  设置智能锁音量  
  接口仅支持三代智能锁操作，智能锁需支持音量设置  
- **2.8.4版本开始支持**  
- **离线版1.8.4版本开始支持, 1.8.6修复锁声音无法设置为禁用的问题**  
- **3.0.0版本支持option调用模式**  
-<br />
+
+### 版本支持   
+ 在线版最低支持版本： **2.8.4**   
+ 离线版最低支持版本： **1.8.4**  
 
 ## 参数说明 
  |PARAMS                |TYPE                                                                       |REQUIRED      |IN/OUT          |DESCRIPTION|
@@ -69,6 +68,9 @@
 #### **3.0.0**  
     1. 增加option传参方式  
     2. 取消deviceId参数，降低因设备无法连接造成的失败率  
+
+#### **离线版1.8.6**  
+    1. 修复锁声音无法设置为禁用的问题  
 <br />
 
 ## 固定参数补充说明  

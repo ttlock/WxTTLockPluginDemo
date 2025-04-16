@@ -4,14 +4,13 @@
 ```
     function initGateway(option: TTLockInitGateway): Promise<TTLockInitGatewayResult>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  初始化蓝牙网关  
- **2.6.0版本开始支持**  
- **离线版1.6.0版本开始支持**  
- **3.0.0版本支持option调用模式**
-<br />
+
+### 版本支持   
+ 在线版最低支持版本： **2.6.0**   
+ 离线版最低支持版本： **1.6.0**  
 
 ## 参数说明 
  |PARAMS                |TYPE                                                       |REQUIRED      |IN/OUT          |DESCRIPTION|

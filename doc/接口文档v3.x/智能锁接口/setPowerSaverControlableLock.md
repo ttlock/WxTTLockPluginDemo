@@ -4,16 +4,15 @@
 ```
     function setPowerSaverControlableLock(option: TTLockSetPowerSaverControlableLock): Promise<TTLockError>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  设置取电开关关联的智能锁  
- 接口仅支持去电开关操作  
- **2.8.5版本开始支持**  
- **离线版1.8.5版本开始支持**  
- **3.0.0版本支持option调用模式**  
- **该接口用于酒店锁方案的智能锁配置，在锁初始化完成后调用**  
-<br />
+ 接口仅支持取电开关操作  
+  **该接口用于酒店锁方案的取电开关配置，在设备初始化完成后调用**  
+
+### 版本支持   
+ 在线版最低支持版本： **2.8.5**   
+ 离线版最低支持版本： **1.8.5**  
 
 ## 参数说明 
  |PARAMS                |TYPE                                                                       |REQUIRED      |IN/OUT          |DESCRIPTION|

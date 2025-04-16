@@ -4,16 +4,15 @@
 ```
     function initLock(option: TTLockInit): Promise<TTLockInitResult>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  初始化蓝牙智能锁  
  接口仅支持三代智能锁操作  
  该接口**不写入酒店信息**，如需初始化酒店锁请在初始化完成后调用[setHotelData](./setHotelData.md)及[setHotelSector](./setHotelSector.md)接口进行酒店信息配置  
- **1.3.2版本开始支持**  
- **离线版1.0.0版本开始支持**  
- **3.0.0版本支持option调用模式**
-<br />
+
+### 版本支持   
+ 在线版最低支持版本： **1.3.2**   
+ 离线版最低支持版本： **1.0.0**  
 
 ## 参数说明 
  |PARAMS                |TYPE                               |REQUIRED      |IN/OUT          |DESCRIPTION|

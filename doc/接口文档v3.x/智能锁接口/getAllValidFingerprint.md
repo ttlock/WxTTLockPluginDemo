@@ -4,15 +4,14 @@
 ```
     function getAllValidFingerprint(option: TTLockGetAllValidFingerprint): Promise<TTLockGetAllValidFingerprintResult>
 ```  
-<br />
 
-## 功能描述
+### 功能描述   
  读取智能锁内全部有效指纹  
  接口仅支持三代智能锁操作  
- **2.8.2版本开始支持**  
- **离线版1.8.2版本开始支持**  
- **3.0.0版本支持option调用模式**
-<br />
+
+### 版本支持   
+ 在线版最低支持版本： **2.8.2**   
+ 离线版最低支持版本： **1.8.2**  
 
 ## 参数说明 
  |PARAMS                |TYPE                                                           |REQUIRED      |IN/OUT          |DESCRIPTION|
