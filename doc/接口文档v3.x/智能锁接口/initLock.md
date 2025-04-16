@@ -1,11 +1,8 @@
-# 通通锁蓝牙模块通信插件接口v3.x - initLock
-[返回接口文档](../../../README.md)  
-<br />
+# 通通锁蓝牙模块通信插件接口  
 
 ## 方法
 ```
-function initLock(option: TTLockInit): Promise<TTLockInitResult>
-function initLock(deviceFromScan: TTLockFromScan, disconnectCallback?: TTLockCallback, vendor?: string): Promise<TTLockInitResult>
+    function initLock(option: TTLockInit): Promise<TTLockInitResult>
 ```  
 <br />
 
@@ -100,7 +97,14 @@ function initLock(deviceFromScan: TTLockFromScan, disconnectCallback?: TTLockCal
  |electricQuantity              |boolean                    |2.7.0      |设备电量|
 <br />
 
-## 版本更新内容
+## 相关链接  
+ 1. [集成方法](../../../README.md)  
+ 2. [接口文档](../接口文档.md)  
+ 3. [版本更新说明](../../版本更新说明.md)  
+ 4. [错误码说明](../参数声明/错误码.md)  
+ 5. [常见问题及相关处理方法](../常见问题.md)  
+
+## 版本更新内容  
 #### **3.1.0**  
     1. 初始化时不再自动停止设备扫描  
     2. 扫描到的设备lockVersion参数中将不再返回groupId和orgId  

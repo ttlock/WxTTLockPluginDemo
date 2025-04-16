@@ -1,10 +1,8 @@
-# 通通锁蓝牙模块通信插件接口v3.x - configWifiPowerSavingTime
-[返回接口文档](../../../README.md)  
-<br />
+# 通通锁蓝牙模块通信插件接口  
 
 ## 方法
 ```
-function configWifiPowerSavingTime(option: TTLockConfigSavePower): Promise<TTLockError>
+    function configWifiPowerSavingTime(option: TTLockConfigPowerSaving): Promise<TTLockError>
 ```  
 <br />
 
@@ -16,10 +14,10 @@ function configWifiPowerSavingTime(option: TTLockConfigSavePower): Promise<TTLoc
 ## 参数说明 
  |PARAMS                |TYPE                                               |REQUIRED      |IN/OUT          |DESCRIPTION|
  |----------------------|---------------------------------------------------|--------------|----------------|-----------|
- |option                |[TTLockConfigSavePower](#TTLockConfigSavePower)    |Y             |IN              |完整参数|
+ |option                |[TTLockConfigPowerSaving](#TTLockConfigPowerSaving)    |Y             |IN              |完整参数|
 <br />
 
-### <span name="TTLockConfigSavePower">设置wifi锁省电模式时间段完整参数 TTLockConfigSavePower</span>  
+### <span name="TTLockConfigPowerSaving">设置wifi锁省电模式时间段完整参数 TTLockConfigPowerSaving</span>  
  |PARAMS                |TYPE                                               |REQUIRED      |IN/OUT          |DESCRIPTION|
  |----------------------|---------------------------------------------------|--------------|----------------|-----------|
  |config                |[TTLock.SavePowerConfig](#TTLockSavePowerConfig)   |Y             |IN              |省电模式时间段配置信息|
@@ -62,7 +60,14 @@ function configWifiPowerSavingTime(option: TTLockConfigSavePower): Promise<TTLoc
  |electricQuantity              |boolean                    |2.7.0      |设备电量|
 <br />
 
-## 版本更新内容
+## 相关链接  
+ 1. [集成方法](../../../README.md)  
+ 2. [接口文档](../接口文档.md)  
+ 3. [版本更新说明](../../版本更新说明.md)  
+ 4. [错误码说明](../参数声明/错误码.md)  
+ 5. [常见问题及相关处理方法](../常见问题.md)  
+
+## 版本更新内容  
 #### **3.1.0**  
     1. 新增接口  
 <br />

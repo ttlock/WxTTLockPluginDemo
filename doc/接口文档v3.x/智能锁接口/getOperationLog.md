@@ -1,15 +1,8 @@
-# 通通锁蓝牙模块通信插件接口v3.x - getOperationLog
-[返回接口文档](../../../README.md)  
-<br />
+# 通通锁蓝牙模块通信插件接口  
 
 ## 方法
 ```
-function getOperationLog(option: TTLockGetOperationLog): Promise<TTLockGetOperationLogResult>
-function getOperationLog(
-    logType: TTLOCK_READ_RECORD_TYPE,
-    lockData: string,
-    disconnectCallback?: TTLockCallback,
-): Promise<TTLockGetOperationLogResult>
+    function getOperationLog(option: TTLockGetOperationLog): Promise<TTLockGetOperationLogResult>
 ```  
 <br />
 
@@ -73,7 +66,14 @@ function getOperationLog(
  |electricQuantity              |boolean                    |2.7.0      |设备电量|
 <br />
 
-## 版本更新内容
+## 相关链接  
+ 1. [集成方法](../../../README.md)  
+ 2. [接口文档](../接口文档.md)  
+ 3. [版本更新说明](../../版本更新说明.md)  
+ 4. [错误码说明](../参数声明/错误码.md)  
+ 5. [常见问题及相关处理方法](../常见问题.md)  
+
+## 版本更新内容  
 #### **3.0.0**  
     1. 增加option传参方式  
     2. 取消deviceId参数，降低因设备无法连接造成的失败率  
