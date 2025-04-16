@@ -90,8 +90,7 @@
  3.1.0改动：设备扫描开启后立即返回回调结果，部分蓝牙设备因未开启【附近设备】权限导致的失败将在之后回调failCallback，但不关闭扫描  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
-> 类型定义：[[TTLockError](../对象类型说明/返回对象.md#TTLockError)   
-
+ 类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   
  |NAME              |TYPE       |VERSION    |DEPRECATED     |DESCRIPTION|
  |------------------|-----------|-----------|---------------|-----------|
  |errorCode         |number     |           |               |[通通锁常规错误码](../参数声明/错误码.md)|

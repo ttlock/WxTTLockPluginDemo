@@ -20,8 +20,7 @@
  异步返回常规回调结果: [TTLockError](#TTLockError)  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
-> 类型定义：[[TTLockError](../对象类型说明/返回对象.md#TTLockError)   
-
+ 类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   
  |NAME              |TYPE       |VERSION    |DEPRECATED     |DESCRIPTION|
  |------------------|-----------|-----------|---------------|-----------|
  |errorCode         |number     |           |               |[通通锁常规错误码](../参数声明/错误码.md)|
