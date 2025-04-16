@@ -3,154 +3,164 @@
 
 declare namespace TTGateway {
     /**
-	 * @description Gateway information scanned by Bluetooth
+	 * @description 连接智能网关参数
 	 * @since 2.6.0
 	 */
 	interface ConnectGateway {
 		/**
-		 * @description Gateway information scanned by Bluetooth
+		 * @description 蓝牙扫描到到的网关信息
 		 * @since 2.6.0
 		 */
-		deviceFromScan: DeviceModel;
+		deviceFromScan: TTGateway.DeviceModel;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.6.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Gateway information scanned by Bluetooth
+	 * @description 扫描网关附近的wifi列表
 	 * @since 2.6.0
 	 */
 	interface ScanWiFi {
 		/**
-		 * @description Gateway information scanned by Bluetooth
+		 * @description 蓝牙扫描到到的网关信息
 		 * @since 2.6.0
 		 */
-		deviceFromScan: DeviceModel;
+		deviceFromScan: TTGateway.DeviceModel;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.6.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Gateway information scanned by Bluetooth
+	 * @description 网关配置信息
 	 * @since 2.6.0
 	 */
 	interface Configuration {
 		/**
-		 * @description Gateway information scanned by Bluetooth
+		 * @description 网关类型
 		 * @since 2.6.0
 		 * @see TTGATEWAY_TYPE
 		 */
-		type: number; // 网关类型
+		type: number;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 用户ID
 		 * @since 2.6.0
 		 */
-		uid: number; // 用户ID
+		uid: number;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 用户账户密码，MD5加密 
 		 * @since 2.6.0
 		 */
-		password: string; // 用户密码
+		password: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 公司ID, 没有则填0 
 		 * @since 2.6.0
 		 */
-		companyId: number; // 公司ID, 没有则填0
+		companyId: number;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 分店ID, 没有则填0
 		 * @since 2.6.0
 		 */
-		branchId: number; // 分店ID, 没有则填0
+		branchId: number;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 自定义网关名称, 限50个字符
 		 * @since 2.6.0
 		 */
-		plugName: string; // 网关名称
+		plugName: string;
 		/**
-		 * @description Callback on disconnect 
+         * wifi名称
+		 * @description G2网关必填
 		 * @since 2.6.0
 		 */
-		SSID?: string; // SSID
+		SSID?: string;
 		/**
-		 * @description Callback on disconnect 
+         * wifi密码
+		 * @description G2网关必填 
 		 * @since 2.6.0
 		 */
-		wifiPwd?: string; // 密码
-		/**
-		 * @description Callback on disconnect 
+        wifiPwd?: string;
+        /**
+         * @description 远程服务器域名地址，server与serverIPAddress二选一，优先生效
+		 * @default 常规填写: "plug.sciener.cn"
 		 * @since 2.6.0
 		 */
-		serverIPAddress?: string; // 服务器IP地址
+		server?: string;
 		/**
-		 * @description Callback on disconnect 
+         * @description 远程服务器IP地址，server与serverIPAddress二选一，优先级次于server
 		 * @since 2.6.0
 		 */
-		port: number; // 服务器端口地址
+		serverIPAddress?: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 远程服务器端口号
+         * @default 常规填写: 2999
 		 * @since 2.6.0
 		 */
-		server?: string; // 服务器地址
+		port: number;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 是否需要配置本地IP地址信息
 		 * @since 2.6.0
 		 */
-		useLocalIPAddress: boolean; // 是否使用本地IP地址
+		useLocalIPAddress: boolean;
 		/**
-		 * @description Callback on disconnect 
+         * 是否使用DHCP动态配置本地IP地址
+		 * @description useLocalIPAddress = true时生效
 		 * @since 2.6.0
 		 */
-		useDHCP?: boolean; // 是否使用DHCP获取IP地址
+		useDHCP?: boolean;
 		/**
-		 * @description Callback on disconnect 
+         * 固定本地IP地址
+		 * @description useLocalIPAddress = true 且 useDHCP = false时生效
 		 * @since 2.6.0
 		 */
-		ipAddress?: string; // 固定IP地址
+		ipAddress?: string;
 		/**
-		 * @description Callback on disconnect 
+         * 子网掩码
+		 * @description useLocalIPAddress = true 且 useDHCP = false时生效
 		 * @since 2.6.0
 		 */
-		subnetMask?: string; // 子网掩码
+		subnetMask?: string;
 		/**
-		 * @description Callback on disconnect 
+         * 默认网关
+		 * @description useLocalIPAddress = true 且 useDHCP = false时生效
 		 * @since 2.6.0
 		 */
-		router?: string; // 默认网关
+		router?: string;
 		/**
-		 * @description Callback on disconnect 
+         * 首选DNS
+		 * @description useLocalIPAddress = true 且 useDHCP = false时生效
 		 * @since 2.6.0
 		 */
-		dns1?: string; // 首选DNS
+		dns1?: string;
 		/**
-		 * @description Callback on disconnect 
+         * 备用DNS
+		 * @description useLocalIPAddress = true 且 useDHCP = false时生效
 		 * @since 2.6.0
 		 */
-		dns2?: string; // 备用DNS
+		dns2?: string;
 	}
 
 	/**
-	 * @description Gateway information scanned by Bluetooth
+	 * @description 初始化蓝牙网关参数
 	 * @since 2.6.0
 	 */
 	interface InitGateway {
 		/**
-		 * @description Gateway information scanned by Bluetooth
+		 * @description 蓝牙扫描到到的网关信息
 		 * @since 2.6.0
 		 */
-		deviceFromScan: DeviceModel;
+		deviceFromScan: TTGateway.DeviceModel;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.6.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 网关配置信息
 		 * @since 2.6.0
 		 */
 		configuration: Configuration;

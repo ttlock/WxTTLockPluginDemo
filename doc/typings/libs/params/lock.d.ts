@@ -126,551 +126,543 @@ declare namespace TTLock {
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 添加自定义密码
 	 * @since 1.0.0
 	 */
 	interface CreateCustomPasscode {
 		/**
-		 * @description Action type for control lock
+		 * @description 自定义密码值
 		 * @since 1.0.0
 		 */
 		passcode: string;
 		/**
-		 * @description Action type for control lock
+		 * @description 密码有效期开始时间
 		 * @since 1.0.0
 		 */
 		startDate: number;
 		/**
-		 * @description Action type for control lock
+		 * @description 密码有效期结束时间
 		 * @since 1.0.0
 		 */
 		endDate: number;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 1.0.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调  
 		 * @since 1.0.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 修改密码及其有效期
 	 * @since 1.0.0
 	 */
 	interface ModifyPasscode {
 		/**
-		 * @description Action type for control lock
+		 * @description 原始密码
 		 * @since 1.0.0
 		 */
 		originalPasscode: string;
 		/**
-		 * @description Action type for control lock
+		 * @description 新密码
 		 * @since 1.0.0
 		 */
 		passcode: string;
 		/**
-		 * @description Action type for control lock
+		 * @description 密码有效期开始时间
 		 * @since 1.0.0
 		 */
 		startDate: number;
 		/**
-		 * @description Action type for control lock
+		 * @description 密码有效期结束时间
 		 * @since 1.0.0
 		 */
 		endDate: number;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 1.0.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 1.0.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 删除密码
 	 * @since 1.0.0
 	 */
 	interface DeletePasscode {
 		/**
-		 * @description Action type for control lock
+		 * @description 密码值
 		 * @since 1.0.0
 		 */
 		passcode: string;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 1.0.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 1.0.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 重置普通键盘密码
 	 * @since 3.1.0
 	 */
 	interface ResetPasscode {
 		/**
-		 * @description eKey/lock data 
+		 * @description 服务器时间
 		 * @since 3.1.0
 		 */
 		serverTime?: number;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 3.1.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 3.1.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 查询智能锁内所有有效密码列表
 	 * @since 1.0.0
 	 */
 	interface GetValidPasscode {
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 1.0.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 1.0.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 查询管理员密码
 	 * @since 2.6.0
 	 */
 	interface GetAdminPasscode {
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.6.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.6.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 修改管理员密码
 	 * @since 2.6.0
 	 */
 	interface ModifyAdminPasscode {
 		/**
-		 * @description eKey/lock data 
+		 * @description 管理员新密码
 		 * @since 2.6.0
 		 */
 		newPasscode: string;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.6.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.6.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 录入IC卡
 	 * @since 1.0.0
 	 */
 	interface AddICCard {
 		/**
-		 * @description Action type for control lock
+		 * @description IC卡有效期开始时间
 		 * @since 1.0.0
 		 */
 		startDate: number;
 		/**
-		 * @description Action type for control lock
+		 * @description IC卡有效期结束时间
 		 * @since 1.0.0
 		 */
 		endDate: number;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 1.0.0
 		 */
 		lockData: string;
 		/**
-		 * @description eKey/lock data 
+		 * @description 中间步骤回调 
 		 * @since 1.0.0
 		 */
-		callback?: (result: TTLockError) => void;
+		callback?: (result: TTLock.AddICCardResult) => void;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 1.0.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 通过卡号添加/恢复IC卡
 	 * @since 2.6.3
 	 */
 	interface RecoverICCard {
 		/**
-		 * @description Action type for control lock
+		 * @description IC卡卡号，3.1.0取消参数类型限制
 		 * @since 2.6.3
 		 */
 		cardNum: string | number;
 		/**
-		 * @description Action type for control lock
+		 * @description IC卡有效期开始时间
 		 * @since 2.6.3
 		 */
 		startDate: number;
 		/**
-		 * @description Action type for control lock
+		 * @description IC卡有效期结束时间
 		 * @since 2.6.3
 		 */
 		endDate: number;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.6.3
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.6.3
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 修改IC卡有效期
 	 * @since 1.0.0
 	 */
 	interface ModifyICCard {
 		/**
-		 * @description Action type for control lock
+		 * @description IC卡卡号，3.1.0取消参数类型限制
 		 * @since 1.0.0
 		 */
 		cardNum: string | number;
 		/**
-		 * @description Action type for control lock
+		 * @description IC卡有效期开始时间
 		 * @since 1.0.0
 		 */
 		startDate: number;
 		/**
-		 * @description Action type for control lock
+		 * @description IC卡有效期结束时间
 		 * @since 1.0.0
 		 */
 		endDate: number;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 1.0.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 1.0.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 删除IC卡
 	 * @since 1.0.0
 	 */
 	interface DeleteICCard {
 		/**
-		 * @description Action type for control lock
+		 * @description IC卡卡号，3.1.0取消参数类型限制
 		 * @since 1.0.0
 		 */
 		cardNum: string | number;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 1.0.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 1.0.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 查询智能锁内所有有效IC卡列表
 	 * @since 2.8.2
 	 */
 	interface GetValidICCard {
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 1.0.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 1.0.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 添加指纹
 	 * @since 1.0.0
 	 */
 	interface AddFingerprint {
 		/**
-		 * @description Action type for control lock
+		 * @description 指纹有效期开始时间
 		 * @since 1.0.0
 		 */
 		startDate: number;
 		/**
-		 * @description Action type for control lock
+		 * @description 指纹有效期结束时间
 		 * @since 1.0.0
 		 */
 		endDate: number;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 1.0.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 中间步骤回调 
 		 * @since 1.0.0
 		 */
-		callback?: (result: TTLockError) => void;
+		callback?: (result: TTLock.AddFingerprintResult) => void;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 1.0.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 修改指纹有效期
 	 * @since 1.0.0
 	 */
 	interface ModifyFingerprint {
 		/**
-		 * @description Action type for control lock
+		 * @description 指纹编号，3.1.0取消参数类型限制
 		 * @since 1.0.0
 		 */
 		fingerprintNum: string | number;
 		/**
-		 * @description Action type for control lock
+		 * @description 指纹有效期开始时间
 		 * @since 1.0.0
 		 */
 		startDate: number;
 		/**
-		 * @description Action type for control lock
+		 * @description 指纹有效期结束时间
 		 * @since 1.0.0
 		 */
 		endDate: number;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 1.0.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 1.0.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 删除指纹
 	 * @since 1.0.0
 	 */
 	interface DeleteFingerprint {
 		/**
-		 * @description Action type for control lock
+		 * @description 指纹编号，3.1.0取消参数类型校验
 		 * @since 1.0.0
 		 */
 		fingerprintNum: string | number;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 1.0.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 1.0.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 读取智能锁内所有有效指纹列表
 	 * @since 2.8.2
 	 */
 	interface GetValidFingerprint {
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 1.0.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 1.0.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 删除人脸
 	 * @since 3.1.0
 	 */
 	interface DeleteFace {
 		/**
-		 * @description Action type for control lock
+		 * @description 人脸编号
 		 * @since 3.1.0
 		 */
 		faceNumber: string;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 3.1.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 3.1.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 查询智能锁开闭状态
 	 * @since 2.7.3
 	 */
 	interface GetLockStatus {
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.7.3
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.7.3
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 设置智能锁远程开关开启状态
 	 * @since 2.3.0
 	 */
 	interface SetRemoteUnlockSwitch {
 		/**
-		 * @description eKey/lock data 
+		 * @description 是否打开远程开锁开关
 		 * @since 2.3.0
 		 */
 		enable: boolean;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.3.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.3.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 查询智能锁远程开关开启状态
 	 * @since 2.3.0
 	 */
 	interface GetRemoteUnlockSwitch {
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.3.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.3.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
-	/** @description 设备开关状态配置信息 */
-	interface SwitchConfigs {
-		tamperAlert?: boolean; // 是否打开防撬警报
-		resetButton?: boolean; // 使能/禁用重置按键
-		privacyLock?: boolean; // 使能/禁用反锁开关
-		unlockDirection?: boolean; // 左右开门设置（true为左开门，false为右开门)
-		pasageModeAutoUnlockSetting?: boolean; // 使能/禁用常开模式自动开锁
-		wifiPowerSavingMode?: boolean; // 是否开启WiFi省电模式(3.1.0)
-	}
-	
 	/**
-	 * @description Params for control smart lock
+	 * @description 设置智能锁开关开启状态
 	 * @since 2.5.0
 	 */
 	interface SetLockSwitch {
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁开关类型
+         * @see TTLOCK_SWITCH_CONFIG_TYPE 
 		 * @since 2.5.0
 		 */
 		configType: number;
 		/**
-		 * @description eKey/lock data 
+		 * @description 是否打开开关 
 		 * @since 2.5.0
 		 */
 		switchOn: boolean;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.5.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.5.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 查询智能锁开关开启状态
 	 * @since 2.5.0
 	 */
 	interface GetLockSwitch {
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁开关类型
+         * @see TTLOCK_SWITCH_CONFIG_TYPE 
 		 * @since 2.5.0
 		 */
 		configType: number;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.5.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.5.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 酒店配置信息
 	 * @since 2.4.0
 	 */
 	interface HotelData {
@@ -680,617 +672,617 @@ declare namespace TTLock {
 		 */
 		hotelInfo: string;
 		/**
-		 * @description 楼栋号，[0, 254]的正整数，必传
+		 * @description 楼栋号，[1, 254]的正整数，必传
 		 * @since 2.4.0
 		 */
 		buildingNumber: number;
 		/**
-		 * @description 楼层号，[0, 255]的正整数，普通酒店锁传入
+		 * @description 楼层号，[1, 255]的正整数，普通酒店锁传入
 		 * @since 2.4.0
 		 */
 		floorNumber?: number;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 置酒店锁卡系统使用的酒店信息
 	 * @since 2.4.0
 	 */
 	interface SetHotelData {
 		/**
-		 * @description eKey/lock data 
+		 * @description 酒店配置信息
 		 * @since 2.4.0
 		 */
 		hotelData: HotelData;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.4.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.4.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 设置酒店锁卡系统使用的扇区信息
 	 * @since 2.4.0
 	 */
 	interface SetHotelSector {
 		/**
-		 * @description eKey/lock data 
+         * 使用的扇区信息
+		 * @description 1-16组成的数组，分别代表1-16号扇区可用，不能为空不可重复
 		 * @since 2.4.0
 		 */
 		sectors: Array<number>;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.4.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.4.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 设置梯控工作模式
 	 * @since 2.7.0
 	 */
 	interface SetLiftWorkMode {
 		/**
-		 * @description eKey/lock data 
+		 * @description 梯控工作模式
+         * @see TTLOCK_LIFT_WORKMODE
 		 * @since 2.7.0
 		 */
 		workMode: number;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.7.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.7.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 设置梯控继电器关联的楼层列表
 	 * @since 2.7.0
 	 */
 	interface SetLiftControlableFloors {
 		/**
-		 * @description eKey/lock data 
+		 * @description 梯控关联的楼层列表映射信息，1-64组成的数组，最长64位，不能为空且不可重复
 		 * @since 2.7.0
 		 */
 		floors: Array<number>;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.7.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.7.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 查询取电开关工作模式
 	 * @since 2.8.5
 	 */
 	interface SetPowerSaverWorkMode {
 		/**
-		 * @description eKey/lock data 
+		 * @description 电开关工作模式
+         * @see TTLOCK_POWER_SAVER_WORKMODE
 		 * @since 2.8.5
 		 */
 		powerSaverWorkMode: number;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.8.5
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.8.5
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 配置取电开关关联的智能锁
 	 * @since 2.8.5
 	 */
 	interface SetPowerSaverControlableLock {
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁mac地址 
 		 * @since 2.8.5
 		 */
 		lockMac: string;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.8.5
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.8.5
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 扫描wifi锁附近可连接的wifi列表
 	 * @since 2.7.6
 	 */
 	interface ScanWiFi {
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.7.6
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.7.6
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description wifi配置信息
 	 * @since 2.7.6
 	 */
 	interface WiFiConfig {
 		/**
-		 * @description eKey/lock data 
+		 * @description wifi名称
 		 * @since 2.7.6
 		 */
 		SSID: string;
 		/**
-		 * @description eKey/lock data 
+		 * @description wifi密码
 		 * @since 2.7.6
 		 */
 		password: string;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 配置wifi锁连接的wifi信息
 	 * @since 2.7.6
 	 */
 	interface ConfigWiFi {
 		/**
-		 * @description eKey/lock data 
+		 * @description wifi配置信息 
 		 * @since 2.7.6
 		 */
 		config: WiFiConfig;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.7.6
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.7.6
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 远程服务器信息
 	 * @since 2.7.6
 	 */
 	interface ServerInfo {
 		/**
-		 * @description eKey/lock data 
+		 * @description 远程服务器域名地址，server与ipAddress二选一，优先生效
+         * @default 常规填写: "plug.sciener.cn"
 		 * @since 2.7.6
 		 */
 		server?: string;
 		/**
-		 * @description eKey/lock data 
+		 * @description 远程服务器IP地址，server与ipAddress二选一，优先级次于server
 		 * @since 2.7.6
 		 */
 		ipAddress?: string;
 		/**
-		 * @description eKey/lock data 
+		 * @description 远程服务器端口号
+         * @default 常规填写: 2999
 		 * @since 2.7.6
 		 */
 		port: number;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 配置wifi锁远程服务器信息
 	 * @since 2.7.6
 	 */
 	interface ConfigServer {
 		/**
-		 * @description eKey/lock data 
+		 * @description 远程服务器信息
 		 * @since 2.7.6
 		 */
 		config: ServerInfo;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.7.6
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.7.6
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 本地固定IP地址配置信息
 	 * @since 2.7.6
 	 */
 	interface StaticIPAddress {
 		/**
-		 * @description eKey/lock data 
+		 * @description 本地IP地址
 		 * @since 2.7.6
 		 */
 		ipAddress: string;
 		/**
-		 * @description eKey/lock data 
+		 * @description 子网掩码
 		 * @since 2.7.6
 		 */
 		subnetMask: string;
 		/**
-		 * @description eKey/lock data 
+		 * @description 默认网关
 		 * @since 2.7.6
 		 */
 		router: string;
 		/**
-		 * @description eKey/lock data 
+		 * @description 首选DNS
 		 * @since 2.7.6
 		 */
 		dns1: string;
 		/**
-		 * @description eKey/lock data 
+		 * @description 备用DNS
 		 * @since 2.7.6
 		 */
 		dns2: string;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 本地IP地址配置信息
 	 * @since 2.7.6
 	 */
 	interface IPSetting {
 		/**
-		 * @description eKey/lock data 
+		 * @description 是否使用DHCP动态获取本地IP地址, 设置为true时ipAddress不生效
 		 * @since 2.7.6
 		 */
 		useDHCP: boolean;
 		/**
-		 * @description eKey/lock data 
+		 * @description 固定IP地址，useDHCP = false时必填
 		 * @since 2.7.6
 		 */
 		ipAddress?: StaticIPAddress;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 配置wifi锁本地IP信息
 	 * @since 2.7.6
 	 */
 	interface ConfigIP {
 		/**
-		 * @description eKey/lock data 
+		 * @description 本地IP地址配置信息 
 		 * @since 2.7.6
 		 */
 		ipSetting: IPSetting;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.7.6
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.7.6
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description wifi锁省电模式时间段配置信息
 	 * @since 3.1.0
 	 */
-	interface SavePowerConfig {
+	interface PowerSavingConfig {
 		/**
-		 * @description 常开模式类型
+         * 省电模式配置类型，当前仅支持按周开启
+		 * @description 1 -按周开启
 		 * @since 3.1.0
 		 */
 		type?: number;
 		/**
-		 * @description 常开日，周模式传入[1,7]的数组，表示周一-周日, 月模式传入[1,31]的数组，表示常开日期
+         * 省电模式开启日
+		 * @description 按周开启：传入[1,7]的数组，表示周一-周日
 		 * @since 3.1.0
 		 */
 		weekDays?: number[];
 		/**
-		 * @description 常开开始分钟数
+		 * @description 省电模式开始分钟数，全天传入0
 		 * @since 3.1.0
 		 */
 		startDate: number;
 		/**
-		 * @description 常开开始分钟数
+		 * @description 省电模式结束分钟数，全天传入0
 		 * @since 3.1.0
 		 */
 		endDate: number;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 设置wifi锁省电模式时间段
 	 * @since 3.1.0
 	 */
-	interface ConfigSavePower {
+	interface ConfigPowerSaving {
 		/**
-		 * @description eKey/lock data 
+		 * @description wifi锁省电模式时间段配置信息
 		 * @since 3.1.0
 		 */
-		config: SavePowerConfig;
+		config: PowerSavingConfig;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 3.1.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 3.1.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 查询wifi锁省电模式设置
 	 * @since 3.1.0
 	 */
-	interface GetSavePower {
+	interface GetPowerSaving {
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 3.1.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 3.1.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 清空wifi锁省电模式设置
 	 * @since 3.1.0
 	 */
-	interface ClearSavePower {
+	interface ClearPowerSaving {
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 3.1.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 3.1.0
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 智能锁常开模式配置信息
 	 * @since 2.8.2
 	 */
 	interface PassageModeConfig {
 		/**
 		 * @description 常开模式类型
 		 * @since 2.8.2
+         * @see TTLOCK_PASSAGE_WORKMODE
 		 */
 		type: number;
 		/**
 		 * @description 常开日，周模式传入[1,7]的数组，表示周一-周日, 月模式传入[1,31]的数组，表示常开日期
 		 * @since 2.8.2
 		 */
-		 repeatWeekOrDays?: number[];
+		 repeatWeekOrDays: number[];
 		/**
-		 * @description 常开开始分钟数
+         * 常开开始分钟数
+		 * @description 3.1.0 全天设置为0
 		 * @since 2.8.2
 		 */
 		startDate: number;
 		/**
-		 * @description 常开开始分钟数
+         * 常开结束分钟数
+		 * @description 3.1.0 全天设置为0
 		 * @since 2.8.2
 		 */
 		endDate: number;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 设置智能锁常开模式
 	 * @since 2.8.2
 	 */
 	interface ConfigPassageMode {
 		/**
-		 * @description eKey/lock data 
+		 * @description 常开模式设置 
 		 * @since 2.8.2
 		 */
 		config: PassageModeConfig;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.8.2
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.8.2
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 查询智能锁常开模式设置
 	 * @since 2.8.2
 	 */
 	interface GetPassageMode {
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.8.2
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.8.2
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 清空智能锁常开模式设置
 	 * @since 2.8.2
 	 */
 	interface ClearPassageMode {
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.8.2
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.8.2
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 设置智能锁自动闭锁时间
 	 * @since 2.8.2
 	 */
 	interface SetAutoLock {
 		/**
-		 * @description eKey/lock data 
+		 * @description 自动闭锁时间 
 		 * @since 2.8.2
 		 */
 		seconds: number;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.8.2
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.8.2
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 查询智能锁自动闭锁时间
 	 * @since 2.8.2
 	 */
 	interface GetAutoLock {
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.8.2
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.8.2
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 设置智能锁音量
 	 * @since 2.8.4
 	 */
 	interface SetSoundVolume {
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁音量
 		 * @since 2.8.4
+         * @see TTLOCK_SOUND_VOLUME
 		 */
 		soundVolume: number;
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.8.4
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.8.4
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 查询智能锁音量
 	 * @since 2.8.4
 	 */
 	interface GetSoundVolume {
 		/**
-		 * @description eKey/lock data 
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
 		 * @since 2.8.4
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
+		 * @description 设备断连回调 
 		 * @since 2.8.4
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 固件升级参数配置
 	 * @since 2.9.0
 	 */
 	interface DfuPackageInfo {
 		/**
-		 * @description Action type for control lock
+		 * @description 开放平台应用ID
 		 * @since 2.9.0
 		 */
 		clientId: string;
 		/**
-		 * @description Action type for control lock
+		 * @description 用户账号登录令牌
 		 * @since 2.9.0
 		 */
 		accessToken: string;
 		/**
-		 * @description Action type for control lock
+		 * @description 智能锁ID
 		 * @since 2.9.0
 		 */
 		lockId: number;
 	}
 	
 	/**
-	 * @description Params for control smart lock
+	 * @description 智能锁固件升级
 	 * @since 2.9.0
 	 */
 	interface EnterDfuMode {
 		/**
-		 * @description Action type for control lock
+		 * @description 固件升级参数配置
 		 * @since 2.9.0
 		 */
 		dfuPackageInfo: DfuPackageInfo;
 		/**
-		 * @description eKey/lock data 
-		 * @since 1.0.0
+		 * @description 智能锁初始化数据或管理员电子钥匙数据 
+		 * @since 2.9.0
 		 */
 		lockData: string;
 		/**
-		 * @description Callback on disconnect 
-		 * @since 1.0.0
+		 * @description 中间步骤回调
+		 * @since 2.9.0
 		 */
-		callback?: (result: TTLockError) => void;
-	}
-	
-	/**
-	 * @description Result for control smart lock
-	 * @since 1.0.0
-	 */
-	interface ControlLockCallback extends TTLockError {
-		uid?: number; // 操作用户ID
-		uniqueid?: number; // 唯一标识(controlLock控制智能锁)
-		lockTime?: number; // 锁中当前时间的时间戳(controlLock控制智能锁)
-		controlAction?: number; // 操作类型(controlLock控制智能锁)
+		callback?: (result: TTLock.EnterDfuModeResult) => void;
 	}
 }
 
@@ -1511,19 +1503,19 @@ declare type TTLockConfigIP = TTLock.ConfigIP;
  * 配置wifi锁省电模式时间段参数
  * @since 3.1.0
  */
-declare type TTLockConfigSavePower = TTLock.ConfigSavePower;
+declare type TTLockConfigPowerSaving = TTLock.ConfigPowerSaving;
 
 /**
  * 查询wifi锁省电模式时间段参数
  * @since 3.1.0
  */
-declare type TTLockGetSavePower = TTLock.GetSavePower;
+declare type TTLockGetPowerSaving = TTLock.GetPowerSaving;
 
 /**
  * 清空wifi锁省电模式时间段参数
  * @since 3.1.0
  */
-declare type TTLockClearSavePower = TTLock.ClearSavePower;
+declare type TTLockClearPowerSaving = TTLock.ClearPowerSaving;
 
 /**
  * 设置智能锁常开模式参数

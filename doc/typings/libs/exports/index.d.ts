@@ -302,19 +302,19 @@ declare interface TTLockPlugin {
 	 * @description 配置wifi锁省电模式开启时间段
 	 * @since 3.1.0
 	 */
-    configWifiPowerSavingTime(option: TTLockConfigSavePower): Promise<TTLockError>;
+    configWifiPowerSavingTime(option: TTLockConfigPowerSaving): Promise<TTLockError>;
 
     /**
 	 * @description 查询wifi锁省电模式开启时间段
 	 * @since 3.1.0
 	 */
-    getWifiPowerSavingTime(option: TTLockGetSavePower): Promise<TTLockGetPowerSavingResult>;
+    getWifiPowerSavingTime(option: TTLockGetPowerSaving): Promise<TTLockGetPowerSavingResult>;
 
     /**
 	 * @description 清空wifi锁省电模式开启时间段
 	 * @since 3.1.0
 	 */
-    clearWifiPowerSavingTime(option: TTLockClearSavePower): Promise<TTLockError>;
+    clearWifiPowerSavingTime(option: TTLockClearPowerSaving): Promise<TTLockError>;
 
     /**
 	 * @description 配置智能锁常开模式开启时间段
