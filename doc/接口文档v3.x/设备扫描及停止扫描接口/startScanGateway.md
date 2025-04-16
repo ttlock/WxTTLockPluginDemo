@@ -27,7 +27,7 @@
  |failCallback      |TTLockCallback             |Y             |OUT             |网关扫描失败回调, 请参考[设备扫描失败回调](#TTLockCallback)|
 <br />
 
-### <span name="TTGatewayScanCallback">成功扫描到设备回调</span>  
+#### <span name="TTGatewayScanCallback">成功扫描到设备回调</span>  
 成功扫描到网关的回调，接口可能返回多次，deviceFromScanList**为当前扫描状态下周围网关信息列表, 以添加状态、蓝牙信号强度排序**  
 > 类型定义：TTGatewayScanCallback  
 ```
@@ -46,7 +46,7 @@
  |NAME              |TYPE               |VERSION    |DEPRECATED     |DESCRIPTION|
  |------------------|-------------------|-----------|---------------|-----------|
  |deviceType        |number             |2.7.6      |               |[设备类型](../参数声明/设备通用参数.md#TTDEVICE_TYPE)|
- |type              |number             |2.7.0      |               |[网关类型](../参数声明/网关参数.md#TTPLUG_TYPE)|
+ |type              |number             |2.7.0      |               |[网关类型](../参数声明/网关参数.md#TTGATEWAY_TYPE)|
  |deviceId          |string             |           |               |蓝牙广播设备ID, 安卓设备与MAC地址相同，iOS为UUID格式|
  |rssi              |number             |           |               |设备信号值, 0表示该设备已掉线|
  |isSettingMode     |boolean            |           |               |设备是否处于可添加状态|
@@ -55,7 +55,7 @@
  |updatedTime       |number             |2.7.0      |               |设备扫描最后更新时间|
  |isGateway         |boolean            |           |3.1.0          |设备是否为网关设备|  
 
-### <span name="TTLockCallback">设备扫描失败回调</span>  
+#### <span name="TTLockCallback">设备扫描失败回调</span>  
  3.0.8及其以前：设备扫描失败回调  
  3.1.0版本：设备扫描开启失败回调或未扫描到任意设备回调  
     > 若因前者触发：触发时关闭蓝牙扫描  

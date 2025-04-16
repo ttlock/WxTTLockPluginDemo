@@ -24,10 +24,10 @@
  |PARAMS            |TYPE                   |REQUIRED      |IN/OUT          |DESCRIPTION|
  |------------------|-----------------------|--------------|----------------|-----------|
  |callback          |TTLockScanCallback     |Y             |OUT             |智能锁扫描成功回调，可能回调多次, 请参考[设备扫描回调](#TTLockScanCallback)|
- |failCallback      |TTLockCallback         |Y             |OUT             |智能锁扫描失败或未扫描到设备回调, 请参考[设备扫描失败回调](#TTLockCallback)|
-<br />
+ |failCallback      |TTLockCallback         |Y             |OUT             |智能锁扫描失败或未扫描到设备回调, 请参考[设备扫描失败回调](#TTLockCallback)|  
+ 
 
-### <span name="TTLockScanCallback">成功扫描到设备回调</span>  
+#### <span name="TTLockScanCallback">成功扫描到设备回调</span>  
 成功扫描到智能锁的回调，接口可能返回多次，deviceFromScanList**为当前扫描状态下周围锁信息列表, 以添加状态、蓝牙信号强度排序**  
 > 类型定义：TTLockScanCallback  
 ```
@@ -68,7 +68,7 @@
  |groupId               |number       |N             |应用商ID, 3.1.0之前扫描智能锁固定返回1, 3.1.0开始扫描不再返回|
  |orgId                 |number       |N             |应用商子ID, 3.1.0之前扫描智能锁固定返回1, 3.1.0开始扫描不再返回|  
 
-### <span name="TTLockCallback">设备扫描失败回调</span>  
+#### <span name="TTLockCallback">设备扫描失败回调</span>  
  3.0.8及其以前：设备扫描失败回调  
  3.1.0版本：设备扫描开启失败回调或未扫描到任意设备回调  
     > 若因前者触发：触发时关闭蓝牙扫描  
