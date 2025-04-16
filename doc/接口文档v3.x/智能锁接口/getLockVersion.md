@@ -2,7 +2,7 @@
 
 ## 方法
 ```
-    function getLockVersion(option: TTLockGetVersion | string): Promise<TTLockGetVersionResult>
+    function getLockVersion(option: TTLockGetVersion): Promise<TTLockGetVersionResult>
 ```  
 
 ### 功能描述   
@@ -15,18 +15,10 @@
  离线版最低支持版本： **1.2.0**  
 
 ## 参数说明 
- |PARAMS                |TYPE                                   |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|---------------------------------------|--------------|----------------|-----------|
- |option                |[TTLockGetVersion](#TTLockGetVersion)  |Y             |IN,OUT          |初始化蓝牙智能锁全部参数|
- |deviceFromScan        |[TTLockFromScan](#TTLockFromScan)      |Y             |IN,OUT          |扫描到的智能锁信息|
- |macOrLockData         |string                                 |Y             |IN              |智能锁MAC地址或锁数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)      |N             |OUT             |设备断开连接回调|
-<br />
-
-### <span name="TTLockInit">初始化蓝牙智能锁全部参数 TTLockInit</span>  
+ 类型定义：TTLockGetVersion  
  |PARAMS                |TYPE                               |REQUIRED      |IN/OUT          |DESCRIPTION|
  |----------------------|-----------------------------------|--------------|----------------|-----------|
- |deviceFromScan        |[TTLockFromScan](#TTLockFromScan)  |Y             |IN,OUT          |扫描到的智能锁信息|
+ |deviceFromScan        |[TTLockFromScan](#TTLockFromScan) / string  |Y             |IN,OUT          |扫描到的智能锁信息或lockData|
  |disconnectCallback    |[TTLockCallback](#TTLockCallback)  |N             |OUT             |设备断开连接回调|
 <br />
 
@@ -60,15 +52,15 @@
  |showAdminKbpwdFlag    |boolean      |N             |是否展示管理员密码|
 <br />
 
-### <span name="TTLockCallback">设备断开连接 TTLockCallback</span>  
+#### <span name="TTLockCallback">设备断连回调</span>  
+类型定义：TTLockCallback  
 ```
-(res: TTLockError) => any
+    (result: TTLockError) => any
 ```  
-#### 回调方法参数说明
- |PARAMS                    |TYPE                           |IN/OUT         |DESCRIPTION|
- |--------------------------|-------------------------------|---------------|-----------|
- |res                       |[TTLockError](#TTLockError)    |OUT            |设备断开连接错误信息|
-<br />
+##### 回调方法参数说明  
+ |PARAMS    |TYPE               |IN/OUT         |DESCRIPTION|
+ |----------|-------------------|---------------|-----------|
+ |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
 ## 返回值
  异步返回操作回调结果 [TTLockGetVersionResult](#TTLockGetVersionResult)  

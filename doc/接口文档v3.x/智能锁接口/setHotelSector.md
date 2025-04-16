@@ -15,15 +15,7 @@
  离线版最低支持版本： **1.4.0**  
 
 ## 参数说明 
- |PARAMS                |TYPE                                           |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------------------|--------------|----------------|-----------|
- |option                |[TTLockSetHotelSector](#TTLockSetHotelSector)  |Y             |IN              |完整参数|
- |sectors               |Array<number>                                  |Y             |IN              |使用的扇区列表，1-16组成的数组，分别代表1-16号扇区可用，不能为空|
- |lockData              |string                                         |Y             |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)              |N             |OUT             |设备断开连接回调|
-<br />
-
-### <span name="TTLockSetHotelSector">设置酒店锁使用扇区完整参数 TTLockSetHotelSector</span>  
+ 类型定义：TTLockSetHotelSector  
  |PARAMS                |TYPE                                           |REQUIRED      |IN/OUT          |DESCRIPTION|
  |----------------------|-----------------------------------------------|--------------|----------------|-----------|
  |sectors               |Array<number>                                  |Y             |IN              |使用的扇区列表，1-16组成的数组，分别代表1-16号扇区可用，不能为空|
@@ -31,15 +23,16 @@
  |disconnectCallback    |[TTLockCallback](#TTLockCallback)              |N             |OUT             |设备断开连接回调|
 <br />
 
-### <span name="TTLockCallback">设备断开连接 TTLockCallback</span>  
+#### <span name="TTLockCallback">设备断连回调</span>  
+类型定义：TTLockCallback  
 ```
-(res: TTLockError) => any
+    (result: TTLockError) => any
 ```  
-#### 回调方法参数说明
- |PARAMS                    |TYPE                           |IN/OUT         |DESCRIPTION|
- |--------------------------|-------------------------------|---------------|-----------|
- |res                       |[TTLockError](#TTLockError)    |OUT            |设备断开连接错误信息|
-<br />
+##### 回调方法参数说明  
+ |PARAMS    |TYPE               |IN/OUT         |DESCRIPTION|
+ |----------|-------------------|---------------|-----------|
+ |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
+
 
 ## 返回值
  异步返回操作回调结果 [TTLockError](#TTLockError)  

@@ -15,15 +15,7 @@
  离线版最低支持版本： **1.0.0**  
 
 ## 参数说明 
- |PARAMS                |TYPE                               |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------|--------------|----------------|-----------|
- |option                |[TTLockInit](#TTLockInit)          |Y             |IN              |初始化蓝牙智能锁全部参数|
- |deviceFromScan        |[TTLockFromScan](#TTLockFromScan)  |Y             |IN              |扫描到的智能锁信息|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)  |N             |OUT             |设备断开连接回调|
- |vendor                |string                             |N             |IN              |定制智能锁板约定字符串，**定制锁板必传**|
-<br />
-
-### <span name="TTLockInit">初始化蓝牙智能锁全部参数 TTLockInit</span>  
+ 类型定义：TTLockInit  
  |PARAMS                |TYPE                               |REQUIRED      |IN/OUT          |DESCRIPTION|
  |----------------------|-----------------------------------|--------------|----------------|-----------|
  |deviceFromScan        |[TTLockFromScan](#TTLockFromScan)  |Y             |IN              |扫描到的智能锁信息|
@@ -62,15 +54,16 @@
  |showAdminKbpwdFlag    |boolean      |N             |是否展示管理员密码|
 <br />
 
-### <span name="TTLockCallback">设备断开连接 TTLockCallback</span>  
+#### <span name="TTLockCallback">设备断连回调</span>  
+类型定义：TTLockCallback  
 ```
-(res: TTLockError) => any
+    (result: TTLockError) => any
 ```  
-#### 回调方法参数说明
- |PARAMS                    |TYPE                           |IN/OUT         |DESCRIPTION|
- |--------------------------|-------------------------------|---------------|-----------|
- |res                       |[TTLockError](#TTLockError)    |OUT            |设备断开连接错误信息|
-<br />
+##### 回调方法参数说明  
+ |PARAMS    |TYPE               |IN/OUT         |DESCRIPTION|
+ |----------|-------------------|---------------|-----------|
+ |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
+
 
 ## 返回值
  异步返回操作回调结果 [TTLockInitResult](#TTLockInitResult)  

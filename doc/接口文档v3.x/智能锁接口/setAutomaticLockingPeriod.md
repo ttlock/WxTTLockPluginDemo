@@ -14,15 +14,7 @@
  离线版最低支持版本： **1.8.2**  
 
 ## 参数说明 
- |PARAMS                |TYPE                                                                   |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------------------------------------------|--------------|----------------|-----------|
- |option                |[TTLockSetAutomaticLockingPeriod](#TTLockSetAutomaticLockingPeriod)    |Y             |IN              |完整参数|
- |seconds               |number                                                                 |Y             |IN              |自动闭锁时间，单位：秒，0表示关闭超时自动闭锁|
- |lockData              |string                                                                 |Y             |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)                                      |N             |OUT             |设备断开连接回调|
-<br />
-
-### <span name="TTLockSetAutomaticLockingPeriod">设置自动闭锁时间完整参数 TTLockSetAutomaticLockingPeriod</span>  
+ 类型定义：TTLockSetAutomaticLockingPeriod  
  |PARAMS                |TYPE                                   |REQUIRED      |IN/OUT          |DESCRIPTION|
  |----------------------|---------------------------------------|--------------|----------------|-----------|
  |seconds               |number                                 |Y             |IN              |自动闭锁时间，单位：秒，0表示关闭超时自动闭锁|
@@ -30,15 +22,16 @@
  |disconnectCallback    |[TTLockCallback](#TTLockCallback)      |N             |OUT             |设备断开连接回调|
 <br />
 
-### <span name="TTLockCallback">设备断开连接 TTLockCallback</span>  
+#### <span name="TTLockCallback">设备断连回调</span>  
+类型定义：TTLockCallback  
 ```
-(res: TTLockError) => any
+    (result: TTLockError) => any
 ```  
-#### 回调方法参数说明
- |PARAMS                    |TYPE                           |IN/OUT         |DESCRIPTION|
- |--------------------------|-------------------------------|---------------|-----------|
- |res                       |[TTLockError](#TTLockError)    |OUT            |设备断开连接错误信息|
-<br />
+##### 回调方法参数说明  
+ |PARAMS    |TYPE               |IN/OUT         |DESCRIPTION|
+ |----------|-------------------|---------------|-----------|
+ |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
+
 
 ## 返回值
  异步返回操作回调结果 [TTLockError](#TTLockError)  
