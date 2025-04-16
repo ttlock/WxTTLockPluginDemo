@@ -1,7 +1,4 @@
-/// <reference path="./params.d.ts" />
-/// <reference path="./options.d.ts" />
 /// <reference path="./result.d.ts" />
-/// <reference path="./callback.d.ts" />
 /// <reference path="./interfaceParam.d.ts" />
 
 declare function setShowLog(openLog: boolean, callback?: TTLockShowLogCallback): void;

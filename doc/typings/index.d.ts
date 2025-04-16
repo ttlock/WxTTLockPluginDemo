@@ -1,7 +1,10 @@
-/// <reference path="./libs/params.d.ts" />
-/// <reference path="./libs/options.d.ts" />
+/// <reference path="./libs/enums/index.d.ts" />
+/// <reference path="./libs/options/index.d.ts" />
+/// <reference path="./libs/params/index.d.ts" />
+/// <reference path="./libs/result/index.d.ts" />
+/// <reference path="./libs/exports/index.d.ts" />
+
 /// <reference path="./libs/result.d.ts" />
-/// <reference path="./libs/callback.d.ts" />
 /// <reference path="./libs/interfaceParam.d.ts" />
 /// <reference path="./libs/functions.d.ts" />
 
@@ -121,4 +124,4 @@ declare namespace TTLockPluginModel {
     export function initGateway(deviceFromScan: TTGatewayFromScan, configuration?: TTLockGatewayConfiguration, disconnectCallback?: TTLockCallback): Promise<TTLockInitGatewayResult>;
 }
 
-declare type TTLockPlugin = typeof TTLockPluginModel;
+// declare type TTLockPlugin = typeof TTLockPluginModel;

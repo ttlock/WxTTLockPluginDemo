@@ -32,7 +32,10 @@ function stopAllOperations(): Promise<TTLockError>
  |electricQuantity              |boolean                    |2.7.0      |设备电量|
 <br />
 
-## 版本更新内容
+## 版本更新内容  
+#### **3.1.0**  
+    1. 若设备正在执行wx.createBLEConnection接口，该接口将无法打断该操作，但退出忙碌状态
+
 #### **3.0.0**  
     1. 若设备正在执行wx.createBLEConnection接口，该接口将无法打断该操作，返回设备忙碌提示
     2. 接口调用后将清空设备ID及扫描状态，下一次操作蓝牙连接将重新进行设备扫描，操作耗时增加为正常现象
