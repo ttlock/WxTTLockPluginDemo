@@ -13,16 +13,15 @@
  在线版最低支持版本： **2.8.4**   
  离线版最低支持版本： **1.8.4**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockGetLockSoundWithSoundVolume  
- |PARAMS                |TYPE                               |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------|--------------|----------------|-----------|
- |lockData              |string                             |Y             |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)  |N             |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------|--------------|----------------|-----------|
+ |lockData              |string             |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback     |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -31,16 +30,14 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
-## 返回值
- 异步返回操作回调结果 [TTLockGetLockSoundWithSoundVolumeResult](#TTLockGetLockSoundWithSoundVolumeResult)  
-<br />
+### 返回值  
+ 异步返回操作回调结果: [TTLockGetLockSoundWithSoundVolumeResult](#TTLockGetLockSoundWithSoundVolumeResult)  
 
-### <span name="TTLockGetLockSoundWithSoundVolumeResult">锁声音配置查询结果 TTLockGetLockSoundWithSoundVolumeResult extends TTLockError</span>  
- 返回结果为[TTLockError](#TTLockError)的扩展，以下仅列出补充参数  
- |NAME              |TYPE                                                   |VERSION    |DESCRIPTION|
- |------------------|-------------------------------------------------------|-----------|-----------|
- |soundVolume       |[TTLOCK_SOUND_VOLUME](#TTLOCK_SOUND_VOLUME)            |           |智能锁音量设置等级|
-<br />
+#### <span name="TTLockGetLockSoundWithSoundVolumeResult">锁声音配置查询结果</span>  
+ 类型定义：TTLockGetLockSoundWithSoundVolumeResult, 扩展[TTLockError](#TTLockError), 以下仅列出补充参数   
+ |NAME              |TYPE       |VERSION    |DESCRIPTION|
+ |------------------|-----------|-----------|-----------|
+ |soundVolume       |number     |           |[智能锁音量设置等级](#TTLOCK_SOUND_VOLUME)|  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   
@@ -53,6 +50,18 @@
  |errCode           |number     |           |3.1.0          |微信蓝牙接口返回错误码|
  |errMsg            |string     |           |3.1.0          |微信蓝牙错误信息描述|
  |deviceId          |boolean    |2.7.0      |3.1.0          |蓝牙设备ID|  
+
+#### <span name="TTLOCK_SOUND_VOLUME">智能锁音量设置等级</span>  
+ 类型定义：[TTLOCK_SOUND_VOLUME](../参数声明/智能锁参数.md#TTLOCK_SOUND_VOLUME)   
+ |VALUE         |VERSION    |DESCRIPTION|
+ |--------------|-----------|-----------|
+ |-1            |           |开启锁声音提示|
+ |0             |           |关闭锁声音提示|
+ |1             |           |一级|
+ |2             |           |二级|
+ |3             |           |三级|
+ |4             |           |四级|
+ |5             |           |五级|  
 
 ## 相关链接  
  1. [集成方法](../../../README.md)  

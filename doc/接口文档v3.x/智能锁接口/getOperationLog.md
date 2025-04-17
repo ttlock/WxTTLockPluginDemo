@@ -14,17 +14,16 @@
  在线版最低支持版本： **2.0.0**   
  离线版最低支持版本： **1.0.0**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockGetOperationLog  
- |PARAMS                |TYPE                                           |REQUIRED   |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------------------|-----------|----------------|-----------|
- |logType               |[TTLOCK_READ_RECORD_TYPE](#TTLOCK_READ_RECORD_TYPE)    |Y             |IN              |读取操作记录方式，1 -全部, 2 -未被读取过|
- |lockData              |string                                                 |Y             |IN              |智能锁数据/用户电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)                      |N             |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------|--------------|----------------|-----------|
+ |logType               |number             |Y             |IN              |[读取操作记录方式](../参数声明/智能锁参数.md#TTLOCK_READ_RECORD_TYPE)，1 -全部, 2 -未被读取过|
+ |lockData              |string             |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback     |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -33,16 +32,14 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
-## 返回值
- 异步返回操作回调结果 [TTLockGetOperationLogResult](#TTLockGetOperationLogResult)  
-<br />
+### 返回值  
+ 异步返回操作回调结果: [TTLockGetOperationLogResult](#TTLockGetOperationLogResult)  
 
-### <span name="TTLockGetOperationLogResult">读取智能锁操作记录返回结果 TTLockGetOperationLogResult extends TTLockError</span>  
- 返回结果为[TTLockError](#TTLockError)的扩展，以下仅列出补充参数  
- |NAME              |TYPE                                           |VERSION    |DESCRIPTION|
- |------------------|-----------------------------------------------|-----------|-----------|
- |log               |string                                         |           |智能锁操作记录JSON字符串，用于上传服务器|
-<br />
+#### <span name="TTLockGetOperationLogResult">读取智能锁操作记录返回结果</span>  
+ 类型定义：TTLockGetOperationLogResult, 扩展[TTLockError](#TTLockError), 以下仅列出补充参数   
+ |NAME      |TYPE           |VERSION    |DESCRIPTION|
+ |----------|---------------|-----------|-----------|
+ |log       |string         |           |智能锁操作记录JSON字符串，仅用于上传服务器，详细操作记录请从服务器获取|  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   
@@ -67,12 +64,3 @@
 #### **3.0.0**  
     1. 增加option传参方式  
     2. 取消deviceId参数，降低因设备无法连接造成的失败率  
-
-
-## 固定参数补充说明  
-### <span name="TTLOCK_READ_RECORD_TYPE">读取智能锁操作记录方式 TTLOCK_READ_RECORD_TYPE</span>  
- [更多信息](../参数声明/智能锁参数.md#TTLOCK_READ_RECORD_TYPE)  
- |VALUE         |VERSION    |DESCRIPTION|
- |--------------|-----------|-----------|
- |1             |           |读取智能锁内所有的操作记录|
- |2             |           |读取智能锁内未被读取过的操作记录|  

@@ -13,16 +13,15 @@
  在线版最低支持版本： **2.3.0**   
  离线版最低支持版本： **1.3.0**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockGetRemoteUnlockSwitchState  
- |PARAMS                |TYPE                               |REQUIRED       |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------|---------------|----------------|-----------|
- |lockData              |string                             |Y              |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)  |N              |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------|--------------|----------------|-----------|
+ |lockData              |string             |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback     |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -31,19 +30,17 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
-## 返回值
- 异步返回操作回调结果 [TTLockGetRemoteUnlockSwitchStateResult](#TTLockGetRemoteUnlockSwitchStateResult)  
-<br />
+### 返回值  
+ 异步返回操作回调结果: [TTLockGetRemoteUnlockSwitchStateResult](#TTLockGetRemoteUnlockSwitchStateResult)  
 
-### <span name="TTLockGetRemoteUnlockSwitchStateResult">查询智能锁远程开关开启状态返回结果 TTLockGetRemoteUnlockSwitchStateResult extends TTLockError</span>  
- 返回结果为[TTLockError](#TTLockError)的扩展，以下仅列出补充参数  
- |NAME              |TYPE       |VERSION    |DESCRIPTION|
- |------------------|-----------|-----------|-----------|
- |enabled           |boolean    |           |远程开关开启状态|
- |lockData          |string     |           |智能锁更新数据，用于上传服务器，**不可用于智能锁蓝牙操作**|
- |featureValue      |string     |2.3.1      |智能锁更新后特征值(完整数据)|
- |specialValue      |number     |deprecated |智能锁更新后特征值(低位数据，兼容低版本)|
-<br />
+#### <span name="TTLockGetRemoteUnlockSwitchStateResult">查询智能锁远程开关开启状态返回结果</span>  
+ 类型定义：TTLockGetRemoteUnlockSwitchStateResult, 扩展[TTLockError](#TTLockError), 以下仅列出补充参数   
+ |NAME              |TYPE       |VERSION    |DEPRECATED     |DESCRIPTION|
+ |------------------|-----------|-----------|---------------|-----------|
+ |enabled           |boolean    |           |               |远程开关开启状态|
+ |lockData          |string     |           |               |智能锁更新数据，用于上传服务器，**不可用于智能锁蓝牙操作**|
+ |featureValue      |string     |2.3.1      |               |智能锁更新后特征值(完整数据)|
+ |specialValue      |number     |           |2.3.1          |智能锁更新后特征值(低位数据，兼容低版本)|  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   

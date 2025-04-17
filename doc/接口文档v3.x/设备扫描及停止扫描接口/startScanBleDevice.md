@@ -41,8 +41,7 @@
  |deviceFromScanList        |Array<TTLockFromScan>      |OUT            |扫描到的智能锁列表, 请参考[智能锁扫描信息](#TTLockFromScan)|  
 
 ##### <span name="TTLockFromScan">扫描到的智能锁设备</span>  
-> 类型定义：[TTLockFromScan](../对象类型说明/智能锁.md#TTLockFromScan)  
-
+ 类型定义：[TTLockFromScan](../对象类型说明/智能锁.md#TTLockFromScan)  
  |NAME              |TYPE               |VERSION    |DESCRIPTION|
  |------------------|-------------------|-----------|-----------|
  |deviceType        |number             |2.7.6      |[设备类型](../参数声明/设备通用参数.md#TTDEVICE_TYPE)|
@@ -58,8 +57,7 @@
  |isTouch           |boolean            |2.7.0      |设备是否处于可触摸开锁状态|  
 
 ##### <span name="TTLockVersion">智能锁版本信息</span>  
-> 类型定义：[TTLockVersion](../对象类型说明/智能锁.md#TTLockVersion)  
-
+ 类型定义：[TTLockVersion](../对象类型说明/智能锁.md#TTLockVersion)  
  |PARAMS                |TYPE         |REQUIRED      |DESCRIPTION|
  |----------------------|-------------|--------------|-----------|
  |protocolVersion       |number       |Y             |协议版本号|

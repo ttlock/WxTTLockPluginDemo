@@ -460,7 +460,7 @@ declare namespace TTLock {
         /**
          * @description 常开模式配置信息
          */
-        passageModeConfigList?: Array<PasscodeInfo>;
+        passageModeConfigList?: Array<PassageModeInfo>;
     }
 
     /**

@@ -14,16 +14,15 @@
  在线版最低支持版本： **2.8.2**   
  离线版最低支持版本： **1.8.2**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockGetAllValidPasscode  
- |PARAMS                |TYPE                               |REQUIRED       |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------|---------------|----------------|-----------|
- |lockData              |string                             |Y              |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)  |N              |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------|--------------|----------------|-----------|
+ |lockData              |string             |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback     |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -32,17 +31,14 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
+### 返回值  
+ 异步返回操作回调结果: [TTLockGetAllValidPasscodeResult](#TTLockGetAllValidPasscodeResult)  
 
-## 返回值
- 异步返回操作回调结果 [TTLockGetAllValidPasscodeResult](#TTLockGetAllValidPasscodeResult)  
-<br />
-
-### <span name="TTLockGetAllValidPasscodeResult">读取智能锁全部有效密码返回结果 TTLockGetAllValidPasscodeResult extends TTLockError</span>  
- 返回结果为[TTLockError](#TTLockError)的扩展，以下仅列出补充参数  
- |NAME              |TYPE                                               |VERSION    |DESCRIPTION|
- |------------------|---------------------------------------------------|-----------|-----------|
- |keyboardPwdList   |Array<[TTLockValidPasscode](#TTLockValidPasscode)> |           |有效密码列表|
-<br />
+#### <span name="TTLockGetAllValidPasscodeResult">读取智能锁全部有效密码返回结果</span>  
+ 类型定义：TTLockGetAllValidPasscodeResult, 扩展[TTLockError](#TTLockError), 以下仅列出补充参数   
+ |NAME              |TYPE                           |VERSION    |DESCRIPTION|
+ |------------------|-------------------------------|-----------|-----------|
+ |keyboardPwdList   |Array<TTLock.PasscodeInfo>     |           |有效密码列表，请参考[密码信息详情](#TTLockPasscodeInfo)|  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   
@@ -56,16 +52,16 @@
  |errMsg            |string     |           |3.1.0          |微信蓝牙错误信息描述|
  |deviceId          |boolean    |2.7.0      |3.1.0          |蓝牙设备ID|  
 
-### <span name="TTLockValidPasscode">智能锁有效密码信息 TTLockValidPasscode</span>  
- |NAME                  |TYPE                                                   |VERSION    |DESCRIPTION|
- |----------------------|-------------------------------------------------------|-----------|-----------|
- |keyboardPwdType       |[TTLOCK_KEYBOARD_PWD_TYPE](#TTLOCK_KEYBOARD_PWD_TYPE)  |           |密码类型，1-永久密码, 2-单次密码, 3-限时密码, 4-循环密码|
- |keyboardPwd           |string                                                 |           |密码值|
- |oldKeyboardPwd        |boolean                                                |           |原密码值|
- |startDate             |number                                                 |           |密码有效期开始时间|
- |endDate               |string                                                 |           |密码有效期结束时间，单次密码、限时密码返回，永久密码不返回|
- |cycleType             |number                                                 |           |循环密码类型|
-<br />
+#### <span name="TTLockPasscodeInfo">智能锁有效密码信息</span>  
+ 类型定义：TTLock.PasscodeInfo  
+ |NAME                  |TYPE       |VERSION    |DESCRIPTION|
+ |----------------------|-----------|-----------|-----------|
+ |keyboardPwdType       |number     |           |[密码类型](../参数声明/智能锁参数.md#TTLOCK_KEYBOARD_PWD_TYPE)，1-永久密码, 2-单次密码, 3-限时密码, 4-循环密码|
+ |keyboardPwd           |string     |           |密码值|
+ |oldKeyboardPwd        |boolean    |           |原密码值|
+ |startDate             |number     |           |密码有效期开始时间|
+ |endDate               |string     |           |密码有效期结束时间，单次密码、限时密码返回，永久密码不返回|
+ |cycleType             |number     |           |循环密码类型|  
 
 ## 相关链接  
  1. [集成方法](../../../README.md)  

@@ -14,46 +14,41 @@
  在线版最低支持版本： **2.2.0**   
  离线版最低支持版本： **1.2.0**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockGetVersion  
- |PARAMS                |TYPE                               |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------|--------------|----------------|-----------|
- |deviceFromScan        |[TTLockFromScan](#TTLockFromScan) / string  |Y             |IN,OUT          |扫描到的智能锁信息或lockData|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)  |N             |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE                       |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|---------------------------|--------------|----------------|-----------|
+ |deviceFromScan        |TTLockFromScan / string    |Y             |IN,OUT          |[扫描到的智能锁信息](#TTLockFromScan)或服务器获取的电子钥匙信息lockData|
+ |disconnectCallback    |TTLockCallback             |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
-### <span name="TTLockFromScan">扫描到的智能锁设备 TTLockFromScan</span>
- [更多信息](../对象类型说明/智能锁.md#TTLockFromScan)  
- |NAME              |TYPE                               |VERSION    |DESCRIPTION|
- |------------------|-----------------------------------|-----------|-----------|
- |deviceType        |[TTDEVICE_TYPE](#TTDEVICE_TYPE)    |2.7.6      |设备类型|
- |type              |[TTLOCK_TYPE](#TTLOCK_TYPE)        |2.7.0      |智能锁类型|
- |deviceId          |string                             |           |蓝牙广播设备ID, 安卓设备与MAC地址相同，iOS为UUID格式|
- |rssi              |number                             |           |设备信号值|
- |isSettingMode     |boolean                            |           |智能锁是否处于可添加状态|
- |MAC               |string                             |2.7.0      |蓝牙设备MAC地址|
- |deviceName        |string                             |2.7.0      |智能锁名称|
- |updatedTime       |number                             |2.7.0      |设备扫描最后更新时间|
- |lockVersion       |[TTLockVersion](#TTLockVersion)    |2.7.0      |智能锁版本信息, **操作结束后该参数将更新**|
- |electricQuantity  |number                             |           |设备电量|
- |isTouch           |boolean                            |2.7.0      |设备是否处于可触摸开锁状态|
-<br />  
+#### <span name="TTLockFromScan">扫描到的智能锁设备</span>  
+ 类型定义：[TTLockFromScan](../对象类型说明/智能锁.md#TTLockFromScan)  
+ |NAME              |TYPE               |VERSION    |DESCRIPTION|
+ |------------------|-------------------|-----------|-----------|
+ |deviceType        |number             |2.7.6      |[设备类型](../参数声明/设备通用参数.md#TTDEVICE_TYPE)|
+ |type              |number             |2.7.0      |[智能锁类型](../参数声明/智能锁参数.md#TTLOCK_TYPE)|
+ |deviceId          |string             |           |蓝牙广播设备ID, 安卓设备与MAC地址相同，iOS为UUID格式|
+ |rssi              |number             |           |设备信号值, 0表示该设备已掉线|
+ |isSettingMode     |boolean            |           |设备是否处于可添加状态|
+ |MAC               |string             |2.7.0      |蓝牙设备MAC地址|
+ |deviceName        |string             |2.7.0      |设备蓝牙名称|
+ |updatedTime       |number             |2.7.0      |设备扫描最后更新时间|
+ |lockVersion       |TTLockVersion      |2.7.0      |[智能锁版本信息](#TTLockVersion), 3.1.0之前将更新该数据, 3.1.0开始将不再更新原始数据|
+ |electricQuantity  |number             |           |智能锁设备电量|
+ |isTouch           |boolean            |2.7.0      |设备是否处于可触摸开锁状态|  
 
-#### <span name="TTLockVersion">智能锁版本信息 TTLockVersion</span>  
- [更多信息](../对象类型说明/智能锁.md#TTLockVersion)
+#### <span name="TTLockVersion">智能锁版本信息</span>  
+ 类型定义：[TTLockVersion](../对象类型说明/智能锁.md#TTLockVersion)  
  |PARAMS                |TYPE         |REQUIRED      |DESCRIPTION|
  |----------------------|-------------|--------------|-----------|
  |protocolVersion       |number       |Y             |协议版本号|
  |protocolType          |number       |Y             |智能锁协议类型|
  |scene                 |number       |Y             |场景值|
- |groupId               |number       |Y             |应用商ID|
- |orgId                 |number       |Y             |应用商子ID|
- |logoUrl               |string       |N             |LOGO链接|
- |showAdminKbpwdFlag    |boolean      |N             |是否展示管理员密码|
-<br />
+ |groupId               |number       |N             |应用商ID|
+ |orgId                 |number       |N             |应用商子ID|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -62,17 +57,14 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
-## 返回值
- 异步返回操作回调结果 [TTLockGetVersionResult](#TTLockGetVersionResult)  
- **接口操作完成后将更新option.deviceFromScan/deviceFromScan参数的lockVersion值**  
-<br />
+### 返回值  
+ 异步返回操作回调结果: [TTLockGetVersionResult](#TTLockGetVersionResult)  
 
-### <span name="TTLockGetVersionResult">获取智能锁版本信息返回结果 TTLockGetVersionResult extends TTLockError</span>  
- 返回结果为[TTLockError](#TTLockError)的扩展，以下仅列出补充参数  
- |NAME                          |TYPE                               |VERSION    |DESCRIPTION|
- |------------------------------|-----------------------------------|-----------|-----------|
- |lockVersion                   |[TTLockVersion](#TTLockVersion)    |           |智能锁版本信息|
-<br />
+#### <span name="TTLockGetVersionResult">获取智能锁版本信息返回结果</span>  
+ 类型定义：TTLockGetVersionResult, 扩展[TTLockError](#TTLockError), 以下仅列出补充参数   
+ |NAME          |TYPE               |VERSION    |DESCRIPTION|
+ |--------------|-------------------|-----------|-----------|
+ |lockVersion   |TTLockVersion      |           |[智能锁版本信息](#TTLockVersion)|  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   
@@ -100,23 +92,3 @@
 #### **3.0.0**  
     1. 增加option传参方式  
     2. 取消deviceId参数，降低因设备无法连接造成的失败率  
-
-
-## 固定参数补充说明  
-## <span name="TTDEVICE_TYPE">TTDEVICE_TYPE 设备类型</span>  
- [更多信息](../参数声明/设备通用参数.md#TTDEVICE_TYPE)  
- |VALUE         |VERSION    |DESCRIPTION|
- |--------------|-----------|-----------|
- |1             |           |智能锁|
- |2             |           |网关|
- |99            |           |小程序不支持的设备类型|
-<br />
-
-## <span name="TTGATEWAY_TYPE">TTGATEWAY_TYPE 网关类型</span>  
- [更多信息](../参数声明/网关参数.md#TTGATEWAY_TYPE)  
- |VALUE         |VERSION    |DESCRIPTION|
- |--------------|-----------|-----------|
- |2             |           |G2网关（WIFI）|
- |3             |           |G3网关（有线）|
- |4             |           |G4网关（4G网关）|
- |-1            |           |不支持的智能设备|  

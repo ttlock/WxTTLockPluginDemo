@@ -13,16 +13,15 @@
  在线版最低支持版本： **2.8.2**   
  离线版最低支持版本： **1.8.2**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockGetAutomaticLockingPeriod  
- |PARAMS                |TYPE                                               |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|---------------------------------------------------|--------------|----------------|-----------|
- |lockData              |string                                             |Y             |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)                  |N             |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------|--------------|----------------|-----------|
+ |lockData              |string             |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback     |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -31,26 +30,23 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
+### 返回值  
+ 异步返回操作回调结果: [TTLockGetAutomaticLockingPeriodResult](#TTLockGetAutomaticLockingPeriodResult)  
 
-## 返回值
- 异步返回操作回调结果 [TTLockGetAutomaticLockingPeriodResult](#TTLockGetAutomaticLockingPeriodResult)  
-<br />
+#### <span name="TTLockGetAutomaticLockingPeriodResult">自动闭锁时间设置查询结果</span>  
+ 类型定义：TTLockGetAutomaticLockingPeriodResult, 扩展[TTLockError](#TTLockError), 以下仅列出补充参数   
+ |NAME              |TYPE                       |VERSION    |DESCRIPTION|
+ |------------------|---------------------------|-----------|-----------|
+ |autoLockInfo      |TTLock.AutoLockInfo        |           |[自动闭锁设置信息](#TTLockAutoLockInfo)|  
 
-### <span name="TTLockGetAutomaticLockingPeriodResult">自动闭锁时间设置查询结果 TTLockGetAutomaticLockingPeriodResult extends TTLockError</span>  
- 返回结果为[TTLockError](#TTLockError)的扩展，以下仅列出补充参数  
- |NAME              |TYPE                                                   |VERSION    |DESCRIPTION|
- |------------------|-------------------------------------------------------|-----------|-----------|
- |autoLockInfo      |Array<[TTLockAutoLockInfo](#TTLockAutoLockInfo)>       |           |自动闭锁设置信息|
-<br />
-
-### <span name="TTLockAutoLockInfo">自动闭锁配置信息 TTLockAutoLockInfo</span>  
+#### <span name="TTLockAutoLockInfo">自动闭锁设置信息</span>  
+ 类型定义：TTLock.AutoLockInfo  
  |NAME              |TYPE               |VERSION    |DESCRIPTION|
  |------------------|-------------------|-----------|-----------|
  |enable            |boolean            |           |是否开启超时自动闭锁|
  |autoLockTime      |number             |           |超时自动闭锁时间|
  |minAutoLockTime   |number             |           |允许设置的自动闭锁时间最小值|
- |maxAutoLockTime   |number             |           |允许设置的自动闭锁时间最大值|
-<br />
+ |maxAutoLockTime   |number             |           |允许设置的自动闭锁时间最大值|  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   

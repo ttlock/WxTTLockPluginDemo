@@ -13,16 +13,15 @@
  在线版最低支持版本： **2.6.0**   
  离线版最低支持版本： **1.7.4**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockGetAdminPasscode  
- |PARAMS                |TYPE                                               |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|---------------------------------------------------|--------------|----------------|-----------|
- |lockData              |string                                             |Y             |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)                  |N             |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------|--------------|----------------|-----------|
+ |lockData              |string             |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback     |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -31,17 +30,14 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
+### 返回值  
+ 异步返回操作回调结果: [TTLockGetAdminPasscodeResult](#TTLockGetAdminPasscodeResult)  
 
-## 返回值
- 异步返回操作回调结果 [TTLockGetAdminPasscodeResult](#TTLockGetAdminPasscodeResult)  
-<br />
-
-### <span name="TTLockGetAdminPasscodeResult">管理员密码查询结果 TTLockGetAdminPasscodeResult extends TTLockError</span>  
- 返回结果为[TTLockError](#TTLockError)的扩展，以下仅列出补充参数  
+#### <span name="TTLockGetAdminPasscodeResult">管理员密码查询结果</span>  
+ 类型定义：TTLockGetAdminPasscodeResult, 扩展[TTLockError](#TTLockError), 以下仅列出补充参数   
  |NAME              |TYPE       |VERSION    |DESCRIPTION|
  |------------------|-----------|-----------|-----------|
- |passcode          |string     |           |管理员密码值|
-<br />
+ |passcode          |string     |           |管理员密码值|  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   

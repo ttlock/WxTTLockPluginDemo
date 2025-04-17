@@ -13,16 +13,15 @@
  在线版最低支持版本： **2.8.2**   
  离线版最低支持版本： **1.8.2**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockGetPassageMode  
- |PARAMS                |TYPE                                               |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|---------------------------------------------------|--------------|----------------|-----------|
- |lockData              |string                                             |Y             |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)                  |N             |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------|--------------|----------------|-----------|
+ |lockData              |string             |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback     |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -31,27 +30,24 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
+### 返回值  
+ 异步返回操作回调结果: [TTLockGetPassageModeResult](#TTLockGetPassageModeResult)  
 
-## 返回值
- 异步返回操作回调结果 [TTLockGetPassageModeResult](#TTLockGetPassageModeResult)  
-<br />
+#### <span name="TTLockGetPassageModeResult">常开模式配置信息查询结果</span>  
+ 类型定义：TTLockGetPassageModeResult, 扩展[TTLockError](#TTLockError), 以下仅列出补充参数   
+ |NAME                      |TYPE                           |VERSION    |DESCRIPTION|
+ |--------------------------|-------------------------------|-----------|-----------|
+ |passageModeConfigList     |Array<TTLock.PassageModeInfo>  |           |常开模式配置信息, 请参考[常开模式配置信息](#TTLockPassageModeInfo)|  
 
-### <span name="TTLockGetPassageModeResult">常开模式配置信息查询结果 TTLockGetPassageModeResult extends TTLockError</span>  
- 返回结果为[TTLockError](#TTLockError)的扩展，以下仅列出补充参数  
- |NAME                          |TYPE                                                   |VERSION    |DESCRIPTION|
- |------------------------------|-------------------------------------------------------|-----------|-----------|
- |passageModeConfigList         |Array<[TTLockPassageModeData](#TTLockPassageModeData)> |           |常开模式配置信息|
-<br />
-
-### <span name="TTLockPassageModeData">常开模式配置信息 TTLockPassageModeData</span>  
- |NAME          |TYPE                                                   |VERSION    |DESCRIPTION|
- |--------------|-------------------------------------------------------|-----------|-----------|
- |type          |[TTLOCK_PASSAGE_WORKMODE](#TTLOCK_PASSAGE_WORKMODE)    |           |智能锁常开工作模式，1 -按周常开, 2 -按月常开|
- |weekOrDay     |number                                                 |           |常开日: 周模式下1-7,表示周一~周日;月模式下1-31,表示常开日期|
- |month         |number                                                 |           |月，保留位|
- |startDate     |number                                                 |           |常开时间开始分钟数|
- |endDate       |number                                                 |           |常开时间结束分钟数|
-<br />
+#### <span name="TTLockPassageModeInfo">常开模式配置信息</span>  
+ 类型定义：TTLockPassageModeInfo   
+ |NAME          |TYPE       |VERSION    |DESCRIPTION|
+ |--------------|-----------|-----------|-----------|
+ |type          |number     |           |[智能锁常开工作模式](../参数声明/智能锁参数.md#TTLOCK_PASSAGE_WORKMODE): 1-按周常开; 2-按月常开;|
+ |weekOrDay     |number     |           |常开日: 周模式下1-7,表示周一~周日;月模式下1-31,表示常开日期|
+ |month         |number     |           |月，保留位|
+ |startDate     |number     |           |常开时间开始分钟数|
+ |endDate       |number     |           |常开时间结束分钟数|  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   
@@ -76,11 +72,3 @@
 #### **3.0.0**  
     1. 增加option传参方式  
     2. 取消deviceId参数，降低因设备无法连接造成的失败率  
-
-## 固定参数补充说明  
-### <span name="TTLOCK_PASSAGE_WORKMODE">TTLOCK_PASSAGE_WORKMODE 常开工作模式</span>  
- [更多信息](../参数声明/智能锁参数.md#TTLOCK_PASSAGE_WORKMODE)  
- |VALUE         |VERSION    |DESCRIPTION|
- |--------------|-----------|-----------|
- |1             |           |按周循环|
- |2             |           |按月循环|

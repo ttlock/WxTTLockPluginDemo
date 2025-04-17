@@ -13,16 +13,15 @@
  在线版最低支持版本： **3.1.0**   
  离线版最低支持版本： 暂不支持  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockGetSavePower  
- |PARAMS                |TYPE                                               |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|---------------------------------------------------|--------------|----------------|-----------|
- |lockData              |string                                             |Y             |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)                  |N             |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------|--------------|----------------|-----------|
+ |lockData              |string             |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback     |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -31,24 +30,24 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
+### 返回值  
+ 异步返回操作回调结果: [TTLockGetPowerSavingResult](#TTLockGetPowerSavingResult)  
 
-## 返回值
- 异步返回操作回调结果
- 返回结果为[TTLockError](#TTLockError)的扩展，以下仅列出补充参数  
- |NAME                          |TYPE                                                   |VERSION    |DESCRIPTION|
- |------------------------------|-------------------------------------------------------|-----------|-----------|
- |configs                       |Array<[TTLock.SavePowerInfo](#TTLockSavePowerInfo)>    |           |省电模式配置信息|
-<br />
+#### <span name="TTLockGetPowerSavingResult">设置省电模式生效时间段返回结果</span>  
+ 类型定义：TTLockGetPowerSavingResult, 扩展[TTLockError](#TTLockError), 以下仅列出补充参数   
+ |NAME          |TYPE                           |VERSION    |DESCRIPTION|
+ |--------------|-------------------------------|-----------|-----------|
+ |configs       |Array<TTLock.PowerSavingInfo>  |           |省电模式配置信息, 请参考[省电模式配置信息](TTLockPowerSavingInfo)|  
 
-### <span name="TTLockSavePowerInfo">省电模式配置信息 TTLock.SavePowerInfo</span>  
- |NAME          |TYPE                                                   |VERSION    |DESCRIPTION|
- |--------------|-------------------------------------------------------|-----------|-----------|
- |type          |number                                                 |           |工作模式，1 -按周常开, 2 -按月常开|
- |weekOrDay     |number                                                 |           |省电模式开启日: 周模式下1-7,表示周一~周日;月模式下1-31,表示常开日期|
- |month         |number                                                 |           |月，保留位|
- |startDate     |number                                                 |           |开始分钟数|
- |endDate       |number                                                 |           |结束分钟数|
-<br />
+#### <span name="TTLockPowerSavingInfo">省电模式配置信息</span>  
+ 类型定义：TTLock.PowerSavingInfo   
+ |NAME          |TYPE       |VERSION    |DESCRIPTION|
+ |--------------|-----------|-----------|-----------|
+ |type          |number     |           |工作模式：1 -按周生效|
+ |weekOrDay     |number     |           |省电模式开启日: 周模式下1-7,表示周一~周日;|
+ |month         |number     |           |月，保留位|
+ |startDate     |number     |           |开始分钟数|
+ |endDate       |number     |           |结束分钟数|  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   

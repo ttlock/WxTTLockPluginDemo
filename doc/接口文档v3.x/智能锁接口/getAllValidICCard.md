@@ -13,16 +13,15 @@
  在线版最低支持版本： **2.8.2**   
  离线版最低支持版本： **1.8.2**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockGetAllValidICCard  
- |PARAMS                |TYPE                               |REQUIRED       |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------|---------------|----------------|-----------|
- |lockData              |string                             |Y              |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)  |N              |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------|--------------|----------------|-----------|
+ |lockData              |string             |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback     |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -31,17 +30,14 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
+### 返回值  
+ 异步返回操作回调结果: [TTLockGetAllValidICCardResult](#TTLockGetAllValidICCardResult)  
 
-## 返回值
- 异步返回操作回调结果 [TTLockGetAllValidICCardResult](#TTLockGetAllValidICCardResult)  
-<br />
-
-### <span name="TTLockGetAllValidICCardResult">读取智能锁全部有效IC卡返回结果 TTLockGetAllValidICCardResult extends TTLockError</span>  
- 返回结果为[TTLockError](#TTLockError)的扩展，以下仅列出补充参数  
- |NAME              |TYPE                                               |VERSION    |DESCRIPTION|
- |------------------|---------------------------------------------------|-----------|-----------|
- |cardList          |Array<[TTLockValidICCard](#TTLockValidICCard)>     |           |有效IC卡列表|
-<br />
+#### <span name="TTLockGetAllValidICCardResult">读取智能锁全部有效IC卡返回结果</span>  
+ 类型定义：TTLockGetAllValidICCardResult, 扩展[TTLockError](#TTLockError), 以下仅列出补充参数   
+ |NAME              |TYPE                       |VERSION    |DESCRIPTION|
+ |------------------|---------------------------|-----------|-----------|
+ |cardList          |Array<TTLock.CardInfo>     |           |有效IC卡列表，请参考[IC卡信息详情](#TTLockCardInfo)|  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   
@@ -55,13 +51,13 @@
  |errMsg            |string     |           |3.1.0          |微信蓝牙错误信息描述|
  |deviceId          |boolean    |2.7.0      |3.1.0          |蓝牙设备ID|  
 
-### <span name="TTLockValidICCard">智能锁内有效IC卡记录信息 TTLockValidICCard</span>  
+#### <span name="TTLockCardInfo">智能锁内有效IC卡记录信息</span>  
+ 类型定义：TTLock.CardInfo  
  |NAME          |TYPE           |VERSION    |DESCRIPTION|
  |--------------|---------------|-----------|-----------|
  |cardNo        |number         |           |IC卡卡号|
  |startDate     |number         |           |IC卡有效期开始时间|
- |endDate       |string         |           |IC卡有效期结束时间|
-<br />
+ |endDate       |string         |           |IC卡有效期结束时间|  
 
 ## 相关链接  
  1. [集成方法](../../../README.md)  
