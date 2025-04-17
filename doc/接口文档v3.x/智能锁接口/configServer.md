@@ -13,23 +13,21 @@
  在线版最低支持版本： **2.7.6**   
  离线版最低支持版本： **1.7.6**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockConfigServer  
- |PARAMS                |TYPE                                                       |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------------------------------|--------------|----------------|-----------|
- |config                |[TTLockServerIPAddress](#TTLockServerIPAddress)            |Y             |IN              |服务器配置信息|
- |lockData              |string                                                     |Y             |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)                          |N             |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE                   |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-----------------------|--------------|----------------|-----------|
+ |config                |TTLock.ServerInfo      |Y             |IN              |服务器配置信息, [参数详情](#TTLockServerInfo)|
+ |lockData              |string                 |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback         |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
-### <span name="TTLockServerIPAddress">远程服务器配置信息 TTLockServerIPAddress</span>  
- [更多信息](../对象类型说明/通用对象.md#TTLockServerIPAddress)  
- |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|-------------------|--------------|----------------|-----------|
- |server                |string             |N             |IN              |服务器域名地址，server与ipAddress二选一，**优先生效**，官方提供参数：**cnwifilock.ttlock.com**|
- |ipAddress             |string             |N             |IN              |服务器IP地址，server与ipAddress二选一|
- |port                  |number             |Y             |IN              |服务器端口地址，官方提供参数：**4999**|
-<br />
+#### <span name="TTLockServerInfo">远程服务器配置信息</span>  
+ 类型定义：TTLock.ServerInfo  
+ |PARAMS        |TYPE       |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |--------------|-----------|--------------|----------------|-----------|
+ |server        |string     |N             |IN              |服务器域名地址，server与ipAddress二选一，**优先生效**，官方提供参数：**cnwifilock.ttlock.com**|
+ |ipAddress     |string     |N             |IN              |服务器IP地址，server与ipAddress二选一|
+ |port          |number     |Y             |IN              |服务器端口地址，官方提供参数：**4999**|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
 类型定义：TTLockCallback  
@@ -41,10 +39,8 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
-
-## 返回值
- 异步返回操作回调结果 [TTLockError](#TTLockError)  
-<br />
+### 返回值  
+ 异步返回操作回调结果: [TTLockError](#TTLockError)  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   

@@ -14,36 +14,35 @@
  在线版最低支持版本： **2.9.0**   
  离线版最低支持版本： **2.0.0**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockEnterDfuMode  
- |PARAMS                |TYPE                                                       |REQUIRED       |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------------------------------|---------------|----------------|-----------|
- |dfuPackageInfo        |[TTLockDfuPackageInfo](#TTLockDfuPackageInfo)              |Y              |IN              |固件升级必备信息|
- |lockData              |string                                                     |Y              |IN              |**管理员**电子钥匙数据|
- |callback              |[TTLockEnterDfuModeCallback](#TTLockEnterDfuModeCallback)  |N              |OUT             |中间步骤回调|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)                          |N              |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE                           |REQUIRED       |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------------------|---------------|----------------|-----------|
+ |dfuPackageInfo        |TTLock.DfuPackageInfo          |Y              |IN              |[固件升级必备信息](TTLockDfuPackageInfo)|
+ |lockData              |string                         |Y              |IN              |**管理员**电子钥匙数据|
+ |callback              |TTLockEnterDfuModeCallback     |N              |OUT             |[中间步骤回调](#TTLockEnterDfuModeCallback)|
+ |disconnectCallback    |TTLockCallback                 |N              |OUT             |[设备断开连接回调](#TTLockCallback)|  
 
-### <span name="TTLockDfuPackageInfo">固件升级必备信息 TTLockDfuPackageInfo</span>  
+#### <span name="TTLockDfuPackageInfo">固件升级必备信息</span>  
+ 类型定义：TTLock.DfuPackageInfo  
  |PARAMS                |TYPE           |REQUIRED       |IN/OUT          |DESCRIPTION|
  |----------------------|---------------|---------------|----------------|-----------|
  |clientId              |string         |Y              |IN              |开放平台应用client_id，通过开放平台接口获取|
  |accessToken           |string         |Y              |IN              |用户认证令牌，通过开放平台接口获取|
- |lockId                |number         |Y              |IN              |智能锁ID|
-<br />
+ |lockId                |number         |Y              |IN              |智能锁ID|  
 
-### <span name="TTLockEnterDfuModeCallback">中间步骤回调 TTLockEnterDfuModeCallback</span>  
+#### <span name="TTLockEnterDfuModeCallback">中间步骤回调</span>  
+ 类型定义：TTLockEnterDfuModeCallback  
 ```
-(result: TTLockEnterDfuModeResult) => any
+    (result: TTLockEnterDfuModeResult) => any
 ```  
-#### 回调方法参数说明
- |PARAMS            |TYPE                                                   |IN/OUT         |DESCRIPTION|
- |------------------|-------------------------------------------------------|---------------|-----------|
- |result            |[TTLockEnterDfuModeResult](#TTLockEnterDfuModeResult)  |OUT            |操作中间步骤结果|
-<br />
+##### 回调方法参数说明  
+ |PARAMS            |TYPE                       |IN/OUT         |DESCRIPTION|
+ |------------------|---------------------------|---------------|-----------|
+ |result            |TTLockEnterDfuModeResult   |OUT            |[操作中间步骤结果](#TTLockEnterDfuModeResult)|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -52,19 +51,16 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
+### 返回值  
+ 异步返回操作回调结果: [TTLockEnterDfuModeResult](#TTLockEnterDfuModeResult)  
 
-## 返回值
- 异步返回操作回调结果 [TTLockEnterDfuModeResult](#TTLockEnterDfuModeResult)  
-<br />
-
-### <span name="TTLockEnterDfuModeResult">固件升级返回结果及中间步骤 TTLockEnterDfuModeResult extends TTLockError</span>  
- 返回结果为[TTLockError](#TTLockError)的扩展，以下仅列出补充参数  
+#### <span name="TTLockEnterDfuModeResult">固件升级返回结果及中间步骤</span>  
+ 类型定义：TTLockEnterDfuModeResult, 扩展[TTLockError](#TTLockError), 以下仅列出补充参数   
  |NAME          |TYPE       |VERSION    |DESCRIPTION|
  |--------------|-----------|-----------|-----------|
  |type          |number     |           |结果类型：1 -智能锁升级准备中; 2 -固件升级中(请勿打断); 3 -固件升级完成，正在获取新的所数据; 4 -操作成功; 5 -固件升级成功，但同步服务器失败|
  |progress      |number     |           |固件升级进度|
- |lockData      |string     |           |智能锁更新数据，操作成功后用于上传服务器更新数据，**不可用于蓝牙操作**|
-<br />
+ |lockData      |string     |           |智能锁更新数据，操作成功后用于上传服务器更新数据，**不可用于蓝牙操作**|  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   

@@ -13,25 +13,23 @@
  在线版最低支持版本： **2.7.6**   
  离线版最低支持版本： **1.7.6**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockConfigWifi  
- |PARAMS                |TYPE                                                       |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------------------------------|--------------|----------------|-----------|
- |config                |[TTLockWifiInfo](#TTLockWifiInfo)                          |Y             |IN              |智能锁连接的wifi配置信息|
- |lockData              |string                                                     |Y             |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)                          |N             |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE                   |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-----------------------|--------------|----------------|-----------|
+ |config                |TTLock.WiFiConfig      |Y             |IN              |智能锁连接的wifi配置信息, [参数详情](#TTLockWiFiConfig)|
+ |lockData              |string                 |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback         |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
-### <span name="TTLockWifiInfo">wifi配置信息 TTLockWifiInfo</span>  
- [更多信息](../对象类型说明/通用对象.md#TTLockWifiInfo)  
- |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|-------------------|--------------|----------------|-----------|
- |SSID                  |string             |Y             |IN              |wifi名称|
- |password              |string             |Y             |IN              |wifi密码|
-<br />
+#### <span name="TTLockWiFiConfig">wifi配置信息</span>  
+ 类型定义：TTLock.WiFiConfig  
+ |PARAMS        |TYPE       |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |--------------|-----------|--------------|----------------|-----------|
+ |SSID          |string     |Y             |IN              |wifi名称|
+ |password      |string     |Y             |IN              |wifi密码|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -40,10 +38,8 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
-
-## 返回值
- 异步返回操作回调结果 [TTLockError](#TTLockError)  
-<br />
+### 返回值  
+ 异步返回操作回调结果: [TTLockError](#TTLockError)  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   

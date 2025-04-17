@@ -881,7 +881,7 @@ declare namespace TTLock {
 	interface ServerInfo {
 		/**
 		 * @description 远程服务器域名地址，server与ipAddress二选一，优先生效
-         * @default 常规填写: "plug.sciener.cn"
+         * @default 常规填写: "cnwifilock.ttlock.com"
 		 * @since 2.7.6
 		 */
 		server?: string;
@@ -892,7 +892,7 @@ declare namespace TTLock {
 		ipAddress?: string;
 		/**
 		 * @description 远程服务器端口号
-         * @default 常规填写: 2999
+         * @default 常规填写: 4999
 		 * @since 2.7.6
 		 */
 		port: number;
@@ -1282,7 +1282,12 @@ declare namespace TTLock {
 		 * @description 中间步骤回调
 		 * @since 2.9.0
 		 */
-		callback?: (result: TTLock.EnterDfuModeResult) => void;
+        callback?: (result: TTLock.EnterDfuModeResult) => void;
+        /**
+		 * @description 设备断连回调 
+		 * @since 2.9.0
+		 */
+		disconnectCallback?: (result: TTLockError) => void;
 	}
 }
 

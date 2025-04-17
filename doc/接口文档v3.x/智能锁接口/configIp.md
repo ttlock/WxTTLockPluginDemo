@@ -13,36 +13,33 @@
  在线版最低支持版本： **2.7.6**   
  离线版最低支持版本： **1.7.6**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockConfigIP  
- |PARAMS                |TYPE                                                       |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------------------------------|--------------|----------------|-----------|
- |ipSetting             |[TTLockLocaleIPAddress](#TTLockLocaleIPAddress)            |Y             |IN              |本地IP配置信息|
- |lockData              |string                                                     |Y             |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)                          |N             |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------|--------------|----------------|-----------|
+ |ipSetting             |TTLock.IPSetting   |Y             |IN              |本地IP配置信息, [参数详情](#TTLockIPSetting)|
+ |lockData              |string             |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback     |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
-### <span name="TTLockLocaleIPAddress">本地IP地址配置信息 TTLockLocaleIPAddress/span>  
- [更多信息](../对象类型说明/通用对象.md#TTLockLocaleIPAddress)  
- |PARAMS                |TYPE                                                   |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|-------------------------------------------------------|--------------|----------------|-----------|
- |useDHCP               |boolean                                                |Y             |IN              |是否使用DHCP动态获取|
- |ipAddress             |[TTLockStaticIPAddress](#TTLockStaticIPAddress)        |N             |IN              |固定IP地址，useDHCP=false时必填|
-<br />
+#### <span name="TTLockIPSetting">本地IP地址配置信息</span>  
+ 类型定义：TTLock.IPSetting  
+ |PARAMS        |TYPE                       |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |--------------|---------------------------|--------------|----------------|-----------|
+ |useDHCP       |boolean                    |Y             |IN              |是否使用DHCP动态获取本地IP地址|
+ |ipAddress     |TTLock.StaticIPAddress     |N             |IN              |固定IP地址，useDHCP=false时必填, [参数详情](#TTLockStaticIPAddress)|  
 
-### <span name="TTLockStaticIPAddress">固定IP配置信息 TTLockStaticIPAddress/span>  
- [更多信息](../对象类型说明/通用对象.md#TTLockStaticIPAddress)  
+#### <span name="TTLockStaticIPAddress">固定IP配置信息</span>  
+ 类型定义：TTLock.StaticIPAddress  
  |PARAMS                |TYPE           |REQUIRED      |IN/OUT          |DESCRIPTION|
  |----------------------|---------------|--------------|----------------|-----------|
  |ipAddress             |string         |Y             |IN              |固定IP地址|
  |subnetMask            |string         |Y             |IN              |子网掩码|
  |router                |string         |Y             |IN              |默认网关|
  |dns1                  |string         |Y             |IN              |首选DNS|
- |dns2                  |string         |Y             |IN              |备用DNS|
-<br />
+ |dns2                  |string         |Y             |IN              |备用DNS|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -51,10 +48,8 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
-
-## 返回值
- 异步返回操作回调结果 [TTLockError](#TTLockError)  
-<br />
+### 返回值  
+ 异步返回操作回调结果: [TTLockError](#TTLockError)  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   

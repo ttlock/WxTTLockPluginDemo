@@ -16,19 +16,18 @@
  在线版最低支持版本： **1.0.0**   
  离线版最低支持版本： **1.0.0**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockControl  
- |PARAMS                |TYPE                                           |REQUIRED   |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------------------|-----------|----------------|-----------|
- |controlAction         |[TTLOCK_CONTROL_TYPE](#TTLOCK_CONTROL_TYPE)    |Y          |IN              |控制智能锁方式，3 -开锁, 6 -闭锁|
- |lockData              |string                                         |Y          |IN              |智能锁数据/电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)              |N          |OUT             |设备断开连接回调|
- |floorList             |Array<number>                                  |N          |IN              |梯控开启楼层号列表, **梯控开锁时必传，非梯控开锁时不传**, 取值范围[1, 127], 整数|
- |serverTime            |number                                         |N          |IN              |服务器时间戳，若不传入该参数，则请求通通锁服务器时间，若获取失败则使用本地时间进行校准|
-<br />
+ |PARAMS                |TYPE               |REQUIRED   |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------|-----------|----------------|-----------|
+ |controlAction         |number             |Y          |IN              |[控制智能锁方式](../参数声明/智能锁参数.md#TTLOCK_CONTROL_TYPE)，3 -开锁, 6 -闭锁|
+ |lockData              |string             |Y          |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback     |N          |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
+ |floorList             |Array<number>      |N          |IN              |梯控开启楼层号列表, **梯控开锁时必传，非梯控开锁时不传**, 取值范围[1, 127], 整数, 不可重复|
+ |serverTime            |number             |N          |IN              |服务器时间戳，若不传入该参数，则使用本地时间进行校准|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -37,19 +36,16 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
+### 返回值  
+ 异步返回操作回调结果: [TTLockControlResult](#TTLockControlResult)  
 
-## 返回值
- 异步返回操作回调结果 [TTLockControlResult](#TTLockControlResult)  
-<br />
-
-### <span name="TTLockControlResult">控制智能锁返回结果 TTLockControlResult extends TTLockError</span>  
- 返回结果为[TTLockError](#TTLockError)的扩展，以下仅列出补充参数  
- |NAME              |TYPE                                           |VERSION    |DESCRIPTION|
- |------------------|-----------------------------------------------|-----------|-----------|
- |uniqueid          |number                                         |           |控制智能锁记录ID(唯一标识)|
- |lockTime          |number                                         |           |当前智能锁锁时间戳|
- |controlAction     |[TTLOCK_CONTROL_TYPE](#TTLOCK_CONTROL_TYPE)    |           |控制智能锁方式|
-<br />
+#### <span name="TTLockControlResult">控制智能锁返回结果</span>  
+ 类型定义：TTLockControlResult, 扩展[TTLockError](#TTLockError), 以下仅列出补充参数   
+ |NAME              |TYPE       |VERSION    |DESCRIPTION|
+ |------------------|-----------|-----------|-----------|
+ |uniqueid          |number     |           |控制智能锁记录ID(唯一标识)|
+ |lockTime          |number     |           |当前智能锁锁时间戳|
+ |controlAction     |number     |           |[控制智能锁方式](../参数声明/智能锁参数.md#TTLOCK_CONTROL_TYPE)，3 -开锁, 6 -闭锁|  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   
@@ -90,11 +86,3 @@
     2. 取消deviceId参数，降低因设备无法连接造成的失败率  
     3. 允许传入服务器时间戳，通过请求服务器时间进行时间校准
     4. 允许在开锁成功后跳过服务器时间校准，通过外部逻辑自行实现相关操作  
-
-## 固定参数补充说明  
-### <span name="TTLOCK_CONTROL_TYPE">控制智能锁方式 TTLOCK_CONTROL_TYPE</span>  
- [更多信息](../参数声明/智能锁参数.md#TTLOCK_CONTROL_TYPE)  
- |VALUE         |VERSION    |DESCRIPTION|
- |--------------|-----------|-----------|
- |3             |           |开锁|
- |6             |           |闭锁|  

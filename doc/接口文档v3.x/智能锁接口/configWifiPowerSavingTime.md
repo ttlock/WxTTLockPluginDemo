@@ -6,33 +6,32 @@
 ```  
 
 ### 功能描述   
- 设置wifi锁省电模式时间段  
+ 设置wifi锁省电模式生效时间段  
  接口仅支持三代智能锁操作，智能锁需支持wifi及省电时间段配置功能  
 
 ### 版本支持   
  在线版最低支持版本： **3.1.0**   
  离线版最低支持版本： 暂不支持  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockConfigPowerSaving  
- |PARAMS                |TYPE                                               |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|---------------------------------------------------|--------------|----------------|-----------|
- |config                |[TTLock.SavePowerConfig](#TTLockSavePowerConfig)   |Y             |IN              |省电模式时间段配置信息|
- |lockData              |string                                             |Y             |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)                  |N             |OUT             |设备断开连接回调|
-<br />  
+ |PARAMS                |TYPE                       |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|---------------------------|--------------|----------------|-----------|
+ |config                |TTLock.PowerSavingConfig   |Y             |IN              |省电模式时间段配置信息, [参数详情](#TTLockPowerSavingConfig)|
+ |lockData              |string                     |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback             |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
-### <span name="TTTLockSavePowerConfig">设置wifi锁省电模式时间段完整参数 TTLock.SavePowerConfig</span>  
+#### <span name="TTLockPowerSavingConfig">wifi锁省电模式生效时间段配置信息</span>  
+ 类型定义：TTLock.PowerSavingConfig  
  |PARAMS                |TYPE           |REQUIRED      |IN/OUT          |DESCRIPTION|
  |----------------------|---------------|--------------|----------------|-----------|
- |type                  |number         |Y             |IN              |工作模式，1 -按周|
+ |type                  |number         |N             |IN              |工作模式，1 -按周|
  |weekDays              |Array<number>  |Y             |IN              |省电模式开启日，传入1-7组成的整数数组，分别表示周一~周日|
  |startDate             |number         |Y             |IN              |开始分钟数|
- |endDate               |number         |Y             |IN              |结束分钟数|
-<br />
+ |endDate               |number         |Y             |IN              |结束分钟数|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -41,10 +40,8 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
-
-## 返回值
- 异步返回操作回调结果 [TTLockError](#TTLockError)  
-<br />
+### 返回值  
+ 异步返回操作回调结果: [TTLockError](#TTLockError)  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   
