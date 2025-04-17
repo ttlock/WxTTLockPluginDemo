@@ -3,14 +3,11 @@ Page({
         keyInfo: {}, // 钥匙数据
         specialValueObj: {}, // 智能锁特征值
     },
-    // 设置初始化参数
     onLoad() {
-        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
-        this.setData({ keyInfo: keyInfo });
-        requirePlugin("myPlugin", ({ parseSpecialValues }: TTLockPlugin) => {
-            const specialValueObj = parseSpecialValues(keyInfo.featureValue);
-            this.setData({ specialValueObj: specialValueObj });
-        })
+        const TTLockPlugin = requirePlugin("myPlugin") as TTLockPlugin;
+        const keyInfo = JSON.parse(wx.getStorageSync('keyInfo') || "{}") as IEKey.List.EKeyInfo;
+        const specialValueObj = TTLockPlugin.parseSpecialValues(keyInfo?.featureValue);
+        this.setData({ keyInfo, specialValueObj });
         wx.setNavigationBarTitle({ title: keyInfo.lockAlias });
-    },
+    }
 })

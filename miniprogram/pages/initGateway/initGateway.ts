@@ -203,8 +203,6 @@ Page({
     // 初始化网关
     async initGateway(event) {
         const value = event?.detail?.value;
-        // const flag = this.handleCheckInput(value);
-        // if (!flag) return;
         this.data.isInitGateway = true;
         const deviceFromScan = this.data.currentPlug as TTGatewayFromScan;
         const wifiItem = this.data.currentWifi as TTGateway.WiFiInfo;

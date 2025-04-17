@@ -244,7 +244,7 @@ declare namespace TTLock {
         /**
          * @description 远程开关开启状态
          */
-        enabled?: boolean;
+        enable?: boolean;
         /**
          * @description 智能锁更新数据，用于上传服务器，不可用于智能锁蓝牙操作
          */
@@ -269,7 +269,7 @@ declare namespace TTLock {
          * @description 远程开关开启状态
          * @since 3.0.0
          */
-        enabled?: boolean;
+        enable?: boolean;
         /**
          * @description 智能锁更新数据，用于上传服务器，不可用于智能锁蓝牙操作
          */
