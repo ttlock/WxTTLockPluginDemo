@@ -14,48 +14,43 @@
  在线版最低支持版本： **1.3.2**   
  离线版最低支持版本： **1.0.0**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockInit  
- |PARAMS                |TYPE                               |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------|--------------|----------------|-----------|
- |deviceFromScan        |[TTLockFromScan](#TTLockFromScan)  |Y             |IN              |扫描到的智能锁信息|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)  |N             |OUT             |设备断开连接回调|
- |vendor                |string                             |N             |IN              |定制智能锁板约定字符串，**定制锁板必传**|
- |serverTime            |number                             |N             |IN              |服务器时间戳，用于校准智能锁时间，不传则默认从服务器获取时间戳，获取失败后取本地时间|
-<br />
+ |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------|--------------|----------------|-----------|
+ |deviceFromScan        |TTLockFromScan     |Y             |IN              |[扫描到的智能锁信息](#TTLockFromScan)|
+ |disconnectCallback    |TTLockCallback     |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|
+ |vendor                |string             |N             |IN              |定制智能锁板约定字符串，**定制锁板必传**|
+ |serverTime            |number             |N             |IN              |服务器时间戳，用于校准智能锁时间，不传则取本地时间|  
 
-### <span name="TTLockFromScan">扫描到的智能锁设备 TTLockFromScan</span>
- [更多信息](../对象类型说明/智能锁.md#TTLockFromScan)  
- |NAME              |TYPE                               |VERSION    |DESCRIPTION|
- |------------------|-----------------------------------|-----------|-----------|
- |deviceType        |[TTDEVICE_TYPE](#TTDEVICE_TYPE)    |2.7.6      |设备类型|
- |type              |[TTLOCK_TYPE](#TTLOCK_TYPE)        |2.7.0      |智能锁类型|
- |deviceId          |string                             |           |蓝牙广播设备ID, 安卓设备与MAC地址相同，iOS为UUID格式|
- |rssi              |number                             |           |设备信号值|
- |isSettingMode     |boolean                            |           |智能锁是否处于可添加状态|
- |MAC               |string                             |2.7.0      |蓝牙设备MAC地址|
- |deviceName        |string                             |2.7.0      |智能锁名称|
- |updatedTime       |number                             |2.7.0      |设备扫描最后更新时间|
- |lockVersion       |[TTLockVersion](#TTLockVersion)    |2.7.0      |智能锁版本信息, 扫描时groupID和orgId固定返回1, 可通过[getLockVersion](./getLockVersion.md)接口进行更新|
- |electricQuantity  |number                             |           |设备电量|
- |isTouch           |boolean                            |2.7.0      |设备是否处于可触摸开锁状态|
-<br />  
+#### <span name="TTLockFromScan">扫描到的智能锁设备</span>  
+ 类型定义：[TTLockFromScan](../对象类型说明/智能锁.md#TTLockFromScan)  
+ |NAME              |TYPE               |VERSION    |DESCRIPTION|
+ |------------------|-------------------|-----------|-----------|
+ |deviceType        |number             |2.7.6      |[设备类型](../参数声明/设备通用参数.md#TTDEVICE_TYPE)|
+ |type              |number             |2.7.0      |[智能锁类型](../参数声明/智能锁参数.md#TTLOCK_TYPE)|
+ |deviceId          |string             |           |蓝牙广播设备ID, 安卓设备与MAC地址相同，iOS为UUID格式|
+ |rssi              |number             |           |设备信号值, 0表示该设备已掉线|
+ |isSettingMode     |boolean            |           |设备是否处于可添加状态|
+ |MAC               |string             |2.7.0      |蓝牙设备MAC地址|
+ |deviceName        |string             |2.7.0      |设备蓝牙名称|
+ |updatedTime       |number             |2.7.0      |设备扫描最后更新时间|
+ |lockVersion       |TTLockVersion      |2.7.0      |[智能锁版本信息](#TTLockVersion), 3.1.0开始可跳过更新锁版本信息直接初始化|
+ |electricQuantity  |number             |           |智能锁设备电量|
+ |isTouch           |boolean            |2.7.0      |设备是否处于可触摸开锁状态|  
 
-#### <span name="TTLockVersion">智能锁版本信息 TTLockVersion</span>  
- [更多信息](../对象类型说明/智能锁.md#TTLockVersion)
+#### <span name="TTLockVersion">智能锁版本信息</span>  
+ 类型定义：[TTLockVersion](../对象类型说明/智能锁.md#TTLockVersion)  
  |PARAMS                |TYPE         |REQUIRED      |DESCRIPTION|
  |----------------------|-------------|--------------|-----------|
  |protocolVersion       |number       |Y             |协议版本号|
  |protocolType          |number       |Y             |智能锁协议类型|
  |scene                 |number       |Y             |场景值|
- |groupId               |number       |N             |应用商ID|
- |orgId                 |number       |N             |应用商子ID|
- |logoUrl               |string       |N             |LOGO链接|
- |showAdminKbpwdFlag    |boolean      |N             |是否展示管理员密码|
-<br />
+ |groupId               |number       |N             |应用商ID, 3.1.0开始为非必传|
+ |orgId                 |number       |N             |应用商子ID, 3.1.0开始为非必传|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -64,17 +59,14 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
+### 返回值  
+ 异步返回操作回调结果: [TTLockInitResult](#TTLockInitResult)  
 
-## 返回值
- 异步返回操作回调结果 [TTLockInitResult](#TTLockInitResult)  
-<br />
-
-### <span name="TTLockInitResult">初始化蓝牙智能锁返回结果 TTLockInitResult extends TTLockError</span>  
- 返回结果为[TTLockError](#TTLockError)的扩展，以下仅列出补充参数  
- |NAME                          |TYPE           |VERSION    |DESCRIPTION|
- |------------------------------|---------------|-----------|-----------|
- |lockData                      |string         |           |初始化蓝牙智能锁数据，不建议直接用于开锁|
-<br />
+#### <span name="TTLockInitResult">初始化蓝牙智能锁返回结果</span>  
+ 类型定义：TTLockInitResult, 扩展[TTLockError](#TTLockError), 以下仅列出补充参数   
+ |NAME          |TYPE           |VERSION    |DESCRIPTION|
+ |--------------|---------------|-----------|-----------|
+ |lockData      |string         |           |初始化蓝牙智能锁数据，获取后请及时同步服务器，否则可能导致智能锁丢失，不建议直接用于开锁|  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   
@@ -99,7 +91,8 @@
 #### **3.1.0**  
     1. 初始化时不再自动停止设备扫描  
     2. 扫描到的设备lockVersion参数中将不再返回groupId和orgId  
-    3. 取消MAC地址填入操作
+    3. 取消MAC地址填入操作  
+    4. 取消从服务器获取锁时间，请通过serverTime进行锁时间设置  
 
 #### **3.0.3(离线版2.0.2)**  
     1. 修复部分智能锁操作异常返回循环校验码错误的问题  
@@ -107,23 +100,4 @@
 #### **3.0.0**  
     1. 增加option传参方式  
     2. 取消deviceId参数，降低因设备无法连接造成的失败率  
-    3. 允许传入服务器时间戳进行时间校准
-
-## 固定参数补充说明  
-## <span name="TTDEVICE_TYPE">TTDEVICE_TYPE 设备类型</span>  
- [更多信息](../参数声明/设备通用参数.md#TTDEVICE_TYPE)  
- |VALUE         |VERSION    |DESCRIPTION|
- |--------------|-----------|-----------|
- |1             |           |智能锁|
- |2             |           |网关|
- |99            |           |小程序不支持的设备类型|
-<br />
-
-## <span name="TTGATEWAY_TYPE">TTGATEWAY_TYPE 网关类型</span>  
- [更多信息](../参数声明/网关参数.md#TTGATEWAY_TYPE)  
- |VALUE         |VERSION    |DESCRIPTION|
- |--------------|-----------|-----------|
- |2             |           |G2网关（WIFI）|
- |3             |           |G3网关（有线）|
- |4             |           |G4网关（4G网关）|
- |-1            |           |不支持的智能设备|  
+    3. 允许传入服务器时间戳进行时间校准  

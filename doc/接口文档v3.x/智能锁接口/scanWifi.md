@@ -13,16 +13,15 @@
  在线版最低支持版本： **2.7.6**   
  离线版最低支持版本： **1.7.6**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockScanWifi  
- |PARAMS                |TYPE                                   |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|---------------------------------------|--------------|----------------|-----------|
- |lockData              |string                                 |Y             |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)      |N             |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE               |REQUIRED      |IN/OUT  |DESCRIPTION|
+ |----------------------|-------------------|--------------|--------|-----------|
+ |lockData              |string             |Y             |IN      |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback     |N             |OUT     |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -31,31 +30,27 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
+### 返回值  
+ 异步返回操作回调结果: [TTLockScanWifiResult](#TTLockScanWifiResult)  
 
-## 返回值
- 异步返回操作回调结果 [TTLockScanWifiResult](#TTLockScanWifiResult)  
-<br />
+#### <span name="TTLockScanWifiResult">扫描wifi列表返回结果</span>  
+ 类型定义：TTLockScanWifiResult, 扩展[TTLockError](#TTLockError), 以下仅列出补充参数   
+ |NAME      |TYPE                           |VERSION    |DESCRIPTION|
+ |----------|-------------------------------|-----------|-----------|
+ |data      |TTLock.ScanWiFiResultData      |           |[扫描返回数据](#TTLockScanWiFiResultData)|  
 
-### <span name="TTLockScanWifiResult">扫描wifi列表返回结果 TTLockScanWifiResult extends TTLockError</span>  
- 返回结果为[TTLockError](#TTLockError)的扩展，以下仅列出补充参数  
- |NAME              |TYPE                                                   |VERSION    |DESCRIPTION|
- |------------------|-------------------------------------------------------|-----------|-----------|
- |data              |[TTLockScanWifiResultData](#TTLockScanWifiResultData)  |扫描返回数据|
-<br />
+#### <span name="TTLockScanWiFiResultData">扫描智能锁附近wifi列表返回结果数据域</span>  
+ 类型定义：TTLock.ScanWiFiResultData   
+ |NAME          |TYPE                       |VERSION    |DESCRIPTION|
+ |--------------|---------------------------|-----------|-----------|
+ |wifiList      |Array<TTLock.WiFiInfo>     |           |扫描到的wifi数据列表, 请参考[扫描到的wifi信息](TTLockWiFiInfo)|  
 
-### <span name="TTLockScanWifiResultData">扫描智能锁附近wifi列表返回结果数据域 TTLockScanWifiResultData</span>  
- |NAME                          |TYPE                                               |VERSION    |DESCRIPTION|
- |------------------------------|---------------------------------------------------|-----------|-----------|
- |wifiList                      |Array<[TTLockWifiFromScan](#TTLockWifiFromScan)>   |           |扫描到的wifi数据列表|
-<br />
-
-## <span name="TTLockWifiFromScan">TTLockWifiFromScan 扫描返回的wifi信息</span>  
- [更多信息](../对象类型说明/通用对象.md#TTLockWifiFromScan)
+#### <span name="TTLockWiFiInfo">扫描到的wifi信息</span>  
+ 类型定义：TTLock.WiFiInfo  
  |NAME          |TYPE       |VERSION    |DESCRIPTION|
  |--------------|-----------|-----------|-----------|
  |SSID          |string     |           |wifi名称|
- |rssi          |number     |           |信号值|
-<br />
+ |rssi          |number     |           |信号值|  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   

@@ -13,17 +13,16 @@
  在线版最低支持版本： **2.6.0**   
  离线版最低支持版本： **1.6.0**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockModifyAdminPasscode  
- |PARAMS                |TYPE                                                       |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------------------------------|--------------|----------------|-----------|
- |newPasscode           |string                                                     |Y             |IN              |管理员新密码|
- |lockData              |string                                                     |Y             |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)                          |N             |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------|--------------|----------------|-----------|
+ |newPasscode           |string             |Y             |IN              |管理员新密码, 由0-9组成, 4-9位长度, 不完整密码由1-x组成|
+ |lockData              |string             |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback     |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -32,17 +31,14 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
+### 返回值  
+ 异步返回操作回调结果: [TTLockModifyAdminPasscodeResult](#TTLockModifyAdminPasscodeResult)  
 
-## 返回值
- 异步返回操作回调结果 [TTLockModifyAdminPasscodeResult](#TTLockModifyAdminPasscodeResult)  
-<br />
-
-### <span name="TTLockModifyAdminPasscodeResult">修改管理员密码结果 TTLockModifyAdminPasscodeResult extends TTLockError</span>  
- 返回结果为[TTLockError](#TTLockError)的扩展，以下仅列出补充参数  
+#### <span name="TTLockModifyAdminPasscodeResult">修改管理员密码结果</span>  
+ 类型定义：TTLockModifyAdminPasscodeResult, 扩展[TTLockError](#TTLockError), 以下仅列出补充参数   
  |NAME              |TYPE       |VERSION    |DESCRIPTION|
  |------------------|-----------|-----------|-----------|
- |passcode          |string     |3.0.0      |管理员密码值|
-<br />
+ |passcode          |string     |3.0.0      |管理员密码值|  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   

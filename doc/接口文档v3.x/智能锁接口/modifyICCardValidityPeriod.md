@@ -13,19 +13,18 @@
  在线版最低支持版本： **2.0.0**   
  离线版最低支持版本： **1.0.0**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockModifyICCardPeriod  
- |PARAMS                |TYPE                                           |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------------------|--------------|----------------|-----------|
- |startDate             |number                                         |Y             |IN              |IC卡有效期开始时间，生效值精确到分钟|
- |endDate               |number                                         |Y             |IN              |IC卡有效期结束时间，生效值精确到分钟|
- |cardNum               |number                                         |Y             |IN              |IC卡卡号|
- |lockData              |string                                         |Y             |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)              |N             |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------|--------------|----------------|-----------|
+ |startDate             |number             |Y             |IN              |IC卡有效期开始时间，生效值精确到分钟|
+ |endDate               |number             |Y             |IN              |IC卡有效期结束时间，生效值精确到分钟|
+ |cardNum               |string             |Y             |IN              |IC卡卡号|
+ |lockData              |string             |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback     |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -34,10 +33,8 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
-
-## 返回值
- 异步返回操作回调结果 [TTLockError](#TTLockError)  
-<br />
+### 返回值  
+ 异步返回操作回调结果: [TTLockError](#TTLockError)  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   
