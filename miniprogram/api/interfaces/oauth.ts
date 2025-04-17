@@ -1,4 +1,3 @@
-/// <reference path="./oauth.d.ts" />
 import { CLIENT_ID, CLIENT_SECRET } from "../tools/config";
 import { $post } from "../tools/httpRequest";
 

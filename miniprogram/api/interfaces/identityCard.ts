@@ -1,4 +1,3 @@
-/// <reference path="./identityCard.d.ts" />
 import { $get, $post } from "../tools/httpRequest";
 
 /** 获取IC卡列表 */

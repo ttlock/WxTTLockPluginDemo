@@ -10,13 +10,13 @@ Page({
         keyInfo: {}, // 钥匙数据
     },
     onLoad() {
-        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
         this.setData({ keyInfo: keyInfo, });
     },
 
     /* 查询智能锁开关设置状态 */
     getVoiceStatus: debounce(function () {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "" });
         this.setData({ state: `正在查询智能锁音量等级` })
         requirePlugin("myPlugin", ({ getLockSoundWithSoundVolume }: TTLockPlugin) => {
@@ -38,7 +38,7 @@ Page({
     /* 设置智能锁音量等级 */
     handleSubmit: debounce(function(event) {
         const voiceLevel = parseInt(event.detail.value.voiceLevel);
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         console.log(voiceLevel)
         wx.showLoading({ title: "" });
         this.setData({ state: `正在修改智能锁音量` })

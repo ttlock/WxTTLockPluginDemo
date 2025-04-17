@@ -5,7 +5,7 @@ Page({
     },
     // 设置初始化参数
     onLoad() {
-        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
         this.setData({ keyInfo: keyInfo });
         requirePlugin("myPlugin", ({ parseSpecialValues }: TTLockPlugin) => {
             const specialValueObj = parseSpecialValues(keyInfo.featureValue);

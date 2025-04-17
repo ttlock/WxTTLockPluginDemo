@@ -15,7 +15,7 @@ Page({
     },
     // 设置初始化参数
     onLoad() {
-        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
         this.setData({
             keyInfo: keyInfo,
             passcode: keyInfo.noKeyPwd
@@ -38,7 +38,7 @@ Page({
 
     // 修改管理员密码
     handleChange(value: FormStatus) {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "" });
         this.setData({ state: `正在设置管理员密码：${value.passcode}` })
         requirePlugin("myPlugin", ({ modifyAdminPasscode }: TTLockPlugin) => {

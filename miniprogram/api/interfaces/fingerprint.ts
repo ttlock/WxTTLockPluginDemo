@@ -1,4 +1,3 @@
-/// <reference path="./fingerprint.d.ts" />
 import { $get, $post } from "../tools/httpRequest";
 
 /** 获取指纹列表 */

@@ -15,7 +15,7 @@ Page({
         wifiPowerSavingMode: undefined,
     },
     onLoad() {
-        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
         this.setData({ keyInfo: keyInfo, });
     },
 
@@ -35,7 +35,7 @@ Page({
 
     /* 查询智能锁开关设置状态 */
     getLockStatus: debounce(function () {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "" });
         this.setData({ state: `正在查询智能锁设置项` })
         requirePlugin("myPlugin", ({ getLockConfig }: TTLockPlugin) => {
@@ -66,7 +66,7 @@ Page({
     handleChange: debounce(function(event) {
         const switchOn = event.detail.value as boolean;
         const configType = event.target.dataset.type;
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "" });
         this.setData({ state: `正在修改智能锁设置项` })
         requirePlugin("myPlugin", ({ setLockConfig }: TTLockPlugin) => {

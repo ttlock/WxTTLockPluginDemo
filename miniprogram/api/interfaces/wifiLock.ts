@@ -1,4 +1,3 @@
-/// <reference path="./wifiLock.d.ts" />
 import { $post } from "../tools/httpRequest";
 
 /** 更新wifi信息 */

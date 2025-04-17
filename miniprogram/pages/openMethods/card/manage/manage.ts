@@ -20,8 +20,8 @@ Page({
     },
     // 设置初始化参数
     onLoad() {
-        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
-        const cardInfo: ICardAPI.List.CardInfo = JSON.parse(wx.getStorageSync('cardInfo'));
+        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const cardInfo: ICard.List.CardInfo = JSON.parse(wx.getStorageSync('cardInfo'));
         const startDate = dayjs().startOf("minute");
         const permanent = cardInfo.startDate === 0 && cardInfo.endDate === 0;
         this.setData({
@@ -58,8 +58,8 @@ Page({
 
     // 点击修改IC卡
     handleModifyCard(value: FormStatus) {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
-        const cardInfo = this.data.cardInfo as ICardAPI.List.CardInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
+        const cardInfo = this.data.cardInfo as ICard.List.CardInfo;
         const start = Date.now();
         wx.showLoading({ title: "正在修改IC卡有效期" });
         requirePlugin("myPlugin", ({ modifyICCardValidityPeriod }: TTLockPlugin) => {
@@ -104,8 +104,8 @@ Page({
 
     // 删除IC卡
     handleDelete() {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
-        const cardInfo = this.data.cardInfo as ICardAPI.List.CardInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
+        const cardInfo = this.data.cardInfo as ICard.List.CardInfo;
         const start = Date.now();
         wx.showLoading({ title: "正在删除IC卡" });
         requirePlugin("myPlugin", ({ deleteICCard }: TTLockPlugin) => {

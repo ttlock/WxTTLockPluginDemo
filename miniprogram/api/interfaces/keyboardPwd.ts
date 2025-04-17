@@ -1,4 +1,3 @@
-/// <reference path="./keyboardPwd.d.ts" />
 import { $post } from "../tools/httpRequest";
 
 /** 添加键盘密码 */

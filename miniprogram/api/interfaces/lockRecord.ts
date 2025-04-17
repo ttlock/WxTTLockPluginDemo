@@ -1,4 +1,3 @@
-/// <reference path="./lockRecord.d.ts" />
 import { $post } from "../tools/httpRequest";
 
 /** 上传操作记录 */

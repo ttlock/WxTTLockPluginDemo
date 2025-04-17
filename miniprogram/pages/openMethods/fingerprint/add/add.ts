@@ -23,7 +23,7 @@ Page({
     },
     // 设置初始化参数
     onLoad() {
-        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
         const startDate = dayjs().startOf("minute");
         this.setData({
             keyInfo: keyInfo,
@@ -57,7 +57,7 @@ Page({
 
     // 添加指纹
     handleInitFinterprint(value: FormStatus) {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "正在添加指纹" });
         let totalCount = 0;
         requirePlugin("myPlugin", ({ addFingerprint }: TTLockPlugin) => {

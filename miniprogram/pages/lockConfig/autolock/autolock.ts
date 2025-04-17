@@ -19,7 +19,7 @@ Page({
         placeholder: ""
     },
     onLoad() {
-        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
         this.setData({ keyInfo: keyInfo });
     },
     handleInputEmpty() {}, // 解决绑定数据输入报错
@@ -42,7 +42,7 @@ Page({
 
     /* 查询自动闭锁时间 */
     getAutoLockTime: debounce(function () {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "" });
         this.setData({ state: `正在查询自动闭锁时间` })
         requirePlugin("myPlugin", ({ getAutomaticLockingPeriod }: TTLockPlugin) => {
@@ -67,7 +67,7 @@ Page({
 
 
     handleChange: debounce(function(value: FormStatus) {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "" });
         this.setData({ state: `正在修改自动闭锁时间` })
         requirePlugin("myPlugin", ({ setAutomaticLockingPeriod }: TTLockPlugin) => {

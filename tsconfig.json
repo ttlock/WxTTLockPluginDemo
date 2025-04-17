@@ -24,7 +24,7 @@
         "typeRoots": [
             "./typings"
         ],
-        "types": ["./doc/typings"],
+        "types": [],
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
@@ -35,5 +35,6 @@
         "miniprogram/**/*.ts",
         "miniprogram/**/*.d.ts",
         "typings/**/*.d.ts",
+        "./doc/typings/index.d.ts"
     ]
 }

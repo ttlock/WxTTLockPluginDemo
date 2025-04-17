@@ -33,7 +33,7 @@ Page({
         endDate: 0,
     },
     onLoad() {
-        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
         this.setData({ keyInfo: keyInfo }, () => {
             this.handleUpdate();
         });
@@ -41,7 +41,7 @@ Page({
     handleInputEmpty() {}, // 解决绑定数据输入报错
 
     handleUpdate: debounce(function() {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "" });
         LockAPI.getWifiConfig({
             lockId: ekeyInfo.lockId, // 智能锁ID
@@ -103,7 +103,7 @@ Page({
 
     /* 查询省电模式 */
     getPowerSavingMode: debounce(function () {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "" });
         this.setData({ state: `正在查询省电模式开启状态` })
         requirePlugin("myPlugin", ({ getWifiPowerSavingTime }: TTLockPlugin) => {
@@ -139,7 +139,7 @@ Page({
 
 
     handleChange: debounce(function(value: FormStatus) {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "" });
         this.setData({ state: `正在清空常开模式` })
         
@@ -153,7 +153,7 @@ Page({
                         const configRes = await configWifiPowerSavingTime({
                             config: {
                                 type: 1,
-                                repeatWeekOrDays: value.weekDays.map(item => parseInt(item)),
+                                weekDays: value.weekDays.map(item => parseInt(item)),
                                 startDate: this.data.isAllDays ? 0 : start,
                                 endDate: this.data.isAllDays ? 0 : end,
                             },

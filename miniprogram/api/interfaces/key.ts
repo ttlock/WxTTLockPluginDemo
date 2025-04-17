@@ -1,4 +1,3 @@
-/// <reference path="./key.d.ts" />
 import { $post } from "../tools/httpRequest";
 
 /** 获取电子钥匙列表 */

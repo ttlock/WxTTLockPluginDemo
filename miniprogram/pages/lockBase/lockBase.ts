@@ -13,7 +13,7 @@ Page({
     },
     // 设置初始化参数
     onLoad() {
-        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
         this.setData({ keyInfo: keyInfo });
         requirePlugin("myPlugin", ({ parseSpecialValues }: TTLockPlugin) => {
             const specialValueObj = parseSpecialValues(keyInfo.featureValue);
@@ -25,7 +25,7 @@ Page({
 
     // 点击开锁
     toOpenDoor: debounce(function () {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "正在开锁" });
         this.setData({ state: `正在开锁` });
         requirePlugin("myPlugin", ({ controlLock }: TTLockPlugin) => {
@@ -53,7 +53,7 @@ Page({
 
     // 点击闭锁
     toCloseDoor: debounce(function () {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "正在闭锁" });
         this.setData({ state: `正在闭锁` });
         const start = Date.now();
@@ -79,7 +79,7 @@ Page({
 
     // 校准锁时间
     toCheckLockTime() {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "正在校准锁时间" });
         this.setData({ state: `正在校准锁时间` });
         const start = Date.now();
@@ -103,7 +103,7 @@ Page({
 
     // 读取操作记录
     toReadRecord: debounce(function () {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "正在读取操作记录" });
         const start = Date.now();
         requirePlugin("myPlugin", ({ getOperationLog }: TTLockPlugin) => {
@@ -145,7 +145,7 @@ Page({
 
     // 点击重置蓝牙设备
     toResetLock() {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "正在重置智能锁" });
         this.setData({ state: `正在重置智能锁` });
         const start = Date.now();
@@ -187,7 +187,7 @@ Page({
 
     // 点击升级智能锁
     toUpgradeLock() {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "" });
         this.setData({ state: `正在升级智能锁` });
         requirePlugin("myPlugin", ({ enterDfuMode }: TTLockPlugin) => {

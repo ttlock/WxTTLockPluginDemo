@@ -1,4 +1,3 @@
-/// <reference path="./gateway.d.ts" />
 import { $post } from "../tools/httpRequest";
 
 /** 查询网关是否已添加成功 */

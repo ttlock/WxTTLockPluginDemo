@@ -25,7 +25,7 @@ Page({
     },
     // 设置初始化参数
     onLoad() {
-        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
         const startDate = dayjs().startOf("hour");
         this.setData({
             keyInfo: keyInfo,
@@ -59,7 +59,7 @@ Page({
 
     // 点击添加自定义密码
     handleAddPasscode(value: FormStatus) {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         const start = Date.now();
         wx.showLoading({ title: "正在设置自定义密码" });
         requirePlugin("myPlugin", ({ createCustomPasscode }: TTLockPlugin) => {

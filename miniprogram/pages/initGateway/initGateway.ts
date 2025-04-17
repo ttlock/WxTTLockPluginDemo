@@ -207,7 +207,7 @@ Page({
         // if (!flag) return;
         this.data.isInitGateway = true;
         const deviceFromScan = this.data.currentPlug as TTGatewayFromScan;
-        const wifiItem = this.data.currentWifi as TTLockWifiFromScan;
+        const wifiItem = this.data.currentWifi as TTGateway.WiFiInfo;
         const defaultUID = parseInt(Crypto.AES_Decrypt(wx.getStorageSync<string>("uid"))); // 本地保存的用户名
         const defaultPSD = Crypto.AES_Decrypt(wx.getStorageSync<string>("user_psd")); // 本地保存的密码
         this.setData({

@@ -12,7 +12,7 @@ Page({
     },
     // 设置初始化参数
     onShow() {
-        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
         this.setData({ keyInfo: keyInfo }, () => {
             this.modifyPasscodeList();
         });
@@ -30,7 +30,7 @@ Page({
 
     // 更新密码列表
     modifyPasscodeList: debounce(function (pageNo: number = 1) {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         LockAPI.listKeyboardPwd({
             lockId: ekeyInfo.lockId,
             pageNo: pageNo,
@@ -65,7 +65,7 @@ Page({
         wx.showLoading({ title: "" });
         this.setData({ state: "正在读取锁内所有密码" });
         requirePlugin("myPlugin", ({ getAllValidPasscode }: TTLockPlugin) => {
-            const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+            const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
             // 读取所有有效密码
             getAllValidPasscode({ lockData: ekeyInfo.lockData }).then(res => {
                 if (res.errorCode == 0) {
@@ -104,7 +104,7 @@ Page({
             wx.hideLoading();
         }
         requirePlugin("myPlugin", ({ getAllValidPasscode }: TTLockPlugin) => {
-            const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+            const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
             // 读取所有有效密码
             getAllValidPasscode({ lockData: ekeyInfo.lockData }).then(res => {
                 if (res.errorCode == 0) {
@@ -122,7 +122,7 @@ Page({
 
     // 进入密码管理页
     toDetail(event) {
-        const value = event.target.dataset.value as ILockAPI.List.KeyboardPwdInfo;
+        const value = event.target.dataset.value as ILock.List.KeyboardPwdInfo;
         if (value.keyboardPwdType != 2 && value.keyboardPwdType != 3) return HttpHandler.showErrorMsg("当前仅支持限时、永久密码修改");
         wx.setStorageSync("passcodeInfo", JSON.stringify(value));
         wx.navigateTo({

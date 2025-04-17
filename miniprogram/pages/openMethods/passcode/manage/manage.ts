@@ -23,8 +23,8 @@ Page({
     },
     // 设置初始化参数
     onLoad() {
-        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
-        const passcodeInfo: ILockAPI.List.KeyboardPwdInfo = JSON.parse(wx.getStorageSync('passcodeInfo'));
+        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const passcodeInfo: ILock.List.KeyboardPwdInfo = JSON.parse(wx.getStorageSync('passcodeInfo'));
         const startDate = dayjs().startOf("hour");
         this.setData({
             keyInfo: keyInfo,
@@ -60,8 +60,8 @@ Page({
 
     // 点击修改密码
     handleModifyPasscode(value: FormStatus) {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
-        const keyboardPwdInfo = this.data.passcodeInfo as ILockAPI.List.KeyboardPwdInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
+        const keyboardPwdInfo = this.data.passcodeInfo as ILock.List.KeyboardPwdInfo;
         const start = Date.now();
         wx.showLoading({ title: "正在修改密码" });
         requirePlugin("myPlugin", ({ modifyPasscode }: TTLockPlugin) => {
@@ -109,8 +109,8 @@ Page({
 
     // 删除密码
     handleDelete() {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
-        const keyboardPwdInfo = this.data.passcodeInfo as ILockAPI.List.KeyboardPwdInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
+        const keyboardPwdInfo = this.data.passcodeInfo as ILock.List.KeyboardPwdInfo;
         const start = Date.now();
         wx.showLoading({ title: "正在删除密码" });
         requirePlugin("myPlugin", ({ deletePasscode }: TTLockPlugin) => {

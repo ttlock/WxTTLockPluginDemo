@@ -11,7 +11,7 @@ Page({
     },
     // 设置初始化参数
     onShow() {
-        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
         this.setData({ keyInfo: keyInfo });
         requirePlugin("myPlugin", ({ parseSpecialValues }: TTLockPlugin) => {
             const specialValueObj = parseSpecialValues(keyInfo.featureValue);
@@ -22,7 +22,7 @@ Page({
 
     // 设置远程开关
     toSetRemoteUnlock() {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         const specialValueObj = this.data.specialValueObj as TTLockFeatureValue;
         wx.showLoading({ title: "" });
         this.setData({ state: specialValueObj.gatewayUnlock ? `正在关闭远程开关` : '正在开启远程开关' });
@@ -70,7 +70,7 @@ Page({
 
     // 获取远程开关状态
     toGetRemoteUnlock() {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "" });
         this.setData({ state: '正在查询远程开关状态' });
         const start = Date.now();
@@ -113,7 +113,7 @@ Page({
 
     // 获取管理员密码
     toGetAdminPasscode() {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "" });
         this.setData({ state: '正在查询管理员密码' });
         const start = Date.now();
@@ -151,7 +151,7 @@ Page({
 
     // 获取锁开关状态
     toGetLockStatus() {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "" });
         this.setData({ state: '正在查询智能锁开闭状态' });
         const start = Date.now();

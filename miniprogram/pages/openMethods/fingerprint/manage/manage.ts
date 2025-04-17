@@ -20,8 +20,8 @@ Page({
     },
     // 设置初始化参数
     onLoad() {
-        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
-        const fingerprintInfo: IFingerprintAPI.List.FingerprintInfo = JSON.parse(wx.getStorageSync('fingerprintInfo'));
+        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const fingerprintInfo: IFingerprint.List.FingerprintInfo = JSON.parse(wx.getStorageSync('fingerprintInfo'));
         const startDate = dayjs().startOf("minute");
         const permanent = fingerprintInfo.startDate === 0 && fingerprintInfo.endDate === 0;
         this.setData({
@@ -60,8 +60,8 @@ Page({
 
     // 点击修改指纹
     handleModifyFinerprint(value: FormStatus) {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
-        const fingerprintInfo = this.data.fingerprintInfo as IFingerprintAPI.List.FingerprintInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
+        const fingerprintInfo = this.data.fingerprintInfo as IFingerprint.List.FingerprintInfo;
         const start = Date.now();
         wx.showLoading({ title: "正在修改指纹有效期" });
         requirePlugin("myPlugin", ({ modifyFingerprintValidityPeriod }: TTLockPlugin) => {
@@ -106,8 +106,8 @@ Page({
 
     // 删除指纹
     handleDelete() {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
-        const fingerprintInfo = this.data.fingerprintInfo as IFingerprintAPI.List.FingerprintInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
+        const fingerprintInfo = this.data.fingerprintInfo as IFingerprint.List.FingerprintInfo;
         const start = Date.now();
         wx.showLoading({ title: "正在删除指纹" });
         requirePlugin("myPlugin", ({ deleteFingerprint }: TTLockPlugin) => {

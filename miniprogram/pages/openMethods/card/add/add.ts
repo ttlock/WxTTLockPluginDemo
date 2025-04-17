@@ -24,7 +24,7 @@ Page({
     },
     // 设置初始化参数
     onLoad() {
-        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
         const startDate = dayjs().startOf("minute");
         this.setData({
             keyInfo: keyInfo,
@@ -62,7 +62,7 @@ Page({
 
     // 添加IC卡
     handleInitCard(value: FormStatus) {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "正在添加IC卡" });
         requirePlugin("myPlugin", ({ addICCard }: TTLockPlugin) => {
             // 添加IC卡
@@ -126,7 +126,7 @@ Page({
 
     // 通过卡号恢复IC卡
     handleRecoverCard(value: FormStatus) {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "正在通过卡号添加IC卡" });
         requirePlugin("myPlugin", ({ recoverICCardNumber }: TTLockPlugin) => {
             // 恢复IC卡

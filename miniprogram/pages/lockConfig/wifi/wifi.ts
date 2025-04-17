@@ -17,7 +17,7 @@ Page({
         password: "",
     },
     onLoad() {
-        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
         this.setData({ keyInfo: keyInfo }, () => {
             this.handleUpdate();
         });
@@ -25,7 +25,7 @@ Page({
     handleInputEmpty() {}, // 解决绑定数据输入报错
 
     handleUpdate: debounce(function() {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "" });
         WifiLockAPI.detail({ lockId: ekeyInfo.lockId }).then(res => {
             wx.hideLoading();
@@ -53,7 +53,7 @@ Page({
 
     /* 扫描智能锁附近可用wifi列表 */
     handleSearchWifi: debounce(function () {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "" });
         this.data.wifiList.splice(0, this.data.wifiList.length);
         this.setData({
@@ -100,8 +100,8 @@ Page({
 
 
     handleConfigWifi: debounce(function(value: FormStatus) {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
-        const wifiInfo = this.data.currentWifi as TTLockWifiFromScan;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
+        const wifiInfo = this.data.currentWifi as TTLock.WiFiInfo;
         wx.showLoading({ title: "" });
         this.setData({ state: `正在配置wifi信息` });
         requirePlugin("myPlugin", ({ configWifi, configServer }: TTLockPlugin) => {

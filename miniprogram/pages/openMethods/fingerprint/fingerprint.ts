@@ -12,7 +12,7 @@ Page({
     },
     // 设置初始化参数
     onShow() {
-        const keyInfo: IEKeyAPI.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
+        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
         this.setData({ keyInfo: keyInfo }, () => {
             this.modifyFingerprintList();
         });
@@ -30,7 +30,7 @@ Page({
 
     // 更新指纹列表
     modifyFingerprintList: debounce(function (pageNo: number = 1) {
-        const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
         FingerprintAPI.list({
             lockId: ekeyInfo.lockId,
             pageNo: pageNo,
@@ -62,7 +62,7 @@ Page({
         wx.showLoading({ title: "" });
         this.setData({ state: "正在读取锁内所有指纹" });
         requirePlugin("myPlugin", ({ getAllValidFingerprint }: TTLockPlugin) => {
-            const ekeyInfo = this.data.keyInfo as IEKeyAPI.List.EKeyInfo;
+            const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
             // 读取所有有效指纹
             getAllValidFingerprint({ lockData: ekeyInfo.lockData }).then(res => {
                 if (res.errorCode == 0) {

@@ -1,4 +1,3 @@
-/// <reference path="./lock.d.ts" />
 import { $get, $post } from "../tools/httpRequest";
 
 /** 上传初始化智能锁参数 */
