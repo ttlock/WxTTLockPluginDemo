@@ -14,25 +14,24 @@
  在线版最低支持版本： **2.4.0**   
  离线版最低支持版本： **1.4.0**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockSetHotelData  
- |PARAMS                |TYPE                                       |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|-------------------------------------------|--------------|----------------|-----------|
- |hotelData             |[TTLockHotelData](#TTLockHotelData)        |Y             |IN              |酒店配置信息|
- |lockData              |string                                     |Y             |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)          |N             |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------|--------------|----------------|-----------|
+ |hotelData             |TTLock.HotelData   |Y             |IN              |[酒店配置信息](#TTLockHotelData)|
+ |lockData              |string             |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback     |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
-### <span name="TTLockHotelData">酒店锁配置信息 TTLockHotelData</span>  
+#### <span name="TTLockHotelData">酒店配置信息</span>  
+ 类型定义：TTLockHotelData  
  |PARAMS                |TYPE           |REQUIRED      |IN/OUT          |DESCRIPTION|
  |----------------------|---------------|--------------|----------------|-----------|
  |hotelInfo             |string         |Y             |IN              |酒店信息串，通过开放平台接口或相关jar包获取|
  |buildingNumber        |number         |Y             |IN              |楼栋号，1-254的正整数|
- |floorNumber           |number         |N             |IN              |楼层号，1-255的正整数|
-<br />
+ |floorNumber           |number         |N             |IN              |楼层号，1-255的正整数|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -41,10 +40,8 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
-
-## 返回值
- 异步返回操作回调结果 [TTLockError](#TTLockError)   
-<br />
+### 返回值  
+ 异步返回操作回调结果: [TTLockError](#TTLockError)  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   

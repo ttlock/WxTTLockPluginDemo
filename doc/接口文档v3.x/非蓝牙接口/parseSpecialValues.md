@@ -20,9 +20,10 @@
  |featureValue   |string/number     |Y             |IN              |智能锁特征值(允许传入featureValue或specialValue)|  
 
 ### 返回值  
- <span name="TTLockFeatureValue">智能锁特征值解析结果</span>  
-> 类型定义：[TTLockFeatureValue](../对象类型说明/智能锁.md#TTLockFeatureValue)  
+ 返回智能锁特征值解析结果: [TTLockFeatureValue](#TTLockFeatureValue)  
 
+#### <span name="TTLockFeatureValue">智能锁特征值解析结果</span>  
+ 类型定义：[TTLockFeatureValue](../对象类型说明/智能锁.md#TTLockFeatureValue)  
  |NAME                          |TYPE           |VERSION    |DESCRIPTION|
  |------------------------------|---------------|-----------|-----------|
  |passcode                      |boolean        |           |是否支持键盘密码功能|

@@ -14,14 +14,13 @@
  在线版最低支持版本： **2.7.0**   
  离线版最低支持版本： **1.7.0**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockSetLiftWorkMode  
- |PARAMS                |TYPE                                               |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|---------------------------------------------------|--------------|----------------|-----------|
- |workMode              |[TTLOCK_LIFT_WORKMODE](#TTLOCK_LIFT_WORKMODE)      |Y             |IN              |梯控工作模式：1 -刷卡后仅能按房间所在楼层; 2 -刷卡后可按所有楼层|
- |lockData              |string                                             |Y             |IN              |**管理员**电子钥匙数据|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)                  |N             |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------|--------------|----------------|-----------|
+ |workMode              |number             |Y             |IN              |[梯控工作模式](../参数声明/智能锁参数.md#TTLOCK_LIFT_WORKMODE)：1 -刷卡后仅能按房间所在楼层; 2 -刷卡后可按所有楼层|
+ |lockData              |string             |Y             |IN              |**管理员**电子钥匙数据|
+ |disconnectCallback    |TTLockCallback     |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
 类型定义：TTLockCallback  
@@ -33,10 +32,8 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
-
-## 返回值
- 异步返回操作回调结果 [TTLockError](#TTLockError)  
-<br />
+### 返回值  
+ 异步返回操作回调结果: [TTLockError](#TTLockError)  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   
@@ -61,11 +58,3 @@
 #### **3.0.0**  
     1. 增加option传参方式  
     2. 取消deviceId参数，降低因设备无法连接造成的失败率  
-
-## 固定参数补充说明  
-### <span name="TTLOCK_LIFT_WORKMODE">TTLOCK_LIFT_WORKMODE 梯控工作模式</span>  
- [更多信息](../参数声明/智能锁参数.md#TTLOCK_LIFT_WORKMODE)  
- |VALUE         |VERSION    |DESCRIPTION|
- |--------------|-----------|-----------|
- |1             |           |刷卡后仅能按房间所在楼层|
- |2             |           |刷卡后可按所有已关联继电器的楼层|  

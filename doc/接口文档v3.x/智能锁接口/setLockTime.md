@@ -13,17 +13,16 @@
  在线版最低支持版本： **1.0.0**   
  离线版最低支持版本： **1.0.0**  
 
-## 参数说明 
+### 参数说明  
  类型定义：TTLockSetTime  
- |PARAMS                |TYPE                               |REQUIRED      |IN/OUT          |DESCRIPTION|
- |----------------------|-----------------------------------|--------------|----------------|-----------|
- |lockData              |string                             |Y             |IN              |智能锁数据/钥匙数据|
- |serverTime            |number                             |N             |IN              |服务器时间戳，若不传入该参数，则请求通通锁服务器时间，若获取失败则使用本地时间进行校准|
- |disconnectCallback    |[TTLockCallback](#TTLockCallback)  |N             |OUT             |设备断开连接回调|
-<br />
+ |PARAMS                |TYPE               |REQUIRED      |IN/OUT          |DESCRIPTION|
+ |----------------------|-------------------|--------------|----------------|-----------|
+ |serverTime            |number             |N             |IN              |服务器时间戳，若不传入该参数，则使用本地时间进行校准|
+ |lockData              |string             |Y             |IN              |初始化智能锁数据或电子钥匙数据|
+ |disconnectCallback    |TTLockCallback     |N             |OUT             |设备断开连接回调, 请参考[设备断连回调](#TTLockCallback)|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  
@@ -32,9 +31,8 @@
  |----------|-------------------|---------------|-----------|
  |result    |TTLockError        |OUT            |设备断连返回参数信息, 请参考[常规错误返回结果](#TTLockError)|  
 
-## 返回值
- 异步返回操作回调结果 [TTLockError](#TTLockError)  
-<br />
+### 返回值  
+ 异步返回操作回调结果: [TTLockError](#TTLockError)  
 
 #### <span name="TTLockError">常规错误返回结果</span>  
  类型定义：[TTLockError](../对象类型说明/返回对象.md#TTLockError)   

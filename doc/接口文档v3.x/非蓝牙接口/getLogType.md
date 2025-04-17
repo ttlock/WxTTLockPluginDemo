@@ -15,12 +15,10 @@
 ### 参数说明  
  |PARAMS         |TYPE              |REQUIRED      |IN/OUT          |DESCRIPTION|
  |---------------|------------------|--------------|----------------|-----------|
- |lockVersion    |TTLockVersion     |Y             |IN              |[智能锁版本信息](#TTLockVersion)|
-<br />
+ |lockVersion    |TTLockVersion     |Y             |IN              |[智能锁版本信息](#TTLockVersion)|  
 
 #### <span name="TTLockVersion">智能锁版本信息</span>  
-> 类型定义：[TTLockVersion](../对象类型说明/智能锁.md#TTLockVersion)  
-
+ 类型定义：[TTLockVersion](../对象类型说明/智能锁.md#TTLockVersion)  
  |PARAMS                |TYPE         |REQUIRED      |DESCRIPTION|
  |----------------------|-------------|--------------|-----------|
  |protocolVersion       |number       |Y             |协议版本号|
@@ -30,9 +28,10 @@
  |orgId                 |number       |N             |应用商子ID|  
 
 ### 返回值  
- <span name="TTLOCK_TYPE">智能锁版本类型</span>  
-> 类型定义：[TTLOCK_TYPE](../参数声明/智能锁参数.md#TTLOCK_TYPE)  
+ 返回智能锁版本类型：number
 
+#### <span name="TTLOCK_TYPE">智能锁版本类型</span>  
+ 类型定义：[TTLOCK_TYPE](../参数声明/智能锁参数.md#TTLOCK_TYPE)  
  |VALUE         |VERSION    |DEPRECATED     |DESCRIPTION|
  |--------------|-----------|---------------|-----------|
  |5             |           |               |三代锁(小程序支持版本)|

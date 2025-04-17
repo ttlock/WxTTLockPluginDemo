@@ -14,7 +14,7 @@
  离线版最低支持版本： **1.6.0**  
 
 ### 参数说明  
-类型定义：TTLockInitGateway  
+ 类型定义：TTLockInitGateway  
  |PARAMS                |TYPE                   |REQUIRED      |IN/OUT          |DESCRIPTION|
  |----------------------|-----------------------|--------------|----------------|-----------|
  |deviceFromScan        |TTGatewayFromScan      |Y             |IN              |扫描到的网关设备信息, 请参考[蓝牙网关设备扫描值](#TTGatewayFromScan)|
@@ -22,7 +22,7 @@
  |configuration         |TTGatewayConfiguration |Y             |IN              |[初始化蓝牙网关配置信息](#TTGatewayConfiguration)|  
 
 #### <span name="TTGatewayFromScan">扫描到的网关设备</span>
-类型定义：[TTGatewayFromScan](../对象类型说明/网关.md#TTGatewayFromScan)  
+ 类型定义：[TTGatewayFromScan](../对象类型说明/网关.md#TTGatewayFromScan)  
  |NAME              |TYPE               |VERSION    |DEPRECATED     |DESCRIPTION|
  |------------------|-------------------|-----------|---------------|-----------|
  |deviceType        |number             |2.7.6      |               |[设备类型](../参数声明/设备通用参数.md#TTDEVICE_TYPE)|
@@ -36,7 +36,7 @@
  |isGateway         |boolean            |           |3.1.0          |设备是否为网关设备|  
 
 #### <span name="TTLockCallback">设备断连回调</span>  
-类型定义：TTLockCallback  
+ 类型定义：TTLockCallback  
 ```
     (result: TTLockError) => any
 ```  

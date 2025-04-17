@@ -20,7 +20,7 @@
  5. 需授权微信【附近设备】权限（安卓）
  6. 需授权微信【精确位置】权限（安卓），并设置为 **始终允许** 。若设置为 “每次使用中询问” 可能导致操作失败  
 
-### 参数说明
+### 参数说明  
  |PARAMS            |TYPE                   |REQUIRED      |IN/OUT          |DESCRIPTION|
  |------------------|-----------------------|--------------|----------------|-----------|
  |callback          |TTLockScanCallback     |Y             |OUT             |智能锁扫描成功回调，可能回调多次, 请参考[设备扫描回调](#TTLockScanCallback)|
@@ -29,7 +29,7 @@
 
 #### <span name="TTLockScanCallback">成功扫描到设备回调</span>  
 成功扫描到智能锁的回调，接口可能返回多次，deviceFromScanList**为当前扫描状态下周围锁信息列表, 以添加状态、蓝牙信号强度排序**  
-> 类型定义：TTLockScanCallback  
+ 类型定义：TTLockScanCallback  
 ```
     (deviceFromScan: TTLockFromScan | null, deviceFromScanList: Array<TTLockFromScan>) => any
 ```  
@@ -69,9 +69,9 @@
 #### <span name="TTLockCallback">设备扫描失败回调</span>  
  3.0.8及其以前：设备扫描失败回调  
  3.1.0版本：设备扫描开启失败回调或未扫描到任意设备回调  
-    > 若因前者触发：触发时关闭蓝牙扫描  
-    > 若因后者触发：可能为未开启【附近设备】权限导致或设备未扫描到，触发时不会关闭蓝牙扫描
-> 类型定义：TTLockCallback  
+    1. 若因前者触发：触发时关闭蓝牙扫描  
+    2. 若因后者触发：可能为未开启【附近设备】权限导致或设备未扫描到，触发时不会关闭蓝牙扫描  
+ 类型定义：TTLockCallback  
 ```
     (res: TTLockError) => any
 ```  
