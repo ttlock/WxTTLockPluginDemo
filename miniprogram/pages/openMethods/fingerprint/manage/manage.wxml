@@ -1,0 +1,26 @@
+<!-- 管理指纹 -->
+<i-message id="IMessage"></i-message>
+<view class="ph-32 pv-16 fs-18">
+    <text class="title">指纹: {{fingerprintInfo.fingerprintName || ""}} ({{fingerprintInfo.fingerprintNumber}})</text>
+</view>
+<view class="ph-16 fc-3 fs-12 mt-32">{{state}}</view>
+<view class="form">
+    <form bindsubmit="handleSubmit">
+        <view class="form-item" wx:if="{{ fingerprintInfo && fingerprintInfo.startDate == 0 && fingerprintInfo.endDate == 0 }}">
+            <text class="form-item-label">永久开关：</text>
+            <switch model:checked="{{permanent}}" name="permanent" type="switch" color="#2886f7"></switch>
+        </view>
+        <i-date-span wx:if="{{!permanent}}" id="dateSpan"
+            model:startDate="{{startDate}}" model:endDate="{{endDate}}" startName="startDate" endName="endDate"
+            label="有效期" start-placeholder="请选择开始时间" end-placeholder="请选择结束时间"
+            format="YYYY-MM-DD HH:mm"
+            useDatePicker="{{true}}" useTimePicker="{{true}}" useMinute="{{true}}"
+            startSubmitFormat="YYYY/MM/DD HH:mm:00" endSubmitFormat="YYYY/MM/DD HH:mm:59"></i-date-span>
+        <view class="form-item">
+            <button hover-class="btn-hover" form-type="submit">修改有效期</button>
+        </view>
+        <view class="form-item">
+            <button hover-class="btn-hover" bindtap="handleDelete">删除</button>
+        </view>
+    </form>
+</view>

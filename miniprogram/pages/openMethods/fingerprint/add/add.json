@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "添加指纹",
+    "usingComponents": {
+        "i-date-span": "/components/date-span/date-span"
+    }
+}

@@ -1,14 +1,45 @@
 {
+    "entryPagePath": "pages/login/login",
     "pages": [
         "pages/login/login",
-        "pages/index/index",
-        "pages/list/list"
+        "pages/list/list",
+        "pages/initLock/initLock",
+        "pages/initGateway/initGateway",
+        "pages/lockBase/lockBase",
+        "pages/openMethods/openMethods",
+        "pages/lockConfig/lockConfig",
+        "pages/openMethods/passcode/passcode",
+        "pages/openMethods/passcode/add/add",
+        "pages/openMethods/passcode/manage/manage",
+        "pages/openMethods/card/card",
+        "pages/openMethods/fingerprint/fingerprint",
+        "pages/openMethods/card/add/add",
+        "pages/openMethods/fingerprint/add/add",
+        "pages/openMethods/fingerprint/manage/manage",
+        "pages/openMethods/card/manage/manage",
+        "pages/lockConfig/adminpwd/adminpwd",
+        "pages/lockConfig/lockStatus/lockStatus",
+        "pages/lockConfig/voice/voice",
+        "pages/lockConfig/autolock/autolock",
+        "pages/lockConfig/passageMode/passageMode",
+        "pages/lockConfig/wifi/wifi"
     ],
+    "usingComponents": {
+        "i-message": "components/message/index"
+    },
+    "window": {
+        "navigationBarTitleText": "TTLock Demo",
+        "navigationBarBackgroundColor": "#2886f7"
+    },
+    "networkTimeout": {
+        "request": 30000
+    },
     "plugins": {
         "myPlugin": {
-            "version": "2.7.0",
+            "version": "3.1.0",
             "provider": "wx43d5971c94455481"
         }
     },
-    "sitemapLocation": "sitemap.json"
+    "sitemapLocation": "sitemap.json",
+    "debug": false
 }

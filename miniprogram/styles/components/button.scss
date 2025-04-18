@@ -1,0 +1,35 @@
+$primary-color: #2886f7;
+
+button,
+.btn-primary {
+    padding: 0 12px;
+    color: #ffffff;
+    background: $primary-color;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 6px;
+    &::after {
+        border: 1px solid $primary-color;
+    }
+    &.btn-hover { // 默认悬浮色
+        color: #ffffff;
+        background-color: darken($primary-color, 10%);
+    }
+}
+
+.btn-add {
+    border-radius: 50%;
+    width: 108rpx;
+    height: 108rpx;
+    padding: 0;
+    vertical-align: middle;
+    line-height: 108rpx;
+    position: fixed;
+    right: 32rpx;
+    bottom: 32rpx;
+    box-shadow: 2rpx 4rpx 16rpx #000;
+    &::after {
+        border: 0;
+    }
+}

@@ -1,0 +1,20 @@
+@import "../custom.scss";
+
+// color + background-color + border-color
+@mixin color-manifact($color, $prefix) {
+    .fc-#{$prefix} { color: $color; }
+    .fbd-#{$prefix} { border-color: $color; }
+    .fbg-#{$prefix} { background-color: $color; }
+}
+
+@mixin colors() { // color 
+    @include color-manifact(#000000, "0");
+    @include color-manifact(#333333, "3");
+    @include color-manifact(#666666, "6");
+    @include color-manifact(#999999, "9");
+    @include color-manifact(#ffffff, "f");
+    @include color-manifact($primary-color, "p");
+    // @include color-manifact($success-color, "s");
+    // @include color-manifact($warning-color, "w");
+    // @include color-manifact($error-color, "e");
+}

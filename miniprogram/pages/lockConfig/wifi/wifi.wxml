@@ -1,0 +1,39 @@
+<!-- 智能锁音量设置 -->
+<i-message id="IMessage"></i-message>
+<view class="ph-32 pv-16 fs-18" wx:if="{{keyInfo}}">智能锁：{{keyInfo.lockAlias}}</view>
+<view class="form-item">
+    <text class="form-item-label">是否已配置wifi：{{configSwitch ? configSwitch : "未配置"}}</text>
+</view>
+<view class="flex-row ph-32 pv-16">
+    <button class="mh-0 btn-primary" hover-class="btn-hover" bindtap="handleSearchWifi">扫描可用wifi</button>
+</view>
+<view class="ph-16 fc-3 fs-12 mt-32">{{state}}</view>
+<block wx:if="{{wifiList && wifiList.length > 0}}">
+    <view class="ph-32 mv-16">wifi列表</view>
+    <view wx:for="{{wifiList}}" wx:key="SSID" data-index="{{index}}"
+        data-value="{{item}}"
+        class="tapline add"
+        hover-class="tapline-hover"
+        bindtap="toConfigWifiInfo">
+        <text>{{item.SSID}}</text>
+    </view>
+</block>
+<view class="form" wx:if="{{currentWifi}}">
+    <form bindsubmit="handleSubmit">
+        <view class="form-item">
+            <text class="form-item-label">SSID: </text>
+            <text class="fc-0 ml-16">{{currentWifi ? currentWifi.SSID : ""}}</text>
+        </view>
+        <view class="form-item">
+            <text class="form-item-label">wifi密码</text>
+            <input model:value="{{password}}"
+                password="true"
+                placeholder="请输入wifi密码"
+                name="password"
+                bindinput="handleInputEmpty"></input>
+        </view>
+        <view class="form-item">
+            <button form-type="submit">开始配置</button>
+        </view>
+    </form>
+</view>

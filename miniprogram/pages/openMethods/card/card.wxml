@@ -1,0 +1,16 @@
+<i-message id="IMessage"></i-message>
+<navigator class="iconfont icon-add btn-add" url="./add/add"></navigator>
+<view class="flex-row ph-32 pv-16">
+    <button class="mh-0 btn-primary" hover-class="btn-hover" bind:tap="handleGetAll">读取锁内所有IC卡</button>
+</view>
+<view wx:if="{{cardList && cardList.length > 0}}">
+    <view wx:for="{{cardList}}" wx:for-item="item" wx:key="cardId" data-index="{{index}}"
+        data-value="{{item}}"
+        class="tapline"
+        hover-class="tapline-hover"
+        bindtap="toDetail">
+        {{item.cardNumber}} {{item.cardName || ""}}
+    </view>
+</view>
+<view class="ph-32 pv-16 fs-14 fc-9" wx:else>暂无IC卡，请点击右下角按钮进行添加</view>
+<view class="ph-16 fc-3 fs-12 mt-32">{{state}}</view>

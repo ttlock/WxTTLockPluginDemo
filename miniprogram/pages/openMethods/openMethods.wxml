@@ -1,0 +1,17 @@
+<block>
+    <navigator class="tapline" hover-class="tapline-hover"
+        wx:if="{{keyInfo && (keyInfo.userType == '110301' || keyInfo.keyRight == 1) && specialValueObj.passcode}}"
+        url="./passcode/passcode">
+        <text>密码管理</text>
+    </navigator>
+    <navigator class="tapline" hover-class="tapline-hover"
+        wx:if="{{keyInfo && (keyInfo.userType == '110301' || keyInfo.keyRight == 1) && specialValueObj.ICCard}}"
+        url="./card/card">
+        <text>IC卡管理</text>
+    </navigator>
+    <navigator class="tapline" hover-class="tapline-hover"
+        wx:if="{{keyInfo && (keyInfo.userType == '110301' || keyInfo.keyRight == 1) && specialValueObj.fingerprint}}"
+        url="./fingerprint/fingerprint">
+        <text>指纹管理</text>
+    </navigator>
+</block>

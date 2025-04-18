@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "i-date-span": "/components/date-span/date-span"
+    },
+    "navigationBarTitleText": "管理IC卡"
+}

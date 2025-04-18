@@ -1,0 +1,12 @@
+@import "../mixins/clearfix.scss";
+@import "../mixins/color.scss";
+@import "../mixins/font.scss";
+@import "../mixins/box.scss";
+
+.clearfix {
+    @include clearfix();
+}
+
+@include colors();
+@include font-sizes();
+@include box-margin-padding();

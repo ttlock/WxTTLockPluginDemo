@@ -1,0 +1,23 @@
+{
+    "setting": {
+        "urlCheck": false,
+        "compileHotReLoad": true,
+        "bigPackageSizeSupport": true
+    },
+    "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+    "projectname": "WxTTLockPluginDemo",
+    "libVersion": "3.3.5",
+    "condition": {
+        "miniprogram": {
+            "list": [
+                {
+                    "name": "pages/lockConfig/passageMode/passageMode",
+                    "pathName": "pages/lockConfig/lockConfig",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,12 @@
+@mixin fontsize($value, $size: "") {
+    .fs-#{$size + $value} {
+        font-size: #{$value}px;
+    }
+}
+
+@mixin font-sizes() { // font-size 字号
+    $font-size-list: 12, 14, 16, 18;
+    @for $i from 1 through length($font-size-list) {
+        @include fontsize(nth($font-size-list, $i));
+    }
+}

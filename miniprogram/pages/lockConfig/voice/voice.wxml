@@ -1,0 +1,22 @@
+<!-- 智能锁音量设置 -->
+<i-message id="IMessage"></i-message>
+<view class="ph-32 pv-16 fs-18" wx:if="{{keyInfo}}">智能锁：{{keyInfo.lockAlias}}</view>
+<view class="flex-row ph-32 pv-16">
+    <button class="mh-0 btn-primary" hover-class="btn-hover" bindtap="getVoiceStatus">查询音量</button>
+</view>
+<view class="ph-16 fc-3 fs-12 mt-32">{{state}}</view>
+<view class="form" wx:if="{{voiceLevel !== undefined }}">
+    <form bindsubmit="handleSubmit">
+        <view class="form-item">
+            <text class="form-item-label">智能锁音量等级</text>
+            <picker mode="selector" model:value="{{voiceLevel}}" name="voiceLevel"
+                range="{{voiceArray}}"
+                bindchange="_handleDateChange">
+                <view class="input">{{voiceArray[voiceLevel]}}</view>
+            </picker>
+        </view>
+        <view class="form-item">
+            <button hover-class="btn-hover" form-type="submit">设置</button>
+        </view>
+    </form>
+</view>

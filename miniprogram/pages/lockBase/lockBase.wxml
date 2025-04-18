@@ -1,0 +1,34 @@
+<block>
+    <view class="tapline no-icon" hover-class="tapline-hover" bindtap="toOpenDoor">
+        <text>点击开锁</text>
+    </view>
+    <view class="tapline no-icon" hover-class="tapline-hover" bindtap="toCloseDoor"
+        wx:if="{{specialValueObj.locking}}">
+        <text>点击闭锁</text>
+    </view>
+    <view class="tapline no-icon" hover-class="tapline-hover" bindtap="toCheckLockTime">
+        <text>校准锁智能锁时间</text>
+    </view>
+    <view class="tapline no-icon" hover-class="tapline-hover" bindtap="toReadRecord">
+        <text>读取操作记录</text>
+    </view>
+    <navigator class="tapline" hover-class="tapline-hover"
+        wx:if="{{keyInfo && (keyInfo.userType == '110301' || keyInfo.keyRight == 1)}}"
+        url="../openMethods/openMethods">
+        <text>开门方式</text>
+    </navigator>
+    <navigator class="tapline" hover-class="tapline-hover"
+        wx:if="{{keyInfo && keyInfo.userType == '110301'}}"
+        url="../lockConfig/lockConfig">
+        <text>智能锁设置</text>
+    </navigator>
+    <view class="tapline no-icon" hover-class="tapline-hover" bindtap="toResetLock"
+        wx:if="{{keyInfo && (keyInfo.userType == '110301' && keyInfo.keyRight === 0)}}">
+        <text>重置锁</text>
+    </view>
+    <view class="tapline no-icon" hover-class="tapline-hover" bindtap="toUpgradeLock"
+        wx:if="{{keyInfo && keyInfo.userType == '110301' && specialValueObj.ble5G}}">
+        <text>智能锁升级</text>
+    </view>
+</block>
+<view class="ph-16 fc-3 fs-12 mt-32">{{state}}</view>

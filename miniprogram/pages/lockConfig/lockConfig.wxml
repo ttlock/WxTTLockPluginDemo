@@ -1,0 +1,49 @@
+<i-message id="IMessage"></i-message>
+<block>
+    <view class="tapline no-icon" hover-class="tapline-hover"
+        bindtap="toGetRemoteUnlock">
+        <text>查询远程开关状态  ({{specialValueObj.gatewayUnlock ? '已开启' : '已关闭'}})</text>
+    </view>
+    <view class="tapline no-icon" hover-class="tapline-hover"
+        bindtap="toSetRemoteUnlock">
+        <text>{{specialValueObj.gatewayUnlock ? '关闭远程开锁' : '开启远程开关'}}</text>
+    </view>
+    <view class="tapline no-icon" hover-class="tapline-hover"
+        bindtap="toGetAdminPasscode">
+        <text>查询管理员密码  ({{keyInfo.noKeyPwd}})</text>
+    </view>
+    <navigator class="tapline" hover-class="tapline-hover"
+        url="./adminpwd/adminpwd">
+        <text>设置管理员密码</text>
+    </navigator>
+    <view class="tapline no-icon" hover-class="tapline-hover"
+        bindtap="toGetLockStatus">
+        <text>查询锁开闭状态</text>
+    </view>
+    <navigator class="tapline" hover-class="tapline-hover"
+        url="./lockStatus/lockStatus">
+        <text>智能锁开关设置状态</text>
+    </navigator>
+    <navigator class="tapline" hover-class="tapline-hover"
+        wx:if="{{specialValueObj.passageMode}}"
+        url="./passageMode/passageMode">
+        <text>常开模式</text>
+    </navigator>
+    <navigator class="tapline" hover-class="tapline-hover"
+        wx:if="{{specialValueObj.autoLock}}"
+        url="./autolock/autolock">
+        <text>自动闭锁时间</text>
+    </navigator>
+    <navigator class="tapline" hover-class="tapline-hover"
+        wx:if="{{specialValueObj.soundVolume}}"
+        url="./voice/voice">
+        <text>音量</text>
+
+    </navigator>
+    <navigator class="tapline" hover-class="tapline-hover"
+        wx:if="{{specialValueObj.WIFI}}"
+        url="./wifi/wifi">
+        <text>wifi配置</text>
+    </navigator>
+</block>
+<view class="ph-16 fc-3 fs-12 mv-32">{{state}}</view>

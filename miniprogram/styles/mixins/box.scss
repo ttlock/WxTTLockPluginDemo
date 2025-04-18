@@ -1,0 +1,55 @@
+// padding 盒子模型
+@mixin box-padding($value, $size: "") {
+    .pt-#{$size + $value} { padding-top: #{$value}rpx; }
+    .pb-#{$size + $value} { padding-bottom: #{$value}rpx; }
+    .pl-#{$size + $value} { padding-left: #{$value}rpx; }
+    .pr-#{$size + $value} { padding-right: #{$value}rpx; }
+    .pv-#{$size + $value} {
+        padding-top: #{$value}rpx;
+        padding-bottom: #{$value}rpx;
+    }
+    .ph-#{$size + $value} {
+        padding-left: #{$value}rpx;
+        padding-right: #{$value}rpx;
+    }
+    .pg-#{$size + $value} { padding: #{$value}rpx; }
+}
+
+// margin 盒子模型
+@mixin box-margin($value, $size: "") {
+    .mt-#{$size + $value} { margin-top: #{$value}rpx; }
+    .mb-#{$size + $value} { margin-bottom: #{$value}rpx; }
+    .ml-#{$size + $value} { margin-left: #{$value}rpx; }
+    .mr-#{$size + $value} { margin-right: #{$value}rpx; }
+    .mv-#{$size + $value} {
+        margin-top: #{$value}rpx;
+        margin-bottom: #{$value}rpx;
+    }
+    .mh-#{$size + $value} {
+        margin-left: #{$value}rpx;
+        margin-right: #{$value}rpx;
+    }
+    .mg-#{$size + $value} { margin: #{$value}rpx; }
+}
+
+// margin + padding 盒子模型
+@mixin box-margin-padding() {
+    $padding-list: 0, 16, 32;
+    @for $i from 1 through length($padding-list) {
+        $value: nth($padding-list, $i);
+        @include box-padding($value);
+        @include box-margin($value);
+    }
+
+    .mv-auto {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    .mh-auto {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .mg-auto {
+        margin:auto;
+    }
+}

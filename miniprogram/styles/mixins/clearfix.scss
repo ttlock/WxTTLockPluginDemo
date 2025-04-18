@@ -1,0 +1,13 @@
+// 清空float影响，使元素均被包含于容器中
+@mixin clearfix() {
+    &::before {
+        display: table;
+        content: '';
+    }
+  
+    &::after {
+        display: table;
+        clear: both;
+        content: '';
+    }
+}

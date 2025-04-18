@@ -1,0 +1,51 @@
+@import "../custom.scss";
+@import "./iconfont/iconfont.scss";
+
+.tapline {
+    position: relative;
+    display: flex;
+    height: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    justify-self: flex-start;
+    align-items: center;
+    font-size: 14px;
+    padding: 0 32px 0 16px;
+    white-space: nowrap;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #333333;
+    background:#F4F7F9;
+    border-radius: 0px;
+    &::before {
+        content: " ";
+        position: absolute;
+        display: block;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: $base-border-color;
+    }
+    &::after {
+        @extend %iconfont;
+        content: "\e6d4";
+        position: absolute;
+        right: 16rpx;
+        top: 50%;
+        transform: translate(0, -50%);
+        color: #999999;
+    }
+    &-hover {
+        box-shadow: inset 0 0 4px #999999;
+        background-color: $tapline-default-bg-color-hover;
+    }
+    &.add::after {
+        content: "\e6f9";
+        color: $primary-color;
+    }
+    &.no-icon::after {
+        content: none;
+    }
+}

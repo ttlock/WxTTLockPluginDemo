@@ -1,0 +1,8 @@
+<picker mode="multiSelector" model:value="{{dateTime}}" name="{{name}}"
+    range="{{dateRange}}"
+    range-key="text"
+    data-key="value"
+    bindcolumnchange="_handleColumnChange"
+    bindchange="_handleDateChange">
+    <view class="input {{dateTimeStr ? '' : 'fc-9'}}">{{dateTimeStr || placeholder}}</view>
+</picker>

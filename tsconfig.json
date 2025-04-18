@@ -1,0 +1,40 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "ES5",
+        "module": "ESNext",
+        "lib": [
+            "ESNext",
+            "dom",
+            "dom.iterable",
+            "scripthost"
+        ],
+        "allowJs": true,
+        "jsx": "preserve",
+        "outDir": "./dist",
+        "importHelpers": true,
+        "strict": false,
+        "moduleResolution": "node",
+        "baseUrl": "./",
+        "paths": {
+            "@/*": [
+                "./miniprogram/*"
+            ]
+        },
+        "typeRoots": [
+            "./typings"
+        ],
+        "types": [],
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true
+    },
+    "include": [
+        "miniprogram/**/*.ts",
+        "miniprogram/**/*.d.ts",
+        "typings/**/*.d.ts",
+        "./doc/typings/index.d.ts"
+    ]
+}

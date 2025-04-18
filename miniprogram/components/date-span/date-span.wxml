@@ -1,0 +1,15 @@
+<view class="ph-32">
+    <text class="fs-16 mb-16">{{label}}：</text>
+    <i-date-time class="i-date-time mv-16" model:value="{{startDate}}" name="{{startName}}"
+        placeholder="{{startPlaceholder}}"
+        format="{{format}}"
+        useDatePicker="{{useDatePicker}}" useTimePicker="{{useTimePicker}}" useMinute="{{useMinute}}" submitFormat="{{startSubmitFormat}}"
+        bindinput="_handleUpdateStartDate"></i-date-time>
+</view>
+<view class="ph-32">
+    <i-date-time class="i-date-time mv-24" model:value="{{endDate}}" name="{{endName}}"
+        placeholder="{{endPlaceholder}}"
+        format="{{format}}"
+        useDatePicker="{{useDatePicker}}" useTimePicker="{{useTimePicker}}" useMinute="{{useMinute}}" submitFormat="{{endSubmitFormat}}"
+        bindinput="_handleUpdateEndDate"></i-date-time>
+</view>

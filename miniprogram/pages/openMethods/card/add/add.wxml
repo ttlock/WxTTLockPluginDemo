@@ -1,0 +1,38 @@
+<!-- 添加IC卡 -->
+<i-message id="IMessage"></i-message>
+<view class="ph-32 pv-16 fs-18" wx:if="{{keyInfo}}">智能锁：{{keyInfo.lockAlias}}</view>
+<view class="ph-16 fc-3 fs-12 mt-32">{{state}}</view>
+<view class="form">
+    <form bindsubmit="handleSubmit">
+        <view class="form-item">
+            <text class="form-item-label">IC卡卡号 (直接添加不填) </text>
+            <input model:value="{{cardNo}}"
+                placeholder="请输入IC卡卡号"
+                name="cardNo"
+                bindinput="handleInputEmpty"></input>
+        </view>
+        <view class="form-item">
+            <text class="form-item-label">IC卡名称</text>
+            <input model:value="{{name}}"
+                placeholder="请输入IC卡名称"
+                name="name"
+                bindinput="handleInputEmpty"></input>
+        </view>
+        <view class="form-item">
+            <text class="form-item-label">永久开关：</text>
+            <switch name="permanent" model:checked="{{permanent}}" type="switch" color="#2886f7"></switch>
+        </view>
+        <i-date-span wx:if="{{!permanent}}" id="dateSpan"
+            model:startDate="{{startDate}}" model:endDate="{{endDate}}" startName="startDate" endName="endDate"
+            label="有效期" start-placeholder="请选择开始时间" end-placeholder="请选择结束时间"
+            format="YYYY-MM-DD HH:mm"
+            useDatePicker="{{true}}" useTimePicker="{{true}}" useMinute="{{true}}"
+            startSubmitFormat="YYYY/MM/DD HH:mm:00" endSubmitFormat="YYYY/MM/DD HH:mm:59"></i-date-span>
+        <view class="form-item">
+            <button hover-class="btn-hover" form-type="submit" data-type="INIT">开始添加</button>
+        </view>
+        <view class="form-item">
+            <button hover-class="btn-hover" form-type="submit" data-type="RECOVER">使用IC卡号添加</button>
+        </view>
+    </form>
+</view>

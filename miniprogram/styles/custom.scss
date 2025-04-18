@@ -1,0 +1,54 @@
+// 基础参数设置
+$base-font-size: 16px;
+$base-padding-vertical: 16rpx;
+$base-padding-horizontal: 32rpx;
+$base-margin-vertical: 32rpx;
+$base-margin-horizontal: 32rpx;
+$base-border-color: #eee;
+// @base-border-radius: 16rpx;
+$primary-color: #2886f7;
+$text-color: #333333;
+
+$el-medium: 40px;
+
+// 输入框
+$input-border-color: $base-border-color;
+// @input-border-radius: @base-border-radius;
+// @input-font-size: @base-font-size;
+$input-padding: 0px $base-padding-horizontal;
+// 按钮
+$btn-font-size: $base-font-size;
+// @btn-border-radius: @base-border-radius;
+// @btn-default-color: #fff;
+// @btn-default-bg-color: @primary-color;
+// @btn-default-boder-color: @base-border-color;
+// @btn-default-color-hover: #fff;
+// @btn-default-bg-color-hover: tint(@primary-color, 20);
+// @btn-default-boder-color-hover: @base-border-color;
+$btn-padding: 0px $base-padding-horizontal;
+// 链接
+// @navigator-font-size: @base-font-size;
+// @navigator-border-radius: @base-border-radius;
+// @navigator-default-color: #fff;
+// @navigator-default-bg-color: @primary-color;
+// @navigator-default-boder-color: @base-border-color;
+// @navigator-default-color-hover: #fff;
+// @navigator-default-bg-color-hover: tint(@primary-color, 20);
+// @navigator-default-boder-color-hover: @base-border-color;
+$navigator-padding: 0rpx $base-padding-horizontal;
+// // 可点击行按钮
+// @tapline-font-size: 30rpx;
+// @tapline-default-color: @text-color;
+$tapline-default-bg-color: #f2f4f8;
+// @tapline-default-boder-color: @base-border-color;
+$tapline-default-bg-color-hover: #eee;
+$tapline-padding: 0rpx 72rpx 0rpx $base-padding-horizontal;
+// 表单数据
+// $form-font-size: $base-font-size;
+// @form-text-color: @text-color;
+$form-item-margin: $base-margin-vertical $base-margin-horizontal;
+// // 列表数据
+// @list-font-size: @base-font-size;
+// @list-text-color: @text-color;
+// @list-bg-color: #f2f4f8;
+// @list-padding: @base-margin-vertical @base-margin-horizontal;

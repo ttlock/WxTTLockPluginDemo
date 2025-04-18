@@ -1,0 +1,37 @@
+<!-- 智能锁开关设置状态 -->
+<i-message id="IMessage"></i-message>
+<view class="ph-32 pv-16 fs-18" wx:if="{{keyInfo}}">智能锁：{{keyInfo.lockAlias}}</view>
+<view class="flex-row ph-32 pv-16">
+    <button class="mh-0 btn-primary" hover-class="btn-hover" bindtap="getLockStatus">查询设置状态</button>
+</view>
+<view class="ph-16 fc-3 fs-12 mt-32">{{state}}</view>
+<view class="form-item" wx:if="{{tamperAlert !== undefined }}">
+    <text class="form-item-label">防撬警报：</text>
+    <switch name="permanent" model:checked="{{tamperAlert}}" type="switch" color="#2886f7" bindchange="handleChange"
+        data-type="{{1}}"></switch>
+</view>
+<view class="form-item" wx:if="{{resetButton !== undefined }}">
+    <text class="form-item-label">长按重置：</text>
+    <switch name="permanent" model:checked="{{resetButton}}" type="switch" color="#2886f7" bindchange="handleChange"
+        data-type="{{2}}"></switch>
+</view>
+<view class="form-item" wx:if="{{privacyLock !== undefined }}">
+    <text class="form-item-label">反锁开关：</text>
+    <switch name="permanent" model:checked="{{privacyLock}}" type="switch" color="#2886f7" bindchange="handleChange"
+        data-type="{{4}}"></switch>
+</view>
+<view class="form-item" wx:if="{{unlockDirection !== undefined }}">
+    <text class="form-item-label">开门方向：</text>
+    <switch name="permanent" model:checked="{{unlockDirection}}" type="switch" color="#2886f7" bindchange="handleChange"
+        data-type="{{16}}"></switch>
+</view>
+<view class="form-item" wx:if="{{pasageModeAutoUnlockSetting !== undefined }}">
+    <text class="form-item-label">常开模式：</text>
+    <switch name="permanent" model:checked="{{pasageModeAutoUnlockSetting}}" type="switch" color="#2886f7" bindchange="handleChange"
+        data-type="{{32}}"></switch>
+</view>
+<view class="form-item" wx:if="{{wifiPowerSavingMode !== undefined }}">
+    <text class="form-item-label">wifi省电模式：</text>
+    <switch name="permanent" model:checked="{{wifiPowerSavingMode}}" type="switch" color="#2886f7" bindchange="handleChange"
+        data-type="{{128}}"></switch>
+</view>

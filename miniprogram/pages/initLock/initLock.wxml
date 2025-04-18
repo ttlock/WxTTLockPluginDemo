@@ -1,0 +1,18 @@
+<!-- 添加智能锁 -->
+<i-message id="IMessage"></i-message>
+<view class="flex-row ph-32 pv-16">
+    <button class="mh-0 btn-primary" hover-class="btn-hover" bindtap="startScan">开始扫描</button>
+    <button class="mh-0 btn-primary" hover-class="btn-hover" bindtap='stopScan'>停止扫描</button>
+    <button class="mh-0 btn-primary" hover-class="btn-hover" bindtap='handleStopAllOperations'>停止所有操作</button>
+</view>
+<view class="ph-16 fc-3 fs-12">{{state}}</view>
+<block wx:if="{{lockList && lockList.length > 0}}">
+    <view class="ph-32 mv-16">智能锁列表</view>
+    <view wx:for="{{lockList}}" wx:key="MAC" data-index="{{index}}"
+        data-value="{{item}}"
+        class="tapline {{item.isSettingMode ? 'add' : 'no-icon'}}"
+        hover-class="tapline-hover"
+        bindtap="init">
+        <text>{{item.deviceName || item.MAC}}</text>
+    </view>
+</block>

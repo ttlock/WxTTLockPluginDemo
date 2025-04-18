@@ -1,0 +1,10 @@
+@import "./styles/index.scss";
+
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}

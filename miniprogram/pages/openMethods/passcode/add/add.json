@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "添加自定义密码",
+    "usingComponents": {
+        "i-date-span": "/components/date-span/date-span"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "component": true,
+    "usingComponents": {
+        "i-date-time": "../date-time/date-time"
+    }
+}

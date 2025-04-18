@@ -1,0 +1,34 @@
+<!-- 管理密码 -->
+<i-message id="IMessage"></i-message>
+<view class="ph-32 pv-16 fs-18">
+    <text class="title">密码: {{passcodeInfo ? passcodeInfo.keyboardPwdName : ""}} {{passcodeInfo ? (passcodeInfo.keyboardPwdType === 3 ? "(限时)" : "(永久)") : ""}}</text>
+</view>
+<view class="ph-16 fc-3 fs-12 mt-32">{{state}}</view>
+<view class="form">
+    <form bindsubmit="handleSubmit">
+        <view class="form-item">
+            <text class="form-item-label">密码</text>
+            <input model:value="{{passcode}}"
+                placeholder="请输入密码"
+                name="passcode"
+                bindinput="handleInputEmpty"></input>
+        </view>
+        <view class="form-item" wx:if="{{ passcodeInfo && passcodeInfo.keyboardPwdType == 2 }}">
+            <text class="form-item-label">永久开关：</text>
+            <switch model:checked="{{permanent}}" name="permanent" type="switch" color="#2886f7"></switch>
+        </view>
+        <i-date-span wx:if="{{!permanent}}" id="dateSpan"
+            model:startDate="{{startDate}}" model:endDate="{{endDate}}" startName="startDate" endName="endDate"
+            label="有效期" start-placeholder="请选择开始时间" end-placeholder="请选择结束时间"
+            format="YYYY-MM-DD HH:mm"
+            useDatePicker="{{true}}" useTimePicker="{{true}}" useMinute="{{false}}"
+            startSubmitFormat="YYYY/MM/DD HH:00:00" endSubmitFormat="YYYY/MM/DD HH:00:00"></i-date-span>
+        <view class="form-item">
+            <button hover-class="btn-hover" form-type="submit">修改</button>
+        </view>
+        <view class="form-item">
+            <button hover-class="btn-hover" bindtap="handleDelete">删除</button>
+        </view>
+    </form>
+</view>
+

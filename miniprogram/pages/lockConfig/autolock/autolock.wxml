@@ -1,0 +1,25 @@
+<!-- 智能锁音量设置 -->
+<i-message id="IMessage"></i-message>
+<view class="ph-32 pv-16 fs-18" wx:if="{{keyInfo}}">智能锁：{{keyInfo.lockAlias}}</view>
+<view class="flex-row ph-32 pv-16">
+    <button class="mh-0 btn-primary" hover-class="btn-hover" bindtap="getAutoLockTime">查询自动闭锁时间</button>
+</view>
+<view class="ph-16 fc-3 fs-12 mt-32">{{state}}</view>
+<view class="form" wx:if="{{enable !== undefined }}">
+    <form bindsubmit="handleSubmit">
+        <view class="form-item">
+            <text class="form-item-label">是否开启：</text>
+            <switch name="enable" model:checked="{{enable}}" type="switch" color="#2886f7"></switch>
+        </view>
+        <view class="form-item" wx:if="{{enable}}">
+            <text class="form-item-label">自动闭锁时间</text>
+            <input model:value="{{autolockTime}}" type="number"
+                placeholder="{{placeholder}}"
+                name="autolockTime"
+                bindinput="handleInputEmpty"></input>
+        </view>
+        <view class="form-item">
+            <button hover-class="btn-hover" form-type="submit">设置</button>
+        </view>
+    </form>
+</view>

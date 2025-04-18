@@ -1,0 +1,19 @@
+$primary-color: #2886f7;
+
+navigator,
+.navigator {
+    display: block;
+    text-align: center;
+    padding: 0 12px;
+    color: #FFFFFF;
+    background: $primary-color;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 6px;
+    &.navigator-hover { // 默认悬浮色
+        opacity: 1;
+        color: #FFFFFF;
+        background-color: darken($primary-color, 10%);
+    }
+}
