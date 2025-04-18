@@ -80,6 +80,7 @@ declare module ILock {
             keyboardPwd?: string; // 键盘密码
             keyboardPwdName?: string; // 键盘密码名称
             keyboardPwdType?: number; // 键盘密码类型
+            keyboardPwdVersion?: number; // 密码类型
             startDate?: number; // 有效期开始时间（时间戳，单位毫秒）
             endDate?: number; // 有效期结束时间（时间戳，单位毫秒）
             sendDate?: number; // 发送时间（时间戳，单位毫秒）
