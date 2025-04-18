@@ -10,18 +10,18 @@ declare module IKeyboardPwd {
 
         /** 修改密码参数 */
         interface Change {
-            lockAlias?: string; // 锁别名模糊匹配
-            groupId?: number; // 分组ID，获取某个分组下的钥匙
-            pageNo: number; // 页码，从1开始
-            pageSize: number; // 单页数量
+            lockId: number; // 智能锁ID
+            keyboardPwdId: number; // 密码ID
+            newKeyboardPwd: string; // 新密码
+            keyboardPwdType: number; // 密码类型
+            startDate?: number;
+            endDate?: number;
         }
 
         /** 修改密码参数 */
         interface Delete {
-            lockAlias?: string; // 锁别名模糊匹配
-            groupId?: number; // 分组ID，获取某个分组下的钥匙
-            pageNo: number; // 页码，从1开始
-            pageSize: number; // 单页数量
+            lockId: number; // 智能锁ID
+            keyboardPwdId: number; // 密码ID
         }
     }
 

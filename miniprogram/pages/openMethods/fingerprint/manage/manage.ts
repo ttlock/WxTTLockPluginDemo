@@ -17,30 +17,24 @@ Page({
         permanent: true, // 永久开关
         startDate: 0,
         endDate: 0,
+        state: "",
     },
-    // 设置初始化参数
     onLoad() {
-        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
-        const fingerprintInfo: IFingerprint.List.FingerprintInfo = JSON.parse(wx.getStorageSync('fingerprintInfo'));
+        const keyInfo = JSON.parse(wx.getStorageSync('keyInfo') || "{}") as IEKey.List.EKeyInfo;
+        const fingerprintInfo = JSON.parse(wx.getStorageSync('fingerprintInfo') || "{}") as IFingerprint.List.FingerprintInfo;
         const startDate = dayjs().startOf("minute");
-        const permanent = fingerprintInfo.startDate === 0 && fingerprintInfo.endDate === 0;
+        const permanent = fingerprintInfo?.startDate === 0 && fingerprintInfo?.endDate === 0;
         this.setData({
             keyInfo: keyInfo,
             fingerprintInfo: fingerprintInfo,
             permanent: permanent,
-            startDate: permanent ? startDate.valueOf() : fingerprintInfo.startDate,
-            endDate: permanent ? startDate.add(1, "hour").endOf("minute").startOf("second").valueOf() : fingerprintInfo.endDate
+            startDate: permanent ? startDate.valueOf() : fingerprintInfo?.startDate,
+            endDate: permanent ? startDate.add(1, "hour").endOf("minute").startOf("second").valueOf() : fingerprintInfo?.endDate
         });
     },
     handleInputEmpty() {}, // 解决绑定数据输入报错
-    handleUpdateDateSpan(event) {
-        this.data.dateSpan.startDate = event.detail.startDate;
-        this.data.dateSpan.endDate = event.detail.endDate;
-    },
-
-    // 输入校验
     handleCheckInput(value: FormStatus) {
-        if (value.permanent) return true;
+        if (value?.permanent) return true;
         else {
             const btnEl = this.selectComponent("#dateSpan");
             const errorMsg = btnEl.toCheckDateSpan();
@@ -50,98 +44,117 @@ Page({
             } else return true;
         }
     },
-
-    handleSubmit: debounce(function (event) {
-        const value = event.detail.value as FormStatus;
+    handleUpdateDateSpan(event) {
+        this.data.dateSpan.startDate = event?.detail?.startDate;
+        this.data.dateSpan.endDate = event?.detail?.endDate;
+    },
+    handleSubmit(event) {
+        const value = event?.detail?.value as FormStatus;
         const flag = this.handleCheckInput(value);
         if (!flag) return;
         this.handleModifyFinerprint(value);
-    }, 100),
+    },
 
-    // 点击修改指纹
-    handleModifyFinerprint(value: FormStatus) {
-        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
-        const fingerprintInfo = this.data.fingerprintInfo as IFingerprint.List.FingerprintInfo;
+    /** 修改指纹 */
+    async handleModifyFinerprint(value: FormStatus) {
+        const ekeyInfo = this.data?.keyInfo as IEKey.List.EKeyInfo;
+        const fingerprintInfo = this.data?.fingerprintInfo as IFingerprint.List.FingerprintInfo;
         const start = Date.now();
-        wx.showLoading({ title: "正在修改指纹有效期" });
-        requirePlugin("myPlugin", ({ modifyFingerprintValidityPeriod }: TTLockPlugin) => {
-            // 修改指纹
-            modifyFingerprintValidityPeriod({
-                fingerprintNum: parseInt(fingerprintInfo.fingerprintNumber),
-                startDate: value.permanent ? 0 : value.startDate,
-                endDate: value.permanent ? 0 : value.endDate,
-                lockData: ekeyInfo.lockData
+        wx.showLoading({ title: "" });
+        this.setData({ state: `正在修改指纹有效期` })
+        const TTLockPlugin = requirePlugin("myPlugin") as TTLockPlugin;
+
+        try {
+            /** 修改指纹有效期 */
+            const result = await TTLockPlugin.modifyFingerprintValidityPeriod({
+                fingerprintNum: String(fingerprintInfo?.fingerprintNumber), // 3.1.0弱化参数类型限制
+                startDate: value?.permanent ? 0 : value?.startDate,
+                endDate: value?.permanent ? 0 : value?.endDate,
+                lockData: ekeyInfo?.lockData
+            });
+            const end = Date.now();
+            if (result?.errorCode != 0) throw(result);
+
+            wx.showLoading({ title: "同步服务器中" });
+            this.setData({ state: `指纹有效期已修改, 正在上传, 操作时间: ${end - start}ms.` });
+            FingerprintAPI.changePeriod({
+                lockId: ekeyInfo?.lockId,
+                fingerprintId: fingerprintInfo?.fingerprintId,
+                startDate: value?.permanent ? 0 : value?.startDate,
+                endDate: value?.permanent ? 0 : value?.endDate,
             }).then(res => {
-                if (res.errorCode == 0) {
-                    wx.showLoading({ title: "修改成功，正在上传" });
-                    console.log(`指纹已修改, 正在上传, 操作时间: ${Date.now() - start}ms.`);
-                    FingerprintAPI.changePeriod({
-                        lockId: ekeyInfo.lockId,
-                        fingerprintId: fingerprintInfo.fingerprintId,
-                        startDate: value.permanent ? 0 : value.startDate,
-                        endDate: value.permanent ? 0 : value.endDate,
-                    }).then(res => {
-                        console.log(res);
-                        if (HttpHandler.isResponseTrue(res)) {
-                            wx.hideLoading();
-                            HttpHandler.showErrorMsg("指纹已修改成功");
-                            setTimeout(wx.navigateBack, 2000);
-                        } else {
-                            HttpHandler.handleResponseError(res);
-                            wx.hideLoading();
-                            console.log(`上传失败, 指纹已修改`);
-                        }
-                    }).catch(err => {
-                        HttpHandler.handleServerError(err);
-                        wx.hideLoading();
-                    })
+                wx.hideLoading();
+                if (HttpHandler.isResponseTrue(res)) {
+                    this.setData({ state: `指纹有效期修改成功, 操作时间: ${end - start}ms.` });
+                    HttpHandler.showErrorMsg("指纹有效期已修改成功");
+                    setTimeout(wx.navigateBack, 2000);
                 } else {
-                    wx.hideLoading();
-                    HttpHandler.showErrorMsg(`指纹有效期修改失败：${res.errorMsg}`);
+                    this.setData({ state: `指纹有效期修改成功, 服务器同步失败, 操作时间: ${end - start}ms.` });
+                    HttpHandler.handleResponseError(res);
                 }
+            }).catch(err => {
+                wx.hideLoading();
+                this.setData({ state: `指纹有效期修改成功, 服务器同步失败, 操作时间: ${end - start}ms.` });
+                HttpHandler.handleServerError(err);
             })
-        })
+        } catch(err) {
+            console.log(err);
+            wx.hideLoading();
+            HttpHandler.showErrorMsg("修改指纹有效期失败");
+            this.setData({state: `修改指纹有效期失败: ${err?.errorMsg}` });
+        } finally {
+            const finishRes = await TTLockPlugin.finishOperations();
+            console.log("关闭蓝牙返回结果：", finishRes);
+        }
     },
 
 
-    // 删除指纹
-    handleDelete() {
-        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
-        const fingerprintInfo = this.data.fingerprintInfo as IFingerprint.List.FingerprintInfo;
+    /** 删除指纹 */
+    async handleDelete() {
+        const ekeyInfo = this.data?.keyInfo as IEKey.List.EKeyInfo;
+        const fingerprintInfo = this.data?.fingerprintInfo as IFingerprint.List.FingerprintInfo;
         const start = Date.now();
-        wx.showLoading({ title: "正在删除指纹" });
-        requirePlugin("myPlugin", ({ deleteFingerprint }: TTLockPlugin) => {
-            // 删除指纹
-            deleteFingerprint({
-                fingerprintNum: parseInt(fingerprintInfo.fingerprintNumber),
-                lockData: ekeyInfo.lockData,
-            }).then(res => {
-                if (res.errorCode == 0) {
-                    wx.showLoading({ title: "删除成功，正在上传" });
-                    console.log(`指纹已删除, 正在上传, 操作时间: ${Date.now() - start}ms.`);
-                    FingerprintAPI.Delete({
-                        lockId: ekeyInfo.lockId,
-                        fingerprintId: fingerprintInfo.fingerprintId,
-                    }).then(res => {
-                        console.log(res);
-                        if (HttpHandler.isResponseTrue(res)) {
-                            wx.hideLoading();
-                            HttpHandler.showErrorMsg("指纹已删除");
-                            setTimeout(wx.navigateBack, 2000);
-                        } else {
-                            HttpHandler.handleResponseError(res);
-                            wx.hideLoading();
-                            console.log(`上传失败, 指纹已删除`);
-                        }
-                    }).catch(err => {
-                        HttpHandler.handleServerError(err);
-                        wx.hideLoading();
-                    })
-                } else {
-                    wx.hideLoading();
-                    HttpHandler.showErrorMsg(`指纹删除失败：${res.errorMsg}`);
-                }
+        wx.showLoading({ title: "" });
+        this.setData({ state: `正在删除指纹` })
+        const TTLockPlugin = requirePlugin("myPlugin") as TTLockPlugin;
+
+        try {
+            /** 删除指纹 */
+            const result = await TTLockPlugin.deleteFingerprint({
+                fingerprintNum: String(fingerprintInfo?.fingerprintNumber), // 3.1.0弱化参数类型限制
+                lockData: ekeyInfo?.lockData
             });
-        });
+            const end = Date.now();
+            if (result?.errorCode != 0) throw(result);
+
+            wx.showLoading({ title: "同步服务器中" });
+            this.setData({ state: `指纹已删除, 正在上传, 操作时间: ${end - start}ms.` });
+            FingerprintAPI.Delete({
+                lockId: ekeyInfo?.lockId,
+                fingerprintId: fingerprintInfo?.fingerprintId
+            }).then(res => {
+                wx.hideLoading();
+                if (HttpHandler.isResponseTrue(res)) {
+                    this.setData({ state: `指纹已删除, 操作时间: ${end - start}ms.` });
+                    HttpHandler.showErrorMsg("指纹删除成功");
+                    setTimeout(wx.navigateBack, 2000);
+                } else {
+                    this.setData({ state: `指纹已删除, 服务器同步失败, 操作时间: ${end - start}ms.` });
+                    HttpHandler.handleResponseError(res);
+                }
+            }).catch(err => {
+                wx.hideLoading();
+                this.setData({ state: `指纹已删除, 服务器同步失败, 操作时间: ${end - start}ms.` });
+                HttpHandler.handleServerError(err);
+            })
+        } catch(err) {
+            console.log(err);
+            wx.hideLoading();
+            HttpHandler.showErrorMsg("删除指纹失败");
+            this.setData({state: `删除指纹失败: ${err?.errorMsg}` });
+        } finally {
+            const finishRes = await TTLockPlugin.finishOperations();
+            console.log("关闭蓝牙返回结果：", finishRes);
+        }
     },
 })

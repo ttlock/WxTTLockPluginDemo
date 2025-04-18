@@ -3,6 +3,7 @@
 <view class="ph-32 pv-16 fs-18">
     <text class="title">密码: {{passcodeInfo ? passcodeInfo.keyboardPwdName : ""}} {{passcodeInfo ? (passcodeInfo.keyboardPwdType === 3 ? "(限时)" : "(永久)") : ""}}</text>
 </view>
+<view class="ph-16 fc-3 fs-12 mt-32">{{state}}</view>
 <view class="form">
     <form bindsubmit="handleSubmit">
         <view class="form-item">
