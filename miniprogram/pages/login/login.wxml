@@ -23,6 +23,9 @@
         <view class="form-item">
             该demo仅用于展示通通锁微信小程序插件使用方法，使用时，基础库版本请设置在3.0.2及其以上
         </view>
+        <view class="form-item">
+            适用插件版本：3.1.0及其以上
+        </view>
     </form>
 </view>
 
