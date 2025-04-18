@@ -1,6 +1,7 @@
 <!-- 添加自定义密码 -->
 <i-message id="IMessage"></i-message>
 <view class="ph-32 pv-16 fs-18" wx:if="{{keyInfo}}">智能锁：{{keyInfo.lockAlias}}</view>
+<view class="ph-16 fc-3 fs-12 mt-32">{{state}}</view>
 <view class="form">
     <form bindsubmit="handleSubmit">
         <view class="form-item">
