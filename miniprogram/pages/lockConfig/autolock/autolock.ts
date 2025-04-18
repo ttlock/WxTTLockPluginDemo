@@ -1,5 +1,4 @@
 // 智能锁自动闭锁时间设置
-import debounce from "debounce";
 import * as LockAPI from "../../../api/interfaces/lock";
 import * as HttpHandler from "../../../api/handle/httpHandler";
 
@@ -19,84 +18,99 @@ Page({
         placeholder: ""
     },
     onLoad() {
-        const keyInfo: IEKey.List.EKeyInfo = JSON.parse(wx.getStorageSync('keyInfo'));
-        this.setData({ keyInfo: keyInfo });
+        const keyInfo = JSON.parse(wx.getStorageSync('keyInfo') || "{}") as IEKey.List.EKeyInfo;
+        this.setData({ keyInfo });
     },
     handleInputEmpty() {}, // 解决绑定数据输入报错
-
-    // 输入校验
     handleCheckInput(value: FormStatus) {
-        if (this.data.enable && (!value.autolockTime || value.autolockTime < this.data.min || value.autolockTime > this.data.max)) {
-            HttpHandler.showErrorMsg(`请输入${this.data.min} - ${this.data.max}之间的数字`);
+        if (this.data?.enable && (!value?.autolockTime || value?.autolockTime < this.data?.min || value?.autolockTime > this.data?.max)) {
+            HttpHandler.showErrorMsg(`请输入${this.data?.min} - ${this.data?.max}之间的数字`);
             return false;
         }
         else return true;
     },
-
-    handleSubmit: debounce(function (event) {
-        const value = event.detail.value;
+    handleSubmit(event) {
+        const value = event?.detail?.value as FormStatus;
         const flag = this.handleCheckInput(value);
         if (!flag) return;
         this.handleChange(value);
-    }, 100),
+    },
 
     /* 查询自动闭锁时间 */
-    getAutoLockTime: debounce(function () {
-        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
+    async getAutoLockTime() {
+        const ekeyInfo = this.data?.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "" });
         this.setData({ state: `正在查询自动闭锁时间` })
-        requirePlugin("myPlugin", ({ getAutomaticLockingPeriod }: TTLockPlugin) => {
-            getAutomaticLockingPeriod({ lockData: ekeyInfo.lockData }).then(res => {
-                if (res.errorCode == 0) {
-                    wx.hideLoading();
-                    this.setData({
-                        state: `查询自动闭锁时间成功`,
-                        enable: res.autoLockInfo.enable,
-                        autolockTime: res.autoLockInfo.autoLockTime,
-                        max: res.autoLockInfo.maxAutoLockTime,
-                        min: res.autoLockInfo.minAutoLockTime,
-                        placeholder: `请输入${res.autoLockInfo.minAutoLockTime} - ${res.autoLockInfo.maxAutoLockTime}之间的数字`
-                    });
-                } else {
-                    wx.hideLoading();
-                    this.setData({ state: `查询自动闭锁时间失败：${res.errorMsg}` });
-                }
-            })
-        });
-    }, 100),
+        const TTLockPlugin = requirePlugin("myPlugin") as TTLockPlugin;
+
+        try {
+            /* 查询自动闭锁时间 */
+            const result = await TTLockPlugin.getAutomaticLockingPeriod({
+                lockData: ekeyInfo?.lockData,
+            });
+            if (result?.errorCode != 0) throw(result);
+
+            wx.hideLoading();
+            this.setData({
+                state: `查询自动闭锁时间成功`,
+                enable: result?.autoLockInfo?.enable,
+                autolockTime: result?.autoLockInfo?.autoLockTime,
+                max: result?.autoLockInfo?.maxAutoLockTime,
+                min: result?.autoLockInfo?.minAutoLockTime,
+                placeholder: `请输入${result?.autoLockInfo?.minAutoLockTime} - ${result?.autoLockInfo?.maxAutoLockTime}之间的数字`
+            });
+        } catch(err) {
+            console.log(err);
+            wx.hideLoading();
+            HttpHandler.showErrorMsg("查询自动闭锁时间失败");
+            this.setData({state: `查询自动闭锁时间失败: ${err?.errorMsg}` });
+        } finally {
+            const finishRes = await TTLockPlugin.finishOperations();
+            console.log("关闭蓝牙返回结果：", finishRes);
+        }
+    },
 
 
-    handleChange: debounce(function(value: FormStatus) {
-        const ekeyInfo = this.data.keyInfo as IEKey.List.EKeyInfo;
+    /* 修改自动闭锁时间 */
+    async handleChange(value: FormStatus) {
+        const ekeyInfo = this.data?.keyInfo as IEKey.List.EKeyInfo;
         wx.showLoading({ title: "" });
         this.setData({ state: `正在修改自动闭锁时间` })
-        requirePlugin("myPlugin", ({ setAutomaticLockingPeriod }: TTLockPlugin) => {
-            setAutomaticLockingPeriod({
-                seconds: value.enable ? value.autolockTime : 0,
-                lockData: ekeyInfo.lockData
+        const TTLockPlugin = requirePlugin("myPlugin") as TTLockPlugin;
+
+        try {
+            /* 修改自动闭锁时间 */
+            const result = await TTLockPlugin.setAutomaticLockingPeriod({
+                seconds: value?.enable ? value?.autolockTime : 0,
+                lockData: ekeyInfo?.lockData,
+            });
+            if (result?.errorCode != 0) throw(result);
+
+            wx.showLoading({ title: "上传服务器中" });
+            this.setData({ state: `自动闭锁时间设置成功` })
+            LockAPI.setAutoLockTime({
+                lockId: ekeyInfo?.lockId, // 智能锁ID
+                seconds: value?.enable ? value?.autolockTime : 0,
+                type: 1,
             }).then(res => {
-                if (res.errorCode == 0) {
-                    this.setData({ state: `自动闭锁时间设置成功` });
-                    LockAPI.setAutoLockTime({
-                        lockId: ekeyInfo.lockId, // 智能锁ID
-                        seconds: value.enable ? value.autolockTime : 0,
-                        type: 1,
-                    }).then(res => {
-                        wx.hideLoading();
-                        if (HttpHandler.isResponseTrue(res)) {
-                            HttpHandler.showErrorMsg("已同步服务器")
-                        } else {
-                            HttpHandler.handleResponseError(res);
-                        }
-                    }).catch(err => {
-                        wx.hideLoading();
-                        HttpHandler.handleServerError(err);
-                    })
+                wx.hideLoading();
+                if (HttpHandler.isResponseTrue(res)) {
+                    HttpHandler.showErrorMsg("已同步服务器")
                 } else {
-                    wx.hideLoading();
-                    this.setData({ state: `自动闭锁时间设置失败：${res.errorMsg}` });
+                    HttpHandler.handleResponseError(res);
                 }
+            }).catch(err => {
+                wx.hideLoading();
+                HttpHandler.handleServerError(err);
             })
-        });
-    }, 100)
+        } catch(err) {
+            console.log(err);
+            wx.hideLoading();
+            HttpHandler.showErrorMsg("查询自动闭锁时间失败");
+            this.setData({state: `查询自动闭锁时间失败: ${err?.errorMsg}` });
+        } finally {
+            const finishRes = await TTLockPlugin.finishOperations();
+            console.log("关闭蓝牙返回结果：", finishRes);
+        }
+    }
 })

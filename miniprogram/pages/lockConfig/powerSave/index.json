@@ -1,6 +1,0 @@
-{
-    "navigationBarTitleText": "wifi省电模式设置",
-    "usingComponents": {
-        "i-date-span": "../../../components/date-span/date-span"
-    }
-}

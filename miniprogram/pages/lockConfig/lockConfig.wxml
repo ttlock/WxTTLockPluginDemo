@@ -45,10 +45,5 @@
         url="./wifi/wifi">
         <text>wifi配置</text>
     </navigator>
-    <navigator class="tapline" hover-class="tapline-hover"
-        wx:if="{{specialValueObj.WIFI}}"
-        url="./powerSave/index">
-        <text>wifi省电模式</text>
-    </navigator>
 </block>
 <view class="ph-16 fc-3 fs-12 mv-32">{{state}}</view>
