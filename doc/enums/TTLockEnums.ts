@@ -86,7 +86,7 @@ export const TTLOCK_ERROR_CODE = {
 	BT_SERVICE_NO_EXIST: 10513, // [蓝牙][蓝牙服务]通信失败，蓝牙服务不存在(3.1.0)
 	BT_ALREAY_CONNECTED: 10601, // [蓝牙连接]设备已连接上，无需重连(3.1.0)
 	BT_ERROR_CONNECTED_DEVICE: 10602, // [蓝牙连接]目标设备与当前已连接的设备不符(3.1.0)
-    PLATFORM_ERROR: 11002, // [设备平台]蓝牙调试功能暂不支持 Mac 以外的平台
+    PLATFORM_ERROR: 11002, // [设备平台]设备平台不支持蓝牙操作
     PARAMS_ERROR: 11003, // [参数]参数错误
     UNSUPPORT_OPERATIONS: 11004, // [参数]当前设备不支持该操作
     NOT_ADMIN_USER: 11005, // [参数]非管理员用户无权操作
