@@ -115,6 +115,7 @@ declare const enum TTDEVICE_TYPE {
 /** 
  * 网关类型
  * @since 2.6.0
+ * @since offline-1.6.0
  */
 declare const enum TTGATEWAY_TYPE {
     UNSUPPORT = -1, // 不支持
@@ -177,7 +178,7 @@ declare const enum TTLOCK_SWITCH_CONFIG_TYPE {
     PRIVACY_LOCK = 0x04, // 使能/禁用反锁开关(不做隐私锁)
     UNLOCK_DIRECTION = 0x10, // 左右开门设置（1 -左开门， 0 -右开门)
     PASAGE_MODE_AUTO_UNLOCK_SETTING = 0x20, // 使能/禁用常开模式自动开锁
-    POWER_SAVING_MODE = 0x80, // wifi锁省电模式开关(3.1.0)
+    POWER_SAVING_MODE = 0x80, // wifi锁省电模式开关(since: 3.1.0 & offline-2.1.0)
 }
 
 /**

@@ -4,36 +4,43 @@ declare namespace TTLock {
     /**
 	 * 智能锁版本信息
 	 * @since 1.0.0
+     * @since offline-1.0.0
 	 */
     interface LockVersion {
         /**
          * @description 智能锁协议版本号
          * @since 1.0.0
+         * @since offline-1.0.0
          */
         protocolVersion: number;
         /**
          * @description 智能锁协议类型
          * @since 1.0.0
+         * @since offline-1.0.0
          */
         protocolType: number;
         /**
          * @description 场景值
          * @since 1.0.0
+         * @since offline-1.0.0
          */
         scene: number;
         /**
-         * @description 应用商ID，3.1.0之前扫描设备时固定返回1, 3.1.0开始扫描不再返回
+         * @description 应用商ID，3.0.8 & offline-2.0.2及其之前扫描设备时固定返回1, 3.1.0 & offline-2.1.0开始扫描不再返回
          * @since 1.0.0
+         * @since offline-1.0.0
          */
         groupId?: number;
         /**
-         * @description 应用商子ID，3.1.0之前扫描设备时固定返回1, 3.1.0开始扫描不再返回
+         * @description 应用商子ID，3.0.8 & offline-2.0.2及其之前扫描设备时固定返回1, 3.1.0 & offline-2.1.0开始扫描不再返回
          * @since 1.0.0
+         * @since offline-1.0.0
          */
         orgId?: number;
         /**
          * @description LOGO
          * @since 1.0.0
+         * @since offline-1.0.0
          */
         logoUrl?: string;
         showAdminKbpwdFlag?: boolean;
@@ -42,27 +49,32 @@ declare namespace TTLock {
     /**
 	 * 蓝牙扫描智能锁信息
 	 * @since 1.0.0
+     * @since offline-1.0.0
 	 */
 	interface DeviceModel extends TTDevice.DeviceModel {
         /**
 		 * @description 智能锁类型
 		 * @since 2.7.0
+         * @since offline-1.7.0
 		 * @see TTLOCK_TYPE
 		 */
         type: number;
 		/**
 		 * @description 智能锁版本信息
          * @since 2.7.0
+         * @since offline-1.7.0
 		 */
 		lockVersion?: LockVersion;
 		/**
 		 * @description 智能锁电量
 		 * @since 1.0.0
+         * @since offline-1.0.0
 		 */
 		electricQuantity?: number;
 		/**
 		 * @description 设备是否处于可触摸开锁状态
 		 * @since 2.7.0
+         * @since offline-1.7.0
 		 */
 		isTouch?: boolean;
     }
