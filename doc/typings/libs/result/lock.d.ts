@@ -7,7 +7,7 @@ declare namespace TTLock {
     interface GetVersionResult extends TTLockError {
         /**
          * 智能锁版本信息
-         * @description 3.1.0开始不再修改原始参数
+         * @description 3.1.0 & offline-2.1.0开始不再修改原始参数
          */
         lockVersion?: TTLock.LockVersion;
     }
@@ -18,7 +18,7 @@ declare namespace TTLock {
     interface InitLockResult extends TTLockError {
         /**
          * 智能锁初始化数据
-         * @description 3.0.0支持直接用于开锁操作
+         * @description 3.0.0 & offline-2.0.0支持直接用于开锁操作
          */
         lockData?: string;
     }
@@ -243,20 +243,26 @@ declare namespace TTLock {
     interface GetRemoteUnlockSwitchResult extends TTLockError {
         /**
          * @description 远程开关开启状态
+         * @since 3.1.0 & offline-2.1.0
          */
         enable?: boolean;
+        /**
+         * @description 远程开关开启状态
+         * @deprecated 3.1.0 & offline-2.1.0
+         */
+        enabled?: boolean;
         /**
          * @description 智能锁更新数据，用于上传服务器，不可用于智能锁蓝牙操作
          */
         lockData?: string; 
         /**
          * @description 智能锁更新后特征值
-         * @since 2.3.1
+         * @since 2.3.1 & offline-1.3.1
          */
         featureValue?: string;
         /**
          * @description 智能锁更新后特征值(低位数据，兼容低版本)
-         * @deprecated 2.3.1
+         * @deprecated 2.3.1 & offline-1.3.1
          */
         specialValue?: number;
     }
@@ -267,21 +273,26 @@ declare namespace TTLock {
     interface SetRemoteUnlockSwitchResult extends TTLockError {
         /**
          * @description 远程开关开启状态
-         * @since 3.0.0
+         * @since 3.1.0 & offline-2.1.0
          */
         enable?: boolean;
+        /**
+         * @description 远程开关开启状态
+         * @deprecated 3.1.0 & offline-2.1.0
+         */
+        enabled?: boolean;
         /**
          * @description 智能锁更新数据，用于上传服务器，不可用于智能锁蓝牙操作
          */
         lockData?: string; 
         /**
          * @description 智能锁更新后特征值
-         * @since 2.3.1
+         * @since 2.3.1 & offline-1.3.1
          */
         featureValue?: string;
         /**
          * @description 智能锁更新后特征值(低位数据，兼容低版本)
-         * @deprecated 2.3.1
+         * @deprecated 2.3.1 & offline-1.3.1
          */
         specialValue?: number;
     }
@@ -315,7 +326,7 @@ declare namespace TTLock {
         /**
          * wifi锁是否开启省电模式
          * @description 非wifi锁也可能返回该值，请根据特征值判断
-         * @since 3.1.0
+         * @since 3.1.0 & offline-2.1.0
          */
         wifiPowerSavingMode?: boolean;
     }
@@ -443,12 +454,12 @@ declare namespace TTLock {
         month: number;
         /**
          * 常开时间开始分钟数
-         * @description 3.1.0 全天常开传入0
+         * @description 3.1.0 & offline-2.1.0全天常开传入0
          */
         startDate: number;
         /**
          * 常开时间结束分钟数
-         * @description 3.1.0 全天常开传入0
+         * @description 3.1.0 & offline-2.1.0全天常开传入0
          */
         endDate: number;
     }

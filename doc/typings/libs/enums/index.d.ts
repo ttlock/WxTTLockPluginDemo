@@ -86,7 +86,7 @@ declare const enum TTLOCK_ERROR_CODE {
 	BT_SERVICE_NO_EXIST = 10513, // [蓝牙][蓝牙服务]通信失败，蓝牙服务不存在(3.1.0)
 	BT_ALREAY_CONNECTED = 10601, // [蓝牙连接]设备已连接上，无需重连(3.1.0)
 	BT_ERROR_CONNECTED_DEVICE = 10602, // [蓝牙连接]目标设备与当前已连接的设备不符(3.1.0)
-    PLATFORM_ERROR = 11002, // [设备平台]蓝牙调试功能暂不支持 Mac 以外的平台
+    PLATFORM_ERROR = 11002, // [设备平台]设备平台不支持蓝牙操作
     PARAMS_ERROR = 11003, // [参数]参数错误
     UNSUPPORT_OPERATIONS = 11004, // [参数]当前设备不支持该操作
     NOT_ADMIN_USER = 11005, // [参数]非管理员用户无权操作
@@ -115,6 +115,7 @@ declare const enum TTDEVICE_TYPE {
 /** 
  * 网关类型
  * @since 2.6.0
+ * @since offline-1.6.0
  */
 declare const enum TTGATEWAY_TYPE {
     UNSUPPORT = -1, // 不支持
@@ -177,7 +178,7 @@ declare const enum TTLOCK_SWITCH_CONFIG_TYPE {
     PRIVACY_LOCK = 0x04, // 使能/禁用反锁开关(不做隐私锁)
     UNLOCK_DIRECTION = 0x10, // 左右开门设置（1 -左开门， 0 -右开门)
     PASAGE_MODE_AUTO_UNLOCK_SETTING = 0x20, // 使能/禁用常开模式自动开锁
-    POWER_SAVING_MODE = 0x80, // wifi锁省电模式开关(3.1.0)
+    POWER_SAVING_MODE = 0x80, // wifi锁省电模式开关(since: 3.1.0 & offline-2.1.0)
 }
 
 /**
