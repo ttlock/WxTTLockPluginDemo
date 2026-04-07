@@ -100,6 +100,9 @@
  11. [设置取电开关关联的智能锁](./setPowerSaverControlableLock.md)  
 
 ## 版本更新内容  
+#### **3.1.5 & offline-2.1.3**  
+    1. 修复部分旧版本智能锁无法正常初始化的问题  
+
 #### **3.1.0 & offline-2.1.0**  
     1. 初始化时不再自动停止设备扫描  
     2. 扫描到的设备lockVersion参数中将不再返回groupId和orgId  
