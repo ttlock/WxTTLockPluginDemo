@@ -8,6 +8,7 @@
 ### 功能描述   
  初始化蓝牙网关  
  若初始化一直超时，可能为本地IP地址配置错误，可尝试使用useDHCP重新添加
+ APN设置仅对国外手机卡生效
 
 ### 版本支持   
  在线版最低支持版本： **2.6.0**   
@@ -57,6 +58,7 @@
  |plugName          |string         |Y              |网关自定义命名，最长50个字符|
  |SSID              |string         |N              |wifi名称，G2网关必传|
  |wifiPwd           |string         |N              |wifi密码，G2网关必传|
+ |apn               |string         |N              |SIM卡APN接入点名称, 仅G4网关支持, 3.2.0 & offline-2.2.0新增|
  |serverIPAddress   |string         |N              |网关服务器IP地址，serverIPAddress与server至少填写一项|
  |server            |string         |N              |网关服务器域名，serverIPAddress与server至少填写一项，**优先生效**，官方提供参数：**plug.sciener.cn**|
  |port              |number         |Y              |网关服务器端口地址，官方提供参数：**2999**|
@@ -112,6 +114,9 @@
  5. [常见问题及相关处理方法](../常见问题.md)  
 
 ## 版本更新内容  
+#### **3.2.0 & offline-2.2.0**  
+    1. 新增G4网关APN配置功能  
+
 #### **3.1.6 & offline-2.1.4**  
     1. 兼容鸿蒙5.1.0版本  
 

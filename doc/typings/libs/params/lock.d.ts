@@ -467,7 +467,91 @@ declare namespace TTLock {
 		 */
 		disconnectCallback?: (result: TTLockError) => void;
 	}
-	
+
+	/**
+	 * @description 录入人脸
+	 */
+	interface AddFace {
+		/**
+		 * @description 人脸有效期开始时间
+		 */
+		startDate: number;
+		/**
+		 * @description 人脸有效期结束时间
+		 */
+		endDate: number;
+		/**
+		 * @description 智能锁初始化数据或管理员电子钥匙数据
+		 */
+		lockData: string;
+		/**
+		 * @description 中间步骤回调
+		 */
+		callback?: (result: TTLockError) => void;
+		/**
+		 * @description 设备断连回调
+		 */
+		disconnectCallback?: (result: TTLockError) => void;
+	}
+
+	/**
+	 * @description 修改人脸有效期
+	 */
+	interface ModifyFace {
+		/**
+		 * @description 人脸编号
+		 */
+		faceNumber: string;
+		/**
+		 * @description 人脸有效期开始时间
+		 */
+		startDate: number;
+		/**
+		 * @description 人脸有效期结束时间
+		 */
+		endDate: number;
+		/**
+		 * @description 智能锁初始化数据或管理员电子钥匙数据
+		 */
+		lockData: string;
+		/**
+		 * @description 设备断连回调
+		 */
+		disconnectCallback?: (result: TTLockError) => void;
+	}
+
+	/**
+	 * @description 获取Cat.1模块信息
+	 */
+	interface GetCatOneInfo {
+		/**
+		 * @description 智能锁初始化数据或管理员电子钥匙数据
+		 */
+		lockData: string;
+		/**
+		 * @description 设备断连回调
+		 */
+		disconnectCallback?: (result: TTLockError) => void;
+	}
+
+	/**
+	 * @description 配置Cat.1锁APN
+	 */
+	interface ConfigApn {
+		/**
+		 * @description SIM卡APN接入点名称
+		 */
+		apn: string;
+		/**
+		 * @description 智能锁初始化数据或管理员电子钥匙数据
+		 */
+		lockData: string;
+		/**
+		 * @description 设备断连回调
+		 */
+		disconnectCallback?: (result: TTLockError) => void;
+	}
+
 	/**
 	 * @description 查询智能锁开闭状态
 	 */
@@ -1318,3 +1402,23 @@ declare type TTLockGetLockSoundWithSoundVolume = TTLock.GetSoundVolume;
  * 智能锁固件升级参数
  */
 declare type TTLockEnterDfuMode = TTLock.EnterDfuMode;
+
+/**
+ * 录入人脸参数
+ */
+declare type TTLockAddFace = TTLock.AddFace;
+
+/**
+ * 修改人脸有效期参数
+ */
+declare type TTLockModifyFace = TTLock.ModifyFace;
+
+/**
+ * 获取Cat.1模块信息参数
+ */
+declare type TTLockGetCatOneInfo = TTLock.GetCatOneInfo;
+
+/**
+ * 配置Cat.1锁APN参数
+ */
+declare type TTLockConfigApn = TTLock.ConfigApn;

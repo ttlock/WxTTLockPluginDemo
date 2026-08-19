@@ -242,6 +242,20 @@ declare interface TTLockPlugin {
     deleteFaceNumber(option: TTLockDeleteFace): Promise<TTLockError>;
 
     /**
+	 * @description 录入人脸
+	 * @since 3.2.0
+     * @since offline-2.2.0
+	 */
+    addFace(option: TTLockAddFace): Promise<TTLockError>;
+
+    /**
+	 * @description 修改人脸有效期
+	 * @since 3.2.0
+     * @since offline-2.2.0
+	 */
+    modifyFaceValidityPeriod(option: TTLockModifyFace): Promise<TTLockError>;
+
+    /**
 	 * @description 查询智能锁开闭状态
 	 * @since 2.7.3
      * @since offline-1.7.3
@@ -421,6 +435,20 @@ declare interface TTLockPlugin {
      * @since offline-2.0.0
 	 */
     enterDfuMode(option: TTLockEnterDfuMode): Promise<TTLockEnterDfuModeResult>;
+
+    /**
+	 * @description 获取Cat.1模块信息
+	 * @since 3.2.0
+     * @since offline-2.2.0
+	 */
+    getCatOneInfo(option: TTLockGetCatOneInfo): Promise<TTLockError>;
+
+    /**
+	 * @description 配置Cat.1锁APN
+	 * @since 3.2.0
+     * @since offline-2.2.0
+	 */
+    configApn(option: TTLockConfigApn): Promise<TTLockError>;
 
     /**
 	 * @description 连接智能网关设备

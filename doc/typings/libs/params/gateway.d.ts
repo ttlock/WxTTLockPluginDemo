@@ -70,6 +70,12 @@ declare namespace TTGateway {
 		 */
         wifiPwd?: string;
         /**
+         * @description SIM卡APN接入点名称, 仅G4网关支持
+		 * @since 3.2.0
+         * @since offline-2.2.0
+		 */
+        apn?: string;
+        /**
          * @description 远程服务器域名地址，server与serverIPAddress二选一，优先生效
 		 * @default 常规填写: "plug.sciener.cn"
 		 */

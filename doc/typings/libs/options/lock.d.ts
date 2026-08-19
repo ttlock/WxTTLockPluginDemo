@@ -217,6 +217,10 @@ declare namespace TTLock {
 		 */
 		cyclicCardOrFingerprint: boolean;
 		/**
+		 * @description Supports App-controlled privacy mode (internal privacy lock)
+		 */
+		appPrivacyMode: boolean;
+		/**
 		 * @description Supports left/right door opening configuration
 		 */
 		unlockDirection: boolean;
@@ -289,6 +293,10 @@ declare namespace TTLock {
 		 */
 		face: boolean;
 		/**
+		 * @description Supports fully automatic lock
+		 */
+		fullyAutomaticLock: boolean;
+		/**
 		 * @description Supports CPU cards
 		 */
 		CPUCard: boolean;
@@ -320,6 +328,72 @@ declare namespace TTLock {
 		 * @description Supports palm vein recognition
 		 */
 		palmVein: boolean;
+		/**
+		 * @description Supports one-time QR code unlocking
+		 */
+		onceQRCode: boolean;
+		/**
+		 * @description Supports Xiaocao video intercom functionality
+		 */
+		catEyeXC: boolean;
+		/**
+		 * @description Supports third-party Bluetooth device access
+		 */
+		thirdPartyBle: boolean;
+		/**
+		 * @description Supports WIFI power-saving time configuration
+		 */
+		wifiPowerSavingTime: boolean;
+		/**
+		 * @description Supports multi-functional wireless keyboard
+		 */
+		multiFunctionWirelessKeypad: boolean;
+		/**
+		 * @description Supports unauthorized alarm function
+		 */
+		unauthorizedAlarm: boolean;
+		/**
+		 * @description Supports lock working time configuration
+		 */
+		lockWorkingTime: boolean;
+		/**
+		 * @description Supports 4G
+		 */
+		G4Support: boolean;
+		/**
+		 * @description Supports custom QR code unlocking
+		 */
+		customQRCode: boolean;
+		/**
+		 * @description Supports Yisheng face recognition deployment
+		 */
+		faceYS: boolean;
+	}
+
+	/**
+	 * @description Cat.1 module info
+	 */
+	interface CatOneInfo {
+		/**
+		 * @description Operator code
+		 */
+		catOneOperator?: string;
+		/**
+		 * @description Module number
+		 */
+		catOneNodeId?: string;
+		/**
+		 * @description CCID / SIM card number
+		 */
+		catOneCardNumber?: string;
+		/**
+		 * @description Signal strength
+		 */
+		catOneRssi?: number;
+		/**
+		 * @description IMSI, only returned by locks supporting 4G
+		 */
+		catOneImsi?: string;
 	}
 }
 
