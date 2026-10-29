@@ -77,7 +77,7 @@ declare namespace TTGateway {
         apn?: string;
         /**
          * @description 远程服务器域名地址，server与serverIPAddress二选一，优先生效
-		 * @default 常规填写: "plug.sciener.cn"
+		 * @default 常规填写: "cnplug.sciener.cn"
 		 */
 		server?: string;
 		/**

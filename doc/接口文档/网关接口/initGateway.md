@@ -60,7 +60,7 @@
  |wifiPwd           |string         |N              |wifi密码，G2网关必传|
  |apn               |string         |N              |SIM卡APN接入点名称, 仅G4网关支持, 3.2.0 & offline-2.2.0新增|
  |serverIPAddress   |string         |N              |网关服务器IP地址，serverIPAddress与server至少填写一项|
- |server            |string         |N              |网关服务器域名，serverIPAddress与server至少填写一项，**优先生效**，官方提供参数：**plug.sciener.cn**|
+ |server            |string         |N              |网关服务器域名，serverIPAddress与server至少填写一项，**优先生效**，官方提供参数：**cnplug.sciener.cn**|
  |port              |number         |Y              |网关服务器端口地址，官方提供参数：**2999**|
  |useLocalIPAddress |boolean        |N              |是否需要配置本地IP地址，仅部分网关支持本地IP地址配置|
  |useDHCP           |boolean        |N              |是否使用DHCP动态配置本地IP地址，useLocalIPAddress为true时生效|
