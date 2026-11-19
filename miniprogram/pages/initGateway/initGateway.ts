@@ -226,7 +226,7 @@ Page({
                     companyId: 0,
                     branchId: 0,
                     plugName: deviceFromScan?.deviceName,
-                    server: "cnplug.sciener.cn",
+                    server: "cnplug.ttlock.com",
                     port: 2999,
                     useLocalIPAddress: false
                     // TODO 若一直返回超时，可能是本地IP配置错误，将设置改为DHCP后重新添加
